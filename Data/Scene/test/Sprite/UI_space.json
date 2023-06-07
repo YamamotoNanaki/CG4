@@ -1,0 +1,7 @@
+{
+    "com": [
+        "Transform2D",
+        "ColorBuffer"
+    ],
+    "tex": "Space.png"
+}

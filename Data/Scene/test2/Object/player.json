@@ -1,0 +1,16 @@
+{
+    "child": [
+        "visual_p",
+        "target_p"
+    ],
+    "com": [
+        "Player",
+        "Rigidbody",
+        "Collider",
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "sphere_Model"
+    ],
+    "parent": ""
+}

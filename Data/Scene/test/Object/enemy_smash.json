@@ -1,0 +1,16 @@
+{
+    "child": [
+        "enemy_smash_visual"
+    ],
+    "com": [
+        "Enemy",
+        "Enemy_smash",
+        "Collider",
+        "Rigidbody",
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "cube_Model"
+    ],
+    "parent": ""
+}

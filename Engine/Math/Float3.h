@@ -1,0 +1,34 @@
+#pragma once
+
+namespace IFE
+{
+	struct Float3
+	{
+		float x;
+		float y;
+		float z;
+
+		Float3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
+		void Set(float x, float y, float z);
+		Float3 operator+()const;
+		Float3 operator-()const;
+		Float3 operator*()const;
+		Float3& operator+=(float f);
+		Float3& operator-=(float f);
+		Float3& operator+=(Float3 f);
+		Float3& operator-=(Float3 f);
+		Float3& operator*=(Float3 f);
+		Float3& operator/=(Float3 f);
+		Float3& operator*=(float f);
+		Float3& operator/=(float f);
+		Float3 operator=(float* f);
+
+
+		static Float3 zero() { return Float3(0, 0, 0); };
+	};
+	Float3 operator/(Float3 f, float s);
+	Float3 operator*(Float3 f, float s);
+	Float3 operator*(float s, Float3 f);
+	Float3 operator+(Float3 f1, Float3 f2);
+	Float3 operator-(Float3 f1, Float3 f2);
+};

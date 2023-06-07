@@ -1,0 +1,25 @@
+{
+    "ambient": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+    ],
+    "componentName": "Material",
+    "diffuse": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "specular": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "terxtureName": "side.png"
+}

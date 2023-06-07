@@ -1,0 +1,10 @@
+{
+    "com": [
+        "Collider",
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "cube_Model"
+    ],
+    "parent": ""
+}

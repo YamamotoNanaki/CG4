@@ -1,0 +1,10 @@
+{
+    "com": [
+        "Field",
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "cube_Model"
+    ],
+    "parent": ""
+}

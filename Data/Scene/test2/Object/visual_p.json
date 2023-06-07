@@ -1,0 +1,9 @@
+{
+    "com": [
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "cube_Model"
+    ],
+    "parent": "player"
+}

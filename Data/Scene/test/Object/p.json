@@ -1,0 +1,9 @@
+{
+    "com": [
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "Player_Model"
+    ],
+    "parent": ""
+}

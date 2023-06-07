@@ -1,0 +1,16 @@
+{
+    "child": [
+        "visual",
+        "bubblechild0"
+    ],
+    "com": [
+        "Rigidbody",
+        "Collider",
+        "Bubble",
+        "Transform",
+        "TransferGeometryBuffer",
+        "Material",
+        "sphere_Model"
+    ],
+    "parent": ""
+}
