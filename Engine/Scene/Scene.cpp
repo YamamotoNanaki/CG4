@@ -64,20 +64,13 @@ void IFE::Scene::Draw()
 	spriteM->ForeDraw();
 	gui.Draw();
 }
-
-void IFE::Scene::Finalize()
-{
-	ModelManager::Finalize();
-	//ParticleManager::Finalize();
-	Sound::Finalize();
-}
 #else
 
 void IFE::Scene::Initialize()
 {
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
-	Emitter::StaticInitialize();
+	//Emitter::StaticInitialize();
 	tex->Initialize();
 	objM->OBJInitialize();
 	spriteM->SPRITEInitialize();
@@ -91,10 +84,10 @@ void IFE::Scene::Initialize()
 	cameraM->Instance();
 	cameraM->Initialize();
 
-	SceneInit();
+	//SceneInit();
 	objM->Initialize();
 	spriteM->Initialize();
-	particleM->Initialize();
+	//particleM->Initialize();
 }
 
 void IFE::Scene::Update()
@@ -102,7 +95,7 @@ void IFE::Scene::Update()
 	SceneChange();
 	objM->Update();
 	spriteM->Update();
-	particleM->Update();
+	//particleM->Update();
 	light->Update();
 }
 
@@ -113,20 +106,19 @@ void IFE::Scene::Draw()
 	gp.SetDrawBlendMode();
 	light->Draw(3);
 	objM->Draw();
-	particleM->Draw();
+	//particleM->Draw();
 	Sprite::DrawBefore();
 	spriteM->ForeDraw();
 }
+#endif
 
 void IFE::Scene::Finalize()
 {
-	ObjectManager::Finalize();
-	SpriteManager::Finalize();
 	ModelManager::Finalize();
-	LightManager::Finalize();
+	//ParticleManager::Finalize();
 	Sound::Finalize();
 }
-#endif
+
 Scene* IFE::Scene::Instance()
 {
 	static Scene inst;
