@@ -13,17 +13,17 @@ namespace IFE
 	{
 		using Component::Component;
 	private:
-		std::string name = "";
-		Float3 ambient = { 0.3f,0.3f,0.3f };
-		Float3 diffuse = { 0.3f,0.3f,0.3f };
-		Float3 specular = { 0.3f,0.3f,0.3f };
+		std::string name_ = "";
+		Float3 ambient_ = { 0.3f,0.3f,0.3f };
+		Float3 diffuse_ = { 0.3f,0.3f,0.3f };
+		Float3 specular_ = { 0.3f,0.3f,0.3f };
 	public:
-		Float4 color = { 1,1,1,1 };
-		float alpha = 1.0f;
-		Texture* tex = nullptr;
+		Float4 color_ = { 1,1,1,1 };
+		float alpha_ = 1.0f;
+		Texture* tex_ = nullptr;
 
-		std::unique_ptr<ConstBuffer<ConstBufferMaterial>> materialBuffer;
-		ConstBufferMaterial* constMapMaterial = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferMaterial>> materialBuffer_;
+		ConstBufferMaterial* constMapMaterial_ = nullptr;
 
 	public:
 		void Initialize();
@@ -32,9 +32,9 @@ namespace IFE
 		void Draw();
 		void SetTexture(Texture* texture);
 		Float4 GetColor();
-		void SetColor(Float4 color);
+		void SetColor(const Float4& color);
 		Float4 GetColor255();
-		void SetColor255(Float4 color);
+		void SetColor255(const Float4& color);
 		void Copy(Component* component);
 #ifdef _DEBUG
 		void DebugGUI();

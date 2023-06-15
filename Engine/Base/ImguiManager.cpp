@@ -18,7 +18,7 @@
 
 using namespace IFE;
 
-std::string ImguiManager::openComponentName;
+std::string ImguiManager::sOpenComponentName_;
 
 ImguiManager* IFE::ImguiManager::Instance()
 {
@@ -42,7 +42,7 @@ void IFE::ImguiManager::Initialize()
 	// Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(*WindowsAPI::Instance()->GetHWnd());
 	ID3D12DescriptorHeap* SrvDescHeap = TextureManager::Instance()->GetDescriptorHeap();
-	ImGui_ImplDX12_Init(GraphicsAPI::Instance()->GetDevice(), NUM_FRAMES_IN_FLIGHT,
+	ImGui_ImplDX12_Init(GraphicsAPI::Instance()->GetDevice(), sNUM_FRAMES_IN_FLIGHT_,
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, SrvDescHeap,
 		SrvDescHeap->GetCPUDescriptorHandleForHeapStart(),
 		SrvDescHeap->GetGPUDescriptorHandleForHeapStart());
@@ -79,7 +79,7 @@ bool IFE::ImguiManager::ButtonGUI(const std::string& buttonName)
 	return ImGui::Button(buttonName.c_str());
 }
 
-void IFE::ImguiManager::RadioButtonGUI(const std::string& buttonName, int32_t* num, const  int32_t& buttonNum)
+void IFE::ImguiManager::RadioButtonGUI(const std::string& buttonName, int32_t* num, int32_t buttonNum)
 {
 	ImGui::RadioButton(buttonName.c_str(), num, buttonNum);
 }
@@ -125,11 +125,11 @@ void IFE::ImguiManager::ObjectManagerGUI(bool* add, bool* fdelete, bool* prefab,
 }
 static bool componentDeleteFlag = false;
 
-void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(Component*)>& addFunc/*, const  std::function<void(Component*)>& modelFunc*/)
+void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const  std::function<void(Component*)>& modelFunc*/)
 {
 	static bool add = false;
 	static bool cm = false;
-	if (objectName == openComponentName)
+	if (objectName == sOpenComponentName_)
 	{
 		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
 		if (ImGui::BeginMenuBar())
@@ -159,10 +159,10 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 				ImGui::InputText("add Component", name, sizeof(name));
 				if (ImGui::Button("Add"))
 				{
-					Component* tmp = std::move(StringToComponent(name));
+					auto tmp = std::unique_ptr<Component>(std::move(StringToComponent(name)));
 					if (tmp != nullptr)
 					{
-						addFunc(tmp);
+						addFunc(std::move(tmp));
 					}
 				}
 			}
@@ -181,11 +181,11 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 	}
 }
 
-void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(Component*)>& addFunc/*, const std::function<void(std::string)>& texFunc*/)
+void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const std::function<void(std::string)>& texFunc*/)
 {
 	static bool add = false;
 	static bool cm = false;
-	if (objectName == openComponentName)
+	if (objectName == sOpenComponentName_)
 	{
 		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
 		if (ImGui::BeginMenuBar())
@@ -215,10 +215,10 @@ void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std:
 				ImGui::InputText("add Component", name, sizeof(name));
 				if (ImGui::Button("Add"))
 				{
-					Component* tmp = std::move(StringToComponent(name));
+					auto tmp = std::unique_ptr<Component>(std::move(StringToComponent(name)));
 					if (tmp != nullptr)
 					{
-						addFunc(tmp);
+						addFunc(std::move(tmp));
 					}
 				}
 			}
@@ -243,7 +243,7 @@ bool IFE::ImguiManager::ObjectGUI(const std::string& name, const bool& flagdelet
 	{
 		if (ImGui::Button("Open Component"))
 		{
-			openComponentName = name;
+			sOpenComponentName_ = name;
 		}
 		if (flagdelete)
 		{
@@ -260,14 +260,14 @@ bool IFE::ImguiManager::ObjectGUI(const std::string& name, const bool& flagdelet
 				*moveFlag = true;
 			}
 		}
-		if (obj->child.size() != 0)
+		if (obj->child_.size() != 0)
 		{
 			if (ImGui::TreeNode("child"))
 			{
-				for (int32_t i = 0; i < obj->childName.size(); i++)
+				for (int32_t i = 0; i < obj->childName_.size(); i++)
 				{
-					ImGui::Text(obj->childName[i].c_str());
-					std::string s = "delete " + obj->childName[i];
+					ImGui::Text(obj->childName_[i].c_str());
+					std::string s = "delete " + obj->childName_[i];
 					if (ImGui::Button(s.c_str()))
 					{
 						obj->DeleteChild(i);
@@ -276,11 +276,11 @@ bool IFE::ImguiManager::ObjectGUI(const std::string& name, const bool& flagdelet
 				ImGui::TreePop();
 			}
 		}
-		if (obj->parent != nullptr)
+		if (obj->parent_ != nullptr)
 		{
 			if (ImGui::TreeNode("parent"))
 			{
-				ImGui::Text(obj->parent->GetObjectName().c_str());
+				ImGui::Text(obj->parent_->GetObjectName().c_str());
 				ImGui::TreePop();
 			}
 		}
@@ -293,10 +293,10 @@ bool IFE::ImguiManager::ObjectGUI(const std::string& name, const bool& flagdelet
 				Object3D* ptr = ObjectManager::Instance()->GetObjectPtr(n);
 				if (ptr != nullptr)
 				{
-					obj->child.push_back(ptr);
-					obj->childName.push_back(ptr->GetObjectName());
-					ptr->parent = obj;
-					ptr->parentName = obj->GetObjectName();
+					obj->child_.push_back(ptr);
+					obj->childName_.push_back(ptr->GetObjectName());
+					ptr->parent_ = obj;
+					ptr->parentName_ = obj->GetObjectName();
 				}
 			}
 			ImGui::TreePop();
@@ -312,7 +312,7 @@ bool IFE::ImguiManager::SpriteGUI(const std::string& name, const bool& flagdelet
 	{
 		if (ImGui::Button("Open Component"))
 		{
-			openComponentName = name;
+			sOpenComponentName_ = name;
 		}
 		if (flagdelete)
 		{
@@ -340,7 +340,7 @@ bool IFE::ImguiManager::EmitterGUI(const std::string& name, const bool& flagdele
 	{
 		if (ImGui::Button("Open Component"))
 		{
-			openComponentName = name;
+			sOpenComponentName_ = name;
 		}
 		if (flagdelete)
 		{
@@ -368,7 +368,7 @@ bool IFE::ImguiManager::ObjectAddGUI(std::string* newObjectName, std::string* mo
 	return false;
 }
 
-void IFE::ImguiManager::NewGUI(const std::string& guiName, const int32_t& flag)
+void IFE::ImguiManager::NewGUI(const std::string& guiName, int32_t flag)
 {
 	ImGui::Begin(guiName.c_str(), (bool*)false, (ImGuiWindowFlags)flag);
 }
@@ -511,20 +511,20 @@ void IFE::ImguiManager::ShowTextureGUI(const std::array<Texture, 1024>& tex)
 		int32_t j = 0;
 		for (int32_t i = 1; i < 1024; i++)
 		{
-			if (!tex[i].free)continue;
+			if (!tex[i].free_)continue;
 			t[j] = tex[i].GetPtr();
 			j++;
 			if (j % 5 == 4)
 			{
 				for (int32_t k = 0; k < 5; k++)
 				{
-					std::string s = std::to_string(k) + ". " + t[k]->texName;
+					std::string s = std::to_string(k) + ". " + t[k]->texName_;
 					ImGui::Text(s.c_str());
 					if (k != 4)ImGui::SameLine();
 				}
 				for (int32_t k = 0; k < 5; k++)
 				{
-					ImGui::Image((ImTextureID)t[k]->GPUHandle.ptr, { 96,96 });
+					ImGui::Image((ImTextureID)t[k]->GPUHandle_.ptr, { 96,96 });
 					if (k != 4)ImGui::SameLine();
 				}
 			}
@@ -532,13 +532,13 @@ void IFE::ImguiManager::ShowTextureGUI(const std::array<Texture, 1024>& tex)
 
 		for (int32_t k = 0; k < j; k++)
 		{
-			std::string s = std::to_string(k) + ". " + t[k]->texName;
+			std::string s = std::to_string(k) + ". " + t[k]->texName_;
 			ImGui::Text(s.c_str());
 			if (k != j - 1)ImGui::SameLine();
 		}
 		for (int32_t k = 0; k < j; k++)
 		{
-			ImGui::Image((ImTextureID)t[k]->GPUHandle.ptr, { 96,96 });
+			ImGui::Image((ImTextureID)t[k]->GPUHandle_.ptr, { 96,96 });
 			if (k != j - 1)ImGui::SameLine();
 		}
 	}
@@ -561,10 +561,10 @@ void IFE::ImguiManager::SearchTextureGUI(const std::array<Texture, 1024>& textur
 		{
 			for (int32_t i = 1; i < 1024; i++)
 			{
-				if (!texture[i].free)continue;
-				if (texture[i].texName == SearchName)
+				if (!texture[i].free_)continue;
+				if (texture[i].texName_ == SearchName)
 				{
-					ImGui::Image((ImTextureID)texture[i].GPUHandle.ptr, { 96,96 });
+					ImGui::Image((ImTextureID)texture[i].GPUHandle_.ptr, { 96,96 });
 					break;
 				}
 			}
@@ -577,31 +577,31 @@ void IFE::ImguiManager::TextGUI(const std::string& text)
 	ImGui::Text(text.c_str());
 }
 
-void IFE::ImguiManager::DragIntGUI(int32_t* i, const std::string& label, const float& speed, const int32_t& min, const int32_t& max)
+void IFE::ImguiManager::DragIntGUI(int32_t* i, const std::string& label, float speed, int32_t min, int32_t max)
 {
 	ImGui::DragInt(label.c_str(), i, speed, min, max);
 }
 
-void IFE::ImguiManager::DragFloatGUI(float* f, const std::string& label, const float& speed, const  float& min, const float& max)
+void IFE::ImguiManager::DragFloatGUI(float* f, const std::string& label, float speed, float min, float max)
 {
 	ImGui::DragFloat(label.c_str(), f, speed, min, max);
 }
 
-void IFE::ImguiManager::DragFloat2GUI(Float2* f, const std::string& label, const float& speed, const float& min, const float& max)
+void IFE::ImguiManager::DragFloat2GUI(Float2* f, const std::string& label, float speed, float min, float max)
 {
 	float a[2] = { f->x,f->y };
 	ImGui::DragFloat2(label.c_str(), a, speed, min, max);
 	f->Set(a[0], a[1]);
 }
 
-void IFE::ImguiManager::DragFloat3GUI(Float3* f, const std::string& label, const float& speed, const float& min, const float& max)
+void IFE::ImguiManager::DragFloat3GUI(Float3* f, const std::string& label, float speed, float min, float max)
 {
 	float a[3] = { f->x,f->y,f->z };
 	ImGui::DragFloat3(label.c_str(), a, speed, min, max);
 	f->Set(a[0], a[1], a[2]);
 }
 
-void IFE::ImguiManager::DragFloat4GUI(Float4* f, const std::string& label, const float& speed, const float& min, const float& max)
+void IFE::ImguiManager::DragFloat4GUI(Float4* f, const std::string& label, float speed, float min, float max)
 {
 	float a[4] = { f->x,f->y,f->z,f->w };
 	ImGui::DragFloat4(label.c_str(), a, speed, min, max);

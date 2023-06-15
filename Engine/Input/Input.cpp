@@ -5,7 +5,7 @@
 
 using namespace IFE;
 
-Input* Input::inputInstance = nullptr;
+Input* Input::sInputInstance_ = nullptr;
 
 Input* IFE::Input::Instance()
 {
@@ -15,41 +15,41 @@ Input* IFE::Input::Instance()
 
 void IFE::Input::Initalize()
 {
-	inputInstance = Instance();
+	sInputInstance_ = Instance();
 	HWND hwnd = *WindowsAPI::Instance()->GetHWnd();
 
 	HRESULT result = DirectInput8Create(
-		*WindowsAPI::Instance()->GetHInstance(), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&inputInstance->directInput, nullptr);
+		*WindowsAPI::Instance()->GetHInstance(), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&sInputInstance_->directInput_, nullptr);
 	assert(SUCCEEDED(result));
 	//キーボードデバイスの生成
-	result = inputInstance->directInput->CreateDevice(GUID_SysKeyboard, &inputInstance->keyboard, NULL);
+	result = sInputInstance_->directInput_->CreateDevice(GUID_SysKeyboard, &sInputInstance_->keyboard_, NULL);
 	assert(SUCCEEDED(result));
 
 	//入力データ形式のセット
-	result = inputInstance->keyboard->SetDataFormat(&c_dfDIKeyboard);//標準形式
+	result = sInputInstance_->keyboard_->SetDataFormat(&c_dfDIKeyboard);//標準形式
 	assert(SUCCEEDED(result));
 
 	//排他制御レベルのセット
-	result = inputInstance->keyboard->SetCooperativeLevel(
+	result = sInputInstance_->keyboard_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	assert(SUCCEEDED(result));
 
 	//マウスデバイスの生成
-	result = inputInstance->directInput->CreateDevice(GUID_SysMouse, &inputInstance->devMouse, NULL);
+	result = sInputInstance_->directInput_->CreateDevice(GUID_SysMouse, &sInputInstance_->devMouse_, NULL);
 	assert(SUCCEEDED(result));
 
 	// 入力データ形式のセット
-	result = inputInstance->devMouse->SetDataFormat(&c_dfDIMouse2); // 標準形式
+	result = sInputInstance_->devMouse_->SetDataFormat(&c_dfDIMouse2); // 標準形式
 	assert(SUCCEEDED(result));
 	// 排他制御レベルのセット
-	result = inputInstance->devMouse->SetCooperativeLevel(
+	result = sInputInstance_->devMouse_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	assert(SUCCEEDED(result));
 
 	//コントローラデバイスの生成
 	XInputGetState(
 		0,       // DWORD         dwUserIndex
-		&inputInstance->pad); // XINPUT_STATE* pState
+		&sInputInstance_->pad_); // XINPUT_STATE* pState
 }
 
 void IFE::Input::Update()
@@ -57,63 +57,63 @@ void IFE::Input::Update()
 	HRESULT result = S_OK;
 	for (int32_t i = 0; i < 256; i++)
 	{
-		inputInstance->oldkey[i] = inputInstance->key[i];
+		sInputInstance_->oldkey_[i] = sInputInstance_->key_[i];
 	}
-	inputInstance->keyboard->Acquire();
-	result = inputInstance->keyboard->GetDeviceState(sizeof(inputInstance->key), inputInstance->key);
+	sInputInstance_->keyboard_->Acquire();
+	result = sInputInstance_->keyboard_->GetDeviceState(sizeof(sInputInstance_->key_), sInputInstance_->key_);
 
 	// 前回の入力を保存
-	inputInstance->oldmouse = inputInstance->mouse;
+	sInputInstance_->oldmouse_ = sInputInstance_->mouse_;
 	// マウス
-	result = inputInstance->devMouse->Acquire();	// マウス動作開始
+	result = sInputInstance_->devMouse_->Acquire();	// マウス動作開始
 	// マウスの入力
-	result = inputInstance->devMouse->GetDeviceState(sizeof(inputInstance->mouse), &inputInstance->mouse);
+	result = sInputInstance_->devMouse_->GetDeviceState(sizeof(sInputInstance_->mouse_), &sInputInstance_->mouse_);
 
-	inputInstance->oldpad = inputInstance->pad;
+	sInputInstance_->oldpad_ = sInputInstance_->pad_;
 	XInputGetState(
 		0,       // DWORD         dwUserIndex
-		&inputInstance->pad); // XINPUT_STATE* pState
+		&sInputInstance_->pad_); // XINPUT_STATE* pState
 }
 
-bool IFE::Input::KeyTriggere(KeyCode keyCode)
+bool IFE::Input::KeyTriggere(const KeyCode& keyCode)
 {
-	return inputInstance->key[keyCode] && !inputInstance->oldkey[keyCode];
+	return sInputInstance_->key_[keyCode] && !sInputInstance_->oldkey_[keyCode];
 }
 
-bool IFE::Input::KeyDown(KeyCode keyCode)
+bool IFE::Input::KeyDown(const KeyCode& keyCode)
 {
-	return inputInstance->key[keyCode];
+	return sInputInstance_->key_[keyCode];
 }
 
-bool IFE::Input::KeyRelease(KeyCode keyCode)
+bool IFE::Input::KeyRelease(const KeyCode& keyCode)
 {
-	return !inputInstance->key[keyCode] && inputInstance->oldkey[keyCode];
+	return !sInputInstance_->key_[keyCode] && sInputInstance_->oldkey_[keyCode];
 }
 
-bool Input::MousePush(MouseCode m)
+bool Input::MousePush(const MouseCode& m)
 {
-	if (inputInstance->mouse.rgbButtons[(BYTE)m]) { return true; }
+	if (sInputInstance_->mouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
 }
 
-bool Input::MouseTriggere(MouseCode m)
+bool Input::MouseTriggere(const MouseCode& m)
 {
-	if (inputInstance->mouse.rgbButtons[(BYTE)m] && !inputInstance->oldmouse.rgbButtons[(BYTE)m]) { return true; }
+	if (sInputInstance_->mouse_.rgbButtons[(BYTE)m] && !sInputInstance_->oldmouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
 }
 
-bool Input::MouseRelease(MouseCode m)
+bool Input::MouseRelease(const MouseCode& m)
 {
-	if (!inputInstance->mouse.rgbButtons[(BYTE)m] && inputInstance->oldmouse.rgbButtons[(BYTE)m]) { return true; }
+	if (!sInputInstance_->mouse_.rgbButtons[(BYTE)m] && sInputInstance_->oldmouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
 }
 
 Mouse Input::GetMouse3D()
 {
 	Mouse m{};
-	m.x = inputInstance->mouse.lX;
-	m.y = inputInstance->mouse.lY;
-	m.z = inputInstance->mouse.lZ;
+	m.x = sInputInstance_->mouse_.lX;
+	m.y = sInputInstance_->mouse_.lY;
+	m.z = sInputInstance_->mouse_.lZ;
 	return m;
 }
 
@@ -127,7 +127,7 @@ Float2 Input::GetRAnalog(int32_t unresponsive_range)
 }
 float Input::GetLXAnalog(int32_t unresponsive_range)
 {
-	float x = inputInstance->pad.Gamepad.sThumbLX;
+	float x = sInputInstance_->pad_.Gamepad.sThumbLX;
 	if (x < unresponsive_range && x > -unresponsive_range)
 	{
 		x = 0;
@@ -137,7 +137,7 @@ float Input::GetLXAnalog(int32_t unresponsive_range)
 }
 float Input::GetRXAnalog(int32_t unresponsive_range)
 {
-	float x = inputInstance->pad.Gamepad.sThumbRX;
+	float x = sInputInstance_->pad_.Gamepad.sThumbRX;
 	if (x < unresponsive_range && x > -unresponsive_range)
 	{
 		x = 0;
@@ -147,7 +147,7 @@ float Input::GetRXAnalog(int32_t unresponsive_range)
 }
 float Input::GetLYAnalog(int32_t unresponsive_range)
 {
-	float y = inputInstance->pad.Gamepad.sThumbLY;
+	float y = sInputInstance_->pad_.Gamepad.sThumbLY;
 	if (y < unresponsive_range && y > -unresponsive_range)
 	{
 		y = 0;
@@ -157,7 +157,7 @@ float Input::GetLYAnalog(int32_t unresponsive_range)
 }
 float Input::GetRYAnalog(int32_t unresponsive_range)
 {
-	float y = inputInstance->pad.Gamepad.sThumbRY;
+	float y = sInputInstance_->pad_.Gamepad.sThumbRY;
 	if (y < unresponsive_range && y > -unresponsive_range)
 	{
 		y = 0;
@@ -165,30 +165,30 @@ float Input::GetRYAnalog(int32_t unresponsive_range)
 	if (y == -32768)y = -32767;
 	return y / 32767.0f;
 }
-bool Input::PadPush(PADCODE p)
+bool Input::PadPush(const PADCODE& p)
 {
-	if (inputInstance->pad.Gamepad.wButtons & (UINT)p)return true;
+	if (sInputInstance_->pad_.Gamepad.wButtons & (uint32_t)p)return true;
 	return false;
 }
-bool Input::PadTriggere(PADCODE p)
+bool Input::PadTriggere(const PADCODE& p)
 {
-	if ((inputInstance->pad.Gamepad.wButtons & (UINT)p) && !(inputInstance->oldpad.Gamepad.wButtons & (UINT)p))return true;
+	if ((sInputInstance_->pad_.Gamepad.wButtons & (uint32_t)p) && !(sInputInstance_->oldpad_.Gamepad.wButtons & (uint32_t)p))return true;
 	return false;
 }
-bool Input::PadRelease(PADCODE p)
+bool Input::PadRelease(const PADCODE& p)
 {
-	if (!(inputInstance->pad.Gamepad.wButtons & (UINT)p) && (inputInstance->oldpad.Gamepad.wButtons & (UINT)p))return true;
+	if (!(sInputInstance_->pad_.Gamepad.wButtons & (uint32_t)p) && (sInputInstance_->oldpad_.Gamepad.wButtons & (uint32_t)p))return true;
 	return false;
 }
-void Input::PadVibrationStart(WORD L, WORD R)
+void Input::PadVibrationStart(const WORD& L, const WORD& R)
 {
-	inputInstance->vibration.wLeftMotorSpeed = L;
-	inputInstance->vibration.wRightMotorSpeed = R;
-	XInputSetState(0, &inputInstance->vibration);
+	sInputInstance_->vibration_.wLeftMotorSpeed = L;
+	sInputInstance_->vibration_.wRightMotorSpeed = R;
+	XInputSetState(0, &sInputInstance_->vibration_);
 }
 void Input::PadVibrationStop()
 {
-	inputInstance->vibration.wLeftMotorSpeed = 0;
-	inputInstance->vibration.wRightMotorSpeed = 0;
-	XInputSetState(0, &inputInstance->vibration);
+	sInputInstance_->vibration_.wLeftMotorSpeed = 0;
+	sInputInstance_->vibration_.wRightMotorSpeed = 0;
+	XInputSetState(0, &sInputInstance_->vibration_);
 }

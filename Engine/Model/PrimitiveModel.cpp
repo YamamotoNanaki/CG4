@@ -69,13 +69,13 @@ void IFE::PrimitiveModel::CreateCube(bool smoothing)
 	CreateNormal(vertices, indices, _countof(indices));
 	if (smoothing)SmoothNormal(vertices);
 
-	vb.SetVerticle(vertices, _countof(vertices));
-	ib.SetIndex(indices, _countof(indices));
+	vb_.SetVerticle(vertices, _countof(vertices));
+	ib_.SetIndex(indices, _countof(indices));
 
-	vb.Initialize();
-	ib.Initialize();
+	vb_.Initialize();
+	ib_.Initialize();
 
-	setting = AddModelSettings::CreateCube;
+	setting_ = AddModelSettings::CreateCube;
 }
 
 void IFE::PrimitiveModel::CreatePolygonSquare(bool smoothing)
@@ -101,12 +101,12 @@ void IFE::PrimitiveModel::CreatePolygonSquare(bool smoothing)
 	CreateNormal(vertices, indices, _countof(indices));
 	if (smoothing)SmoothNormal(vertices);
 
-	vb.SetVerticle(vertices, _countof(vertices));
-	ib.SetIndex(indices, _countof(indices));
+	vb_.SetVerticle(vertices, _countof(vertices));
+	ib_.SetIndex(indices, _countof(indices));
 
-	vb.Initialize();
-	ib.Initialize();
-	setting = AddModelSettings::CreateSquare;
+	vb_.Initialize();
+	ib_.Initialize();
+	setting_ = AddModelSettings::CreateSquare;
 }
 
 void IFE::PrimitiveModel::CreateTriangle(bool smoothing)
@@ -129,12 +129,12 @@ void IFE::PrimitiveModel::CreateTriangle(bool smoothing)
 	CreateNormal(vertices, indices, _countof(indices));
 	if (smoothing)SmoothNormal(vertices);
 
-	vb.SetVerticle(vertices, _countof(vertices));
-	ib.SetIndex(indices, _countof(indices));
+	vb_.SetVerticle(vertices, _countof(vertices));
+	ib_.SetIndex(indices, _countof(indices));
 
-	vb.Initialize();
-	ib.Initialize();
-	setting = AddModelSettings::CreateTriangle;
+	vb_.Initialize();
+	ib_.Initialize();
+	setting_ = AddModelSettings::CreateTriangle;
 }
 
 void IFE::PrimitiveModel::CreateCircle(bool smoothing)
@@ -164,12 +164,12 @@ void IFE::PrimitiveModel::CreateCircle(bool smoothing)
 	CreateNormal(vertices, indices, _countof(indices));
 	if (smoothing)SmoothNormal(vertices);
 
-	vb.SetVerticle(vertices, _countof(vertices));
-	ib.SetIndex(indices, _countof(indices));
+	vb_.SetVerticle(vertices, _countof(vertices));
+	ib_.SetIndex(indices, _countof(indices));
 
-	vb.Initialize();
-	ib.Initialize();
-	setting = AddModelSettings::CreateCircle;
+	vb_.Initialize();
+	ib_.Initialize();
+	setting_ = AddModelSettings::CreateCircle;
 }
 
 void IFE::PrimitiveModel::CreateSphere(bool smoothing)
@@ -247,23 +247,23 @@ void IFE::PrimitiveModel::CreateSphere(bool smoothing)
 	CreateNormal(vertices, indices);
 	if (smoothing)SmoothNormal(vertices);
 
-	vb.SetVerticle(vertices);
-	ib.SetIndex(indices);
+	vb_.SetVerticle(vertices);
+	ib_.SetIndex(indices);
 
-	vb.Initialize();
-	ib.Initialize();
-	setting = AddModelSettings::CreateSphere;
+	vb_.Initialize();
+	ib_.Initialize();
+	setting_ = AddModelSettings::CreateSphere;
 }
 
 void IFE::PrimitiveModel::Draw()
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	//頂点バッファの設定
-	commandList->IASetVertexBuffers(0, 1, vb.GetVBView());
+	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
 	//インデックスバッファの設定
-	commandList->IASetIndexBuffer(ib.GetIBView());
+	commandList->IASetIndexBuffer(ib_.GetIBView());
 	//描画コマンド
-	commandList->DrawIndexedInstanced((UINT)ib.GetSize(), 1, 0, 0, 0);
+	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
 }
 
 void IFE::PrimitiveModel::Update()
@@ -344,7 +344,7 @@ void IFE::PrimitiveModel::SmoothNormal(std::vector<Vertex>& _vertices)
 	}
 }
 
-void IFE::PrimitiveModel::CreateNormal(std::vector<Vertex>& _vertices, std::vector<uint32_t>& _indices)
+void IFE::PrimitiveModel::CreateNormal(std::vector<Vertex>& _vertices, const std::vector<uint32_t>& _indices)
 {
 	for (size_t i = 0; i < _indices.size() / 3; i++)
 	{
@@ -373,21 +373,21 @@ void IFE::PrimitiveModel::CreateNormal(std::vector<Vertex>& _vertices, std::vect
 void IFE::PrimitiveModel::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();
-	im->ModelGUI(componentName);
+	im->ModelGUI(componentName_);
 }
 
-void IFE::PrimitiveModel::OutputScene(std::string object3d)
+void IFE::PrimitiveModel::OutputScene(const std::string& object3d)
 {
 	JsonManager* j = JsonManager::Instance();
-	object3d = "Model";
-	j->OutputString("componentName", componentName);
+	j->OutputString("componentName", componentName_);
 	j->OutputString("fileName", "");
-	j->OutputUINT("settings", (UINT)setting);
-	j->OutputAndMakeDirectry(componentName, object3d);
+	j->OutputUINT("settings", (uint32_t)setting_);
+	j->OutputAndMakeDirectry(componentName_, "Model");
+	object3d;
 }
 
 #endif
-void IFE::PrimitiveModel::LoadingScene(std::string object3d)
+void IFE::PrimitiveModel::LoadingScene(const std::string& object3d)
 {
 	object3d;
 }

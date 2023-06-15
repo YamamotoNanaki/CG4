@@ -8,8 +8,8 @@ namespace IFE
 {
 	class ObjectManager
 	{
-		std::list<std::unique_ptr<Object3D>>objectList;
-		std::list<std::unique_ptr<Object3D>>prefabList;
+		std::list<std::unique_ptr<Object3D>>objectList_;
+		std::list<std::unique_ptr<Object3D>>prefabList_;
 
 
 		ObjectManager() {}
@@ -23,20 +23,15 @@ namespace IFE
 		void Initialize();
 		void Update();
 		void Draw();
-		void AddInitialize(std::string objectName, Component* model);
-		Object3D* Add(std::string objectName);
-		Object3D* AddPrefab(std::string objectName);
-		Object3D* GetObjectPtr(std::string objectName);
-		Object3D* AddFromPrefab(std::string objectName, std::string prefabName);
-		Object3D* AddFromPrefab(std::string prefabName);
-		Object3D* Instantiate(Object3D* gameObject, Float3 position, Quaternion rotation);
-		Object3D* Instantiate(Object3D* gameObject, Float3 position);
-		Object3D* Instantiate(Object3D* gameObject);
-		Object3D* GetPrefab(std::string name);
-		void SetModel(std::string objectName, Component* model);
+		void AddInitialize(const std::string& objectName, Component* model);
+		Object3D* Add(const std::string& objectName);
+		Object3D* AddPrefab(const std::string& objectName);
+		Object3D* GetObjectPtr(const std::string& objectName);
+		Object3D* GetPrefab(const std::string& name);
+		void SetModel(const std::string& objectName, Component* model);
 		std::list<std::unique_ptr<Object3D>>* GetObjList();
 		void Reset();
-		bool SearchName(std::string name);
+		bool SearchName(const std::string& name);
 
 #ifdef _DEBUG
 		void DebugGUI();
@@ -46,6 +41,6 @@ namespace IFE
 		void LoadingScene();
 
 	private:
-		std::string GetNewName(std::string objectName);
+		std::string GetNewName(const std::string& objectName);
 	};
 }

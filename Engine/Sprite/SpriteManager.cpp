@@ -13,11 +13,11 @@ SpriteManager* IFE::SpriteManager::Instance()
 
 void IFE::SpriteManager::SPRITEInitialize()
 {
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->SPRITEInitialize();
 	}
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->SPRITEInitialize();
 	}
@@ -25,11 +25,11 @@ void IFE::SpriteManager::SPRITEInitialize()
 
 void IFE::SpriteManager::Initialize()
 {
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->Initialize();
 	}
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->Initialize();
 	}
@@ -37,13 +37,13 @@ void IFE::SpriteManager::Initialize()
 
 void IFE::SpriteManager::Update()
 {
-	backgroundList.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag; });
-	foregroundList.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag; });
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	backgroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag_; });
+	foregroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag_; });
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->Update();
 	}
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->Update();
 	}
@@ -52,7 +52,7 @@ void IFE::SpriteManager::Update()
 void IFE::SpriteManager::ForeDraw()
 {
 	Sprite::DrawBefore();
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->Draw();
 	}
@@ -61,105 +61,105 @@ void IFE::SpriteManager::ForeDraw()
 void IFE::SpriteManager::BackDraw()
 {
 	Sprite::DrawBefore();
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->Draw();
 	}
 }
 
-void IFE::SpriteManager::AddInitialize(std::string spriteName, std::string textureName)
+void IFE::SpriteManager::AddInitialize(const std::string& spriteName, const std::string& textureName)
 {
 	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
 	ptr->SPRITEInitialize();
-	ptr->spriteName = spriteName;
+	ptr->spriteName_ = spriteName;
 	ptr->SetTexture(textureName);
-	foregroundList.push_back(std::move(ptr));
+	foregroundList_.push_back(std::move(ptr));
 }
 
-Sprite* IFE::SpriteManager::Add(std::string spriteName)
+Sprite* IFE::SpriteManager::Add(const std::string& spriteName)
 {
 	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
-	ptr->spriteName = spriteName;
-	foregroundList.push_back(std::move(ptr));
-	return foregroundList.back().get();
+	ptr->spriteName_ = spriteName;
+	foregroundList_.push_back(std::move(ptr));
+	return foregroundList_.back().get();
 }
 
-Sprite* IFE::SpriteManager::AddBackGround(std::string spriteName)
+Sprite* IFE::SpriteManager::AddBackGround(const std::string& spriteName)
 {
 	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
-	ptr->spriteName = spriteName;
-	backgroundList.push_back(std::move(ptr));
-	return backgroundList.back().get();
+	ptr->spriteName_ = spriteName;
+	backgroundList_.push_back(std::move(ptr));
+	return backgroundList_.back().get();
 }
 
-Sprite* IFE::SpriteManager::GetSpritePtr(std::string spriteName)
+Sprite* IFE::SpriteManager::GetSpritePtr(const std::string& spriteName)
 {
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		if (itr->spriteName == spriteName)
+		if (itr->spriteName_ == spriteName)
 		{
 			return itr.get();
 		}
 	}
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		if (itr->spriteName == spriteName)
+		if (itr->spriteName_ == spriteName)
 		{
 			return itr.get();
 		}
 	}
 	return nullptr;
 }
+//
+//Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject, Float2 position, float rotation)
+//{
+//	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
+//	*ptr = *gameObject;
+//	string objectName = GetNewName(gameObject->spriteName);
+//	ptr->spriteName = objectName;
+//	foregroundList.push_back(std::move(ptr));
+//	Sprite* obj = foregroundList.back().get();
+//	obj->transform->position = position;
+//	obj->transform->rotation = rotation;
+//	return obj;
+//}
+//
+//Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject, Float2 position)
+//{
+//	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
+//	*ptr = *gameObject;
+//	string objectName = GetNewName(gameObject->spriteName);
+//	ptr->spriteName = objectName;
+//	foregroundList.push_back(std::move(ptr));
+//	Sprite* obj = foregroundList.back().get();
+//	obj->transform->position = position;
+//	return obj;
+//}
+//
+//Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject)
+//{
+//	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
+//	*ptr = *gameObject;
+//	string objectName = GetNewName(gameObject->spriteName);
+//	ptr->spriteName = objectName;
+//	foregroundList.push_back(std::move(ptr));
+//	Sprite* obj = foregroundList.back().get();
+//	return obj;
+//}
 
-Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject, Float2 position, float rotation)
+void IFE::SpriteManager::SetTexture(const std::string& spriteName, const std::string& texName)
 {
-	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
-	*ptr = *gameObject;
-	string objectName = GetNewName(gameObject->spriteName);
-	ptr->spriteName = objectName;
-	foregroundList.push_back(std::move(ptr));
-	Sprite* obj = foregroundList.back().get();
-	obj->transform->position = position;
-	obj->transform->rotation = rotation;
-	return obj;
-}
-
-Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject, Float2 position)
-{
-	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
-	*ptr = *gameObject;
-	string objectName = GetNewName(gameObject->spriteName);
-	ptr->spriteName = objectName;
-	foregroundList.push_back(std::move(ptr));
-	Sprite* obj = foregroundList.back().get();
-	obj->transform->position = position;
-	return obj;
-}
-
-Sprite* IFE::SpriteManager::Instantiate(Sprite* gameObject)
-{
-	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
-	*ptr = *gameObject;
-	string objectName = GetNewName(gameObject->spriteName);
-	ptr->spriteName = objectName;
-	foregroundList.push_back(std::move(ptr));
-	Sprite* obj = foregroundList.back().get();
-	return obj;
-}
-
-void IFE::SpriteManager::SetTexture(std::string spriteName, std::string texName)
-{
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		if (itr->spriteName == spriteName)
+		if (itr->spriteName_ == spriteName)
 		{
 			itr->SetTexture(texName);
 			return;
 		}
 	}
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		if (itr->spriteName == spriteName)
+		if (itr->spriteName_ == spriteName)
 		{
 			itr->SetTexture(texName);
 			return;
@@ -169,29 +169,29 @@ void IFE::SpriteManager::SetTexture(std::string spriteName, std::string texName)
 
 std::list<std::unique_ptr<Sprite>>* IFE::SpriteManager::GetBackgroundList()
 {
-	return &backgroundList;
+	return &backgroundList_;
 }
 
 std::list<std::unique_ptr<Sprite>>* IFE::SpriteManager::GetForegroundList()
 {
-	return &foregroundList;
+	return &foregroundList_;
 }
 
 void IFE::SpriteManager::Reset()
 {
-	foregroundList.clear();
-	backgroundList.clear();
+	foregroundList_.clear();
+	backgroundList_.clear();
 }
 
-bool IFE::SpriteManager::SearchName(std::string name)
+bool IFE::SpriteManager::SearchName(const std::string& name)
 {
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		if (itr->spriteName == name)return true;
+		if (itr->spriteName_ == name)return true;
 	}
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		if (itr->spriteName == name)return true;
+		if (itr->spriteName_ == name)return true;
 	}
 	return false;
 }
@@ -262,7 +262,7 @@ void IFE::SpriteManager::DebugGUI()
 	std::string str;
 	if (back)
 	{
-		for (unique_ptr<Sprite>& itr : backgroundList)
+		for (unique_ptr<Sprite>& itr : backgroundList_)
 		{
 			std::string s;
 			itr->DebugGUI(fdelete, fmove, &s);
@@ -272,23 +272,23 @@ void IFE::SpriteManager::DebugGUI()
 			}
 		}
 		ImGui::End();
-		for (unique_ptr<Sprite>& itr : backgroundList)
+		for (unique_ptr<Sprite>& itr : backgroundList_)
 		{
 			itr->ComponentGUI();
 		}
-		for (unique_ptr<Sprite>& itr : backgroundList)
+		for (unique_ptr<Sprite>& itr : backgroundList_)
 		{
-			if (itr->spriteName == str)
+			if (itr->spriteName_ == str)
 			{
-				foregroundList.push_back(std::move(itr));
-				backgroundList.remove(itr);
+				foregroundList_.push_back(std::move(itr));
+				backgroundList_.remove(itr);
 				break;
 			}
 		}
 	}
 	else
 	{
-		for (unique_ptr<Sprite>& itr : foregroundList)
+		for (unique_ptr<Sprite>& itr : foregroundList_)
 		{
 			std::string s;
 			itr->DebugGUI(fdelete, fmove, &s);
@@ -298,16 +298,16 @@ void IFE::SpriteManager::DebugGUI()
 			}
 		}
 		ImGui::End();
-		for (unique_ptr<Sprite>& itr : foregroundList)
+		for (unique_ptr<Sprite>& itr : foregroundList_)
 		{
 			itr->ComponentGUI();
 		}
-		for (unique_ptr<Sprite>& itr : foregroundList)
+		for (unique_ptr<Sprite>& itr : foregroundList_)
 		{
-			if (itr->spriteName == str)
+			if (itr->spriteName_ == str)
 			{
-				foregroundList.push_back(std::move(itr));
-				backgroundList.remove(itr);
+				foregroundList_.push_back(std::move(itr));
+				backgroundList_.remove(itr);
 				break;
 			}
 		}
@@ -318,14 +318,14 @@ void IFE::SpriteManager::OutputScene()
 {
 	JsonManager* jm = JsonManager::Instance();
 	int32_t i = 0;
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->spriteName;
+		js[i] = itr->spriteName_;
 		i++;
 	}
 	jm->OutputAndMakeDirectry("SpriteManager", "Sprite");
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		nlohmann::json& js = jm->GetJsonData();
 		vector<string>names = itr->GetAllComponentName();
@@ -333,18 +333,18 @@ void IFE::SpriteManager::OutputScene()
 		{
 			js["com"][j] = names[j];
 		}
-		js["tex"] = itr->tex->texName;
-		jm->OutputAndMakeDirectry(itr->spriteName, "Sprite");
+		js["tex"] = itr->tex_->texName_;
+		jm->OutputAndMakeDirectry(itr->spriteName_, "Sprite");
 	}
 	i = 0;
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->spriteName;
+		js[i] = itr->spriteName_;
 		i++;
 	}
 	jm->OutputAndMakeDirectry("BackGroundManager", "Sprite");
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		nlohmann::json& js = jm->GetJsonData();
 		vector<string>names = itr->GetAllComponentName();
@@ -352,14 +352,14 @@ void IFE::SpriteManager::OutputScene()
 		{
 			js["com"][j] = names[j];
 		}
-		string s = "Back" + itr->spriteName;
+		string s = "Back" + itr->spriteName_;
 		jm->OutputAndMakeDirectry(s, "Sprite");
 	}
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->OutputScene();
 	}
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->OutputScene();
 	}
@@ -367,13 +367,13 @@ void IFE::SpriteManager::OutputScene()
 
 void IFE::SpriteManager::DebugUpdate()
 {
-	foregroundList.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag; });
-	backgroundList.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag; });
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	foregroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag_; });
+	backgroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag_; });
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->DebugUpdate();
 	}
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->DebugUpdate();
 	}
@@ -392,9 +392,9 @@ void IFE::SpriteManager::LoadingScene()
 	}
 
 	jm->JsonReset();
-	for (unique_ptr<Sprite>& itr : foregroundList)
+	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		string s = "Sprite/" + itr->spriteName;
+		string s = "Sprite/" + itr->spriteName_;
 		jm->Input(s);
 		nlohmann::json js2 = jm->GetJsonData();
 		vector<string>names;
@@ -402,16 +402,13 @@ void IFE::SpriteManager::LoadingScene()
 		{
 			names.push_back(itr2);
 		}
-		itr->tex = TextureManager::Instance()->GetTexture(js2["tex"]);
+		itr->tex_ = TextureManager::Instance()->GetTexture(js2["tex"]);
 		jm->JsonReset();
 		for (int32_t i = 0; i < names.size(); i++)
 		{
-			//‚ ‚Æ‚Å•Ê‚Ìcpp‚É
-			Component* base = nullptr;
-
-			base = StringToComponent(names[i]);
-			base->LoadingScene(itr->spriteName, names[i]);
-			itr->SetComponent(base);
+			auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
+			base->LoadingScene(itr->spriteName_, names[i]);
+			itr->SetComponent(std::move(base));
 		}
 		itr->Initialize();
 	}
@@ -423,9 +420,9 @@ void IFE::SpriteManager::LoadingScene()
 	}
 
 	jm->JsonReset();
-	for (unique_ptr<Sprite>& itr : backgroundList)
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		string s = "Sprite/Back" + itr->spriteName;
+		string s = "Sprite/Back" + itr->spriteName_;
 		jm->Input(s);
 		nlohmann::json js2 = jm->GetJsonData();
 		vector<string>names;
@@ -433,22 +430,19 @@ void IFE::SpriteManager::LoadingScene()
 		{
 			names.push_back(itr2);
 		}
-		itr->tex = TextureManager::Instance()->GetTexture(js2["tex"]);
+		itr->tex_ = TextureManager::Instance()->GetTexture(js2["tex"]);
 		jm->JsonReset();
 		for (int32_t i = 0; i < names.size(); i++)
 		{
-			//‚ ‚Æ‚Å•Ê‚Ìcpp‚É
-			Component* base = nullptr;
-
-			base = StringToComponent(names[i]);
-			base->LoadingScene(itr->spriteName, names[i]);
-			itr->SetComponent(base);
+			auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
+			base->LoadingScene(itr->spriteName_, names[i]);
+			itr->SetComponent(std::move(base));
 		}
 		itr->Initialize();
 	}
 }
 
-std::string IFE::SpriteManager::GetNewName(std::string spriteName)
+std::string IFE::SpriteManager::GetNewName(const std::string& spriteName)
 {
 	int32_t i = 0;
 	string r;

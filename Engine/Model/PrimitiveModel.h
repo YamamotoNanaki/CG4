@@ -10,9 +10,9 @@ namespace IFE
 	class PrimitiveModel : public Component
 	{
 		using Component::Component;
-		VertexBuffer<Vertex> vb;
-		IndexBuffer ib;
-		AddModelSettings setting;
+		VertexBuffer<Vertex> vb_;
+		IndexBuffer ib_;
+		AddModelSettings setting_;
 	public:
 		void CreateCube(bool smoothing = false);
 		void CreatePolygonSquare(bool smoothing = false);
@@ -27,12 +27,12 @@ namespace IFE
 		void SmoothNormal(Vertex vertices[]);
 		void CreateNormal(Vertex vertices[], uint32_t indices[], size_t indicesSize);
 		void SmoothNormal(std::vector<Vertex>& vertices);
-		void CreateNormal(std::vector<Vertex>& vertices, std::vector<uint32_t>& indices);
+		void CreateNormal(std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices);
 
 #ifdef _DEBUG
 		void DebugGUI();
-		void OutputScene(std::string object3d);
+		void OutputScene(const std::string& object3d);
 #endif
-		void LoadingScene(std::string object3d);
+		void LoadingScene(const std::string& object3d);
 	};
 }

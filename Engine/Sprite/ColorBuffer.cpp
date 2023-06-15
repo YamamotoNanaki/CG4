@@ -7,18 +7,18 @@ using namespace std;
 
 void IFE::ColorBuffer::Initialize()
 {
-	colorBuffer = make_unique<ConstBuffer<ConstBufferColor>>();
-	constMapColor = colorBuffer->GetCBMapObject();
+	colorBuffer_ = make_unique<ConstBuffer<ConstBufferColor>>();
+	constMapColor_ = colorBuffer_->GetCBMapObject();
 }
 
 void IFE::ColorBuffer::Update()
 {
-	constMapColor->color = color;
+	constMapColor_->color = color_;
 }
 
 void IFE::ColorBuffer::Draw()
 {
-	colorBuffer->SetConstBuffView(0);
+	colorBuffer_->SetConstBuffView(0);
 }
 
 #ifdef _DEBUG
@@ -27,26 +27,26 @@ void IFE::ColorBuffer::DebugGUI()
 	ImguiManager* im = ImguiManager::Instance();
 	std::function<void(void)> guiFunc = [&]()
 	{
-		im->ColorEdit4GUI(&color, "color");
+		im->ColorEdit4GUI(&color_, "color");
 	};
 	std::function<void(void)> deleteFunc = [&]()
 	{
-		componentDeleteFlag = true;
+		componentDeleteFlag_ = true;
 	};
-	im->ComponentGUI(guiFunc, deleteFunc, componentName);
+	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
 void IFE::ColorBuffer::OutputComponent()
 {
 	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat4("color", color);
+	j->OutputFloat4("color", color_);
 }
 #endif
 
 void IFE::ColorBuffer::LoadingComponent()
 {
 	JsonManager* j = JsonManager::Instance();
-	color = j->InputFloat4("color");
-	colorBuffer = make_unique<ConstBuffer<ConstBufferColor>>();
-	constMapColor = colorBuffer->GetCBMapObject();
+	color_ = j->InputFloat4("color");
+	colorBuffer_ = make_unique<ConstBuffer<ConstBufferColor>>();
+	constMapColor_ = colorBuffer_->GetCBMapObject();
 }

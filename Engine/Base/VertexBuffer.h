@@ -11,17 +11,17 @@ namespace IFE
 	template <class T>
 	class VertexBuffer
 	{
-		Microsoft::WRL::ComPtr<ID3D12Resource> vertBuff = nullptr;
-		std::vector<T> vertices;
-		D3D12_VERTEX_BUFFER_VIEW vbView{};
+		Microsoft::WRL::ComPtr<ID3D12Resource> vertBuff_ = nullptr;
+		std::vector<T> vertices_;
+		D3D12_VERTEX_BUFFER_VIEW vbView_{};
 
 	public:
 		void Reset();
-		void SetVerticle(std::vector<T>& _vertices);
-		void SetVerticle(T* _vertices, size_t vertexCount);
+		void SetVerticle(const std::vector<T>& vertices);
+		void SetVerticle(T vertices[], size_t vertexCount);
 		void Initialize();
-		void Transfer(T* _vertices, size_t vertexCount);
-		void Transfer(std::vector<T>& _vertices);
+		void Transfer(T vertices[], size_t vertexCount);
+		void Transfer(const std::vector<T>& vertices);
 		D3D12_VERTEX_BUFFER_VIEW* GetVBView();
 		size_t GetSize();
 	};
@@ -29,32 +29,32 @@ namespace IFE
 	template<class T>
 	inline void VertexBuffer<T>::Reset()
 	{
-		vertices.clear();
+		vertices_.clear();
 	}
 
 	template<class T>
-	inline void VertexBuffer<T>::SetVerticle(std::vector<T>& _vertices)
+	inline void VertexBuffer<T>::SetVerticle(const std::vector<T>& vertices)
 	{
 		void Reset();
-		vertices = std::move(_vertices);
+		vertices_ = std::move(vertices);
 	}
 
 	template<class T>
-	inline void VertexBuffer<T>::SetVerticle(T* _vertices, size_t vertexCount)
+	inline void VertexBuffer<T>::SetVerticle(T vertices[], size_t vertexCount)
 	{
 		void Reset();
 		for (int32_t i = 0; i < vertexCount; i++)
 		{
-			this->vertices.push_back(_vertices[i]);
+			vertices_.push_back(vertices[i]);
 		}
 	}
 
 	template<class T>
 	inline void VertexBuffer<T>::Initialize()
 	{
-		if (vertices.size() == 0)return;
+		if (vertices_.size() == 0)return;
 		// 頂点データ全体のサイズ = 頂点データ一つ分のサイズ * 頂点データの要素数
-		UINT sizeVB = static_cast<UINT>(sizeof(vertices[0]) * vertices.size());
+		uint32_t sizeVB = static_cast<uint32_t>(sizeof(vertices_[0]) * vertices_.size());
 
 		// 頂点バッファの設定
 		D3D12_HEAP_PROPERTIES heapProp{};   // ヒープ設定
@@ -74,12 +74,60 @@ namespace IFE
 		HRESULT result = device->CreateCommittedResource(
 			&heapProp, // ヒープ設定
 			D3D12_HEAP_FLAG_NONE, &resDesc, // リソース設定
-			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&vertBuff));
+			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&vertBuff_));
 		assert(SUCCEEDED(result));
 		// GPU上のバッファに対応した仮想メモリを取得
 		T* vertMap = nullptr;
-		result = vertBuff->Map(0, nullptr, (void**)&vertMap);
+		result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
 		assert(SUCCEEDED(result));
+
+		// 全頂点に対して
+		for (int32_t i = 0; i < vertices_.size(); i++)
+		{
+			vertMap[i] = vertices_[i];   // 座標をコピー
+		}
+
+		// マップを解除
+		vertBuff_->Unmap(0, nullptr);
+
+		// 頂点バッファビューの作成
+
+		vbView_.BufferLocation = vertBuff_->GetGPUVirtualAddress();
+		vbView_.SizeInBytes = sizeVB;
+		vbView_.StrideInBytes = sizeof(vertices_[0]);
+	}
+	template<class T>
+	inline void VertexBuffer<T>::Transfer(T vertices[], size_t vertexCount)
+	{
+		T* vertMap = nullptr;
+#ifdef _DEBUG
+		HRESULT result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
+		assert(SUCCEEDED(result));
+#else
+		vertBuff_->Map(0, nullptr, (void**)&vertMap);
+#endif
+
+		// 全頂点に対して
+		for (int32_t i = 0; i < vertexCount; i++)
+		{
+			vertMap[i] = vertices[i];   // 座標をコピー
+		}
+
+		// マップを解除
+		vertBuff_->Unmap(0, nullptr);
+		Reset();
+		SetVerticle(vertices, vertexCount);
+	}
+	template<class T>
+	inline void VertexBuffer<T>::Transfer(const std::vector<T>& vertices)
+	{
+		T* vertMap = nullptr;
+#ifdef _DEBUG
+		HRESULT result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
+		assert(SUCCEEDED(result));
+#else
+		vertBuff_->Map(0, nullptr, (void**)&vertMap);
+#endif
 
 		// 全頂点に対して
 		for (int32_t i = 0; i < vertices.size(); i++)
@@ -88,65 +136,17 @@ namespace IFE
 		}
 
 		// マップを解除
-		vertBuff->Unmap(0, nullptr);
-
-		// 頂点バッファビューの作成
-
-		vbView.BufferLocation = vertBuff->GetGPUVirtualAddress();
-		vbView.SizeInBytes = sizeVB;
-		vbView.StrideInBytes = sizeof(vertices[0]);
-	}
-	template<class T>
-	inline void VertexBuffer<T>::Transfer(T* _vertices, size_t vertexCount)
-	{
-		T* vertMap = nullptr;
-#ifdef _DEBUG
-		HRESULT result = vertBuff->Map(0, nullptr, (void**)&vertMap);
-		assert(SUCCEEDED(result));
-#else
-		vertBuff->Map(0, nullptr, (void**)&vertMap);
-#endif
-
-		// 全頂点に対して
-		for (int32_t i = 0; i < vertexCount; i++)
-		{
-			vertMap[i] = _vertices[i];   // 座標をコピー
-		}
-
-		// マップを解除
-		vertBuff->Unmap(0, nullptr);
-		Reset();
-		SetVerticle(_vertices, vertexCount);
-	}
-	template<class T>
-	inline void VertexBuffer<T>::Transfer(std::vector<T>& _vertices)
-	{
-		T* vertMap = nullptr;
-#ifdef _DEBUG
-		HRESULT result = vertBuff->Map(0, nullptr, (void**)&vertMap);
-		assert(SUCCEEDED(result));
-#else
-		vertBuff->Map(0, nullptr, (void**)&vertMap);
-#endif
-
-		// 全頂点に対して
-		for (int32_t i = 0; i < _vertices.size(); i++)
-		{
-			vertMap[i] = _vertices[i];   // 座標をコピー
-		}
-
-		// マップを解除
-		vertBuff->Unmap(0, nullptr);
-		vertices = std::move(_vertices);
+		vertBuff_->Unmap(0, nullptr);
+		vertices_ = std::move(vertices);
 	}
 	template<class T>
 	inline D3D12_VERTEX_BUFFER_VIEW* VertexBuffer<T>::GetVBView()
 	{
-		return &vbView;
+		return &vbView_;
 	}
 	template<class T>
 	inline size_t VertexBuffer<T>::GetSize()
 	{
-		return vertices.size();
+		return vertices_.size();
 	}
 }

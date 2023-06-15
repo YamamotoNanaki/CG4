@@ -32,40 +32,38 @@ void IFE::Object3D::OBJInitialize()
 void IFE::Object3D::Initialize()
 {
 	ComponentManager::Initialize();
-	transform = GetComponent<Transform>();
+	transform_ = GetComponent<Transform>();
 }
 
 void IFE::Object3D::SetModel(Component* model)
 {
-	RemoveComponent<PrimitiveModel>();
-	RemoveComponent<FBXModel>();
-	AddComponentBack<Component>(model, nullptr);
+	model_ = model;
 }
 
-void IFE::Object3D::SetComponent(Component* component)
+void IFE::Object3D::SetComponent(std::unique_ptr<Component> component)
 {
-	AddComponentBack<Component>(component);
+	AddComponentBack<Component>(std::move(component));
 }
-void IFE::Object3D::SetComponentFront(Component* component)
+void IFE::Object3D::SetComponentFront(std::unique_ptr<Component> component)
 {
-	AddComponent<Component>(component);
+	AddComponent<Component>(std::move(component));
 }
 
 void IFE::Object3D::OBJUpdate()
 {
-	if (!isActive)return;
+	if (!isActive_)return;
 	ComponentManager::Update();
-	childCount = (int32_t)child.size();
-	if (deleteFlag == true)
+	childCount_ = (int32_t)child_.size();
+	if (deleteFlag_ == true)
 	{
-		for (int32_t i = 0; i < child.size(); i++)
+		for (int32_t i = 0; i < child_.size(); i++)
 		{
-			child[i]->deleteFlag = true;
+			child_[i]->deleteFlag_ = true;
 		}
 	}
 }
 
-void IFE::Object3D::DrawBefore(D3D_PRIMITIVE_TOPOLOGY topology)
+void IFE::Object3D::DrawBefore(const D3D_PRIMITIVE_TOPOLOGY& topology)
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	commandList->IASetPrimitiveTopology(topology);
@@ -73,8 +71,8 @@ void IFE::Object3D::DrawBefore(D3D_PRIMITIVE_TOPOLOGY topology)
 
 void IFE::Object3D::Draw()
 {
-	if (!isActive)return;
-	if (!DrawFlag)return;
+	if (!isActive_)return;
+	if (!DrawFlag_)return;
 	ComponentManager::Draw();
 }
 
@@ -85,12 +83,12 @@ IFE::Object3D::~Object3D()
 
 std::string IFE::Object3D::GetObjectName()
 {
-	return objectName;
+	return objectName_;
 }
 
-void IFE::Object3D::SetObjectName(std::string n)
+void IFE::Object3D::SetObjectName(const std::string& n)
 {
-	objectName = n;
+	objectName_ = n;
 }
 
 vector<string> IFE::Object3D::GetAllComponentName()
@@ -100,43 +98,43 @@ vector<string> IFE::Object3D::GetAllComponentName()
 
 void IFE::Object3D::SetActive(bool value)
 {
-	isActive = value;
+	isActive_ = value;
 }
 
 Object3D* IFE::Object3D::GetChild(int32_t index)
 {
-	return child[index];
+	return child_[index];
 }
 
 void IFE::Object3D::DeleteParent()
 {
-	for (int32_t i = 0; i < parent->childName.size(); i++)
+	for (int32_t i = 0; i < parent_->childName_.size(); i++)
 	{
-		if (parent->childName[i] == objectName)
+		if (parent_->childName_[i] == objectName_)
 		{
-			parent->childName.erase(childName.begin() + i);
-			parent->child.erase(child.begin() + i);
+			parent_->childName_.erase(childName_.begin() + i);
+			parent_->child_.erase(child_.begin() + i);
 			break;
 		}
 	}
-	parent = nullptr;
-	parentName = "";
+	parent_ = nullptr;
+	parentName_ = "";
 }
 
 void IFE::Object3D::DeleteChild(int32_t index)
 {
 	Object3D* obj = GetChild(index);
-	obj->parent = nullptr;
-	obj->parentName = "";
-	childName.erase(childName.begin() + index);
-	child.erase(child.begin() + index);
+	obj->parent_ = nullptr;
+	obj->parentName_ = "";
+	childName_.erase(childName_.begin() + index);
+	child_.erase(child_.begin() + index);
 }
 
-void IFE::Object3D::DeleteChild(std::string c)
+void IFE::Object3D::DeleteChild(const std::string& c)
 {
-	for (int32_t i = 0; i < childName.size(); i++)
+	for (int32_t i = 0; i < childName_.size(); i++)
 	{
-		if (childName[i] == c)
+		if (childName_[i] == c)
 		{
 			DeleteChild(i);
 			return;
@@ -146,37 +144,33 @@ void IFE::Object3D::DeleteChild(std::string c)
 
 void IFE::Object3D::DeleteChildAll()
 {
-	for (int32_t i = 0; i < parent->child.size(); i++)
+	for (int32_t i = 0; i < parent_->child_.size(); i++)
 	{
-		child[i]->parent = nullptr;
-		child[i]->parentName = "";
+		child_[i]->parent_ = nullptr;
+		child_[i]->parentName_ = "";
 	}
-	child.clear();
+	child_.clear();
 }
-//void IFE::Object3D::OnColliderHit(ADXCollider* myCol, ADXCollider* col)
-//{
-//	ComponentManager::OnColliderHit(myCol, col);
-//}
 
 #ifdef _DEBUG
 void IFE::Object3D::DebugGUI(bool fdelete, bool fmove, std::string* str)
 {
 	bool m = false;
-	if (ImguiManager::Instance()->ObjectGUI(objectName, fdelete, fmove, &m, this))
+	if (ImguiManager::Instance()->ObjectGUI(objectName_, fdelete, fmove, &m, this))
 	{
-		deleteFlag = true;
+		deleteFlag_ = true;
 	}
 	if (m)
 	{
-		*str = objectName;
+		*str = objectName_;
 	}
 }
 
 void IFE::Object3D::ComponentGUI()
 {
-	std::function<void(Component*)> addFunc = [&](Component* com)
+	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
 	{
-		SetComponentFront(com);
+		SetComponentFront(std::move(com));
 	};
 	//std::function<void(Component*)> modelFunc = [&](Component* com)
 	//{
@@ -186,30 +180,30 @@ void IFE::Object3D::ComponentGUI()
 	{
 		ComponentManager::DebugGUI();
 	};
-	ImguiManager::Instance()->ComponentGUI(objectName, f, addFunc/*, modelFunc*/);
+	ImguiManager::Instance()->ComponentGUI(objectName_, f, addFunc/*, modelFunc*/);
 }
 
 void IFE::Object3D::OutputScene(bool flag)
 {
 	if (flag)
 	{
-		string s = "P" + objectName;
+		string s = "P" + objectName_;
 		ComponentManager::OutputScene(s);
 	}
 	else
 	{
-		ComponentManager::OutputScene(objectName);
+		ComponentManager::OutputScene(objectName_);
 	}
 }
 void IFE::Object3D::DebugUpdate()
 {
 	ComponentManager::DebugUpdate();
-	childCount = (int32_t)child.size();
-	if (deleteFlag == true)
+	childCount_ = (int32_t)child_.size();
+	if (deleteFlag_ == true)
 	{
-		for (int32_t i = 0; i < child.size(); i++)
+		for (int32_t i = 0; i < child_.size(); i++)
 		{
-			child[i]->deleteFlag = true;
+			child_[i]->deleteFlag_ = true;
 		}
 	}
 }
@@ -222,12 +216,12 @@ void IFE::Object3D::DebugUpdate()
 
 void IFE::Object3D::LoadChild()
 {
-	if (parentName != "")
+	if (parentName_ != "")
 	{
-		parent = ObjectManager::Instance()->GetObjectPtr(parentName);
+		parent_ = ObjectManager::Instance()->GetObjectPtr(parentName_);
 	}
-	for (int32_t i = 0; i < childName.size(); i++)
+	for (int32_t i = 0; i < childName_.size(); i++)
 	{
-		child.push_back(ObjectManager::Instance()->GetObjectPtr(childName[i]));
+		child_.push_back(ObjectManager::Instance()->GetObjectPtr(childName_[i]));
 	}
 }

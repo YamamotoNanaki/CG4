@@ -9,9 +9,9 @@ namespace IFE
 	class ColorBuffer : public Component
 	{
 		using Component::Component;
-		std::unique_ptr<ConstBuffer<ConstBufferColor>> colorBuffer;
-		ConstBufferColor* constMapColor = nullptr;
-		Float4 color = {1,1,1,1};
+		std::unique_ptr<ConstBuffer<ConstBufferColor>> colorBuffer_;
+		ConstBufferColor* constMapColor_ = nullptr;
+		Float4 color_ = {1,1,1,1};
 
 	public:
 		void Initialize()override;

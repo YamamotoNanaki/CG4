@@ -17,19 +17,19 @@ namespace IFE
 		};
 
 	private:
-		Float3 lightPos = { 0,0,0 };
-		Float3 lightColor = { 1,1,1 };
-		Float3 lightAtten = { 1.0f,1.0f,1.0f };
-		bool active = false;
+		Float3 lightPos_ = { 0,0,0 };
+		Float3 lightColor_ = { 1,1,1 };
+		Float3 lightAtten_ = { 1.0f,1.0f,1.0f };
+		bool active_ = false;
 
 	public:
-		inline void SetLightPos(const Float3& lightPos_) { this->lightPos = lightPos_; }
-		inline const Float3 GetLightPos() { return lightPos; }
-		inline void SetLightColor(const Float3& lightColor_) { this->lightColor = lightColor_; }
-		inline const Float3 GetLightColor() { return lightColor; }
-		inline void SetLightAtten(const Float3& lightAtten_) { this->lightAtten = lightAtten_; }
-		inline const Float3 GetLightAtten() { return lightAtten; }
-		inline void SetActive(bool active_) { this->active = active_; }
-		inline bool IsActive() { return active; }
+		inline void SetLightPos(const Float3& lightPos) { lightPos_ = lightPos; }
+		inline const Float3 GetLightPos() { return lightPos_; }
+		inline void SetLightColor(const Float3& lightColor) { lightColor_ = lightColor; }
+		inline const Float3 GetLightColor() { return lightColor_; }
+		inline void SetLightAtten(const Float3& lightAtten) { lightAtten_ = lightAtten; }
+		inline const Float3 GetLightAtten() { return lightAtten_; }
+		inline void SetActive(bool active) { active_ = active; }
+		inline bool IsActive() { return active_; }
 	};
 }

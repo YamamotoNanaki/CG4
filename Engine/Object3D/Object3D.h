@@ -9,37 +9,38 @@ namespace IFE
 	class Transform;
 	class Object3D :public ComponentManager
 	{
-		std::string objectName;
+		std::string objectName_;
 	public:
-		bool isActive = true;
-		bool deleteFlag = false;
-		bool DrawFlag = true;
-		Transform* transform = nullptr;
-		Object3D* parent = nullptr;
-		std::vector<Object3D*> child;
-		std::string parentName;
-		std::vector<std::string> childName;
-		int32_t childCount = 0;
+		bool isActive_ = true;
+		bool deleteFlag_ = false;
+		bool DrawFlag_ = true;
+		Transform* transform_ = nullptr;
+		Object3D* parent_ = nullptr;
+		std::vector<Object3D*> child_;
+		std::string parentName_;
+		std::vector<std::string> childName_;
+		int32_t childCount_ = 0;
+		Component* model_ = nullptr;
 
 	public:
 		Object3D();
 		void OBJInitialize();
 		void Initialize();
 		void SetModel(Component* model);
-		void SetComponent(Component* component);
-		void SetComponentFront(Component* component);
+		void SetComponent(std::unique_ptr<Component> component);
+		void SetComponentFront(std::unique_ptr<Component> component);
 		void OBJUpdate();
-		static void DrawBefore(D3D_PRIMITIVE_TOPOLOGY topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		static void DrawBefore(const D3D_PRIMITIVE_TOPOLOGY& topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		void Draw();
 		~Object3D();
 		std::string GetObjectName();
-		void SetObjectName(std::string objectName);
+		void SetObjectName(const std::string& objectName);
 		std::vector<std::string> GetAllComponentName();
 		void SetActive(bool value);
 		Object3D* GetChild(int32_t index);
 		void DeleteParent();
 		void DeleteChild(int32_t childNum);
-		void DeleteChild(std::string childName);
+		void DeleteChild(const std::string& childName);
 		void DeleteChildAll();
 
 #ifdef _DEBUG

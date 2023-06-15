@@ -13,31 +13,31 @@ namespace IFE
 	class LightManager
 	{
 	private:
-		static const int32_t LightMax = 100;
-		static const int32_t PLightNum = LightMax;
-		static const int32_t DLightNum = LightMax;
-		static const int32_t SLightNum = LightMax;
-		static const int32_t CShadowNum = LightMax;
+		static const int32_t s_LIGHT_MAX_ = 100;
+		static const int32_t s_PLIGHT_NUM = s_LIGHT_MAX_;
+		static const int32_t s_DLIGHT_NUM = s_LIGHT_MAX_;
+		static const int32_t s_SLIGHT_NUM = s_LIGHT_MAX_;
+		static const int32_t s_CSHADOW_NUM = s_LIGHT_MAX_;
 
 	public:
 		struct ConstBufferData
 		{
 			Float3 ambientColor;
 			float pad1;
-			DLight::ConstDLightData dLights[DLightNum];
-			PLight::ConstPLightData pLights[PLightNum];
-			SLight::ConstSLightData sLights[PLightNum];
-			CShadow::ConstCShadowData cShadows[CShadowNum];
+			DLight::ConstDLightData dLights[s_DLIGHT_NUM];
+			PLight::ConstPLightData pLights[s_PLIGHT_NUM];
+			SLight::ConstSLightData sLights[s_PLIGHT_NUM];
+			CShadow::ConstCShadowData cShadows[s_CSHADOW_NUM];
 		};
 
 	private:
-		std::unique_ptr<ConstBuffer<ConstBufferData>>constBuff;
-		Float3 ambientColor = { 1,1,1 };
-		DLight dLight[DLightNum];
-		PLight pLight[PLightNum];
-		SLight sLight[SLightNum];
-		CShadow cShadow[CShadowNum];
-		bool dirty = false;
+		std::unique_ptr<ConstBuffer<ConstBufferData>>constBuff_;
+		Float3 ambientColor_ = { 1,1,1 };
+		DLight dLight_[s_DLIGHT_NUM];
+		PLight pLight_[s_PLIGHT_NUM];
+		SLight sLight_[s_SLIGHT_NUM];
+		CShadow cShadow_[s_CSHADOW_NUM];
+		bool dirty_ = false;
 		LightManager() {}
 		LightManager(const LightManager&) {}
 		LightManager& operator=(const LightManager&) {}
@@ -68,7 +68,7 @@ namespace IFE
 		void SetCircleShadowAtten(int32_t index, const Float3& shadowAtten);
 		void SetCircleShadowFactorAngle(int32_t index, const Float2& shadowFactorAngle);
 		void Update();
-		void Draw(UINT rootParameterIndex);
+		void Draw(uint32_t rootParameterIndex);
 		static LightManager* Instance();
 		static void Finalize();
 	};

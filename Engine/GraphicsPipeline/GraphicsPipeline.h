@@ -15,18 +15,18 @@ namespace IFE
 	class GraphicsPipeline
 	{
 	private:
-		std::array<Microsoft::WRL::ComPtr<ID3DBlob>, 3> blobs = { nullptr,nullptr,nullptr };
-		static Microsoft::WRL::ComPtr<ID3DBlob> ErrorBlob;
-		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootsignature;
-		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelinestate;
-		std::string defaultDirectory = "Data/Shaders/";
+		std::array<Microsoft::WRL::ComPtr<ID3DBlob>, 3> blobs_ = { nullptr,nullptr,nullptr };
+		static Microsoft::WRL::ComPtr<ID3DBlob> sErrorBlob_;
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootsignature_;
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelinestate_;
+		static std::string sDefaultDirectory_;
 	private:
-		bool CreateGraphicsPpipeline(std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout,
-			D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc);
+		bool CreateGraphicsPpipeline(const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout,
+			const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc);
 
 	public:
-		std::string name;
-		bool ShaderCompile(std::string shaderName, SHADER_COMPILE_SETTINGS setting);
+		std::string name_;
+		bool ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting);
 		void CreateBasicGraphicsPipeLine();
 		void CreateBasic2DGraphicsPipeLine();
 		void CreateBasicParticleGraphicsPipeLine();

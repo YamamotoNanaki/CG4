@@ -4,17 +4,17 @@ using namespace std;
 using namespace IFE;
 using namespace std::chrono;
 
-std::chrono::steady_clock::time_point IFETime::startTime;
-std::chrono::steady_clock::time_point IFETime::nowTime;
-std::chrono::steady_clock::time_point IFETime::frontTime;
-float IFETime::deltaTime;
-float IFETime::time;
+std::chrono::steady_clock::time_point IFETime::sStartTime_;
+std::chrono::steady_clock::time_point IFETime::sNowTime_;
+std::chrono::steady_clock::time_point IFETime::sFrontTime_;
+float IFETime::sDeltaTime_;
+float IFETime::sTime_;
 
 void IFE::IFETime::Initialize()
 {
-	startTime = steady_clock::now();
-	frontTime = startTime;
-	nowTime = startTime;
+	sStartTime_ = steady_clock::now();
+	sFrontTime_ = sStartTime_;
+	sNowTime_ = sStartTime_;
 }
 
 std::chrono::steady_clock::time_point IFE::IFETime::GetNowTime()
@@ -29,25 +29,25 @@ std::chrono::steady_clock::time_point IFE::IFETime::GetStartTime()
 
 void IFE::IFETime::Update()
 {
-	frontTime = nowTime;
-	nowTime = steady_clock::now();
-	milliseconds t = duration_cast<milliseconds>(nowTime - startTime);
-	milliseconds dt = duration_cast<milliseconds>(nowTime - frontTime);
+	sFrontTime_ = sNowTime_;
+	sNowTime_ = steady_clock::now();
+	milliseconds t = duration_cast<milliseconds>(sNowTime_ - sStartTime_);
+	milliseconds dt = duration_cast<milliseconds>(sNowTime_ - sFrontTime_);
 
-	time = (float)t.count() / 1000.f;
-	deltaTime = (float)dt.count() / 1000.f;
+	sTime_ = (float)t.count() / 1000.f;
+	sDeltaTime_ = (float)dt.count() / 1000.f;
 }
 
 void FrameCountTime::Set(int32_t e)
 {
-	this->end = e;
-	timer = 0;
+	this->end_ = e;
+	timer_ = 0;
 }
 
 void FrameCountTime::TimeSet(int32_t t, int32_t e)
 {
-	this->timer = t;
-	this->end = e;
+	this->timer_ = t;
+	this->end_ = e;
 }
 
 void FrameCountTime::SetIf(int32_t e, bool flag)
@@ -57,14 +57,14 @@ void FrameCountTime::SetIf(int32_t e, bool flag)
 
 void FrameCountTime::Update()
 {
-	timer++;
+	timer_++;
 }
 
 void FrameCountTime::SafeDownUpdate()
 {
-	if (timer > 0)
+	if (timer_ > 0)
 	{
-		timer--;
+		timer_--;
 	}
 }
 
@@ -74,20 +74,20 @@ void FrameCountTime::SafeUpdate()
 	{
 		return;
 	}
-	timer++;
+	timer_++;
 }
 
 int32_t FrameCountTime::NowTime() const
 {
-	return timer;
+	return timer_;
 }
 
 bool FrameCountTime::IsEnd() const
 {
-	return timer >= end;
+	return timer_ >= end_;
 }
 
 int32_t FrameCountTime::GetEndTime() const
 {
-	return end;
+	return end_;
 }

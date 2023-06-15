@@ -9,8 +9,8 @@ namespace IFE
 {
 	class SpriteManager
 	{
-		std::list<std::unique_ptr<Sprite>>backgroundList;
-		std::list<std::unique_ptr<Sprite>>foregroundList;
+		std::list<std::unique_ptr<Sprite>>backgroundList_;
+		std::list<std::unique_ptr<Sprite>>foregroundList_;
 
 		SpriteManager() {}
 		SpriteManager(const SpriteManager&) {}
@@ -24,18 +24,15 @@ namespace IFE
 		void Update();
 		void ForeDraw();
 		void BackDraw();
-		void AddInitialize(std::string spriteName, std::string textureName);
-		Sprite* Add(std::string spriteName);
-		Sprite* AddBackGround(std::string spriteName);
-		Sprite* GetSpritePtr(std::string spriteName);
-		Sprite* Instantiate(Sprite* gameObject, Float2 position, float rotation);
-		Sprite* Instantiate(Sprite* gameObject, Float2 position);
-		Sprite* Instantiate(Sprite* gameObject);
-		void SetTexture(std::string spriteName, std::string texName);
+		void AddInitialize(const std::string& spriteName, const std::string& textureName);
+		Sprite* Add(const std::string& spriteName);
+		Sprite* AddBackGround(const std::string& spriteName);
+		Sprite* GetSpritePtr(const std::string& spriteName);
+		void SetTexture(const std::string& spriteName, const std::string& texName);
 		std::list<std::unique_ptr<Sprite>>* GetBackgroundList();
 		std::list<std::unique_ptr<Sprite>>* GetForegroundList();
 		void Reset();
-		bool SearchName(std::string name);
+		bool SearchName(const std::string& name);
 
 #ifdef _DEBUG
 		void DebugGUI();
@@ -45,6 +42,6 @@ namespace IFE
 		void LoadingScene();
 
 	private:
-		std::string GetNewName(std::string spriteName);
+		std::string GetNewName(const std::string& spriteName);
 	};
 }

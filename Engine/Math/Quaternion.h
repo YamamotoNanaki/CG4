@@ -12,7 +12,7 @@ namespace IFE
 	Quaternion quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f);
 	Quaternion quaternion(const Vector3& v, float angle);
 	float Dot(const Quaternion& q1, const Quaternion& q2);
-	float Length(const Quaternion q);
+	float Length(const Quaternion& q);
 	Quaternion normalize(const Quaternion& q);
 	Quaternion Conjugate(const Quaternion& q);
 
@@ -46,8 +46,8 @@ namespace IFE
 
 	Quaternion MakeAxisAngle(const Vector3& axis, float angle);
 
-	Quaternion EulerToQuaternion(Float3 eulerDegrees);
+	Quaternion EulerToQuaternion(const Float3& eulerDegrees);
 	//Float3 QuaternionToEuler(Quaternion q);
 
-	Vector3 MultiplyQuaternionAndVector3(Quaternion rotation, Vector3 point);
+	Vector3 MultiplyQuaternionAndVector3(const Quaternion& rotation, const Vector3& point);
 }

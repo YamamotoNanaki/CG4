@@ -3,29 +3,29 @@
 
 using namespace IFE;
 
-Matrix View::matBillBoard = MatrixIdentity();
-Matrix View::matBillBoardY = MatrixIdentity();
+Matrix View::sMatBillBoard_ = MatrixIdentity();
+Matrix View::sMatBillBoardY_ = MatrixIdentity();
 
-View::View(Float3 eye, Float3 target, Float3 up)
+View::View(const Float3& eye, const Float3& target, const Float3& up)
 {
 	Initialze(eye, target, up);
 
 }
 
-void View::Initialze(Float3 e, Float3 t, Float3 u)
+void View::Initialze(const Float3& e, const Float3& t, const Float3& u)
 {
-	this->eye = e;
-	this->target = t;
-	this->up = u;
+	eye_ = e;
+	target_ = t;
+	up_ = u;
 	Update();
 }
 
 void View::Update()
 {
 	//視点座標、注視点座標、上方向
-	Vector3 eyePosition = SetVector3(eye);
-	Vector3 targetPosition = SetVector3(target);
-	Vector3 upVector = SetVector3(up);
+	Vector3 eyePosition = SetVector3(eye_);
+	Vector3 targetPosition = SetVector3(target_);
+	Vector3 upVector = SetVector3(up_);
 
 	//カメラZ軸
 	Vector3 cameraAxisZ = VectorSubtract(targetPosition, eyePosition);
@@ -51,19 +51,19 @@ void View::Update()
 	matCameraRot.SetW(0, 0, 0, 1);
 
 	//逆行列を代入
-	matView = MatrixTranspose(matCameraRot);
+	matView_ = MatrixTranspose(matCameraRot);
 
 	//カメラの位置から原点へのベクトルを生成
 	Vector3 reverseEyePosition = VectorNegate(eyePosition);
-	matView.m[3][0] = Vector3Dot(cameraAxisX, reverseEyePosition);
-	matView.m[3][1] = Vector3Dot(cameraAxisY, reverseEyePosition);
-	matView.m[3][2] = Vector3Dot(cameraAxisZ, reverseEyePosition);
-	matView.m[3][3] = 1.0f;
+	matView_.m[3][0] = Vector3Dot(cameraAxisX, reverseEyePosition);
+	matView_.m[3][1] = Vector3Dot(cameraAxisY, reverseEyePosition);
+	matView_.m[3][2] = Vector3Dot(cameraAxisZ, reverseEyePosition);
+	matView_.m[3][3] = 1.0f;
 
-	matBillBoard.SetX(cameraAxisX);
-	matBillBoard.SetY(cameraAxisY);
-	matBillBoard.SetZ(cameraAxisZ);
-	matBillBoard.SetW(0, 0, 0, 1);
+	sMatBillBoard_.SetX(cameraAxisX);
+	sMatBillBoard_.SetY(cameraAxisY);
+	sMatBillBoard_.SetZ(cameraAxisZ);
+	sMatBillBoard_.SetW(0, 0, 0, 1);
 
 	//Y軸ビルボード
 	Vector3 yBillAxisX, yBillAxisY, yBillAxisZ;
@@ -72,18 +72,18 @@ void View::Update()
 	yBillAxisY = Vector3Normalize(upVector);
 	yBillAxisZ = Vector3Cross(yBillAxisX, yBillAxisY);
 
-	matBillBoardY.SetX(yBillAxisX);
-	matBillBoardY.SetY(yBillAxisY);
-	matBillBoardY.SetZ(yBillAxisZ);
-	matBillBoardY.SetW(0, 0, 0, 1);
+	sMatBillBoardY_.SetX(yBillAxisX);
+	sMatBillBoardY_.SetY(yBillAxisY);
+	sMatBillBoardY_.SetZ(yBillAxisZ);
+	sMatBillBoardY_.SetW(0, 0, 0, 1);
 }
 
 Matrix View::Get() const
 {
-	return matView;
+	return matView_;
 }
 
 Matrix* IFE::View::GetAddressOf()
 {
-	return &matView;
+	return &matView_;
 }

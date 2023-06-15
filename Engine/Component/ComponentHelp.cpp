@@ -12,14 +12,14 @@ using namespace IFE;
 using namespace std;
 
 template <class T>
-static Component* GetT(string s);
+static Component* GetT(const string& s);
 
 /*↓をコピペ
 tmp = std::move(GetT<クラス名>(str));
 if (tmp != nullptr)return tmp;
 ここまで*/
 
-Component* IFE::StringToComponent(std::string str)
+Component* IFE::StringToComponent(const std::string& str)
 {
 	Component* tmp = nullptr;
 	//↓にコピペ
@@ -42,7 +42,7 @@ Component* IFE::StringToComponent(std::string str)
 }
 
 template <class T>
-static Component* GetT(string s)
+static Component* GetT(const string& s)
 {
 	string n = typeid(T).name();
 	if (n.starts_with("class "))

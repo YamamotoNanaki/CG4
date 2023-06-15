@@ -17,26 +17,26 @@ float IFE::OutQuad(float startPos, float endPos, float maxTime, float time) {
 	float change = endPos - startPos;
 	return -change * time * (time - 2) + startPos;
 }
-IFE::Float3 IFE::OutQuadFloat3(Float3 startPos, Float3 endPos, FrameCountTime timer)
+IFE::Float3 IFE::OutQuadFloat3(const Float3& startPos, const Float3& endPos, const FrameCountTime& timer)
 {
 	return { OutQuad(startPos.x, endPos.x, (float)timer.GetEndTime(), (float)timer.NowTime()),
 			 OutQuad(startPos.y, endPos.y, (float)timer.GetEndTime(), (float)timer.NowTime()),
 			 OutQuad(startPos.z, endPos.z, (float)timer.GetEndTime(), (float)timer.NowTime()) };
 };
 
-IFE::Float3 IFE::LerpFloat3(Float3 startPos, Float3 endPos, FrameCountTime timer)
+IFE::Float3 IFE::LerpFloat3(const Float3& startPos, const Float3& endPos, const FrameCountTime& timer)
 {
 	return { Lerp(startPos.x, endPos.x, (float)timer.GetEndTime(), (float)timer.NowTime()),
 			 Lerp(startPos.y, endPos.y, (float)timer.GetEndTime(), (float)timer.NowTime()),
 			 Lerp(startPos.z, endPos.z, (float)timer.GetEndTime(), (float)timer.NowTime()) };
 }
-IFE::Float3 IFE::OutQuadFloat3(IFE::Float3 startPos, IFE::Float3 endPos, float maxTime, float time)
+IFE::Float3 IFE::OutQuadFloat3(const Float3& startPos, const Float3& endPos, float maxTime, float time)
 {
 	return { OutQuad(startPos.x, endPos.x, maxTime, time),
 			 OutQuad(startPos.y, endPos.y, maxTime, time),
 			 OutQuad(startPos.z, endPos.z, maxTime, time) };
 }
-IFE::Float3 IFE::LerpFloat3(IFE::Float3 startPos, IFE::Float3 endPos, float maxTime, float time)
+IFE::Float3 IFE::LerpFloat3(const Float3& startPos, const Float3& endPos, float maxTime, float time)
 {
 	return { Lerp(startPos.x, endPos.x, maxTime, time),
 			 Lerp(startPos.y, endPos.y, maxTime, time),
@@ -75,31 +75,31 @@ float IFE::OutOutRelayQuad(float startPos, float endPos, float relayPos, float m
 	}
 }
 
-float IFE::Lerp(float startPos, float endPos, FrameCountTime timer)
+float IFE::Lerp(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return Lerp(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::InQuad(float startPos, float endPos, FrameCountTime timer)
+float IFE::InQuad(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return InQuad(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::OutQuad(float startPos, float endPos, FrameCountTime timer)
+float IFE::OutQuad(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return OutQuad(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::InOutQuad(float startPos, float endPos, FrameCountTime timer)
+float IFE::InOutQuad(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return InOutQuad(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::EaseInBack(float startPos, float endPos, FrameCountTime timer)
+float IFE::EaseInBack(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return EaseInBack(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::EaseInBack2(float startPos, float endPos, FrameCountTime timer)
+float IFE::EaseInBack2(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return EaseInBack2(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }
-float IFE::EaseOutBounce(float startPos, float endPos, FrameCountTime timer)
+float IFE::EaseOutBounce(float startPos, float endPos, const FrameCountTime& timer)
 {
 	return EaseOutBounce(startPos, endPos, (float)timer.GetEndTime(), (float)timer.NowTime());
 }

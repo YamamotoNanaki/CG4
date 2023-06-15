@@ -20,33 +20,33 @@ namespace IFE
 		};
 
 	private:
-		Vector3 shadowDir = { 1,0,0 };
-		float distanceCasterLight = 100.0f;
-		Float3 casterPos = { 0,0,0 };
-		Float3 shadowAtten = { 0.5f,0.6f,0.0f };
-		Float2 shadowFactorAngleCos = { 0.2f,0.5f };
-		bool active = false;
+		Vector3 shadowDir_ = { 1,0,0 };
+		float distanceCasterLight_ = 100.0f;
+		Float3 casterPos_ = { 0,0,0 };
+		Float3 shadowAtten_ = { 0.5f,0.6f,0.0f };
+		Float2 shadowFactorAngleCos_ = { 0.2f,0.5f };
+		bool active_ = false;
 
 	public:
-		inline void SetShadowDir(const Vector3& shadowDir_)
+		inline void SetShadowDir(const Vector3& shadowDir)
 		{
-			this->shadowDir = shadowDir_;
-			this->shadowDir = Vector3Normalize(this->shadowDir);
+			shadowDir_ = shadowDir;
+			shadowDir_ = Vector3Normalize(shadowDir);
 		}
-		inline const Vector3& GetShadowDir() { return shadowDir; }
-		inline void SetCasterPos(const Float3& casterPos_) { this->casterPos = casterPos_; }
-		inline const Float3& GetCasterPos() { return casterPos; }
-		inline void SetDistanceCasterLight(float distanceCasterLight_) { this->distanceCasterLight = distanceCasterLight_; }
-		inline const float GetDistanceCasterLight() { return distanceCasterLight; }
-		inline void SetShadowAtten(const Float3& shadowAtten_) { this->shadowAtten = shadowAtten_; }
-		inline const Float3& GetShadowAtten() { return shadowAtten; }
-		inline void SetShadowFactorAngle(const Float2& shadowAngle_)
+		inline const Vector3& GetShadowDir() { return shadowDir_; }
+		inline void SetCasterPos(const Float3& casterPos) { casterPos_ = casterPos; }
+		inline const Float3& GetCasterPos() { return casterPos_; }
+		inline void SetDistanceCasterLight(float distanceCasterLight) { distanceCasterLight_ = distanceCasterLight; }
+		inline const float GetDistanceCasterLight() { return distanceCasterLight_; }
+		inline void SetShadowAtten(const Float3& shadowAtten) { shadowAtten_ = shadowAtten; }
+		inline const Float3& GetShadowAtten() { return shadowAtten_; }
+		inline void SetShadowFactorAngle(const Float2& shadowAngle)
 		{
-			this->shadowFactorAngleCos.x = cosf(ConvertToRadians(shadowAngle_.x));
-			this->shadowFactorAngleCos.y = cosf(ConvertToRadians(shadowAngle_.y));
+			shadowFactorAngleCos_.x = cosf(ConvertToRadians(shadowAngle.x));
+			shadowFactorAngleCos_.y = cosf(ConvertToRadians(shadowAngle.y));
 		}
-		inline const Float2& GetShadowFactorAngle() { return shadowFactorAngleCos; }
-		inline void SetActive(bool active_) { this->active = active_; }
-		inline bool IsActive() { return active; }
+		inline const Float2& GetShadowFactorAngle() { return shadowFactorAngleCos_; }
+		inline void SetActive(bool active) { active_ = active; }
+		inline bool IsActive() { return active_; }
 	};
 }

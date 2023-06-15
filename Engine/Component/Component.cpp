@@ -6,25 +6,29 @@
 
 std::string IFE::Component::GetComponentName()
 {
-	return componentName;
+	return componentName_;
 }
 
 void IFE::Component::INITIALIZE()
 {
-	if (objectPtr != nullptr)transform = objectPtr->GetComponent<Transform>();
+	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();
 	Initialize();
+}
+
+IFE::Component::~Component()
+{
 }
 
 IFE::Component::Component(Object3D* c)
 {
-	objectPtr = c;
-	transform = objectPtr->GetComponent<Transform>();
+	objectPtr_ = c;
+	transform_ = objectPtr_->GetComponent<Transform>();
 }
 
 IFE::Component::Component(Sprite* s)
 {
-	spritePtr = s;
-	transform2D = spritePtr->GetComponent<Transform2D>();
+	spritePtr_ = s;
+	transform2D_ = spritePtr_->GetComponent<Transform2D>();
 }
 //
 //IFE::Component::Component(Particle* p)
@@ -39,21 +43,21 @@ IFE::Component::Component(Sprite* s)
 //	transformParticle = emitterPtr->GetComponent<TransformParticle>();
 //}
 
-void IFE::Component::SetComponentName(std::string n)
+void IFE::Component::SetComponentName(const std::string& n)
 {
-	componentName = n;
+	componentName_ = n;
 }
 
 void IFE::Component::SetComponents(Object3D* c)
 {
-	objectPtr = c;
-	transform = objectPtr->GetComponent<Transform>();
+	objectPtr_ = c;
+	transform_ = objectPtr_->GetComponent<Transform>();
 }
 
 void IFE::Component::SetComponents(Sprite* s)
 {
-	spritePtr = s;
-	transform2D = spritePtr->GetComponent<Transform2D>();
+	spritePtr_ = s;
+	transform2D_ = spritePtr_->GetComponent<Transform2D>();
 }
 //
 //void IFE::Component::SetComponents(Particle* p)
@@ -70,17 +74,17 @@ void IFE::Component::SetComponents(Sprite* s)
 
 bool IFE::Component::GetComponentDeleteFlag()
 {
-	return componentDeleteFlag;
+	return componentDeleteFlag_;
 }
 
 IFE::Object3D* IFE::Component::GetObjectPtr()
 {
-	return objectPtr;
+	return objectPtr_;
 }
 
 IFE::Sprite* IFE::Component::GetSpritePtr()
 {
-	return spritePtr;
+	return spritePtr_;
 }
 
 //void IFE::Component::OnColliderHit(ADXCollider* myCol, ADXCollider* col)
@@ -97,22 +101,22 @@ void IFE::Component::DebugGUI()
 {
 	std::function<void(void)>func = [&]()
 	{
-		ImguiManager::Instance()->TextGUI(componentName.c_str());
+		ImguiManager::Instance()->TextGUI(componentName_.c_str());
 		ComponentDebugGUI();
 	};
 	std::function<void(void)>deleteFunc = [&]()
 	{
-		componentDeleteFlag = true;
+		componentDeleteFlag_ = true;
 	};
-	ImguiManager::Instance()->ComponentGUI(func, deleteFunc, componentName.c_str());
+	ImguiManager::Instance()->ComponentGUI(func, deleteFunc, componentName_.c_str());
 }
 
 void IFE::Component::OutputScene(std::string object)
 {
 	JsonManager* j = JsonManager::Instance();
-	j->OutputString("componentName", componentName);
+	j->OutputString("componentName", componentName_);
 	OutputComponent();
-	j->OutputAndMakeDirectry(object, componentName);
+	j->OutputAndMakeDirectry(object, componentName_);
 }
 void IFE::Component::OutputComponent()
 {
@@ -124,12 +128,12 @@ void IFE::Component::LoadingScene(std::string object, std::string cn)
 	JsonManager* j = JsonManager::Instance();
 	std::string s = cn + "/" + object;
 	j->Input(s);
-	if (j->error)
+	if (j->error_)
 	{
-		j->error = false;
+		j->error_ = false;
 		return;
 	}
-	componentName = j->InputString("componentName");
+	componentName_ = j->InputString("componentName");
 	LoadingComponent();
 	j->JsonReset();
 }

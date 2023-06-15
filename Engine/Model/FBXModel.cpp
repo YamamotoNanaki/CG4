@@ -11,7 +11,7 @@ using namespace std;
 
 void IFE::FBXModel::Initialize()
 {
-	for (unique_ptr<Node>& node : nodes)
+	for (unique_ptr<Node>& node : nodes_)
 	{
 		for (auto mesh : node->meshes)
 		{
@@ -22,7 +22,7 @@ void IFE::FBXModel::Initialize()
 
 void IFE::FBXModel::Draw()
 {
-	for (unique_ptr<Node>& node : nodes)
+	for (unique_ptr<Node>& node : nodes_)
 	{
 		for (auto mesh : node->meshes)
 		{
@@ -34,7 +34,7 @@ void IFE::FBXModel::Draw()
 //アニメーション
 static const NodeAnim* FindNodeAnim(const Animation* pAnimation, const string& NodeName)
 {
-	for (UINT i = 0; i < pAnimation->channels.size(); i++)
+	for (uint32_t i = 0; i < pAnimation->channels.size(); i++)
 	{
 		const NodeAnim* pNodeAnim = &pAnimation->channels[i];
 
@@ -47,11 +47,11 @@ static const NodeAnim* FindNodeAnim(const Animation* pAnimation, const string& N
 	return NULL;
 }
 
-static UINT findScaling(float AnimationTime, const NodeAnim* pNodeAnim)
+static uint32_t findScaling(float AnimationTime, const NodeAnim* pNodeAnim)
 {
 	assert(pNodeAnim->scale.size() > 0);
 
-	for (UINT i = 0; i < pNodeAnim->scale.size() - 1; i++) {
+	for (uint32_t i = 0; i < pNodeAnim->scale.size() - 1; i++) {
 		if (AnimationTime < (float)pNodeAnim->scaleTime[i + 1]) {
 			return i;
 		}
@@ -69,8 +69,8 @@ static void CalcInterpolatedScaling(Vector3& Out, float AnimationTime, const Nod
 		return;
 	}
 
-	UINT ScalingIndex = findScaling(AnimationTime, pNodeAnim);
-	UINT NextScalingIndex = (ScalingIndex + 1);
+	uint32_t ScalingIndex = findScaling(AnimationTime, pNodeAnim);
+	uint32_t NextScalingIndex = (ScalingIndex + 1);
 	assert(NextScalingIndex < pNodeAnim->scale.size());
 	float DeltaTime = (float)(pNodeAnim->scaleTime[NextScalingIndex] - pNodeAnim->scaleTime[ScalingIndex]);
 	float Factor = clamp((AnimationTime - (float)pNodeAnim->scaleTime[ScalingIndex]) / DeltaTime);
@@ -81,11 +81,11 @@ static void CalcInterpolatedScaling(Vector3& Out, float AnimationTime, const Nod
 	Out = Start + Factor * Delta;
 }
 
-static UINT findRotation(float AnimationTime, const NodeAnim* pNodeAnim)
+static uint32_t findRotation(float AnimationTime, const NodeAnim* pNodeAnim)
 {
 	assert(pNodeAnim->rotation.size() > 0);
 
-	for (UINT i = 0; i < pNodeAnim->rotation.size() - 1; i++) {
+	for (uint32_t i = 0; i < pNodeAnim->rotation.size() - 1; i++) {
 		if (AnimationTime < (float)pNodeAnim->rotationTime[i + 1]) {
 			return i;
 		}
@@ -104,8 +104,8 @@ static void CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const
 		return;
 	}
 
-	UINT RotationIndex = findRotation(AnimationTime, pNodeAnim);
-	UINT NextRotationIndex = (RotationIndex + 1);
+	uint32_t RotationIndex = findRotation(AnimationTime, pNodeAnim);
+	uint32_t NextRotationIndex = (RotationIndex + 1);
 	assert(NextRotationIndex < pNodeAnim->rotation.size());
 	float DeltaTime = (float)(pNodeAnim->rotationTime[NextRotationIndex] - pNodeAnim->rotationTime[RotationIndex]);
 	float Factor = clamp((AnimationTime - (float)pNodeAnim->rotationTime[RotationIndex]) / DeltaTime);
@@ -116,9 +116,9 @@ static void CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const
 	Out = normalize(Out);
 }
 
-static UINT findPosition(float AnimationTime, const NodeAnim* pNodeAnim)
+static uint32_t findPosition(float AnimationTime, const NodeAnim* pNodeAnim)
 {
-	for (UINT i = 0; i < pNodeAnim->position.size() - 1; i++) {
+	for (uint32_t i = 0; i < pNodeAnim->position.size() - 1; i++) {
 		if (AnimationTime < (float)pNodeAnim->positionTime[i + 1]) {
 			return i;
 		}
@@ -137,8 +137,8 @@ static void CalcInterpolatedPosition(Vector3& Out, float AnimationTime, const No
 		return;
 	}
 
-	UINT PositionIndex = findPosition(AnimationTime, pNodeAnim);
-	UINT NextPositionIndex = (PositionIndex + 1);
+	uint32_t PositionIndex = findPosition(AnimationTime, pNodeAnim);
+	uint32_t NextPositionIndex = (PositionIndex + 1);
 	assert(NextPositionIndex < pNodeAnim->position.size());
 	float DeltaTime = (float)(pNodeAnim->positionTime[NextPositionIndex] - pNodeAnim->positionTime[PositionIndex]);
 	float Factor = clamp((AnimationTime - (float)pNodeAnim->positionTime[PositionIndex]) / DeltaTime);
@@ -152,7 +152,7 @@ void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode)
 {
 	string NodeName = pNode->name;
 
-	const Animation* pAnimation = &animations[0];
+	const Animation* pAnimation = &animations_[0];
 
 	Matrix NodeTransformation = pNode->transform;
 
@@ -192,7 +192,7 @@ void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode)
 	Matrix mat = pNode->animMat;
 
 	Bone* bone = nullptr;
-	for (auto& itr : bones)
+	for (auto& itr : bones_)
 	{
 		if (itr.name == NodeName)
 		{
@@ -212,37 +212,37 @@ void FBXModel::BoneTransform(float TimeInSeconds)
 {
 	Matrix Identity;
 
-	float TicksPerSecond = (float)animations[0].ticksPerSecond != 0 ?
-		(float)animations[0].ticksPerSecond : 25.0f;
+	float TicksPerSecond = (float)animations_[0].ticksPerSecond != 0 ?
+		(float)animations_[0].ticksPerSecond : 25.0f;
 	float TimeInTicks = TimeInSeconds * TicksPerSecond;
-	float AnimationTime = (float)fmod(TimeInTicks, animations[0].duration);
+	float AnimationTime = (float)fmod(TimeInTicks, animations_[0].duration);
 
-	for (UINT i = 0; i < nodes.size(); i++) {
-		ReadNodeHeirarchy(AnimationTime, nodes[i].get());
+	for (uint32_t i = 0; i < nodes_.size(); i++) {
+		ReadNodeHeirarchy(AnimationTime, nodes_[i].get());
 	}
 }
 
-void IFE::FBXModel::SetSettings(AddModelSettings s)
+void IFE::FBXModel::SetSettings(const AddModelSettings& s)
 {
-	setting = s;
+	setting_ = s;
 }
 
 #ifdef _DEBUG
 void IFE::FBXModel::DebugGUI()
 {
-	ImguiManager::Instance()->ModelGUI(componentName);
+	ImguiManager::Instance()->ModelGUI(componentName_);
 }
-void IFE::FBXModel::OutputScene(std::string object3d)
+void IFE::FBXModel::OutputScene(const std::string& object3d)
 {
 	JsonManager* j = JsonManager::Instance();
-	object3d = "Model";
-	j->OutputString("componentName", componentName);
-	j->OutputString("fileName", fileName);
-	j->OutputUINT("settings", (UINT)setting);
-	j->OutputAndMakeDirectry(componentName, object3d);
+	string s = object3d + "Model";
+	j->OutputString("componentName", componentName_);
+	j->OutputString("fileName", fileName_);
+	j->OutputUINT("settings", (uint32_t)setting_);
+	j->OutputAndMakeDirectry(componentName_, s);
 }
 #endif
-void IFE::FBXModel::LoadingScene(std::string object3d)
+void IFE::FBXModel::LoadingScene(const std::string& object3d)
 {
 	object3d;
 }

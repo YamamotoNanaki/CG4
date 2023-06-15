@@ -4,5 +4,5 @@
 namespace IFE
 {
 	class Component;
-	Component* StringToComponent(std::string componentName);
+	Component* StringToComponent(const std::string& componentName);
 }

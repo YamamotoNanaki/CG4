@@ -11,20 +11,20 @@ namespace IFE
 	{
 	private:
 		//定数バッファ
-		Microsoft::WRL::ComPtr<ID3D12Resource> cbuffResource;
-		T* mapObj = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> cbuffResource_;
+		T* mapObj_ = nullptr;
 
-		static ID3D12GraphicsCommandList* cmdList;
+		static ID3D12GraphicsCommandList* sCmdList_;
 	public:
 		ConstBuffer();
 		~ConstBuffer();
 
-		void SetConstBuffView(const UINT& rootParameterIndex);
+		void SetConstBuffView(uint32_t rootParameterIndex);
 		T* GetCBMapObject();
 	};
 
 	template<class T>
-	ID3D12GraphicsCommandList* ConstBuffer<T>::cmdList = nullptr;
+	ID3D12GraphicsCommandList* ConstBuffer<T>::sCmdList_ = nullptr;
 
 	template<class T>
 	inline ConstBuffer<T>::ConstBuffer()
@@ -45,27 +45,27 @@ namespace IFE
 		HRESULT result = GraphicsAPI::Instance()->GetDevice()->CreateCommittedResource(
 			&heapProp, D3D12_HEAP_FLAG_NONE, &resdesc,
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
-			IID_PPV_ARGS(&cbuffResource));
+			IID_PPV_ARGS(&cbuffResource_));
 		assert(SUCCEEDED(result));
 
-		result = cbuffResource->Map(0, nullptr, (void**)&mapObj);
+		result = cbuffResource_->Map(0, nullptr, (void**)&mapObj_);
 		assert(SUCCEEDED(result));
 
-		cmdList = GraphicsAPI::Instance()->GetCmdList();
+		sCmdList_ = GraphicsAPI::Instance()->GetCmdList();
 	}
 	template<class T>
 	inline ConstBuffer<T>::~ConstBuffer()
 	{
-		cbuffResource->Unmap(0, nullptr);
+		cbuffResource_->Unmap(0, nullptr);
 	}
 	template<class T>
-	inline void ConstBuffer<T>::SetConstBuffView(const UINT& rootParameterIndex)
+	inline void ConstBuffer<T>::SetConstBuffView(uint32_t rootParameterIndex)
 	{
-		cmdList->SetGraphicsRootConstantBufferView(rootParameterIndex, cbuffResource->GetGPUVirtualAddress());
+		sCmdList_->SetGraphicsRootConstantBufferView(rootParameterIndex, cbuffResource_->GetGPUVirtualAddress());
 	}
 	template<class T>
 	inline T* ConstBuffer<T>::GetCBMapObject()
 	{
-		return mapObj;
+		return mapObj_;
 	}
 }

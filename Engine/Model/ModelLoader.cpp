@@ -20,13 +20,13 @@ void IFE::ModelLoader::ParseNodeRecursive(const aiScene* scene, aiNode* node, No
 	node_->transform.SetZ(node->mTransformation.c1, node->mTransformation.c2, node->mTransformation.c3, node->mTransformation.c4);
 	node_->transform.SetW(node->mTransformation.d1, node->mTransformation.d2, node->mTransformation.d3, node->mTransformation.d4);
 	node_->globalTransform = node_->transform = MatrixTranspose(node_->transform);
-	for (UINT i = 0; i < node->mNumMeshes; i++) {
+	for (uint32_t i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		node_->meshes.push_back(this->ProcessMesh(scene, mesh));
 	}
-	nodes.push_back(std::move(node_));
+	nodes_.push_back(std::move(node_));
 	Node* parent;
-	parent = nodes.back().get();
+	parent = nodes_.back().get();
 
 	if (targetParent != nullptr)
 	{
@@ -34,25 +34,19 @@ void IFE::ModelLoader::ParseNodeRecursive(const aiScene* scene, aiNode* node, No
 		targetParent->globalTransform *= parent->globalTransform;
 	}
 
-	for (UINT i = 0; i < node->mNumChildren; i++) {
+	for (uint32_t i = 0; i < node->mNumChildren; i++) {
 		this->ParseNodeRecursive(scene, node->mChildren[i], parent);
 	}
 }
 
 Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 {
-	if (objType)
+	if (objType_)
 	{
 		std::vector<Vertex> vertices;
-		std::vector<UINT> indices;
+		std::vector<uint32_t> indices;
 
-		//struct Weight
-		//{
-		//	UINT vertexID;
-		//	float weight;
-		//};
-
-		for (UINT i = 0; i < mesh->mNumVertices; i++) {
+		for (uint32_t i = 0; i < mesh->mNumVertices; i++) {
 			Vertex vertex;
 
 			vertex.pos.x = mesh->mVertices[i].x;
@@ -70,16 +64,16 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 			vertices.push_back(vertex);
 		}
 
-		for (UINT i = 0; i < mesh->mNumFaces; i++) {
+		for (uint32_t i = 0; i < mesh->mNumFaces; i++) {
 			aiFace face = mesh->mFaces[i];
 
-			for (UINT j = 0; j < face.mNumIndices; j++)
+			for (uint32_t j = 0; j < face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
 		Mesh* mesh_ = new Mesh;
 		aiTextureType type = aiTextureType_DIFFUSE;
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		for (UINT i = 0; i < material->GetTextureCount(type); i++) {
+		for (uint32_t i = 0; i < material->GetTextureCount(type); i++) {
 			aiString str;
 			material->GetTexture(type, i, &str);
 			string f = /*filename + "/" +*/ str.C_Str();
@@ -99,15 +93,15 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 	else
 	{
 		std::vector<VertexBone> vertices;
-		std::vector<UINT> indices;
+		std::vector<uint32_t> indices;
 
 		struct Weight
 		{
-			UINT vertexID;
+			uint32_t vertexID;
 			float weight;
 		};
 
-		for (UINT i = 0; i < mesh->mNumVertices; i++) {
+		for (uint32_t i = 0; i < mesh->mNumVertices; i++) {
 			VertexBone vertex;
 
 			vertex.pos.x = mesh->mVertices[i].x;
@@ -125,16 +119,16 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 			vertices.push_back(vertex);
 		}
 
-		for (UINT i = 0; i < mesh->mNumFaces; i++) {
+		for (uint32_t i = 0; i < mesh->mNumFaces; i++) {
 			aiFace face = mesh->mFaces[i];
 
-			for (UINT j = 0; j < face.mNumIndices; j++)
+			for (uint32_t j = 0; j < face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
 		Mesh* mesh_ = new Mesh;
 		aiTextureType type = aiTextureType_DIFFUSE;
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		for (UINT i = 0; i < material->GetTextureCount(type); i++) {
+		for (uint32_t i = 0; i < material->GetTextureCount(type); i++) {
 			aiString str;
 			material->GetTexture(type, i, &str);
 			string f = /*filename + "/" +*/ str.C_Str();
@@ -148,7 +142,7 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 
 		//É{Å[Éì
 		std::vector<std::list<Weight>>lists(vertices.size());
-		if (bones.size() == 0)
+		if (bones_.size() == 0)
 		{
 			for (uint32_t i = 0; i < mesh->mNumBones; i++)
 			{
@@ -158,7 +152,7 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 				b.invInitPose.SetZ(mesh->mBones[i]->mOffsetMatrix[2][0], mesh->mBones[i]->mOffsetMatrix[2][1], mesh->mBones[i]->mOffsetMatrix[2][2], mesh->mBones[i]->mOffsetMatrix[2][3]);
 				b.invInitPose.SetW(mesh->mBones[i]->mOffsetMatrix[3][0], mesh->mBones[i]->mOffsetMatrix[3][1], mesh->mBones[i]->mOffsetMatrix[3][2], mesh->mBones[i]->mOffsetMatrix[3][3]);
 				b.invInitPose = b.finalMatrix = MatrixTranspose(b.invInitPose);
-				bones.push_back(b);
+				bones_.push_back(b);
 				for (uint32_t j = 0; j < mesh->mBones[i]->mNumWeights; j++)
 				{
 					Weight w;
@@ -217,13 +211,13 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 	}
 }
 
-FBXModel* IFE::ModelLoader::FBXLoad(std::string fileName, std::string fileType, bool smooth)
+FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::string& fileType, bool smooth)
 {
 	Assimp::Importer importer;
 	string f = "Data/Resources/Model/";
-	if (fileType == ".obj")objType = true;
+	if (fileType == ".obj")objType_ = true;
 	f += fileName + "/" + fileName + fileType;
-	filename = fileName;
+	filename_ = fileName;
 	uint32_t sf = aiProcess_GenNormals;
 	if (smooth == true)
 	{
@@ -291,20 +285,20 @@ FBXModel* IFE::ModelLoader::FBXLoad(std::string fileName, std::string fileType, 
 			}
 			a.channels.push_back(n);
 		}
-		animations.push_back(a);
+		animations_.push_back(a);
 	}
 
 	FBXModel* fbx = new FBXModel;
-	for (std::unique_ptr<Node>& node : nodes)
-		fbx->nodes.push_back(std::move(node));
-	for (auto& b : bones)
-		fbx->bones.push_back(b);
-	for (auto& a : animations)
-		fbx->animations.push_back(a);
+	for (std::unique_ptr<Node>& node : nodes_)
+		fbx->nodes_.push_back(std::move(node));
+	for (auto& b : bones_)
+		fbx->bones_.push_back(b);
+	for (auto& a : animations_)
+		fbx->animations_.push_back(a);
 
 
-	nodes.clear();
+	nodes_.clear();
 
-	fbx->fileName = fileName;
+	fbx->fileName_ = fileName;
 	return fbx;
 }

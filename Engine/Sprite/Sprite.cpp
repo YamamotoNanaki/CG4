@@ -11,7 +11,7 @@
 using namespace IFE;
 using namespace Microsoft::WRL;
 
-GraphicsPipeline Sprite::gp;
+GraphicsPipeline Sprite::gp_;
 
 IFE::Sprite::Sprite()
 {
@@ -20,7 +20,7 @@ IFE::Sprite::Sprite()
 
 void IFE::Sprite::StaticInitialize()
 {
-	gp.CreateBasic2DGraphicsPipeLine();
+	gp_.CreateBasic2DGraphicsPipeLine();
 }
 
 void IFE::Sprite::BufferInitialize()
@@ -29,18 +29,18 @@ void IFE::Sprite::BufferInitialize()
 
 	enum { LB, LT, RB, RT };
 
-	float left = (0.0f - anchorpoint.x) * size.x;
-	float right = (1.0f - anchorpoint.x) * size.x;
-	float top = (0.0f - anchorpoint.y) * size.y;
-	float bottom = (1.0f - anchorpoint.y) * size.y;
+	float left = (0.0f - anchorpoint_.x) * size_.x;
+	float right = (1.0f - anchorpoint_.x) * size_.x;
+	float top = (0.0f - anchorpoint_.y) * size_.y;
+	float bottom = (1.0f - anchorpoint_.y) * size_.y;
 
-	if (flipX)
+	if (flipX_)
 	{
 		left = -left;
 		right = -right;
 	}
 
-	if (flipY)
+	if (flipY_)
 	{
 		top = -top;
 		bottom = -bottom;
@@ -59,95 +59,95 @@ void IFE::Sprite::BufferInitialize()
 	vertices[RB].uv = { tex_right,	tex_bottom };
 	vertices[RT].uv = { tex_right,	tex_top };
 
-	vb.SetVerticle(vertices, _countof(vertices));
-	vb.Initialize();
+	vb_.SetVerticle(vertices, _countof(vertices));
+	vb_.Initialize();
 }
 
-void IFE::Sprite::SPRITEInitialize(std::string texName, Float2 s, Float2 a, bool x, bool y)
+void IFE::Sprite::SPRITEInitialize(const std::string& texName, const Float2& s, const Float2& a, bool x, bool y)
 {
-	this->tex = TextureManager::Instance()->GetTexture(texName);
+	this->tex_ = TextureManager::Instance()->GetTexture(texName);
 
-	this->anchorpoint = a;
-	this->size = s;
-	this->flipX = x;
-	this->flipY = y;
+	this->anchorpoint_ = a;
+	this->size_ = s;
+	this->flipX_ = x;
+	this->flipY_ = y;
 
 	BufferInitialize();
 	AddComponent<ColorBuffer>();
 	AddComponent<Transform2D>();
-	ComponentManager2D::Initialize();
-	transform = GetComponent<Transform2D>();
+	ComponentManager::Initialize();
+	transform_ = GetComponent<Transform2D>();
 }
 
-void IFE::Sprite::Initialize(std::string texName, Float2 s, Float2 a, bool x, bool y)
+void IFE::Sprite::Initialize(const std::string& texName, const Float2& s, const Float2& a, bool x, bool y)
 {
-	if (tex == nullptr)this->tex = TextureManager::Instance()->GetTexture(texName);
+	if (tex_ == nullptr)this->tex_ = TextureManager::Instance()->GetTexture(texName);
 
-	this->anchorpoint = a;
-	this->size = s;
-	this->flipX = x;
-	this->flipY = y;
+	this->anchorpoint_ = a;
+	this->size_ = s;
+	this->flipX_ = x;
+	this->flipY_ = y;
 
 	BufferInitialize();
-	ComponentManager2D::Initialize();
-	transform = GetComponent<Transform2D>();
+	ComponentManager::Initialize();
+	transform_ = GetComponent<Transform2D>();
 }
 
 void IFE::Sprite::DrawBefore()
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-	gp.SetDrawBlendMode();
+	gp_.SetDrawBlendMode();
 }
 
 void IFE::Sprite::Update()
 {
-	if (!isActive)return;
-	ComponentManager2D::Update();
+	if (!isActive_)return;
+	ComponentManager::Update();
 }
 
 void IFE::Sprite::Draw()
 {
-	if (!drawFlag)return;
-	if (!isActive)return;
+	if (!drawFlag_)return;
+	if (!isActive_)return;
 
-	ComponentManager2D::Draw();
+	ComponentManager::Draw();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	//頂点バッファの設定
-	commandList->IASetVertexBuffers(0, 1, vb.GetVBView());
+	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
 	//描画コマンド
-	tex->SetTexture(2);
-	commandList->DrawInstanced((UINT)vb.GetSize(), 1, 0, 0);
+	tex_->SetTexture(2);
+	commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
 }
 
-void Sprite::SetSize(Float2 s)
+void Sprite::SetSize(const Float2& s)
 {
-	this->size = s;
+	this->size_ = s;
 	TransferVertex();
 }
 
-void Sprite::SetTextureRect(Float2 b, Float2 s)
+void Sprite::SetTextureRect(const Float2& b, const Float2& s)
 {
-	this->texBase = b;
-	this->texSize = s;
+	this->texBase_ = b;
+	this->texSize_ = s;
 
 	// 頂点バッファへのデータ転送
 	TransferVertex();
 }
 
-void IFE::Sprite::SetComponent(Component* component)
+void IFE::Sprite::SetComponent(std::unique_ptr<Component> component)
 {
-	AddComponentBack<Component>(component);
+	AddComponentBack<Component>(std::move(component));
 }
 
-void IFE::Sprite::SetComponentFront(Component* component)
+void IFE::Sprite::SetComponentFront(std::unique_ptr<Component>component)
 {
-	AddComponent<Component>(component);
+	AddComponent<Component>(std::move(component));
 }
 
-void IFE::Sprite::SetTexture(std::string texName)
+void IFE::Sprite::SetTexture(const std::string& texName)
 {
-	this->tex = TextureManager::Instance()->GetTexture(texName);
+	this->tex_ = TextureManager::Instance()->GetTexture(texName);
 }
 
 #ifdef _DEBUG
@@ -156,40 +156,40 @@ void IFE::Sprite::SetTexture(std::string texName)
 void IFE::Sprite::DebugGUI(bool fdelete, bool fmove, std::string* str)
 {
 	bool m = false;
-	if (ImguiManager::Instance()->SpriteGUI(spriteName, fdelete, fmove, &m))
+	if (ImguiManager::Instance()->SpriteGUI(spriteName_, fdelete, fmove, &m))
 	{
-		deleteFlag = true;
+		deleteFlag_ = true;
 	}
 	if (m)
 	{
-		*str = spriteName;
+		*str = spriteName_;
 	}
 }
 
 void IFE::Sprite::ComponentGUI()
 {
-	std::function<void(Component*)> addFunc = [&](Component* com)
+	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
 	{
-		SetComponentFront(com);
+		SetComponentFront(std::move(com));
 	};
 	std::function<void(void)>f = [&]()
 	{
-		ComponentManager2D::DebugGUI();
+		ComponentManager::DebugGUI();
 	};
 	//std::function<void(std::string)>texFunc = [&](std::string name)
 	//{
 	//	tex = TextureManager::Instance()->GetTexture(name);
 	//};
-	ImguiManager::Instance()->ComponentGUI2D(spriteName, f, addFunc/*, texFunc*/);
+	ImguiManager::Instance()->ComponentGUI2D(spriteName_, f, addFunc/*, texFunc*/);
 }
 
 void IFE::Sprite::DebugUpdate()
 {
-	ComponentManager2D::DebugUpdate();
+	ComponentManager::DebugUpdate();
 }
 void IFE::Sprite::OutputScene()
 {
-	ComponentManager2D::OutputScene(spriteName);
+	ComponentManager::OutputScene(spriteName_);
 }
 #endif
 
@@ -198,17 +198,17 @@ void Sprite::TransferVertex()
 	enum { LB, LT, RB, RT };
 	Vertex2D vertices[4];
 
-	float left = (0.0f - anchorpoint.x) * size.x;
-	float right = (1.0f - anchorpoint.x) * size.x;
-	float top = (0.0f - anchorpoint.y) * size.y;
-	float bottom = (1.0f - anchorpoint.y) * size.y;
-	if (flipX)
+	float left = (0.0f - anchorpoint_.x) * size_.x;
+	float right = (1.0f - anchorpoint_.x) * size_.x;
+	float top = (0.0f - anchorpoint_.y) * size_.y;
+	float bottom = (1.0f - anchorpoint_.y) * size_.y;
+	if (flipX_)
 	{
 		left = -left;
 		right = -right;
 	}
 
-	if (flipY)
+	if (flipY_)
 	{
 		top = -top;
 		bottom = -bottom;
@@ -227,16 +227,16 @@ void Sprite::TransferVertex()
 	vertices[RB].uv = { tex_right,	tex_bottom };
 	vertices[RT].uv = { tex_right,	tex_top };
 
-	ComPtr<ID3D12Resource> texBuff = tex->texbuff;
+	ComPtr<ID3D12Resource> texBuff = tex_->texbuff_;
 
 	if (texBuff)
 	{
 		D3D12_RESOURCE_DESC resDesc = texBuff->GetDesc();
 
-		tex_left = texBase.x / resDesc.Width;
-		tex_right = (texBase.x + texSize.x) / resDesc.Width;
-		tex_top = texBase.y / resDesc.Height;
-		tex_bottom = (texBase.y + texSize.y) / resDesc.Height;
+		tex_left = texBase_.x / resDesc.Width;
+		tex_right = (texBase_.x + texSize_.x) / resDesc.Width;
+		tex_top = texBase_.y / resDesc.Height;
+		tex_bottom = (texBase_.y + texSize_.y) / resDesc.Height;
 
 		vertices[LB].uv = { tex_left,	tex_bottom }; // 左下
 		vertices[LT].uv = { tex_left,	tex_top }; // 左上
@@ -244,5 +244,5 @@ void Sprite::TransferVertex()
 		vertices[RT].uv = { tex_right,	tex_top }; // 右上
 	}
 
-	vb.Transfer(vertices, _countof(vertices));
+	vb_.Transfer(vertices, _countof(vertices));
 }

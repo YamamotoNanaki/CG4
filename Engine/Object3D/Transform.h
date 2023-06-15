@@ -16,24 +16,24 @@ namespace IFE
 	class Transform : public Component
 	{
 		using Component::Component;
-		Camera* camera = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferDataTransform>> transformBuffer;
-		ConstBufferDataTransform* constMapTransform = nullptr;
+		Camera* camera_ = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferDataTransform>> transformBuffer_;
+		ConstBufferDataTransform* constMapTransform_ = nullptr;
 
-		Float3 lossyScale;
+		Float3 lossyScale_;
 	public:
-		bool eulerFlag = false;
-		Float3 eulerAngleDegrees;
-		uint8_t billbord = 0;
-		Matrix matWorld;
+		bool eulerFlag_ = false;
+		Float3 eulerAngleDegrees_;
+		uint8_t billbord_ = 0;
+		Matrix matWorld_;
 		Matrix matScale_;
 		Matrix matRot_;
 		Matrix matTrans_;
-		Float3 scale = { 1,1,1 };
-		Float3 position = { 0,0,0 };
-		Quaternion rotation;
+		Float3 scale_ = { 1,1,1 };
+		Float3 position_ = { 0,0,0 };
+		Quaternion rotation_;
 
-		Transform* parent = nullptr;
+		Transform* parent_ = nullptr;
 
 	public:
 		void Initialize()override;
@@ -41,8 +41,8 @@ namespace IFE
 		void Draw()override;
 		void UpdateMatrix();
 		void Copy(Component* component);
-		Vector3 TransformPoint(Vector3 position);
-		Vector3 InverseTransformPoint(Vector3 position);
+		Vector3 TransformPoint(const Vector3& position);
+		Vector3 InverseTransformPoint(const Vector3& position);
 		Float3 GetLossyScale();
 		Vector3 GetForwardVector();
 		Vector3 GetUpVector();
@@ -56,7 +56,7 @@ namespace IFE
 		/// <summary>
 		///ワールド座標を代入する
 		/// </summary>
-		void SetWorldPosition(Vector3 worldPos);
+		void SetWorldPosition(const Vector3& worldPos);
 
 		~Transform();
 #ifdef _DEBUG
@@ -69,15 +69,15 @@ namespace IFE
 	class Transform2D : public Component
 	{
 		using Component::Component;
-		Camera* camera = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferMatrix>> transformBuffer;
-		ConstBufferMatrix* constMapTransform = nullptr;
-		static Matrix matPro;
+		Camera* camera_ = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferMatrix>> transformBuffer_;
+		ConstBufferMatrix* constMapTransform_ = nullptr;
+		static Matrix matPro_;
 	public:
-		float rotation;
-		Matrix matWorld;
-		Float2 scale = { 1,1 };
-		Float2 position = { 0,0 };
+		float rotation_;
+		Matrix matWorld_;
+		Float2 scale_ = { 1,1 };
+		Float2 position_ = { 0,0 };
 
 	public:
 		static void StaticInitialize();
@@ -97,31 +97,31 @@ namespace IFE
 	class TransformParticle : public Component
 	{
 		using Component::Component;
-		Camera* camera = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferBillboard>> transformBuffer;
-		ConstBufferBillboard* constMapTransform = nullptr;
+		Camera* camera_ = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferBillboard>> transformBuffer_;
+		ConstBufferBillboard* constMapTransform_ = nullptr;
 
-		Float3 lossyScale;
+		Float3 lossyScale_;
 	public:
-		bool eulerFlag = false;
-		uint8_t billbord = 0;
-		Matrix matWorld;
+		bool eulerFlag_ = false;
+		uint8_t billbord_ = 0;
+		Matrix matWorld_;
 		Matrix matScale_;
 		Matrix matRot_;
 		Matrix matTrans_;
-		Float3 scale = { 1,1,1 };
-		Float3 position = { 0,0,0 };
-		float rotation;
+		Float3 scale_ = { 1,1,1 };
+		Float3 position_ = { 0,0,0 };
+		float rotation_;
 
-		TransformParticle* parent = nullptr;
+		TransformParticle* parent_ = nullptr;
 
 	public:
 		void Initialize()override;
 		void Update()override;
 		void Draw()override;
 		void UpdateMatrix();
-		Vector3 TransformPoint(Vector3 position);
-		Vector3 InverseTransformPoint(Vector3 position);
+		Vector3 TransformPoint(const Vector3& position);
+		Vector3 InverseTransformPoint(const Vector3& position);
 		Float3 GetLossyScale();
 
 		/// <summary>
@@ -132,7 +132,7 @@ namespace IFE
 		/// <summary>
 		///ワールド座標を代入する
 		/// </summary>
-		void SetWorldPosition(Vector3 worldPos);
+		void SetWorldPosition(const Vector3& worldPos);
 
 		~TransformParticle();
 	};

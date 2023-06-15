@@ -12,10 +12,10 @@ using namespace std;
 
 TextureManager::TextureManager()
 {
-	descRangeSRV.NumDescriptors = 1;															//テクスチャ一つ
-	descRangeSRV.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;									//種別はテクスチャ
-	descRangeSRV.BaseShaderRegister = 0;														//0番スロットから
-	descRangeSRV.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+	descRangeSRV_.NumDescriptors = 1;															//テクスチャ一つ
+	descRangeSRV_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;									//種別はテクスチャ
+	descRangeSRV_.BaseShaderRegister = 0;														//0番スロットから
+	descRangeSRV_.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 }
 
 TextureManager* IFE::TextureManager::Instance()
@@ -34,36 +34,36 @@ void IFE::TextureManager::Initialize()
 	srvHeapDesc.NumDescriptors = kMaxSRVCount;
 
 #ifdef _DEBUG
-	HRESULT result = GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap));
+	HRESULT result = GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap_));
 	assert(SUCCEEDED(result));
 #else
 	GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap));
 
 #endif
 
-	textureSize = 0;
-	for (int32_t i = 1; i < textureMax; i++) {
-		tex[i].texbuff.Reset();
-		tex[i].CPUHandle.ptr = 0;
-		tex[i].GPUHandle.ptr = 0;
-		tex[i].texName.clear();
-		tex[i].free = false;
+	textureSize_ = 0;
+	for (int32_t i = 1; i < sTEX_MAX_; i++) {
+		tex_[i].texbuff_.Reset();
+		tex_[i].CPUHandle_.ptr = 0;
+		tex_[i].GPUHandle_.ptr = 0;
+		tex_[i].texName_.clear();
+		tex_[i].free_ = false;
 	}
 }
 
-Texture* IFE::TextureManager::GetTexture(const std::string filename)
+Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 {
 	for (uint16_t i = 1; i < 1000; i++)
 	{
-		if (tex[i].free == false)continue;
-		if (tex[i].texName == filename)return &tex[i];
+		if (tex_[i].free_ == false)continue;
+		if (tex_[i].texName_ == filename)return &tex_[i];
 	}
 	return nullptr;
 }
 
-Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t number)
+Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t number)
 {
-	assert(textureSize < textureMax && "ヒープサイズが足りません");
+	assert(textureSize_ < sTEX_MAX_ && "ヒープサイズが足りません");
 
 	//WICテクスチャのロード
 	TexMetadata metadata{};
@@ -74,13 +74,13 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	{
 		for (uint16_t i = 1; i < 1000; i++)
 		{
-			if (tex[i].free == false)continue;
-			if (tex[i].texName == filename)return &tex[i];
+			if (tex_[i].free_ == false)continue;
+			if (tex_[i].texName_ == filename)return &tex_[i];
 		}
 
 		for (uint16_t i = 1; i < 1000; i++)
 		{
-			if (tex[i].free == false)
+			if (tex_[i].free_ == false)
 			{
 				num = i;
 				break;
@@ -93,7 +93,7 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	}
 
 	Texture newtex;
-	newtex.texName = filename;
+	newtex.texName_ = filename;
 	string file = "Data/Resources/Texture/" + filename;
 	wchar_t szFile[256];
 	MultiByteToWideChar(CP_ACP, 0, file.c_str(), -1, szFile, _countof(szFile));
@@ -157,7 +157,7 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 
 	result = device->CreateCommittedResource(&texHeapProp, D3D12_HEAP_FLAG_NONE,
-		&resDesc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&newtex.texbuff));
+		&resDesc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&newtex.texbuff_));
 
 
 	uint8_t* mapforImg = nullptr;
@@ -188,7 +188,7 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	src.PlacedFootprint.Footprint.Format = img->format;
 
 	D3D12_TEXTURE_COPY_LOCATION dst = {};
-	dst.pResource = newtex.texbuff.Get();
+	dst.pResource = newtex.texbuff_.Get();
 	dst.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	dst.SubresourceIndex = 0;
 
@@ -197,7 +197,7 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	D3D12_RESOURCE_BARRIER BarrierDesc = {};
 	BarrierDesc.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 	BarrierDesc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-	BarrierDesc.Transition.pResource = newtex.texbuff.Get();
+	BarrierDesc.Transition.pResource = newtex.texbuff_.Get();
 	BarrierDesc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 	BarrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;//ここ重要
 	BarrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;//ここ重要
@@ -223,14 +223,14 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 	result = cmdList->Reset(commandAllocator, nullptr);  // 再びコマンドリストを貯める準備
 	assert(SUCCEEDED(result));
 	//}
-	UINT descriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	newtex.CPUHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(srvHeap->GetCPUDescriptorHandleForHeapStart(), num, descriptorSize);
-	newtex.GPUHandle = CD3DX12_GPU_DESCRIPTOR_HANDLE(srvHeap->GetGPUDescriptorHandleForHeapStart(), num, descriptorSize);
-	newtex.free = true;
+	auto descriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	newtex.CPUHandle_ = CD3DX12_CPU_DESCRIPTOR_HANDLE(srvHeap_->GetCPUDescriptorHandleForHeapStart(), num, descriptorSize);
+	newtex.GPUHandle_ = CD3DX12_GPU_DESCRIPTOR_HANDLE(srvHeap_->GetGPUDescriptorHandleForHeapStart(), num, descriptorSize);
+	newtex.free_ = true;
 
-	tex[num] = newtex;
+	tex_[num] = newtex;
 
-	D3D12_RESOURCE_DESC resDesc2 = tex[num].texbuff->GetDesc();
+	D3D12_RESOURCE_DESC resDesc2 = tex_[num].texbuff_->GetDesc();
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};			//設定構造体
 	//srvDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;	//RGBA
@@ -241,23 +241,23 @@ Texture* IFE::TextureManager::LoadTexture(const std::string filename, int32_t nu
 
 	//ヒープの２番目にシェーダーリソースビュー作成
 	device->CreateShaderResourceView(
-		tex[num].texbuff.Get(),		//ビューと関連付けるバッファ
+		tex_[num].texbuff_.Get(),		//ビューと関連付けるバッファ
 		&srvDesc,		//テクスチャ設定情報
-		tex[num].CPUHandle);
+		tex_[num].CPUHandle_);
 
-	textureSize++;
+	textureSize_++;
 	uploadbuff->Release();
-	return &tex[num];
+	return &tex_[num];
 }
 
 D3D12_DESCRIPTOR_RANGE& IFE::TextureManager::GetDescRangeSRV()
 {
-	return descRangeSRV;
+	return descRangeSRV_;
 }
 
 ID3D12DescriptorHeap* IFE::TextureManager::GetDescriptorHeap()
 {
-	return srvHeap.Get();
+	return srvHeap_.Get();
 }
 
 #ifdef _DEBUG
@@ -278,9 +278,9 @@ void IFE::TextureManager::DebugGUI()
 	}
 	if (search)
 	{
-		im->SearchTextureGUI(tex);
+		im->SearchTextureGUI(tex_);
 	}
-	im->ShowTextureGUI(tex);
+	im->ShowTextureGUI(tex_);
 	im->EndGUI();
 }
 
@@ -291,8 +291,8 @@ void IFE::TextureManager::OutputScene()
 	int32_t num = 0;
 	for (uint16_t i = 1; i < 1000; i++)
 	{
-		if (tex[i].free == false)continue;
-		js["Texture"][num] = tex[i].texName;
+		if (tex_[i].free_ == false)continue;
+		js["Texture"][num] = tex_[i].texName_;
 		num++;
 	}
 	j->OutputAndMakeDirectry("Texture","Texture");

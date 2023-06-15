@@ -11,7 +11,7 @@ namespace IFE
 		~CameraManager();
 
 	public:
-		static Camera* activCamera;
+		static Camera* sActivCamera_;
 		static CameraManager* Instance();
 		void Initialize();
 		void Update();

@@ -9,38 +9,40 @@
 using namespace std;
 using namespace IFE;
 
-Microsoft::WRL::ComPtr<ID3DBlob> GraphicsPipeline::ErrorBlob = nullptr;
+Microsoft::WRL::ComPtr<ID3DBlob> GraphicsPipeline::sErrorBlob_ = nullptr;
+string GraphicsPipeline::sDefaultDirectory_ = "Data/Shaders/";
 
-bool IFE::GraphicsPipeline::CreateGraphicsPpipeline(std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout,
-	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc)
+bool IFE::GraphicsPipeline::CreateGraphicsPpipeline(const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout,
+	const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc)
 {
 	ID3D12Device* device = GraphicsAPI::GetDevice();
 	ID3DBlob* rootSigBlob = nullptr;
-	HRESULT result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &ErrorBlob);
+	HRESULT result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &sErrorBlob_);
 
 	if (FAILED(result)) {
 		// errorBlobからエラー内容をstring型にコピー
 		string error;
-		error.resize(ErrorBlob->GetBufferSize());
+		error.resize(sErrorBlob_->GetBufferSize());
 
-		copy_n((char*)ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize(), error.begin());
+		copy_n((char*)sErrorBlob_->GetBufferPointer(), sErrorBlob_->GetBufferSize(), error.begin());
 		error += "\n";
 		// エラー内容を出力ウィンドウに表示
 		OutputDebugStringA(error.c_str());
 		assert(SUCCEEDED(result));
 		return true;
 	}
-	result = device->CreateRootSignature(0, rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(), IID_PPV_ARGS(&rootsignature));
+	result = device->CreateRootSignature(0, rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(), IID_PPV_ARGS(&rootsignature_));
 	assert(SUCCEEDED(result));
 	rootSigBlob->Release();
 
-	pipelineDesc.pRootSignature = rootsignature.Get();
+	pipelineDesc.pRootSignature = rootsignature_.Get();
 
-	result = device->CreateGraphicsPipelineState(&pipelineDesc, IID_PPV_ARGS(&pipelinestate));
+	result = device->CreateGraphicsPipelineState(&pipelineDesc, IID_PPV_ARGS(&pipelinestate_));
 	return false;
+	inputLayout;
 }
 
-bool IFE::GraphicsPipeline::ShaderCompile(std::string shaderName, SHADER_COMPILE_SETTINGS setting)
+bool IFE::GraphicsPipeline::ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting)
 {
 	const static LPCSTR setting_shader_type[3] = { "vs_5_0","ps_5_0","gs_5_0" };
 	size_t num = static_cast<size_t>(setting);
@@ -49,14 +51,14 @@ bool IFE::GraphicsPipeline::ShaderCompile(std::string shaderName, SHADER_COMPILE
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", setting_shader_type[num], // エントリーポイント名、シェーダーモデル	指定
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // デバッグ用設定
-		0, &blobs[num], &ErrorBlob);
+		0, &blobs_[num], &sErrorBlob_);
 
 	if (FAILED(result)) {
 		// errorBlobからエラー内容をstring型にコピー
 		string error;
-		error.resize(ErrorBlob->GetBufferSize());
+		error.resize(sErrorBlob_->GetBufferSize());
 
-		copy_n((char*)ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize(), error.begin());
+		copy_n((char*)sErrorBlob_->GetBufferPointer(), sErrorBlob_->GetBufferSize(), error.begin());
 		error += "\n";
 		// エラー内容を出力ウィンドウに表示
 		OutputDebugStringA(error.c_str());
@@ -67,13 +69,13 @@ bool IFE::GraphicsPipeline::ShaderCompile(std::string shaderName, SHADER_COMPILE
 
 void IFE::GraphicsPipeline::CreateBasicGraphicsPipeLine()
 {
-	string vs = defaultDirectory + "ModelVS.hlsl";
+	string vs = sDefaultDirectory_ + "ModelVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
-	string ps = defaultDirectory + "ModelPS.hlsl";
+	string ps = sDefaultDirectory_ + "ModelPS.hlsl";
 	ShaderCompile(ps, SHADER_COMPILE_SETTINGS::Pixel);
-	string gs = defaultDirectory + "ModelGS.hlsl";
+	string gs = sDefaultDirectory_ + "ModelGS.hlsl";
 	ShaderCompile(gs, SHADER_COMPILE_SETTINGS::Geometry);
-	name = "3dNormal";
+	name_ = "3dNormal";
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
@@ -121,15 +123,15 @@ void IFE::GraphicsPipeline::CreateBasicGraphicsPipeLine()
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc{};
 
-	pipelineDesc.VS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
-	pipelineDesc.VS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
-	if (blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
+	pipelineDesc.VS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
+	pipelineDesc.VS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
+	if (blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
 	{
-		pipelineDesc.GS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
-		pipelineDesc.GS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
+		pipelineDesc.GS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
+		pipelineDesc.GS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
 	}
-	pipelineDesc.PS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
-	pipelineDesc.PS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
+	pipelineDesc.PS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
+	pipelineDesc.PS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
 	//デプスステンシルステートの設定
 	pipelineDesc.DepthStencilState.DepthEnable = true;		//深度テストを行う
 	pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
@@ -142,13 +144,7 @@ void IFE::GraphicsPipeline::CreateBasicGraphicsPipeLine()
 
 	pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;	//書き込み許可
 
-	D3D12_INPUT_ELEMENT_DESC* layout = new D3D12_INPUT_ELEMENT_DESC[inputLayout.size()];
-	for (size_t i = 0; i < inputLayout.size(); i++)
-	{
-		layout[i] = inputLayout[i];
-	}
-
-	pipelineDesc.InputLayout.pInputElementDescs = layout;
+	pipelineDesc.InputLayout.pInputElementDescs = inputLayout.data();
 	pipelineDesc.InputLayout.NumElements = (UINT)inputLayout.size();
 
 	pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -170,16 +166,15 @@ void IFE::GraphicsPipeline::CreateBasicGraphicsPipeLine()
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
 	CreateGraphicsPpipeline(inputLayout, rootSignatureDesc, pipelineDesc);
-	delete[] layout;
 }
 
 void IFE::GraphicsPipeline::CreateBasic2DGraphicsPipeLine()
 {
-	string vs = defaultDirectory + "SpriteVS.hlsl";
+	string vs = sDefaultDirectory_ + "SpriteVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
-	string ps = defaultDirectory + "SpritePS.hlsl";
+	string ps = sDefaultDirectory_ + "SpritePS.hlsl";
 	ShaderCompile(ps, SHADER_COMPILE_SETTINGS::Pixel);
-	name = "2dNormal";
+	name_ = "2dNormal";
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
@@ -226,15 +221,15 @@ void IFE::GraphicsPipeline::CreateBasic2DGraphicsPipeLine()
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc{};
 
-	pipelineDesc.VS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
-	pipelineDesc.VS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
-	if (blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
+	pipelineDesc.VS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
+	pipelineDesc.VS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
+	if (blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
 	{
-		pipelineDesc.GS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
-		pipelineDesc.GS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
+		pipelineDesc.GS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
+		pipelineDesc.GS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
 	}
-	pipelineDesc.PS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
-	pipelineDesc.PS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
+	pipelineDesc.PS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
+	pipelineDesc.PS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
 	//デプスステンシルステートの設定
 	pipelineDesc.DepthStencilState.DepthEnable = false;		//深度テストを行わない
 	pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
@@ -247,13 +242,7 @@ void IFE::GraphicsPipeline::CreateBasic2DGraphicsPipeLine()
 
 	pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;	//書き込み許可
 
-	D3D12_INPUT_ELEMENT_DESC* layout = new D3D12_INPUT_ELEMENT_DESC[inputLayout.size()];
-	for (size_t i = 0; i < inputLayout.size(); i++)
-	{
-		layout[i] = inputLayout[i];
-	}
-
-	pipelineDesc.InputLayout.pInputElementDescs = layout;
+	pipelineDesc.InputLayout.pInputElementDescs = inputLayout.data();
 	pipelineDesc.InputLayout.NumElements = (UINT)inputLayout.size();
 
 	pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -275,18 +264,17 @@ void IFE::GraphicsPipeline::CreateBasic2DGraphicsPipeLine()
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
 	CreateGraphicsPpipeline(inputLayout, rootSignatureDesc, pipelineDesc);
-	delete[] layout;
 }
 
 void IFE::GraphicsPipeline::CreateBasicParticleGraphicsPipeLine()
 {
-	string vs = defaultDirectory + "ParticleVS.hlsl";
+	string vs = sDefaultDirectory_ + "ParticleVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
-	string ps = defaultDirectory + "ParticlePS.hlsl";
+	string ps = sDefaultDirectory_ + "ParticlePS.hlsl";
 	ShaderCompile(ps, SHADER_COMPILE_SETTINGS::Pixel);
-	string gs = defaultDirectory + "ParticleGS.hlsl";
+	string gs = sDefaultDirectory_ + "ParticleGS.hlsl";
 	ShaderCompile(gs, SHADER_COMPILE_SETTINGS::Geometry);
-	name = "ParticleNormal";
+	name_ = "ParticleNormal";
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
@@ -332,15 +320,15 @@ void IFE::GraphicsPipeline::CreateBasicParticleGraphicsPipeLine()
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc{};
 
-	pipelineDesc.VS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
-	pipelineDesc.VS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
-	if (blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
+	pipelineDesc.VS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferPointer();
+	pipelineDesc.VS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Vertex]->GetBufferSize();
+	if (blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry] != nullptr)
 	{
-		pipelineDesc.GS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
-		pipelineDesc.GS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
+		pipelineDesc.GS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferPointer();
+		pipelineDesc.GS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Geometry]->GetBufferSize();
 	}
-	pipelineDesc.PS.pShaderBytecode = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
-	pipelineDesc.PS.BytecodeLength = blobs[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
+	pipelineDesc.PS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
+	pipelineDesc.PS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
 	//デプスステンシルステートの設定
 	pipelineDesc.DepthStencilState.DepthEnable = true;		//深度テストを行わない
 	pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
@@ -353,13 +341,7 @@ void IFE::GraphicsPipeline::CreateBasicParticleGraphicsPipeLine()
 
 	pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;	//書き込み許可
 
-	D3D12_INPUT_ELEMENT_DESC* layout = new D3D12_INPUT_ELEMENT_DESC[inputLayout.size()];
-	for (size_t i = 0; i < inputLayout.size(); i++)
-	{
-		layout[i] = inputLayout[i];
-	}
-
-	pipelineDesc.InputLayout.pInputElementDescs = layout;
+	pipelineDesc.InputLayout.pInputElementDescs = inputLayout.data();
 	pipelineDesc.InputLayout.NumElements = (UINT)inputLayout.size();
 
 	pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
@@ -381,12 +363,11 @@ void IFE::GraphicsPipeline::CreateBasicParticleGraphicsPipeLine()
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
 	CreateGraphicsPpipeline(inputLayout, rootSignatureDesc, pipelineDesc);
-	delete[] layout;
 }
 
 void IFE::GraphicsPipeline::SetDrawBlendMode()
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	commandList->SetGraphicsRootSignature(rootsignature.Get());
-	commandList->SetPipelineState(pipelinestate.Get());
+	commandList->SetGraphicsRootSignature(rootsignature_.Get());
+	commandList->SetPipelineState(pipelinestate_.Get());
 }

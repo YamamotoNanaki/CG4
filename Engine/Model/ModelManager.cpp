@@ -4,6 +4,7 @@
 #include "FBXModel.h"
 #include "Debug.h"
 #include "ImguiManager.h"
+#include "Component.h"
 
 using namespace IFE;
 using namespace std;
@@ -16,18 +17,12 @@ ModelManager* IFE::ModelManager::Instance()
 
 void IFE::ModelManager::Finalize()
 {
-	ModelManager* inst = Instance();
-	for (auto& itr : inst->modelList)
-	{
-		delete itr;
-	}
-	inst->modelList.clear();
+	Instance()->modelList_.clear();
 }
 
 void IFE::ModelManager::Update()
 {
-
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		itr->Update();
 	}
@@ -35,15 +30,15 @@ void IFE::ModelManager::Update()
 
 void IFE::ModelManager::Draw()
 {
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		itr->Draw();
 	}
 }
 
-void IFE::ModelManager::Add(std::string modelName, AddModelSettings modelSetting, std::string fileName, bool smooth)
+void IFE::ModelManager::Add(const std::string& modelName, const AddModelSettings& modelSetting, const std::string& fileName, bool smooth)
 {
-	Component* buff = nullptr;
+	std::unique_ptr<Component> buff = nullptr;
 	if (modelSetting < AddModelSettings::CreateCube)
 	{
 		string ft;
@@ -56,33 +51,33 @@ void IFE::ModelManager::Add(std::string modelName, AddModelSettings modelSetting
 			ft = ".gltf";
 			break;
 		}
-		FBXModel* ptr = modelLoader.FBXLoad(fileName, ft, smooth);
+		FBXModel* ptr = modelLoader_.FBXLoad(fileName, ft, smooth);
 		ptr->Initialize();
 		ptr->SetSettings(modelSetting);
-		buff = ptr;
+		buff = std::unique_ptr<Component>(ptr);
 	}
 	else
 	{
-		PrimitiveModel* b = new PrimitiveModel;
+		PrimitiveModel* ptr = new PrimitiveModel;
 		switch (modelSetting)
 		{
 		case AddModelSettings::CreateCube:
-			b->CreateCube();
+			ptr->CreateCube();
 			break;
 		case AddModelSettings::CreateSquare:
-			b->CreateSphere();
+			ptr->CreateSphere();
 			break;
 		case AddModelSettings::CreateTriangle:
-			b->CreateTriangle();
+			ptr->CreateTriangle();
 			break;
 		case AddModelSettings::CreateCircle:
-			b->CreateCircle();
+			ptr->CreateCircle();
 			break;
 		case AddModelSettings::CreateSphere:
-			b->CreateSphere();
+			ptr->CreateSphere();
 			break;
 		}
-		buff = std::move(b);
+		buff = std::unique_ptr<Component>(ptr);
 	}
 	string n = modelName;
 	if (n.find("_Model") == std::string::npos)
@@ -90,21 +85,21 @@ void IFE::ModelManager::Add(std::string modelName, AddModelSettings modelSetting
 		n += "_Model";
 	}
 	buff->SetComponentName(n);
-	modelList.push_back(std::move(buff));
+	modelList_.push_back(std::move(buff));
 }
 
-Component* IFE::ModelManager::GetModel(std::string modelName)
+Component* IFE::ModelManager::GetModel(const std::string& modelName)
 {
 	string n = modelName;
 	if (n.find("_Model") == std::string::npos)
 	{
 		n += "_Model";
 	}
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		if (n == itr->GetComponentName())
 		{
-			return itr;
+			return itr.get();
 		}
 	}
 	return nullptr;
@@ -112,11 +107,7 @@ Component* IFE::ModelManager::GetModel(std::string modelName)
 
 void IFE::ModelManager::Reset()
 {
-	for (auto& itr : modelList)
-	{
-		delete itr;
-	}
-	modelList.clear();
+	modelList_.clear();
 }
 
 #ifdef _DEBUG
@@ -137,7 +128,7 @@ void IFE::ModelManager::DebugGUI()
 			Add(name, (AddModelSettings)settings, file, smooth);
 		}
 	}
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		itr->DebugGUI();
 	}
@@ -148,7 +139,7 @@ void IFE::ModelManager::DebugGUI()
 std::string IFE::ModelManager::GetModelNameGUI()
 {
 	vector<string> names;
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		names.push_back(itr->GetComponentName());
 	}
@@ -171,13 +162,13 @@ void IFE::ModelManager::OutputScene()
 	JsonManager* jm = JsonManager::Instance();
 	nlohmann::json& js = jm->GetJsonData();
 	int32_t num = 0;
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		js[num] = itr->GetComponentName();
 		num++;
 	}
 	jm->OutputAndMakeDirectry("ModelManager","Model");
-	for (auto& itr : modelList)
+	for (auto& itr : modelList_)
 	{
 		itr->OutputScene("");
 	}

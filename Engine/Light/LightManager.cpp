@@ -8,57 +8,57 @@ using namespace std;
 
 void IFE::LightManager::Initialize()
 {
-	constBuff = make_unique<ConstBuffer<ConstBufferData>>();
+	constBuff_ = make_unique<ConstBuffer<ConstBufferData>>();
 
 	TransferConstBuffer();
 }
 
 void IFE::LightManager::TransferConstBuffer()
 {
-	ConstBufferData* constMap = constBuff->GetCBMapObject();
-	constMap->ambientColor = ambientColor;
-	for (int32_t i = 0; i < DLightNum; i++) {
-		if (dLight[i].IsActive()) {
+	ConstBufferData* constMap = constBuff_->GetCBMapObject();
+	constMap->ambientColor = ambientColor_;
+	for (int32_t i = 0; i < s_DLIGHT_NUM; i++) {
+		if (dLight_[i].IsActive()) {
 			constMap->dLights[i].active = 1;
-			constMap->dLights[i].lightv = -dLight[i].GetLightDir();
-			constMap->dLights[i].lightColor = dLight[i].GetLightColor();
+			constMap->dLights[i].lightv = -dLight_[i].GetLightDir();
+			constMap->dLights[i].lightColor = dLight_[i].GetLightColor();
 		}
 		else {
 			constMap->dLights[i].active = 0;
 		}
 	}
-	for (int32_t i = 0; i < PLightNum; i++) {
-		if (pLight[i].IsActive()) {
+	for (int32_t i = 0; i < s_PLIGHT_NUM; i++) {
+		if (pLight_[i].IsActive()) {
 			constMap->pLights[i].active = 1;
-			constMap->pLights[i].lightPos = pLight[i].GetLightPos();
-			constMap->pLights[i].lightColor = pLight[i].GetLightColor();
-			constMap->pLights[i].lightAtten = pLight[i].GetLightAtten();
+			constMap->pLights[i].lightPos = pLight_[i].GetLightPos();
+			constMap->pLights[i].lightColor = pLight_[i].GetLightColor();
+			constMap->pLights[i].lightAtten = pLight_[i].GetLightAtten();
 		}
 		else {
 			constMap->pLights[i].active = 0;
 		}
 	}
-	for (int32_t i = 0; i < SLightNum; i++) {
-		if (sLight[i].IsActive()) {
+	for (int32_t i = 0; i < s_SLIGHT_NUM; i++) {
+		if (sLight_[i].IsActive()) {
 			constMap->sLights[i].active = 1;
-			constMap->sLights[i].lightv = -sLight[i].GetLightDir();
-			constMap->sLights[i].lightPos = sLight[i].GetLightPos();
-			constMap->sLights[i].lightColor = sLight[i].GetLightColor();
-			constMap->sLights[i].lightAtten = sLight[i].GetLightAtten();
-			constMap->sLights[i].lightFactorAngleCos = sLight[i].GetLightFactorAngle();
+			constMap->sLights[i].lightv = -sLight_[i].GetLightDir();
+			constMap->sLights[i].lightPos = sLight_[i].GetLightPos();
+			constMap->sLights[i].lightColor = sLight_[i].GetLightColor();
+			constMap->sLights[i].lightAtten = sLight_[i].GetLightAtten();
+			constMap->sLights[i].lightFactorAngleCos = sLight_[i].GetLightFactorAngle();
 		}
 		else {
 			constMap->sLights[i].active = 0;
 		}
 	}
-	for (int32_t i = 0; i < CShadowNum; i++) {
-		if (cShadow[i].IsActive()) {
+	for (int32_t i = 0; i < s_CSHADOW_NUM; i++) {
+		if (cShadow_[i].IsActive()) {
 			constMap->cShadows[i].active = 1;
-			constMap->cShadows[i].shadowv = -cShadow[i].GetShadowDir();
-			constMap->cShadows[i].casterPos = cShadow[i].GetCasterPos();
-			constMap->cShadows[i].distanceCasterLight = cShadow[i].GetDistanceCasterLight();
-			constMap->cShadows[i].shadowAtten = cShadow[i].GetShadowAtten();
-			constMap->cShadows[i].shadowFactorAngleCos = cShadow[i].GetShadowFactorAngle();
+			constMap->cShadows[i].shadowv = -cShadow_[i].GetShadowDir();
+			constMap->cShadows[i].casterPos = cShadow_[i].GetCasterPos();
+			constMap->cShadows[i].distanceCasterLight = cShadow_[i].GetDistanceCasterLight();
+			constMap->cShadows[i].shadowAtten = cShadow_[i].GetShadowAtten();
+			constMap->cShadows[i].shadowFactorAngleCos = cShadow_[i].GetShadowFactorAngle();
 		}
 		else {
 			constMap->sLights[i].active = 0;
@@ -68,186 +68,186 @@ void IFE::LightManager::TransferConstBuffer()
 
 void IFE::LightManager::DefaultLightSetting()
 {
-	dLight[0].SetActive(true);
-	dLight[0].SetLightColor({ 1.0f, 1.0f, 1.0f });
-	dLight[0].SetLightDir({ 0.0f, -1.0f, 0.0f });
+	dLight_[0].SetActive(true);
+	dLight_[0].SetLightColor({ 1.0f, 1.0f, 1.0f });
+	dLight_[0].SetLightDir({ 0.0f, -1.0f, 0.0f });
 
-	dLight[1].SetActive(true);
-	dLight[1].SetLightColor({ 1.0f, 1.0f, 1.0f });
-	dLight[1].SetLightDir({ +0.5f, +0.1f, +0.2f });
+	dLight_[1].SetActive(true);
+	dLight_[1].SetLightColor({ 1.0f, 1.0f, 1.0f });
+	dLight_[1].SetLightDir({ +0.5f, +0.1f, +0.2f });
 
-	dLight[2].SetActive(true);
-	dLight[2].SetLightColor({ 1.0f, 1.0f, 1.0f });
-	dLight[2].SetLightDir({ -0.5f, +0.1f, -0.2f });
+	dLight_[2].SetActive(true);
+	dLight_[2].SetLightColor({ 1.0f, 1.0f, 1.0f });
+	dLight_[2].SetLightDir({ -0.5f, +0.1f, -0.2f });
 }
 
 void IFE::LightManager::SetAmbientColor(const Float3& color)
 {
-	ambientColor = color;
-	dirty = true;
+	ambientColor_ = color;
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetDirLightActive(int32_t index, bool active)
 {
-	assert(0 <= index && index < DLightNum);
+	assert(0 <= index && index < s_DLIGHT_NUM);
 
-	dLight[index].SetActive(active);
+	dLight_[index].SetActive(active);
 }
 
 void IFE::LightManager::SetDirLightDir(int32_t index, const Vector3& lightdir)
 {
-	assert(0 <= index && index < DLightNum);
+	assert(0 <= index && index < s_DLIGHT_NUM);
 
-	dLight[index].SetLightDir({ lightdir.x,lightdir.y,lightdir.z });
-	dirty = true;
+	dLight_[index].SetLightDir({ lightdir.x,lightdir.y,lightdir.z });
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetDirLightColor(int32_t index, const Float3& lightcolor)
 {
-	assert(0 <= index && index < DLightNum);
+	assert(0 <= index && index < s_DLIGHT_NUM);
 
-	dLight[index].SetLightColor(lightcolor);
-	dirty = true;
+	dLight_[index].SetLightColor(lightcolor);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetPointLightActive(int32_t index, bool active)
 {
-	assert(0 <= index && index < PLightNum);
+	assert(0 <= index && index < s_PLIGHT_NUM);
 
-	pLight[index].SetActive(active);
+	pLight_[index].SetActive(active);
 }
 
 void IFE::LightManager::SetPointLightPos(int32_t index, const Float3& lightpos)
 {
-	assert(0 <= index && index < PLightNum);
+	assert(0 <= index && index < s_PLIGHT_NUM);
 
-	pLight[index].SetLightPos(lightpos);
-	dirty = true;
+	pLight_[index].SetLightPos(lightpos);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetPointLightColor(int32_t index, const Float3& lightcolor)
 {
-	assert(0 <= index && index < PLightNum);
+	assert(0 <= index && index < s_PLIGHT_NUM);
 
-	pLight[index].SetLightColor(lightcolor);
-	dirty = true;
+	pLight_[index].SetLightColor(lightcolor);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetPointLightAtten(int32_t index, const Float3& lightAtten)
 {
-	assert(0 <= index && index < PLightNum);
+	assert(0 <= index && index < s_PLIGHT_NUM);
 
-	pLight[index].SetLightAtten(lightAtten);
-	dirty = true;
+	pLight_[index].SetLightAtten(lightAtten);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightActive(int32_t index, bool active)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetActive(active);
+	sLight_[index].SetActive(active);
 }
 
 void IFE::LightManager::SetSpotLightDir(int32_t index, const Vector3& lightdir)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetLightDir(lightdir);
-	dirty = true;
+	sLight_[index].SetLightDir(lightdir);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightPos(int32_t index, const Float3& lightpos)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetLightPos(lightpos);
-	dirty = true;
+	sLight_[index].SetLightPos(lightpos);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightColor(int32_t index, const Float3& lightcolor)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetLightColor(lightcolor);
-	dirty = true;
+	sLight_[index].SetLightColor(lightcolor);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightAtten(int32_t index, const Float3& lightAtten)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetLightAtten(lightAtten);
-	dirty = true;
+	sLight_[index].SetLightAtten(lightAtten);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightFactorAngle(int32_t index, const Float2& lightFactorAngle)
 {
-	assert(0 <= index && index < SLightNum);
+	assert(0 <= index && index < s_SLIGHT_NUM);
 
-	sLight[index].SetLightFactorAngle(lightFactorAngle);
-	dirty = true;
+	sLight_[index].SetLightFactorAngle(lightFactorAngle);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowActive(int32_t index, bool active)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetActive(active);
+	cShadow_[index].SetActive(active);
 }
 
 void IFE::LightManager::SetCircleShadowDir(int32_t index, const Vector3& lightdir)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetShadowDir(lightdir);
-	dirty = true;
+	cShadow_[index].SetShadowDir(lightdir);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowCasterPos(int32_t index, const Float3& lightpos)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetCasterPos(lightpos);
-	dirty = true;
+	cShadow_[index].SetCasterPos(lightpos);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowDistanceCasterLight(int32_t index, float distanceCasterLight)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetDistanceCasterLight(distanceCasterLight);
-	dirty = true;
+	cShadow_[index].SetDistanceCasterLight(distanceCasterLight);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowAtten(int32_t index, const Float3& lightAtten)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetShadowAtten(lightAtten);
-	dirty = true;
+	cShadow_[index].SetShadowAtten(lightAtten);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowFactorAngle(int32_t index, const Float2& lightFactorAngle)
 {
-	assert(0 <= index && index < CShadowNum);
+	assert(0 <= index && index < s_CSHADOW_NUM);
 
-	cShadow[index].SetShadowFactorAngle(lightFactorAngle);
-	dirty = true;
+	cShadow_[index].SetShadowFactorAngle(lightFactorAngle);
+	dirty_ = true;
 }
 
 
 void IFE::LightManager::Update()
 {
-	if (dirty)
+	if (dirty_)
 	{
 		TransferConstBuffer();
-		dirty = false;
+		dirty_ = false;
 	}
 }
 
-void IFE::LightManager::Draw(UINT rootParameterIndex)
+void IFE::LightManager::Draw(uint32_t rootParameterIndex)
 {
-	constBuff->SetConstBuffView(rootParameterIndex);
+	constBuff_->SetConstBuffView(rootParameterIndex);
 }
 
 LightManager* IFE::LightManager::Instance()

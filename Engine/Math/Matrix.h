@@ -18,9 +18,9 @@ namespace IFE
 		Matrix operator-()const;
 		Matrix operator*(float s)const;
 		Matrix operator/(float s)const;
-		Matrix& operator+=(Matrix m);
-		Matrix& operator-=(Matrix m);
-		Matrix& operator*=(Matrix m);
+		Matrix& operator+=(const Matrix& m);
+		Matrix& operator-=(const Matrix& m);
+		Matrix& operator*=(const Matrix& m);
 		Matrix& operator*=(float s);
 		Matrix& operator/=(float s);
 
@@ -41,7 +41,7 @@ namespace IFE
 	// 単位行列を求める
 	Matrix MatrixIdentity();
 	// 逆行列を求める
-	Matrix MatrixInverse(const Matrix m);
+	Matrix MatrixInverse(const Matrix& m);
 	// 転置行列を求める
 	Matrix MatrixTranspose(const Matrix& m);
 
@@ -59,8 +59,8 @@ namespace IFE
 
 	Matrix MatrixOrthoGraphicProjection(float left, float right, float top, float bottom, float near, float far);
 
-	Matrix operator+(Matrix m1, Matrix m2);
-	Matrix operator-(Matrix m1, Matrix m2);
-	Matrix operator*(Matrix m1, Matrix m2);
+	Matrix operator+(const Matrix& m1, const Matrix& m2);
+	Matrix operator-(const Matrix& m1, const Matrix& m2);
+	Matrix operator*(const Matrix& m1, const Matrix& m2);
 
 };

@@ -28,7 +28,7 @@ Float4 Float4::operator*() const
 	return *this;
 }
 
-Float4& Float4::operator+=(Float4 f)
+Float4& Float4::operator+=(const Float4& f)
 {
 	x += f.x;
 	y += f.y;
@@ -37,7 +37,7 @@ Float4& Float4::operator+=(Float4 f)
 	return *this;
 }
 
-Float4& Float4::operator-=(Float4 f)
+Float4& Float4::operator-=(const Float4& f)
 {
 	x -= f.x;
 	y -= f.y;
@@ -46,7 +46,7 @@ Float4& Float4::operator-=(Float4 f)
 	return *this;
 }
 
-Float4& Float4::operator*=(Float4 f)
+Float4& Float4::operator*=(const Float4& f)
 {
 	x *= f.x;
 	y *= f.y;
@@ -55,7 +55,7 @@ Float4& Float4::operator*=(Float4 f)
 	return *this;
 }
 
-Float4& Float4::operator/=(Float4 f)
+Float4& Float4::operator/=(const Float4& f)
 {
 	assert(f.x == 0 && "—ëœZ");
 	assert(f.y == 0 && "—ëœZ");

@@ -19,21 +19,21 @@ void IFE::WindowsAPI::Finalize()
 }
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-void IFE::WindowsAPI::Initialize(int32_t window_width, int32_t window_height, LPCWSTR windowName)
+void IFE::WindowsAPI::Initialize(int32_t window_width, int32_t window_height, const LPCWSTR& windowName)
 {
 	timeBeginPeriod(1);
-	w.cbSize = sizeof(WNDCLASSEX);
-	w.lpfnWndProc = (WNDPROC)WindowProc; // ウィンドウプロシージャを設定
-	w.lpszClassName = L"DirectX12Game"; // ウィンドウクラス名
-	w.hInstance = GetModuleHandle(nullptr); // ウィンドウハンドル
-	w.hCursor = LoadCursor(NULL, IDC_ARROW); // カーソル指定
+	wnd_.cbSize = sizeof(WNDCLASSEX);
+	wnd_.lpfnWndProc = (WNDPROC)WindowProc; // ウィンドウプロシージャを設定
+	wnd_.lpszClassName = L"DirectX12Game"; // ウィンドウクラス名
+	wnd_.hInstance = GetModuleHandle(nullptr); // ウィンドウハンドル
+	wnd_.hCursor = LoadCursor(NULL, IDC_ARROW); // カーソル指定
 
 	// ウィンドウクラスをOSに登録
-	RegisterClassEx(&w);
+	RegisterClassEx(&wnd_);
 	// ウィンドウサイズ{ X座標 Y座標 横幅 縦幅 }
 	RECT wrc = { 0, 0, window_width, window_height };
-	winWidth = window_width;
-	winHeight = window_height;
+	winWidth_ = window_width;
+	winHeight_ = window_height;
 
 	//タイトルバー削除
 	//AdjustWindowRect(&wrc, WS_POPUP, false); // 自動でサイズ補正
@@ -56,7 +56,7 @@ void IFE::WindowsAPI::Initialize(int32_t window_width, int32_t window_height, LP
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false); // 自動でサイズ補正
 
 	// ウィンドウオブジェクトの生成
-	hwnd = CreateWindow(w.lpszClassName, // クラス名
+	hwnd_ = CreateWindow(wnd_.lpszClassName, // クラス名
 		windowName,			        // タイトルバーの文字
 		WS_OVERLAPPEDWINDOW,        // 標準的なウィンドウスタイル
 		CW_USEDEFAULT,              // 表示X座標（OSに任せる）
@@ -65,29 +65,29 @@ void IFE::WindowsAPI::Initialize(int32_t window_width, int32_t window_height, LP
 		wrc.bottom - wrc.top,   // ウィンドウ縦幅
 		nullptr,                // 親ウィンドウハンドル
 		nullptr,                // メニューハンドル
-		w.hInstance,            // 呼び出しアプリケーションハンドル
+		wnd_.hInstance,            // 呼び出しアプリケーションハンドル
 		nullptr);               // オプション
 
 	// ウィンドウ表示
-	ShowWindow(hwnd, SW_SHOW);
+	ShowWindow(hwnd_, SW_SHOW);
 }
 
 void IFE::WindowsAPI::Unregister()
 {
-	UnregisterClass(w.lpszClassName, w.hInstance);
+	UnregisterClass(wnd_.lpszClassName, wnd_.hInstance);
 }
 
 bool WindowsAPI::Message()
 {
 	// メッセージがある？
-	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	if (PeekMessage(&msg_, nullptr, 0, 0, PM_REMOVE))
 	{
-		TranslateMessage(&msg); // キー入力メッセージの処理
-		DispatchMessage(&msg);  //プロシージャにメッセージを送る
+		TranslateMessage(&msg_); // キー入力メッセージの処理
+		DispatchMessage(&msg_);  //プロシージャにメッセージを送る
 	}
 
 	//Xボタンで終了メッセージが来たらゲームループを抜ける
-	if (msg.message == WM_QUIT)
+	if (msg_.message == WM_QUIT)
 	{
 		return true;
 	}
@@ -96,12 +96,12 @@ bool WindowsAPI::Message()
 
 HINSTANCE* IFE::WindowsAPI::GetHInstance()
 {
-	return &w.hInstance;
+	return &wnd_.hInstance;
 }
 
 HWND* IFE::WindowsAPI::GetHWnd()
 {
-	return &hwnd;
+	return &hwnd_;
 }
 
 LRESULT IFE::WindowsAPI::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)

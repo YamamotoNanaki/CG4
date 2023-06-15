@@ -3,23 +3,23 @@
 
 using namespace IFE;
 
-void IFE::IndexBuffer::SetIndex(std::vector<uint32_t>& _indices)
+void IFE::IndexBuffer::SetIndex(const std::vector<uint32_t>& _indices)
 {
-	indices = std::move(_indices);
+	indices_ = std::move(_indices);
 }
 
-void IFE::IndexBuffer::SetIndex(uint32_t* _indices, size_t indexCount)
+void IFE::IndexBuffer::SetIndex(uint32_t _indices[], size_t indexCount)
 {
 	for (int32_t i = 0; i < indexCount; i++)
 	{
-		this->indices.push_back(_indices[i]);
+		this->indices_.push_back(_indices[i]);
 	}
 }
 
 void IFE::IndexBuffer::Initialize()
 {
 	// インデックスデータ全体のサイズ
-	UINT sizeIB = static_cast<UINT>(sizeof(uint32_t) * indices.size());
+	uint32_t sizeIB = static_cast<uint32_t>(sizeof(uint32_t) * indices_.size());
 
 	// 頂点バッファの設定
 	D3D12_HEAP_PROPERTIES heapProp{};   // ヒープ設定
@@ -40,31 +40,31 @@ void IFE::IndexBuffer::Initialize()
 		&resDesc,				//リソース設定
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
-		IID_PPV_ARGS(&indexBuff));
+		IID_PPV_ARGS(&indexBuff_));
 
 	uint32_t* indexMap = nullptr;
-	result = indexBuff->Map(0, nullptr, (void**)&indexMap);
+	result = indexBuff_->Map(0, nullptr, (void**)&indexMap);
 
 	//全インデックスに対して
-	for (int32_t i = 0; i < indices.size(); i++)
+	for (int32_t i = 0; i < indices_.size(); i++)
 	{
-		indexMap[i] = indices[i];	//インデックスをコピー
+		indexMap[i] = indices_[i];	//インデックスをコピー
 	}
 
 	//つながりを解除
-	indexBuff->Unmap(0, nullptr);
+	indexBuff_->Unmap(0, nullptr);
 
-	ibView.BufferLocation = indexBuff->GetGPUVirtualAddress();
-	ibView.Format = DXGI_FORMAT_R32_UINT;
-	ibView.SizeInBytes = sizeIB;
+	ibView_.BufferLocation = indexBuff_->GetGPUVirtualAddress();
+	ibView_.Format = DXGI_FORMAT_R32_UINT;
+	ibView_.SizeInBytes = sizeIB;
 }
 
 D3D12_INDEX_BUFFER_VIEW* IFE::IndexBuffer::GetIBView()
 {
-	return &ibView;
+	return &ibView_;
 }
 
 size_t IFE::IndexBuffer::GetSize()
 {
-	return indices.size();
+	return indices_.size();
 }

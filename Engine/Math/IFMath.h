@@ -11,15 +11,15 @@
 
 namespace IFE
 {
-	Float4 SetFloat4ToFloat3(Float3 f, float z = 0);
-	Float4 SetFloat4ToFoat2(Float2 f, float z = 0, float w = 0);
-	Float3 SetFloat3ToFloat2(Float2 f, float z = 0);
-	Float4 SetFloat4ToVector3(Vector3 v, float w = 0);
-	Float3 SetFloat3(Vector3 v);
-	Float2 SetFloat3ToVector2(Vector2 v);
-	Vector3 SetVector3(Float3 f);
-	Vector3 SetVector3ToFloat2(Float2 f, float z = 0);
-	Vector2 SetVector2(Float2 f);
+	Float4 SetFloat4ToFloat3(const Float3 &f, float z = 0);
+	Float4 SetFloat4ToFoat2(const Float2 &f, float z = 0, float w = 0);
+	Float3 SetFloat3ToFloat2(const Float2 &f, float z = 0);
+	Float4 SetFloat4ToVector3(const Vector3& v, float w = 0);
+	Float3 SetFloat3(const Vector3& v);
+	Float2 SetFloat3ToVector2(const Vector2& v);
+	Vector3 SetVector3(const Float3 &f);
+	Vector3 SetVector3ToFloat2(const Float2 &f, float z = 0);
+	Vector2 SetVector2(const Float2 &f);
 
 
 	// 零ベクトルを返す
@@ -30,7 +30,7 @@ namespace IFE
 	float Vector3Length(const Vector3& v);
 	// 正規化する
 	//Vector3& Vector3Normalize(Vector3& v);
-	Vector3 Vector3Normalize(Vector3 v);
+	Vector3 Vector3Normalize(const Vector3& v);
 	// 内積を求める
 	float Vector3Dot(const Vector3& v1, const Vector3& v2);
 	// 外積を求める
@@ -51,16 +51,16 @@ namespace IFE
 	// ベクトル変換
 	Vector3 Vector3TransformNormal(const Vector3& v, const Matrix& m);
 
-	Vector3 VectorNegate(Vector3 m);
+	Vector3 VectorNegate(const Vector3& m);
 
-	Vector3 VectorLerp(Vector3 v0,Vector3 v1,float t);
+	Vector3 VectorLerp(const Vector3& v0,const Vector3& v1,float t);
 
 	Matrix MatrixPerspectiveFovLH(float FovAngleY, float AspectRatio, float NearZ, float FarZ);
 	bool NearEqual(float S1, float S2, float Epsilon);
 	void ScalarSinCos(float* pSin, float* pCos, float  Value);
 	float ConvertToRadians(float fDegrees);
 	float ConvertToDegrees(float fRadians);
-	Float3 ConvertToRadians(Float3 fDegrees);
-	Float3 ConvertToDegrees(Float3 fRadians);
-	Float3 operator+(Float3 f, Vector2 v);
+	Float3 ConvertToRadians(const Float3& fDegrees);
+	Float3 ConvertToDegrees(const Float3& fRadians);
+	Float3 operator+(const Float3& f, const Vector2& v);
 };

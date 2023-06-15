@@ -2,11 +2,11 @@
 #include "Debug.h"
 
 using namespace IFE;
-Camera* CameraManager::activCamera = nullptr;
+Camera* CameraManager::sActivCamera_ = nullptr;
 
 IFE::CameraManager::~CameraManager()
 {
-	delete activCamera;
+	delete sActivCamera_;
 }
 
 CameraManager* IFE::CameraManager::Instance()
@@ -17,25 +17,25 @@ CameraManager* IFE::CameraManager::Instance()
 
 void IFE::CameraManager::Initialize()
 {
-	activCamera = new Camera;
-	activCamera->CameraInitialize();
+	sActivCamera_ = new Camera;
+	sActivCamera_->CameraInitialize();
 }
 
 void IFE::CameraManager::Update()
 {
-	activCamera->CameraUpdate();
+	sActivCamera_->CameraUpdate();
 }
 
 #ifdef _DEBUG
 #include "ImguiManager.h"
 void IFE::CameraManager::DebugGUI()
 {
-	View* v = activCamera->GetView();
+	View* v = sActivCamera_->GetView();
 	ImguiManager* gui = ImguiManager::Instance();
 	gui->NewGUI("Camera");
-	gui->DragFloat3GUI(&v->eye, "eye");
-	gui->DragFloat3GUI(&v->target, "target");
-	gui->DragFloat3GUI(&v->up, "up");
+	gui->DragFloat3GUI(&v->eye_, "eye");
+	gui->DragFloat3GUI(&v->target_, "target");
+	gui->DragFloat3GUI(&v->up_, "up");
 	gui->EndGUI();
 }
 #endif

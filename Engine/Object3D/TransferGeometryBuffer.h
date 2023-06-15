@@ -9,14 +9,14 @@ namespace IFE
 	class TransferGeometryBuffer : public Component
 	{
 		using Component::Component;
-		std::unique_ptr<ConstBuffer<ConstBufferModelGeometry>> geometryBuffer;
-		ConstBufferModelGeometry* constMapGeometry = nullptr;
-		float explosion = 0;
-		float gravity = 0;
-		float rotation = 0;
-		float polygonSize = 1;
-		bool lightFlag = true;
-		bool toonFlag = false;
+		std::unique_ptr<ConstBuffer<ConstBufferModelGeometry>> geometryBuffer_;
+		ConstBufferModelGeometry* constMapGeometry_ = nullptr;
+		float explosion_ = 0;
+		float gravity_ = 0;
+		float rotation_ = 0;
+		float polygonSize_ = 1;
+		bool lightFlag_ = true;
+		bool toonFlag_ = false;
 
 	public:
 		void Initialize()override;

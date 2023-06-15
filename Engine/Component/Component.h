@@ -16,29 +16,29 @@ namespace IFE
 	class Component
 	{
 	public:
-		Object3D* objectPtr = nullptr;
-		Sprite* spritePtr = nullptr;
+		Object3D* objectPtr_ = nullptr;
+		Sprite* spritePtr_ = nullptr;
 		//Particle* particlePtr = nullptr;
 		//Emitter* emitterPtr = nullptr;
-		std::string componentName;
-		bool componentDeleteFlag = false;
+		std::string componentName_;
+		bool componentDeleteFlag_ = false;
 	protected:
 		virtual void Initialize() {};
 	public:
-		Transform* transform = nullptr;
-		TransformParticle* transformParticle = nullptr;
-		Transform2D* transform2D = nullptr;
+		Transform* transform_ = nullptr;
+		TransformParticle* transformParticle_ = nullptr;
+		Transform2D* transform2D_ = nullptr;
 		void INITIALIZE();
 		virtual void Update() {};
 		virtual void Draw() {};
-		virtual ~Component() {};
+		virtual ~Component();
 		Component(Object3D* component);
 		Component(Sprite* component);
 		//Component(Particle* component);
 		//Component(Emitter* component);
 		Component() {}
 		std::string GetComponentName();
-		void SetComponentName(std::string componentName);
+		void SetComponentName(const std::string& componentName);
 		void SetComponents(Object3D* components);
 		void SetComponents(Sprite* components);
 		//void SetComponents(Particle* components);

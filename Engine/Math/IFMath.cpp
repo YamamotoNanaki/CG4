@@ -4,47 +4,47 @@
 
 using namespace IFE;
 
-Float4 IFE::SetFloat4ToFloat3(Float3 f, float w)
+Float4 IFE::SetFloat4ToFloat3(const Float3& f, float w)
 {
 	return Float4(f.x, f.y, f.z, w);
 }
 
-Float4 IFE::SetFloat4ToFoat2(Float2 f, float z, float w)
+Float4 IFE::SetFloat4ToFoat2(const Float2& f, float z, float w)
 {
 	return Float4(f.x, f.y, z, w);
 }
 
-Float3 IFE::SetFloat3ToFloat2(Float2 f, float z)
+Float3 IFE::SetFloat3ToFloat2(const Float2& f, float z)
 {
 	return Float3(f.x, f.y, z);
 }
 
-Float4 IFE::SetFloat4ToVector3(Vector3 v, float w)
+Float4 IFE::SetFloat4ToVector3(const Vector3& v, float w)
 {
 	return Float4(v.x, v.y, v.z, w);
 }
 
-Float3 IFE::SetFloat3(Vector3 v)
+Float3 IFE::SetFloat3(const Vector3& v)
 {
 	return Float3(v.x, v.y, v.z);
 }
 
-Float2 IFE::SetFloat3ToVector2(Vector2 v)
+Float2 IFE::SetFloat3ToVector2(const Vector2& v)
 {
 	return Float2(v.x, v.y);
 }
 
-Vector3 IFE::SetVector3(Float3 f)
+Vector3 IFE::SetVector3(const Float3& f)
 {
 	return Vector3(f.x, f.y, f.z);
 }
 
-Vector3 IFE::SetVector3ToFloat2(Float2 f, float z)
+Vector3 IFE::SetVector3ToFloat2(const Float2& f, float z)
 {
 	return Vector3(f.x, f.y, z);
 }
 
-Vector2 IFE::SetVector2(Float2 f)
+Vector2 IFE::SetVector2(const Float2& f)
 {
 	return Vector2(f.x, f.y);
 }
@@ -75,7 +75,7 @@ float IFE::Vector3Length(const Vector3& v)
 //	return v;
 //}
 
-Vector3 IFE::Vector3Normalize(Vector3 v)
+Vector3 IFE::Vector3Normalize(const Vector3& v)
 {
 	float length = v.Length();
 	if (length != 0)
@@ -157,12 +157,12 @@ float IFE::ConvertToDegrees(float fRadians)
 	return fRadians * (180.0f / static_cast<float>(M_PI));
 }
 
-Float3 IFE::ConvertToRadians(Float3 fDegrees)
+Float3 IFE::ConvertToRadians(const Float3& fDegrees)
 {
 	return { ConvertToRadians(fDegrees.x),ConvertToRadians(fDegrees.y),ConvertToRadians(fDegrees.z) };
 }
 
-Float3 IFE::ConvertToDegrees(Float3 fRadians)
+Float3 IFE::ConvertToDegrees(const Float3& fRadians)
 {
 	return { ConvertToDegrees(fRadians.x),ConvertToDegrees(fRadians.y),ConvertToDegrees(fRadians.z) };
 }
@@ -203,12 +203,12 @@ Vector3 IFE::Vector3TransformNormal(const Vector3& v, const Matrix& m)
 	return Result;
 }
 
-Vector3 IFE::VectorNegate(Vector3 m)
+Vector3 IFE::VectorNegate(const Vector3& m)
 {
 	return -m;
 }
 
-Vector3 IFE::VectorLerp(Vector3 v0, Vector3 v1, float t)
+Vector3 IFE::VectorLerp(const Vector3& v0, const Vector3& v1, float t)
 {
 	Vector3 length = VectorSubtract(v1, v0);
 	return Vector3(length.x * t + v0.x, length.y * t + v0.y, length.z * t + v0.z);
@@ -232,7 +232,7 @@ Matrix IFE::MatrixPerspectiveFovLH(float FovAngleY, float AspectRatio, float Nea
 	return Matrix(Width, 0, 0, 0, 0, Height, 0, 0, 0, 0, fRange, 1, 0, 0, -fRange * NearZ, 0);
 }
 
-Float3 IFE::operator+(Float3 f, Vector2 v)
+Float3 IFE::operator+(const Float3& f, const Vector2& v)
 {
 	return Float3(f.x + v.x, f.y + v.y, f.z);
 }

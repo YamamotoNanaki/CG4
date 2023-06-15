@@ -10,13 +10,13 @@ namespace IFE
 		~IFETime() {};
 		const IFETime& operator=(const IFETime&) {};
 	private:
-		static std::chrono::steady_clock::time_point startTime;
-		static std::chrono::steady_clock::time_point nowTime;
-		static std::chrono::steady_clock::time_point frontTime;
+		static std::chrono::steady_clock::time_point sStartTime_;
+		static std::chrono::steady_clock::time_point sNowTime_;
+		static std::chrono::steady_clock::time_point sFrontTime_;
 
 	public:
-		static float deltaTime;
-		static float time;
+		static float sDeltaTime_;
+		static float sTime_;
 
 	public:
 		static void Initialize();
@@ -28,8 +28,8 @@ namespace IFE
 	class FrameCountTime
 	{
 	private:
-		int32_t timer = 0;
-		int32_t end = 0;
+		int32_t timer_ = 0;
+		int32_t end_ = 0;
 
 	public:
 		void Set(int32_t end);

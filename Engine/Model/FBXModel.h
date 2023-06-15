@@ -17,14 +17,14 @@ namespace IFE
 		using Component::Component;
 		template<class T> using vector = std::vector<T>;
 	private:
-		AddModelSettings setting;
+		AddModelSettings setting_;
 
 	public:
-		std::vector<std::unique_ptr<Node>> nodes{};
-		std::vector<Bone> bones{};
-		std::vector<Animation> animations{};
-		std::vector<Matrix> transformMatrixs{};
-		std::string fileName;
+		std::vector<std::unique_ptr<Node>> nodes_{};
+		std::vector<Bone> bones_{};
+		std::vector<Animation> animations_{};
+		std::vector<Matrix> transformMatrixs_{};
+		std::string fileName_;
 
 
 	public:
@@ -32,15 +32,15 @@ namespace IFE
 		void Update()override {};
 		void Draw()override;
 		void BoneTransform(float TimeInSeconds);
-		void SetSettings(AddModelSettings setting);
+		void SetSettings(const AddModelSettings& setting);
 	private:
 		void ReadNodeHeirarchy(float AnimationTime, Node* pNode);
 
 	public:
 #ifdef _DEBUG
 		void DebugGUI()override;
-		void OutputScene(std::string object3d);
+		void OutputScene(const std::string& object3d);
 #endif
-		void LoadingScene(std::string object3d);
+		void LoadingScene(const std::string& object3d);
 	};
 };

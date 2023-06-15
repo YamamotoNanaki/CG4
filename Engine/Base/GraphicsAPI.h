@@ -18,30 +18,30 @@ namespace IFE
 		template<class T> using vector = std::vector<T>;
 
 	private:
-		static ID3D12Device* device;
-		ComPtr < IDXGIFactory6> dxgiFactory = nullptr;
-		ComPtr < IDXGISwapChain4> swapchain = nullptr;
-		ComPtr < ID3D12CommandAllocator> commandAllocator = nullptr;
-		ComPtr < ID3D12GraphicsCommandList> commandList = nullptr;
-		ComPtr < ID3D12CommandQueue> commandQueue = nullptr;
-		ComPtr < ID3D12DescriptorHeap> rtvHeaps = nullptr;
+		static ComPtr < ID3D12Device> sDevice_;
+		ComPtr < IDXGIFactory6> dxgiFactory_ = nullptr;
+		ComPtr < IDXGISwapChain4> swapchain_ = nullptr;
+		ComPtr < ID3D12CommandAllocator> commandAllocator_ = nullptr;
+		ComPtr < ID3D12GraphicsCommandList> commandList_ = nullptr;
+		ComPtr < ID3D12CommandQueue> commandQueue_ = nullptr;
+		ComPtr < ID3D12DescriptorHeap> rtvHeaps_ = nullptr;
 		// 裏表の2つ分について
-		vector< ComPtr<ID3D12Resource>> backBuffers = vector<ComPtr<ID3D12Resource>>(2);
-		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc{};
+		vector< ComPtr<ID3D12Resource>> backBuffers_ = vector<ComPtr<ID3D12Resource>>(2);
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
 		// フェンスの生成
-		ComPtr<ID3D12Fence> fence = nullptr;
-		UINT64 fenceVal = 0;
-		vector<D3D12_VIEWPORT> viewport{};
+		ComPtr<ID3D12Fence> fence_ = nullptr;
+		UINT64 fenceVal_ = 0;
+		vector<D3D12_VIEWPORT> viewport_{};
 
 	private:
-		ComPtr<ID3D12DescriptorHeap> dsvHeap = nullptr;
-		ComPtr < ID3D12Resource> depthBuffer = nullptr;
+		ComPtr<ID3D12DescriptorHeap> dsvHeap_ = nullptr;
+		ComPtr < ID3D12Resource> depthBuffer_ = nullptr;
 
-		D3D12_RESOURCE_BARRIER barrierDesc{};
-		D3D12_RECT scissorrect{};
+		D3D12_RESOURCE_BARRIER barrierDesc_{};
+		D3D12_RECT scissorrect_{};
 
 		// 3．画面クリア        R  G  B   A
-		float clearColor[4] = { 0.1f ,0.25f ,0.5f ,1.0f };
+		float clearColor_[4] = { 0.1f ,0.25f ,0.5f ,1.0f };
 
 		//FPS関連
 	private:
@@ -52,12 +52,12 @@ namespace IFE
 	public:
 		static GraphicsAPI* Instance();
 		static void Finalize();
-		void Initialize(const HWND& hwnd, const uint32_t& window_width, const uint32_t& window_height);
+		void Initialize(const HWND& hwnd, uint32_t window_width, uint32_t window_height);
 		void DrawBefore();
-		void DrawSetViewport(const int32_t& viewportNum = 0);
+		void DrawSetViewport(int32_t viewportNum = 0);
 		void DrawAfter();
-		uint32_t SetNewViewPort(const float& width, const float& height, const float& topX, const float& topY, const float& minDepth = 0.0f, const float& maxDepth = 1.0f);
-		void SetScissorrect(const float& left, const float& right, const float& top, const float& bottom);
+		uint32_t SetNewViewPort(float width, float height, float topX, float topY, float minDepth = 0.0f, float maxDepth = 1.0f);
+		void SetScissorrect(float left, float right, float top, float bottom);
 
 		//ゲッター
 	public:
@@ -70,7 +70,7 @@ namespace IFE
 
 	public:
 		void SetClearColor(const Float4& color);
-		void SetClearColor(const float& Red, const float& Green, const float& Bule);
+		void SetClearColor(float Red, float Green, float Bule);
 
 	private:
 		GraphicsAPI() {};

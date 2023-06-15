@@ -15,24 +15,24 @@ namespace IFE
 	class Scene final
 	{
 	private:
-		GraphicsPipeline gp;
-		TextureManager* tex = TextureManager::Instance();
-		LightManager* light = LightManager::Instance();
-		Sound* sound = Sound::Instance();
-		ObjectManager* objM = ObjectManager::Instance();
-		ModelManager* modelM = ModelManager::Instance();
-		CameraManager* cameraM = CameraManager::Instance();
-		SpriteManager* spriteM = SpriteManager::Instance();
+		GraphicsPipeline gp_;
+		TextureManager* tex_ = TextureManager::Instance();
+		LightManager* light_ = LightManager::Instance();
+		Sound* sound_ = Sound::Instance();
+		ObjectManager* objM_ = ObjectManager::Instance();
+		ModelManager* modelM_ = ModelManager::Instance();
+		CameraManager* cameraM_ = CameraManager::Instance();
+		SpriteManager* spriteM_ = SpriteManager::Instance();
 		//ParticleManager* particleM = ParticleManager::Instance();
 
-		std::string nowScene;
-		std::string nextScene;
-		bool nextFlag = false;
+		std::string nowScene_;
+		std::string nextScene_;
+		bool nextFlag_ = false;
 	public:
 		void Initialize();
 		void Update();
 		void Draw();
-		void SetNextScene(std::string nextScene);
+		void SetNextScene(const std::string& nextScene);
 
 	public:
 		static Scene* Instance();
@@ -49,9 +49,9 @@ namespace IFE
 	public:
 		void LoadingScene();
 #ifdef _DEBUG
-		ImguiManager& gui = *ImguiManager::Instance();
-		bool debug = false;
-		bool stop = false;
+		ImguiManager& gui_ = *ImguiManager::Instance();
+		bool debug_ = false;
+		bool stop_ = false;
 		void OutputScene();
 		void DebugGUI();
 #endif

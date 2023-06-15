@@ -7,24 +7,24 @@ using namespace std;
 
 void IFE::Camera::CameraInitialize()
 {
-	matView = make_unique<View>() ;
-	matPro = make_unique<Projection>(45, 1280, 720);
+	matView_ = make_unique<View>() ;
+	matPro_ = make_unique<Projection>(45, 1280, 720);
 }
 
 void IFE::Camera::CameraUpdate()
 {
-	matView->Update();
-	matPro->Update();
+	matView_->Update();
+	matPro_->Update();
 }
 
 View* IFE::Camera::GetView()
 {
-	return matView.get();
+	return matView_.get();
 }
 
 Projection* IFE::Camera::GetProjection()
 {
-	return matPro.get();
+	return matPro_.get();
 }
 
 IFE::Camera::~Camera()

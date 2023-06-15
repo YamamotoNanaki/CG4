@@ -13,11 +13,11 @@ namespace IFE
 {
 	class Camera
 	{
-		std::unique_ptr<View> matView = nullptr;
-		std::unique_ptr<Projection> matPro = nullptr;
-		Quaternion rotation;
-		Float3 position;
-		Float3 eulerAngleDegrees;
+		std::unique_ptr<View> matView_ = nullptr;
+		std::unique_ptr<Projection> matPro_ = nullptr;
+		Quaternion rotation_;
+		Float3 position_;
+		Float3 eulerAngleDegrees_;
 
 	public:
 		void CameraInitialize();

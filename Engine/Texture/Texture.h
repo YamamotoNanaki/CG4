@@ -13,18 +13,19 @@ namespace IFE
 {
 	struct Texture
 	{
-		Microsoft::WRL::ComPtr<ID3D12Resource> texbuff = nullptr;
-		D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle{};
-		D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle{};
-		std::string texName{};
-		bool free = false;
+	public:
+		Microsoft::WRL::ComPtr<ID3D12Resource> texbuff_ = nullptr;
+		D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle_{};
+		D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle_{};
+		std::string texName_{};
+		bool free_ = false;
 
 	private:
 		Texture* ptr_;
 
 	public:
 		Texture();
-		void SetTexture(UINT rootParameterIndex);
+		void SetTexture(uint32_t rootParameterIndex);
 		Texture* GetPtr()const;
 	};
 }

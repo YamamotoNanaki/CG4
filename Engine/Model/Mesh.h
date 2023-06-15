@@ -16,9 +16,9 @@ namespace IFE
 	{
 		using Component::Component;
 	private:
-		VertexBuffer<VertexBone>vb;
-		VertexBuffer<Vertex>vt;
-		IndexBuffer ib;
+		VertexBuffer<VertexBone>vb_;
+		VertexBuffer<Vertex>vt_;
+		IndexBuffer ib_;
 
 	public:
 		void Initialize()override;
@@ -29,8 +29,8 @@ namespace IFE
 		IndexBuffer* GetIB();
 #ifdef _DEBUG
 		void DebugGUI()override {};
-		void OutputScene(std::string object3d) { object3d; }
+		void OutputScene(const std::string& object3d) { object3d; }
 #endif
-		void LoadingScene(std::string object3d){ object3d; }
+		void LoadingScene(const std::string& object3d) { object3d; }
 	};
 };

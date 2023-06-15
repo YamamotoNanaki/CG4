@@ -43,7 +43,7 @@ Float3& IFE::Float3::operator-=(float f)
 	return *this;
 }
 
-Float3& Float3::operator+=(Float3 f)
+Float3& Float3::operator+=(const Float3& f)
 {
 	x = x + f.x;
 	y = y + f.y;
@@ -51,7 +51,7 @@ Float3& Float3::operator+=(Float3 f)
 	return *this;
 }
 
-Float3& Float3::operator-=(Float3 f)
+Float3& Float3::operator-=(const Float3& f)
 {
 	x = x - f.x;
 	y = y - f.y;
@@ -59,7 +59,7 @@ Float3& Float3::operator-=(Float3 f)
 	return *this;
 }
 
-Float3& Float3::operator*=(Float3 f)
+Float3& Float3::operator*=(const Float3& f)
 {
 	x = x * f.x;
 	y = y * f.y;
@@ -67,7 +67,7 @@ Float3& Float3::operator*=(Float3 f)
 	return *this;
 }
 
-Float3& Float3::operator/=(Float3 f)
+Float3& Float3::operator/=(const Float3& f)
 {
 	assert(f.x == 0 && "—ëœZ");
 	assert(f.y == 0 && "—ëœZ");

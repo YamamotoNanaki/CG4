@@ -10,8 +10,8 @@ namespace IFE
 {
 	class ModelManager
 	{
-		std::list<Component*>modelList;
-		ModelLoader modelLoader;
+		std::list<std::unique_ptr<Component>>modelList_;
+		ModelLoader modelLoader_;
 
 		ModelManager() {}
 		ModelManager(const ModelManager&) {}
@@ -23,8 +23,8 @@ namespace IFE
 		static void Finalize();
 		void Update();
 		void Draw();
-		void Add(std::string modelName, AddModelSettings modelSetting, std::string fileName = "", bool smooth = false);
-		Component* GetModel(std::string modelName);
+		void Add(const std::string& modelName, const AddModelSettings& modelSetting, const std::string& fileName = "", bool smooth = false);
+		Component* GetModel(const std::string& modelName);
 		void Reset();
 #ifdef _DEBUG
 		void DebugGUI();

@@ -6,11 +6,11 @@ namespace IFE
 	class Projection
 	{
 	private:
-		Matrix matProjection;
+		Matrix matProjection_;
 	public:
-		float nearZ, farZ;
-		float winWidth, winHeight;
-		float fovAngle;
+		float nearZ_, farZ_;
+		float winWidth_, winHeight_;
+		float fovAngle_;
 
 	public:
 		Projection(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 1000.0f);

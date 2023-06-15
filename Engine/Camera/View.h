@@ -6,17 +6,17 @@ namespace IFE
 	class View
 	{
 	private:
-		Matrix matView;
+		Matrix matView_;
 
 	public:
-		static Matrix matBillBoard;
-		static Matrix matBillBoardY;
-		Float3 eye;
-		Float3 target;
-		Float3 up;
+		static Matrix sMatBillBoard_;
+		static Matrix sMatBillBoardY_;
+		Float3 eye_;
+		Float3 target_;
+		Float3 up_;
 	public:
-		View(Float3 eye = { 0,10,-50 }, Float3 target = { 0,10,1 }, Float3 up = { 0,1,0 });
-		void Initialze(Float3 eye, Float3 target, Float3 up);
+		View(const Float3& eye = { 0,10,-50 }, const Float3& target = { 0,10,1 }, const Float3& up = { 0,1,0 });
+		void Initialze(const Float3& eye, const Float3& target, const Float3& up);
 		void Update();
 		Matrix Get()const;
 		Matrix* GetAddressOf();

@@ -46,16 +46,16 @@ namespace IFE
 	class Input final
 	{
 	private:
-		char key[256]{}, oldkey[256]{};
-		Microsoft::WRL::ComPtr<IDirectInput8> directInput = nullptr;
-		Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard = nullptr;
-		Microsoft::WRL::ComPtr<IDirectInputDevice8> devMouse = nullptr;
-		DIMOUSESTATE2 mouse = {};
-		DIMOUSESTATE2 oldmouse = {};
-		XINPUT_STATE pad{};
-		XINPUT_STATE oldpad{};
-		XINPUT_VIBRATION vibration{};
-		static Input* inputInstance;
+		char key_[256]{}, oldkey_[256]{};
+		Microsoft::WRL::ComPtr<IDirectInput8> directInput_ = nullptr;
+		Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard_ = nullptr;
+		Microsoft::WRL::ComPtr<IDirectInputDevice8> devMouse_ = nullptr;
+		DIMOUSESTATE2 mouse_ = {};
+		DIMOUSESTATE2 oldmouse_ = {};
+		XINPUT_STATE pad_{};
+		XINPUT_STATE oldpad_{};
+		XINPUT_VIBRATION vibration_{};
+		static Input* sInputInstance_;
 
 	private:
 		Input() {}
@@ -79,23 +79,23 @@ namespace IFE
 		/// </summary>
 		/// <param name="keyCode">判定を取りたいキーのマクロ</param>
 		/// <returns></returns>
-		static bool KeyTriggere(KeyCode keyCode);
+		static bool KeyTriggere(const KeyCode& keyCode);
 		/// <summary>
 		/// 入力判定
 		/// </summary>
 		/// <param name="keyCode">判定を取りたいキーのマクロ</param>
 		/// <returns></returns>
-		static bool KeyDown(KeyCode keyCode);
+		static bool KeyDown(const KeyCode& keyCode);
 		/// <summary>
 		/// リリース判定
 		/// </summary>
 		/// <param name="keyCode">判定を取りたいキーのマクロ</param>
 		/// <returns></returns>
-		static bool KeyRelease(KeyCode keyCode);
+		static bool KeyRelease(const KeyCode& keyCode);
 		//マウスの判定
-		static bool MousePush(MouseCode mouse);
-		static bool MouseTriggere(MouseCode mouse);
-		static bool MouseRelease(MouseCode mouse);
+		static bool MousePush(const MouseCode& mouse);
+		static bool MouseTriggere(const MouseCode& mouse);
+		static bool MouseRelease(const MouseCode& mouse);
 		static Mouse GetMouse3D();
 		//コントローラーの判定
 		static Float2 GetLAnalog(std::int32_t unresponsive_range = 200);
@@ -104,10 +104,10 @@ namespace IFE
 		static float GetRXAnalog(std::int32_t unresponsive_range = 200);
 		static float GetLYAnalog(std::int32_t unresponsive_range = 200);
 		static float GetRYAnalog(std::int32_t unresponsive_range = 200);
-		static bool PadPush(PADCODE pad);
-		static bool PadTriggere(PADCODE pad);
-		static bool PadRelease(PADCODE pad);
-		static void PadVibrationStart(WORD L, WORD R);
+		static bool PadPush(const PADCODE& pad);
+		static bool PadTriggere(const PADCODE& pad);
+		static bool PadRelease(const PADCODE& pad);
+		static void PadVibrationStart(const WORD& L, const WORD& R);
 		static void PadVibrationStop();
 
 	};

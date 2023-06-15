@@ -10,59 +10,59 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	//Emitter::StaticInitialize();
-	tex->Initialize();
-	objM->OBJInitialize();
-	spriteM->SPRITEInitialize();
-	gp.CreateBasicGraphicsPipeLine();
-	light->Initialize();
-	light->DefaultLightSetting();
-	light->SetDirLightColor(0, { 1,0,0 });
-	light->SetDirLightColor(1, { 0,1,0 });
-	light->SetDirLightColor(2, { 0,0,1 });
-	sound->Initialize();
-	gui.Initialize();
-	cameraM->Instance();
-	cameraM->Initialize();
+	tex_->Initialize();
+	objM_->OBJInitialize();
+	spriteM_->SPRITEInitialize();
+	gp_.CreateBasicGraphicsPipeLine();
+	light_->Initialize();
+	light_->DefaultLightSetting();
+	light_->SetDirLightColor(0, { 1,0,0 });
+	light_->SetDirLightColor(1, { 0,1,0 });
+	light_->SetDirLightColor(2, { 0,0,1 });
+	sound_->Initialize();
+	gui_.Initialize();
+	cameraM_->Instance();
+	cameraM_->Initialize();
 
 	SceneInit();
-	objM->Initialize();
-	spriteM->Initialize();
+	objM_->Initialize();
+	spriteM_->Initialize();
 	//particleM->Initialize();
 }
 
 void IFE::Scene::Update()
 {
 	SceneChange();
-	gui.StartNewFrame();
+	gui_.StartNewFrame();
 	DebugGUI();
 
-	cameraM->Update();
-	if (debug && !stop)
+	cameraM_->Update();
+	if (debug_ && !stop_)
 	{
-		objM->Update();
-		spriteM->Update();
+		objM_->Update();
+		spriteM_->Update();
 		//particleM->Update();
 	}
 	else
 	{
-		objM->DebugUpdate();
-		spriteM->DebugUpdate();
+		objM_->DebugUpdate();
+		spriteM_->DebugUpdate();
 		//particleM->DebugUpdate();
 	}
-	light->Update();
+	light_->Update();
 }
 
 void IFE::Scene::Draw()
 {
 	Sprite::DrawBefore();
-	spriteM->BackDraw();
-	gp.SetDrawBlendMode();
-	light->Draw(3);
-	objM->Draw();
+	spriteM_->BackDraw();
+	gp_.SetDrawBlendMode();
+	light_->Draw(3);
+	objM_->Draw();
 	//particleM->Draw();
 	Sprite::DrawBefore();
-	spriteM->ForeDraw();
-	gui.Draw();
+	spriteM_->ForeDraw();
+	gui_.Draw();
 }
 #else
 
@@ -125,27 +125,27 @@ Scene* IFE::Scene::Instance()
 	return &inst;
 }
 
-void IFE::Scene::SetNextScene(std::string n)
+void IFE::Scene::SetNextScene(const std::string& n)
 {
-	nextScene = n;
-	nextFlag = true;
+	nextScene_ = n;
+	nextFlag_ = true;
 }
 
 #include "JsonManager.h"
 void IFE::Scene::SceneChange()
 {
-	if (nextFlag)
+	if (nextFlag_)
 	{
-		nowScene = nextScene;
+		nowScene_ = nextScene_;
 		LoadingScene();
-		nextFlag = false;
+		nextFlag_ = false;
 	}
 }
 
 void IFE::Scene::SceneInit()
 {
-	nowScene = JsonManager::Instance()->SceneInit();
-	JsonManager::Instance()->SetSceneName(nowScene);
+	nowScene_ = JsonManager::Instance()->SceneInit();
+	JsonManager::Instance()->SetSceneName(nowScene_);
 	//tex->TexReset();
 	//objM->Reset();
 	//modelM->Reset();
@@ -183,7 +183,7 @@ void IFE::Scene::OutputScene()
 #include "imgui.h"
 void IFE::Scene::DebugGUI()
 {
-	gui.NewGUI("SceneManager", 1024);
+	gui_.NewGUI("SceneManager", 1024);
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("scene save"))
@@ -198,37 +198,37 @@ void IFE::Scene::DebugGUI()
 		}
 		ImGui::EndMenuBar();
 	}
-	if (debug)
+	if (debug_)
 	{
-		if (stop)
+		if (stop_)
 		{
-			if (gui.ButtonGUI("start"))
+			if (gui_.ButtonGUI("start"))
 			{
-				stop = false;
+				stop_ = false;
 			}
 		}
 		else
 		{
-			if (gui.ButtonGUI("Stop"))
+			if (gui_.ButtonGUI("Stop"))
 			{
-				stop = true;
+				stop_ = true;
 			}
 		}
-		if (gui.ButtonGUI("Debug End"))
+		if (gui_.ButtonGUI("Debug End"))
 		{
-			debug = false;
-			stop = false;
+			debug_ = false;
+			stop_ = false;
 			LoadingScene();
-			objM->Initialize();
+			objM_->Initialize();
 		}
 	}
 	else
 	{
-		if (gui.ButtonGUI("Debug Start"))
+		if (gui_.ButtonGUI("Debug Start"))
 		{
 			OutputScene();
-			debug = true;
-			objM->Initialize();
+			debug_ = true;
+			objM_->Initialize();
 		}
 	}
 	static char name[256];
@@ -242,12 +242,12 @@ void IFE::Scene::DebugGUI()
 	{
 		JsonManager::Instance()->SetInitScene();
 	}
-	gui.EndGUI();
-	objM->DebugGUI();
-	spriteM->DebugGUI();
-	modelM->DebugGUI();
-	tex->DebugGUI();
-	cameraM->DebugGUI();
+	gui_.EndGUI();
+	objM_->DebugGUI();
+	spriteM_->DebugGUI();
+	modelM_->DebugGUI();
+	tex_->DebugGUI();
+	cameraM_->DebugGUI();
 	//particleM->DebugGUI();
 }
 #endif

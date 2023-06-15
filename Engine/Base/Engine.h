@@ -8,8 +8,8 @@ namespace IFE
 	{
 	private:
 		Engine() {}
-		WindowsAPI* window = WindowsAPI::Instance();
-		GraphicsAPI* gapi = GraphicsAPI::Instance();
+		WindowsAPI* window_ = WindowsAPI::Instance();
+		GraphicsAPI* gapi_ = GraphicsAPI::Instance();
 
 	public:
 		Engine(const Engine& obj) = delete;

@@ -21,7 +21,7 @@ float IFE::Dot(const Quaternion& q1, const Quaternion& q2)
 	return cos;
 }
 
-float IFE::Length(const Quaternion q)
+float IFE::Length(const Quaternion& q)
 {
 	return (float)sqrt(Dot(q, q));
 }
@@ -264,7 +264,7 @@ Quaternion IFE::MakeAxisAngle(const Vector3& axis, float angle)
 	return ret;
 }
 
-Quaternion IFE::EulerToQuaternion(Float3 euler)
+Quaternion IFE::EulerToQuaternion(const Float3& euler)
 {
 	Quaternion ret;
 
@@ -281,7 +281,7 @@ Quaternion IFE::EulerToQuaternion(Float3 euler)
 	return ret;
 }
 
-Vector3 IFE::MultiplyQuaternionAndVector3(Quaternion rotation, Vector3 point)
+Vector3 IFE::MultiplyQuaternionAndVector3(const Quaternion& rotation, const Vector3& point)
 {
 	float num = rotation.x * 2.f;
 	float num2 = rotation.y * 2.f;

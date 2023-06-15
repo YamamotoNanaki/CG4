@@ -15,20 +15,20 @@ namespace IFE
 		};
 
 	private:
-		Vector3 lightDir = { 1,0,0 };
-		Float3 lightColor = { 1,1,1 };
-		bool active = false;
+		Vector3 lightDir_ = { 1,0,0 };
+		Float3 lightColor_ = { 1,1,1 };
+		bool active_ = false;
 
 	public:
-		inline void SetLightDir(const Vector3& lightDir_)
+		inline void SetLightDir(const Vector3& lightDir)
 		{
-			this->lightDir = lightDir_;
-			this->lightDir = Vector3Normalize(this->lightDir);
+			lightDir_ = lightDir;
+			lightDir_ = Vector3Normalize(lightDir);
 		}
-		inline const Vector3& GetLightDir() { return lightDir; }
-		inline void SetLightColor(const Float3& lightColor_) { this->lightColor = lightColor_; }
-		inline const Float3& GetLightColor() { return lightColor; }
-		inline void SetActive(bool active_) { this->active = active_; }
-		inline bool IsActive() { return active; }
+		inline const Vector3& GetLightDir() { return lightDir_; }
+		inline void SetLightColor(const Float3& lightColor) { lightColor_ = lightColor; }
+		inline const Float3& GetLightColor() { return lightColor_; }
+		inline void SetActive(bool active) { active_ = active; }
+		inline bool IsActive() { return active_; }
 	};
 }

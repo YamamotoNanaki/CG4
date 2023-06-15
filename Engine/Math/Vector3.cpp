@@ -17,12 +17,12 @@ Vector3::Vector3(float x, float y, float z)
 	this->z = z;
 }
 
-IFE::Vector3::Vector3(Float3 f3)
+IFE::Vector3::Vector3(const Float3& f3)
 {
 	*this = Vector3(f3.x, f3.y, f3.z);
 }
 
-void Vector3::Set(Float3 start, Float3 end)
+void Vector3::Set(const Float3& start, const Float3& end)
 {
 	x = end.x - start.x;
 	y = end.y - start.y;
@@ -147,33 +147,33 @@ const Vector3 operator/(const Vector3& v, float s)
 	return temp /= s;
 }
 
-Vector3 IFE::VectorSubtract(Vector3 v1, Vector3 v2)
+Vector3 IFE::VectorSubtract(const Vector3& v1, const Vector3& v2)
 {
 	Vector3 a(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 	return a;
 }
 
-Vector3 IFE::operator/(Vector3 v, float s)
+Vector3 IFE::operator/(const Vector3& v, float s)
 {
 	return Vector3(v.x / s, v.y / s, v.z / s);
 }
 
-Vector3 IFE::operator*(Vector3 v, float s)
+Vector3 IFE::operator*(const Vector3& v, float s)
 {
 	return Vector3(v.x * s, v.y * s, v.z * s);
 }
 
-Vector3 IFE::operator*(float s, Vector3 v)
+Vector3 IFE::operator*(float s, const Vector3& v)
 {
 	return Vector3(v.x * s, v.y * s, v.z * s);
 }
 
-Vector3 IFE::operator+(Vector3 v1, Vector3 v2)
+Vector3 IFE::operator+(const Vector3& v1, const Vector3& v2)
 {
 	return Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 }
 
-Vector3 IFE::operator-(Vector3 v1, Vector3 v2)
+Vector3 IFE::operator-(const Vector3& v1, const Vector3& v2)
 {
 	return Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 }

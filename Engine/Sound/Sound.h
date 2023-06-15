@@ -4,6 +4,7 @@
 #include <wrl.h>
 #include <array>
 #include <string>
+#include <vector>
 
 #pragma comment(lib,"xaudio2.lib")
 
@@ -35,20 +36,20 @@ namespace IFE
 			WAVEFORMATEX wfex;
 			float volume = 50;
 			IXAudio2SourceVoice* pSourceVoice = nullptr;
-			BYTE* pBuffer;
+			std::vector<BYTE> pBuffer;
 			uint32_t bufferSize;
 			std::string name;
 			bool free = false;
 		};
 	private:
-		Microsoft::WRL::ComPtr<IXAudio2> xAudio;
-		IXAudio2MasteringVoice* masterVoice;
-		static const int16_t maxSound = 128;
-		std::array<SoundData, maxSound> soundDatas;
+		Microsoft::WRL::ComPtr<IXAudio2> xAudio_;
+		IXAudio2MasteringVoice* masterVoice_;
+		static const int16_t sMAX_SOUND_ = 128;
+		std::array<SoundData, sMAX_SOUND_> soundDatas_;
 
 	public:
 		void Initialize();
-		uint16_t LoadWave(std::string);
+		uint16_t LoadWave(const std::string& wave);
 		void SoundUnLoad(uint16_t soundNum);
 		void AllUnLoad();
 		void SetVolume(uint16_t soundNum, std::int32_t volume);

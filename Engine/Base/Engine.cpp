@@ -13,8 +13,8 @@ Engine* IFE::Engine::Instance()
 
 void IFE::Engine::Initialize()
 {
-	window->Initialize(1280, 720);
-	gapi->Initialize(*WindowsAPI::Instance()->GetHWnd(), 1280, 720);
+	window_->Initialize(1280, 720);
+	gapi_->Initialize(*WindowsAPI::Instance()->GetHWnd(), 1280, 720);
 	Input::Initalize();
 	IFERand::Initialize();
 }
@@ -27,12 +27,12 @@ void IFE::Engine::Run()
 	{
 		Input::Update();
 		scene->Update();
-		gapi->DrawBefore();
-		gapi->DrawSetViewport();
+		gapi_->DrawBefore();
+		gapi_->DrawSetViewport();
 		scene->Draw();
-		gapi->DrawAfter();
+		gapi_->DrawAfter();
 
-		if (window->Message() || Input::KeyDown(Key_Esc))
+		if (window_->Message() || Input::KeyDown(Key_Esc))
 		{
 #ifdef _DEBUG
 			scene->OutputScene();
@@ -44,6 +44,6 @@ void IFE::Engine::Run()
 
 void IFE::Engine::Finalize()
 {
-	window->Finalize();
-	gapi->Finalize();
+	window_->Finalize();
+	gapi_->Finalize();
 }

@@ -8,8 +8,8 @@ namespace IFE
 	public:
 		Vector3();
 		Vector3(float x, float y, float z);
-		Vector3(Float3 f3);
-		void Set(Float3 start, Float3 end);
+		Vector3(const Float3& f3);
+		void Set(const Float3& start, const Float3& end);
 		void Set(float x, float y, float z);
 
 		float Length() const;
@@ -29,10 +29,10 @@ namespace IFE
 		static Vector3 forward() { return Vector3(0, 0, 1); };
 	};
 
-	Vector3 VectorSubtract(Vector3 v1, Vector3 v2);
-	Vector3 operator/(Vector3 v, float s);
-	Vector3 operator*(Vector3 v, float s);
-	Vector3 operator*(float s, Vector3 v);
-	Vector3 operator+(Vector3 v1, Vector3 v2);
-	Vector3 operator-(Vector3 v1, Vector3 v2);
+	Vector3 VectorSubtract(const Vector3& v1, const Vector3& v2);
+	Vector3 operator/(const Vector3& v, float s);
+	Vector3 operator*(const Vector3& v, float s);
+	Vector3 operator*(float s, const Vector3& v);
+	Vector3 operator+(const Vector3& v1, const Vector3& v2);
+	Vector3 operator-(const Vector3& v1, const Vector3& v2);
 };

@@ -58,19 +58,19 @@ Matrix IFE::Matrix::operator/(float s)const
 	return a;
 }
 
-Matrix& IFE::Matrix::operator+=(Matrix _m)
+Matrix& IFE::Matrix::operator+=(const Matrix& _m)
 {
 	*this = *this + _m;
 	return *this;
 }
 
-Matrix& IFE::Matrix::operator-=(Matrix _m)
+Matrix& IFE::Matrix::operator-=(const Matrix& _m)
 {
 	*this = *this - _m;
 	return *this;
 }
 
-Matrix& IFE::Matrix::operator*=(Matrix _m)
+Matrix& IFE::Matrix::operator*=(const Matrix& _m)
 {
 	*this = *this * _m;
 	return *this;
@@ -162,7 +162,7 @@ Matrix IFE::MatrixIdentity()
 	return Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
-Matrix IFE::MatrixInverse(const Matrix m)
+Matrix IFE::MatrixInverse(const Matrix& m)
 {
 	Matrix mat = m;
 	Matrix inv;
@@ -265,7 +265,7 @@ Matrix IFE::MatrixOrthoGraphicProjection(float left, float right, float top, flo
 	return Matrix(width, 0, 0, 0, 0, height, 0, 0, 0, 0, zRange, 0, -1, 1, 0, 1);
 }
 
-Matrix IFE::operator+(Matrix m1, Matrix m2)
+Matrix IFE::operator+(const Matrix& m1, const Matrix& m2)
 {
 	Matrix a;
 
@@ -280,7 +280,7 @@ Matrix IFE::operator+(Matrix m1, Matrix m2)
 	return a;
 }
 
-Matrix IFE::operator-(Matrix m1, Matrix m2)
+Matrix IFE::operator-(const Matrix& m1, const Matrix& m2)
 {
 	Matrix a;
 	for (int32_t i = 0; i < 4; i++)
@@ -294,7 +294,7 @@ Matrix IFE::operator-(Matrix m1, Matrix m2)
 	return a;
 }
 
-Matrix IFE::operator*(Matrix m1, Matrix m2)
+Matrix IFE::operator*(const Matrix& m1, const Matrix& m2)
 {
 	Matrix a;
 	a.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] + m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0];

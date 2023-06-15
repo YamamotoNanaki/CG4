@@ -26,28 +26,28 @@ Float2 Float2::operator*() const
 	return *this;
 }
 
-Float2& Float2::operator+=(Float2 f)
+Float2& Float2::operator+=(const Float2& f)
 {
 	x += f.x;
 	y += f.y;
 	return *this;
 }
 
-Float2& Float2::operator-=(Float2 f)
+Float2& Float2::operator-=(const Float2& f)
 {
 	x -= f.x;
 	y -= f.y;
 	return *this;
 }
 
-Float2& Float2::operator*=(Float2 f)
+Float2& Float2::operator*=(const Float2& f)
 {
 	x *= f.x;
 	y *= f.y;
 	return *this;
 }
 
-Float2& Float2::operator/=(Float2 f)
+Float2& Float2::operator/=(const Float2& f)
 {
 	assert(f.x == 0 && "—ëœZ");
 	assert(f.y == 0 && "—ëœZ");
