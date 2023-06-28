@@ -53,6 +53,7 @@ namespace IFE
 		void SetObjectPtr(Object3D* objectPtr);
 		void SetSpritePtr(Sprite* spritePtr);
 		std::vector<std::string> GetAllComponentName();
+		void OnColliderHit(Collider* collider);
 #ifdef _DEBUG
 		void DebugGUI();
 		void OutputScene(nlohmann::json& json);

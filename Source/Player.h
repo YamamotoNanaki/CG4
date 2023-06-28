@@ -10,7 +10,8 @@ namespace IFE
 		float speed_ = 0.3f;
 		Vector3 move_;
 	public:
-		void Update();
+		void Update()override;
+		void OnColliderHit(Collider* collider)override;
 
 	private:
 		void Move();

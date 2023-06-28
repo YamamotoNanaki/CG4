@@ -27,17 +27,15 @@ void IFE::Material::SetDefaultParameter()
 	tex_ = TextureManager::Instance()->GetTexture("white.png");
 }
 
-void IFE::Material::Update()
+void IFE::Material::Update() {}
+
+void IFE::Material::Draw()
 {
 	constMapMaterial_->alpha = alpha_;
 	constMapMaterial_->color = color_;
 	constMapMaterial_->ambient = ambient_;
 	constMapMaterial_->diffuse = diffuse_;
 	constMapMaterial_->specular = specular_;
-}
-
-void IFE::Material::Draw()
-{
 	materialBuffer_->SetConstBuffView(2);
 	if (tex_ == nullptr)
 	{

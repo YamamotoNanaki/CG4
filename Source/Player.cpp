@@ -1,12 +1,21 @@
 #include "Player.h"
 #include "Input.h"
 #include "Transform.h"
+#include "Object3D.h"
+#include "Material.h"
 
 using namespace IFE;
 
 void IFE::Player::Update()
 {
 	Move();
+	objectPtr_->GetComponent<Material>()->color_ = { 1,1,1,1 };
+}
+
+void IFE::Player::OnColliderHit(Collider* collider)
+{
+	objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+	collider;
 }
 
 void IFE::Player::Move()

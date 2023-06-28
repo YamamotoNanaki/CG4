@@ -1,6 +1,7 @@
 #include "ComponentManager.h"
 #include "ComponentHelp.h"
 #include "Object3D.h"
+#include "Collider.h"
 
 void IFE::ComponentManager::Initialize()
 {
@@ -54,6 +55,14 @@ std::vector<std::string> IFE::ComponentManager::GetAllComponentName()
 		s.push_back(itr->GetComponentName());
 	}
 	return s;
+}
+
+void IFE::ComponentManager::OnColliderHit(Collider* collider)
+{
+	for (auto& itr : componentList_)
+	{
+		itr->OnColliderHit(collider);
+	}
 }
 
 #ifdef _DEBUG

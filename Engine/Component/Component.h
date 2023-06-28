@@ -12,6 +12,7 @@ namespace IFE
 	class Transform2D;
 	class TransformParticle;
 	class ComponentManager;
+	class Collider;
 	class Component
 	{
 	public:
@@ -41,6 +42,7 @@ namespace IFE
 		Sprite* GetSpritePtr();
 		//virtual void OnColliderHit(ADXCollider* myCol, ADXCollider* col);
 		virtual void Copy(Component* component);
+		virtual void OnColliderHit(Collider* collider);
 #ifdef _DEBUG
 		virtual void DebugGUI();
 		virtual void ComponentDebugGUI() {};

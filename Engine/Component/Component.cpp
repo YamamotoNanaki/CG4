@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "Object3D.h"
 #include "Sprite.h"
+#include "Collider.h"
 //#include "Particle.h"
 
 std::string IFE::Component::GetComponentName()
@@ -82,6 +83,11 @@ IFE::Sprite* IFE::Component::GetSpritePtr()
 //}
 
 void IFE::Component::Copy(Component* c) { c; }
+
+void IFE::Component::OnColliderHit(Collider* collider)
+{
+	collider;
+}
 
 #ifdef _DEBUG
 #include "ImguiManager.h"

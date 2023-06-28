@@ -8,6 +8,7 @@
 #include "Material.h"
 #include "Rigidbody.h"
 #include "ComponentHelp.h"
+#include "CollideManager.h"
 
 using namespace IFE;
 using namespace std;
@@ -42,10 +43,12 @@ void IFE::ObjectManager::Update()
 {
 	objectList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
 	prefabList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
+	CollideManager::Instance()->Reset();
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
 		itr->OBJUpdate();
 	}
+	CollideManager::Instance()->CollidersUpdate();
 }
 
 void IFE::ObjectManager::Draw()

@@ -118,6 +118,12 @@
     <Filter Include="ヘッダー ファイル\Source">
       <UniqueIdentifier>{37611639-83fc-4dbb-8992-ec679f317602}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\Collider">
+      <UniqueIdentifier>{03ce4a7a-f5df-40d2-a307-c406e4135e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Collider">
+      <UniqueIdentifier>{e6cc88fb-b453-4b3b-9187-b22ad104c7e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -266,6 +272,18 @@
     </ClCompile>
     <ClCompile Include="Engine\Component\ComponentHelp.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\CollisionPrimitive.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\Collision.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\Collider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\CollideManager.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +460,18 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>ヘッダー ファイル\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\CollideManager.h">
+      <Filter>ヘッダー ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\Collider.h">
+      <Filter>ヘッダー ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\Collision.h">
+      <Filter>ヘッダー ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\CollisionPrimitive.h">
+      <Filter>ヘッダー ファイル\Engine\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

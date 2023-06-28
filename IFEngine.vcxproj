@@ -22,6 +22,10 @@
     <ClCompile Include="Engine\Camera\CameraManager.cpp" />
     <ClCompile Include="Engine\Camera\Projection.cpp" />
     <ClCompile Include="Engine\Camera\View.cpp" />
+    <ClCompile Include="Engine\Collider\CollideManager.cpp" />
+    <ClCompile Include="Engine\Collider\Collider.cpp" />
+    <ClCompile Include="Engine\Collider\Collision.cpp" />
+    <ClCompile Include="Engine\Collider\CollisionPrimitive.cpp" />
     <ClCompile Include="Engine\Component\Component.cpp" />
     <ClCompile Include="Engine\Component\ComponentHelp.cpp" />
     <ClCompile Include="Engine\Component\ComponentManager.cpp" />
@@ -76,6 +80,10 @@
     <ClInclude Include="Engine\Camera\CameraManager.h" />
     <ClInclude Include="Engine\Camera\Projection.h" />
     <ClInclude Include="Engine\Camera\View.h" />
+    <ClInclude Include="Engine\Collider\CollideManager.h" />
+    <ClInclude Include="Engine\Collider\Collider.h" />
+    <ClInclude Include="Engine\Collider\Collision.h" />
+    <ClInclude Include="Engine\Collider\CollisionPrimitive.h" />
     <ClInclude Include="Engine\Component\Component.h" />
     <ClInclude Include="Engine\Component\ComponentHelp.h" />
     <ClInclude Include="Engine\Component\ComponentManager.h" />
@@ -270,7 +278,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -293,7 +301,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
