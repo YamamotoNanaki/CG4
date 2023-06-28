@@ -415,6 +415,7 @@ void IFE::ObjectManager::LoadingScene()
 		auto obj = Add(j["name"]);
 		obj->SetModel(ModelManager::Instance()->GetModel(j["model"]));
 		obj->LoadingScene(j);
+		obj->Initialize();
 	}
 }
 
