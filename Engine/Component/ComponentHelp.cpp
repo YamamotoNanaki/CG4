@@ -17,13 +17,12 @@ static Component* GetT(const string& s);
 /*↓をコピペ
 tmp = std::move(GetT<クラス名>(str));
 if (tmp != nullptr)return tmp;
-ここまで*/
+*/
 
 Component* IFE::StringToComponent(const std::string& str)
 {
 	Component* tmp = nullptr;
 	//↓にコピペ
-
 
 	tmp = std::move(GetT<Transform>(str));
 	if (tmp != nullptr)return tmp;

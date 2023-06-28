@@ -227,22 +227,21 @@ void IFE::FBXModel::SetSettings(const AddModelSettings& s)
 	setting_ = s;
 }
 
+void IFE::FBXModel::SetSmooth(bool smooth)
+{
+	smooth_ = smooth;
+}
+
 #ifdef _DEBUG
 void IFE::FBXModel::DebugGUI()
 {
 	ImguiManager::Instance()->ModelGUI(componentName_);
 }
-void IFE::FBXModel::OutputScene(const std::string& object3d)
+
+void IFE::FBXModel::OutputComponent(nlohmann::json& j)
 {
-	JsonManager* j = JsonManager::Instance();
-	string s = object3d + "Model";
-	j->OutputString("componentName", componentName_);
-	j->OutputString("fileName", fileName_);
-	j->OutputUINT("settings", (uint32_t)setting_);
-	j->OutputAndMakeDirectry(componentName_, s);
+	j["fileName"]= fileName_;
+	j["settings"]= (uint32_t)setting_;
+	j["smooth"]= smooth_;
 }
 #endif
-void IFE::FBXModel::LoadingScene(const std::string& object3d)
-{
-	object3d;
-}

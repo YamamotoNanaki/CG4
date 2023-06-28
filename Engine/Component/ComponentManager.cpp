@@ -1,4 +1,5 @@
 #include "ComponentManager.h"
+#include "ComponentHelp.h"
 #include "Object3D.h"
 
 void IFE::ComponentManager::Initialize()
@@ -64,11 +65,11 @@ void IFE::ComponentManager::DebugGUI()
 	}
 }
 
-void IFE::ComponentManager::OutputScene(const std::string& object3D)
+void IFE::ComponentManager::OutputScene(nlohmann::json& j)
 {
 	for (auto& itr : componentList_)
 	{
-		if (itr)itr->OutputScene(object3D);
+		if (itr)itr->OutputScene(j);
 	}
 }
 
@@ -82,6 +83,7 @@ void IFE::ComponentManager::DebugUpdate()
 		else if (name == "TransferGeometryBuffer");
 		else if (name == "Material");
 		else if (name.find("_Model") != std::string::npos);
+		else if (name=="ColorBuffer");
 		else
 		{
 			continue;
@@ -91,12 +93,11 @@ void IFE::ComponentManager::DebugUpdate()
 }
 #endif
 
-void IFE::ComponentManager::LoadingScene(const std::string& object3D, const std::string& componentName)
+void IFE::ComponentManager::LoadingScene(nlohmann::json& j, const std::string& comName)
 {
-	for (auto& itr : componentList_)
-	{
-		if (itr)itr->LoadingScene(object3D, componentName);
-	}
+	auto com = StringToComponent(comName);
+	com->LoadingScene(j[comName]);
+	AddComponentBack<Component>(std::unique_ptr<Component>(com));
 }
 
 std::string IFE::ComponentManager::SetName(const std::string& name)

@@ -270,6 +270,11 @@ void IFE::PrimitiveModel::Update()
 {
 }
 
+void IFE::PrimitiveModel::SetSmooth(bool smooth)
+{
+	smooth_ = smooth;
+}
+
 void IFE::PrimitiveModel::SmoothNormal(Vertex _vertices[])
 {
 	std::unordered_map<uint32_t, std::vector<uint32_t>>smoothData;
@@ -376,18 +381,10 @@ void IFE::PrimitiveModel::DebugGUI()
 	im->ModelGUI(componentName_);
 }
 
-void IFE::PrimitiveModel::OutputScene(const std::string& object3d)
+void IFE::PrimitiveModel::OutputComponent(nlohmann::json& j)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputString("componentName", componentName_);
-	j->OutputString("fileName", "");
-	j->OutputUINT("settings", (uint32_t)setting_);
-	j->OutputAndMakeDirectry(componentName_, "Model");
-	object3d;
+	j["settings"] = (uint32_t)setting_;
+	j["smooth"] = smooth_;
 }
 
 #endif
-void IFE::PrimitiveModel::LoadingScene(const std::string& object3d)
-{
-	object3d;
-}

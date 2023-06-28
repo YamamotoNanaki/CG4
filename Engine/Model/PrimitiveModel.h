@@ -13,6 +13,8 @@ namespace IFE
 		VertexBuffer<Vertex> vb_;
 		IndexBuffer ib_;
 		AddModelSettings setting_;
+		bool smooth_;
+
 	public:
 		void CreateCube(bool smoothing = false);
 		void CreatePolygonSquare(bool smoothing = false);
@@ -22,6 +24,7 @@ namespace IFE
 		void Draw()override;
 		void Update()override;
 		void Initialize()override {}
+		void SetSmooth(bool smooth);
 
 	private:
 		void SmoothNormal(Vertex vertices[]);
@@ -31,8 +34,7 @@ namespace IFE
 
 #ifdef _DEBUG
 		void DebugGUI();
-		void OutputScene(const std::string& object3d);
+		void OutputComponent(nlohmann::json& json)override;
 #endif
-		void LoadingScene(const std::string& object3d);
 	};
 }

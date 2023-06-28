@@ -383,61 +383,14 @@ void IFE::ObjectManager::DebugGUI()
 void IFE::ObjectManager::OutputScene()
 {
 	JsonManager* jm = JsonManager::Instance();
-	int32_t i = 0;
+	nlohmann::json& j = jm->GetJsonData();
+	uint32_t i = 0;
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
-		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->GetObjectName();
+		itr->OutputScene(j[i]);
 		i++;
 	}
-	jm->OutputAndMakeDirectry("ObjectManager", "Object");
-	for (unique_ptr<Object3D>& itr : objectList_)
-	{
-		nlohmann::json& js = jm->GetJsonData();
-		vector<string>names = itr->GetAllComponentName();
-		for (int32_t j = 0; j < names.size(); j++)
-		{
-			js["com"][j] = names[j];
-		}
-		js["parent"] = itr->parentName_;
-		for (int32_t j = 0; j < itr->childName_.size(); j++)
-		{
-			js["child"][j] = itr->childName_[j];
-		}
-		jm->OutputAndMakeDirectry(itr->GetObjectName(), "Object");
-	}
-	i = 0;
-	for (unique_ptr<Object3D>& itr : prefabList_)
-	{
-		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->GetObjectName();
-		i++;
-	}
-	jm->OutputAndMakeDirectry("PrefabManager", "Object");
-	for (unique_ptr<Object3D>& itr : prefabList_)
-	{
-		nlohmann::json& js = jm->GetJsonData();
-		vector<string>names = itr->GetAllComponentName();
-		for (int32_t j = 0; j < names.size(); j++)
-		{
-			js["com"][j] = names[j];
-		}
-		js["parent"] = itr->parentName_;
-		for (int32_t j = 0; j < itr->childName_.size(); j++)
-		{
-			js["child"][j] = itr->childName_[j];
-		}
-		string s = "P" + itr->GetObjectName();
-		jm->OutputAndMakeDirectry(s, "Object");
-	}
-	for (unique_ptr<Object3D>& itr : objectList_)
-	{
-		itr->OutputScene();
-	}
-	for (unique_ptr<Object3D>& itr : prefabList_)
-	{
-		itr->OutputScene();
-	}
+	jm->Output("ObjectManager");
 }
 void IFE::ObjectManager::DebugUpdate()
 {
@@ -452,95 +405,13 @@ void IFE::ObjectManager::DebugUpdate()
 void IFE::ObjectManager::LoadingScene()
 {
 	JsonManager* jm = JsonManager::Instance();
-	jm->Input("Object/ObjectManager");
+	jm->Input("ObjectManager");
 	nlohmann::json js = jm->GetJsonData();
-	for (auto itr : js)
+	for (auto& j : js)
 	{
-		Add(itr);
-	}
-
-	jm->JsonReset();
-	for (unique_ptr<Object3D>& itr : objectList_)
-	{
-		string s = "Object/" + itr->GetObjectName();
-		jm->Input(s);
-		nlohmann::json js2 = jm->GetJsonData();
-		vector<string>names;
-		for (auto itr2 : js2["com"])
-		{
-			names.push_back(itr2);
-		}
-		itr->parentName_ = js2["parent"];
-		for (auto itr2 : js2["child"])
-		{
-			if (itr2 == "")continue;
-			itr->childName_.push_back(itr2);
-		}
-		jm->JsonReset();
-		for (int32_t i = 0; i < names.size(); i++)
-		{
-			if (names[i].find("_Model") != std::string::npos)
-			{
-				itr->SetModel(ModelManager::Instance()->GetModel(names[i]));
-				continue;
-			}
-			else
-			{
-				auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
-				base->LoadingScene(itr->GetObjectName(), names[i]);
-				itr->SetComponent(std::move(base));
-			}
-		}
-		itr->Initialize();
-	}
-	jm->Input("Object/PrefabManager");
-	js = jm->GetJsonData();
-	for (auto itr : js)
-	{
-		AddPrefab(itr);
-	}
-
-	jm->JsonReset();
-	for (unique_ptr<Object3D>& itr : prefabList_)
-	{
-		string s = "Object/P" + itr->GetObjectName();
-		jm->Input(s);
-		nlohmann::json js2 = jm->GetJsonData();
-		vector<string>names;
-		for (auto itr2 : js2["com"])
-		{
-			names.push_back(itr2);
-		}
-		itr->parentName_ = js2["parent"];
-		for (auto itr2 : js2["child"])
-		{
-			if (itr2 == "")continue;
-			itr->childName_.push_back(itr2);
-		}
-		jm->JsonReset();
-		for (int32_t i = 0; i < names.size(); i++)
-		{
-			if (names[i].find("_Model") != std::string::npos)
-			{
-				itr->SetModel(ModelManager::Instance()->GetModel(names[i]));
-				continue;
-			}
-			else
-			{
-				auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
-				base->LoadingScene(itr->GetObjectName(), names[i]);
-				itr->SetComponent(std::move(base));
-			}
-		}
-		itr->Initialize();
-	}
-	for (unique_ptr<Object3D>& itr : objectList_)
-	{
-		itr->LoadChild();
-	}
-	for (unique_ptr<Object3D>& itr : prefabList_)
-	{
-		itr->LoadChild();
+		auto obj = Add(j["name"]);
+		obj->SetModel(ModelManager::Instance()->GetModel(j["model"]));
+		obj->LoadingScene(j);
 	}
 }
 

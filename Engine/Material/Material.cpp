@@ -106,25 +106,25 @@ void IFE::Material::DebugGUI()
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
-void IFE::Material::OutputComponent()
+void IFE::Material::OutputComponent(nlohmann::json& j)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat4("color", color_);
-	j->OutputFloat3("ambient", ambient_);
-	j->OutputFloat3("diffuse", diffuse_);
-	j->OutputFloat3("specular", specular_);
-	j->OutputString("terxtureName", tex_->texName_);
+	JsonManager* jm = JsonManager::Instance();
+	jm->OutputFloat4(j["color"], color_);
+	jm->OutputFloat3(j["ambient"], ambient_);
+	jm->OutputFloat3(j["diffuse"], diffuse_);
+	jm->OutputFloat3(j["specular"], specular_);
+	j["terxtureName"] = tex_->texName_;
 }
 #endif
 
-void IFE::Material::LoadingComponent()
+void IFE::Material::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
-	color_ = j->InputFloat4("color");
-	ambient_ = j->InputFloat3("ambient");
-	diffuse_ = j->InputFloat3("diffuse");
-	specular_ = j->InputFloat3("specular");
-	SetTexture(TextureManager::Instance()->GetTexture(j->InputString("terxtureName")));
+	color_ = j->InputFloat4(json["color"]);
+	ambient_ = j->InputFloat3(json["ambient"]);
+	diffuse_ = j->InputFloat3(json["diffuse"]);
+	specular_ = j->InputFloat3(json["specular"]);
+	SetTexture(TextureManager::Instance()->GetTexture(json["terxtureName"]));
 	materialBuffer_ = make_unique<ConstBuffer<ConstBufferMaterial>>();
 	constMapMaterial_ = materialBuffer_->GetCBMapObject();
 }

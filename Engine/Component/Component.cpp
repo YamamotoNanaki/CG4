@@ -12,6 +12,7 @@ std::string IFE::Component::GetComponentName()
 void IFE::Component::INITIALIZE()
 {
 	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();
+	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	Initialize();
 }
 
@@ -19,58 +20,46 @@ IFE::Component::~Component()
 {
 }
 
-IFE::Component::Component(Object3D* c)
+IFE::Component::Component(ComponentManager* c)
 {
-	objectPtr_ = c;
-	transform_ = objectPtr_->GetComponent<Transform>();
+	if (c->objectPtr_ != nullptr)
+	{
+		objectPtr_ = c->objectPtr_;
+		transform_ = objectPtr_->GetComponent<Transform>();
+	}
+	else if (c->spritePtr_ != nullptr)
+	{
+		spritePtr_ = c->spritePtr_;
+		transform2D_ = spritePtr_->GetComponent<Transform2D>();
+	}
+	//particlePtr = p;
+	//transformParticle = particlePtr->GetComponent<TransformParticle>();
+	//emitterPtr = e;
+	//transformParticle = emitterPtr->GetComponent<TransformParticle>();
 }
-
-IFE::Component::Component(Sprite* s)
-{
-	spritePtr_ = s;
-	transform2D_ = spritePtr_->GetComponent<Transform2D>();
-}
-//
-//IFE::Component::Component(Particle* p)
-//{
-//	particlePtr = p;
-//	transformParticle = particlePtr->GetComponent<TransformParticle>();
-//}
-//
-//IFE::Component::Component(Emitter* e)
-//{
-//	emitterPtr = e;
-//	transformParticle = emitterPtr->GetComponent<TransformParticle>();
-//}
 
 void IFE::Component::SetComponentName(const std::string& n)
 {
 	componentName_ = n;
 }
 
-void IFE::Component::SetComponents(Object3D* c)
+void IFE::Component::SetComponents(ComponentManager* cm)
 {
-	objectPtr_ = c;
-	transform_ = objectPtr_->GetComponent<Transform>();
+	if (cm->objectPtr_ != nullptr)
+	{
+		objectPtr_ = cm->objectPtr_;
+		transform_ = objectPtr_->GetComponent<Transform>();
+	}
+	else if (cm->spritePtr_ != nullptr)
+	{
+		spritePtr_ = cm->spritePtr_;
+		transform2D_ = spritePtr_->GetComponent<Transform2D>();
+	}
+	//particlePtr = p;
+	//transformParticle = particlePtr->GetComponent<TransformParticle>();
+	//emitterPtr = e;
+	//transformParticle = emitterPtr->GetComponent<TransformParticle>();
 }
-
-void IFE::Component::SetComponents(Sprite* s)
-{
-	spritePtr_ = s;
-	transform2D_ = spritePtr_->GetComponent<Transform2D>();
-}
-//
-//void IFE::Component::SetComponents(Particle* p)
-//{
-//	particlePtr = p;
-//	transformParticle = particlePtr->GetComponent<TransformParticle>();
-//}
-//
-//void IFE::Component::SetComponents(Emitter* e)
-//{
-//	emitterPtr = e;
-//	transformParticle = emitterPtr->GetComponent<TransformParticle>();
-//}
 
 bool IFE::Component::GetComponentDeleteFlag()
 {
@@ -94,7 +83,6 @@ IFE::Sprite* IFE::Component::GetSpritePtr()
 
 void IFE::Component::Copy(Component* c) { c; }
 
-#include "JsonManager.h"
 #ifdef _DEBUG
 #include "ImguiManager.h"
 void IFE::Component::DebugGUI()
@@ -111,33 +99,22 @@ void IFE::Component::DebugGUI()
 	ImguiManager::Instance()->ComponentGUI(func, deleteFunc, componentName_.c_str());
 }
 
-void IFE::Component::OutputScene(std::string object)
+void IFE::Component::OutputScene(nlohmann::json& j)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputString("componentName", componentName_);
-	OutputComponent();
-	j->OutputAndMakeDirectry(object, componentName_);
+	OutputComponent(j[componentName_]);
 }
-void IFE::Component::OutputComponent()
+void IFE::Component::OutputComponent(nlohmann::json& j)
 {
+	j;
 }
 #endif
 
-void IFE::Component::LoadingScene(std::string object, std::string cn)
+void IFE::Component::LoadingScene(nlohmann::json& j)
 {
-	JsonManager* j = JsonManager::Instance();
-	std::string s = cn + "/" + object;
-	j->Input(s);
-	if (j->error_)
-	{
-		j->error_ = false;
-		return;
-	}
-	componentName_ = j->InputString("componentName");
-	LoadingComponent();
-	j->JsonReset();
+	LoadingComponent(j);
 }
 
-void IFE::Component::LoadingComponent()
+void IFE::Component::LoadingComponent(nlohmann::json& j)
 {
+	j;
 }

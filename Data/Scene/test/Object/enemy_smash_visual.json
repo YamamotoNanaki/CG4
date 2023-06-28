@@ -1,9 +1,0 @@
-{
-    "com": [
-        "Transform",
-        "TransferGeometryBuffer",
-        "Material",
-        "enemy_smash_Model"
-    ],
-    "parent": "enemy_smash"
-}

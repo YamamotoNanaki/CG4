@@ -295,7 +295,7 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 		fbx->bones_.push_back(b);
 	for (auto& a : animations_)
 		fbx->animations_.push_back(a);
-
+	fbx->SetSmooth(smooth);
 
 	nodes_.clear();
 

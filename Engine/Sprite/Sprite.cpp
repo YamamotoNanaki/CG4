@@ -10,6 +10,7 @@
 
 using namespace IFE;
 using namespace Microsoft::WRL;
+using namespace std;
 
 GraphicsPipeline Sprite::gp_;
 
@@ -150,6 +151,14 @@ void IFE::Sprite::SetTexture(const std::string& texName)
 	this->tex_ = TextureManager::Instance()->GetTexture(texName);
 }
 
+void IFE::Sprite::LoadingScene(nlohmann::json& j)
+{
+	for (auto& com : j["component"])
+	{
+		ComponentManager::LoadingScene(j, com);
+	}
+}
+
 #ifdef _DEBUG
 #include "ImguiManager.h"
 
@@ -187,9 +196,17 @@ void IFE::Sprite::DebugUpdate()
 {
 	ComponentManager::DebugUpdate();
 }
-void IFE::Sprite::OutputScene()
+void IFE::Sprite::OutputScene(nlohmann::json& j)
 {
-	ComponentManager::OutputScene(spriteName_);
+	j["name"] = spriteName_;
+	j["texture"] = tex_->texName_;
+	uint32_t i = 0;
+	for (auto& com : componentList_)
+	{
+		j["component"][i] = com->componentName_;
+		i++;
+	}
+	ComponentManager::OutputScene(j);
 }
 #endif
 

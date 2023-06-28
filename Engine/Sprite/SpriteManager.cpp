@@ -317,52 +317,19 @@ void IFE::SpriteManager::DebugGUI()
 void IFE::SpriteManager::OutputScene()
 {
 	JsonManager* jm = JsonManager::Instance();
-	int32_t i = 0;
-	for (unique_ptr<Sprite>& itr : foregroundList_)
+	nlohmann::json& j = jm->GetJsonData();
+	uint32_t i = 0;
+	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->spriteName_;
+		itr->OutputScene(j[i]);
 		i++;
 	}
-	jm->OutputAndMakeDirectry("SpriteManager", "Sprite");
 	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		nlohmann::json& js = jm->GetJsonData();
-		vector<string>names = itr->GetAllComponentName();
-		for (int32_t j = 0; j < names.size(); j++)
-		{
-			js["com"][j] = names[j];
-		}
-		js["tex"] = itr->tex_->texName_;
-		jm->OutputAndMakeDirectry(itr->spriteName_, "Sprite");
-	}
-	i = 0;
-	for (unique_ptr<Sprite>& itr : backgroundList_)
-	{
-		nlohmann::json& js = jm->GetJsonData();
-		js[i] = itr->spriteName_;
+		itr->OutputScene(j[i]);
 		i++;
 	}
-	jm->OutputAndMakeDirectry("BackGroundManager", "Sprite");
-	for (unique_ptr<Sprite>& itr : backgroundList_)
-	{
-		nlohmann::json& js = jm->GetJsonData();
-		vector<string>names = itr->GetAllComponentName();
-		for (int32_t j = 0; j < names.size(); j++)
-		{
-			js["com"][j] = names[j];
-		}
-		string s = "Back" + itr->spriteName_;
-		jm->OutputAndMakeDirectry(s, "Sprite");
-	}
-	for (unique_ptr<Sprite>& itr : foregroundList_)
-	{
-		itr->OutputScene();
-	}
-	for (unique_ptr<Sprite>& itr : backgroundList_)
-	{
-		itr->OutputScene();
-	}
+	jm->Output("SpriteManager");
 }
 
 void IFE::SpriteManager::DebugUpdate()
@@ -384,61 +351,13 @@ void IFE::SpriteManager::DebugUpdate()
 void IFE::SpriteManager::LoadingScene()
 {
 	JsonManager* jm = JsonManager::Instance();
-	jm->Input("Sprite/SpriteManager");
-	nlohmann::json js = jm->GetJsonData();
-	for (auto itr : js)
+	jm->Input("SpriteManager");
+	nlohmann::json& js = jm->GetJsonData();
+	for (auto& j : js)
 	{
-		Add(itr);
-	}
-
-	jm->JsonReset();
-	for (unique_ptr<Sprite>& itr : foregroundList_)
-	{
-		string s = "Sprite/" + itr->spriteName_;
-		jm->Input(s);
-		nlohmann::json js2 = jm->GetJsonData();
-		vector<string>names;
-		for (auto itr2 : js2["com"])
-		{
-			names.push_back(itr2);
-		}
-		itr->tex_ = TextureManager::Instance()->GetTexture(js2["tex"]);
-		jm->JsonReset();
-		for (int32_t i = 0; i < names.size(); i++)
-		{
-			auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
-			base->LoadingScene(itr->spriteName_, names[i]);
-			itr->SetComponent(std::move(base));
-		}
-		itr->Initialize();
-	}
-	jm->Input("Sprite/BackGroundManager");
-	js = jm->GetJsonData();
-	for (auto itr : js)
-	{
-		AddBackGround(itr);
-	}
-
-	jm->JsonReset();
-	for (unique_ptr<Sprite>& itr : backgroundList_)
-	{
-		string s = "Sprite/Back" + itr->spriteName_;
-		jm->Input(s);
-		nlohmann::json js2 = jm->GetJsonData();
-		vector<string>names;
-		for (auto itr2 : js2["com"])
-		{
-			names.push_back(itr2);
-		}
-		itr->tex_ = TextureManager::Instance()->GetTexture(js2["tex"]);
-		jm->JsonReset();
-		for (int32_t i = 0; i < names.size(); i++)
-		{
-			auto base = std::unique_ptr<Component>(StringToComponent(names[i]));
-			base->LoadingScene(itr->spriteName_, names[i]);
-			itr->SetComponent(std::move(base));
-		}
-		itr->Initialize();
+		auto spr = Add(j["name"]);
+		spr->SetTexture(j["texture"]);
+		spr->LoadingScene(j);
 	}
 }
 

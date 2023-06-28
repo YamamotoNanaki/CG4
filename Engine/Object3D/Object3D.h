@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "ComponentManager.h"
 #include "Component.h"
+#include "JsonManager.h"
 #include <memory>
 
 namespace IFE
@@ -46,10 +47,10 @@ namespace IFE
 #ifdef _DEBUG
 		void DebugGUI(bool flagdelete, bool fmove, std::string* str);
 		void ComponentGUI();
-		void OutputScene(bool prefab = false);
+		void OutputScene(nlohmann::json& j,bool prefab = false);
 		void DebugUpdate();
 #endif
-		//void LoadingScene();
+		void LoadingScene(nlohmann::json& json);
 		void LoadChild();
 	};
 }

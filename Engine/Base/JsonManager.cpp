@@ -16,44 +16,19 @@ JsonManager* IFE::JsonManager::Instance()
 	return &inst;
 }
 
-float IFE::JsonManager::InputFloat(const std::string& jsonName)
+Float2 IFE::JsonManager::InputFloat2(const nlohmann::json& jsonName)
 {
-	return json_[jsonName];
+	return Float2(jsonName[0], jsonName[1]);
 }
 
-std::int32_t IFE::JsonManager::InputInt(const std::string& jsonName)
+Float3 IFE::JsonManager::InputFloat3(const nlohmann::json& jsonName)
 {
-	return json_[jsonName];
+	return Float3(jsonName[0], jsonName[1], jsonName[2]);
 }
 
-bool IFE::JsonManager::InputBool(const std::string& jsonName)
+Float4 IFE::JsonManager::InputFloat4(const nlohmann::json& jsonName)
 {
-	return json_[jsonName];
-}
-
-uint32_t IFE::JsonManager::InputUINT(const std::string& jsonName)
-{
-	return json_[jsonName];
-}
-
-std::string IFE::JsonManager::InputString(const std::string& jsonName)
-{
-	return json_[jsonName];
-}
-
-Float2 IFE::JsonManager::InputFloat2(const std::string& jsonName)
-{
-	return Float2(json_[jsonName][0], json_[jsonName][1]);
-}
-
-Float3 IFE::JsonManager::InputFloat3(const std::string& jsonName)
-{
-	return Float3(json_[jsonName][0], json_[jsonName][1], json_[jsonName][2]);
-}
-
-Float4 IFE::JsonManager::InputFloat4(const std::string& jsonName)
-{
-	return Float4(json_[jsonName][0], json_[jsonName][1], json_[jsonName][2], json_[jsonName][3]);
+	return Float4(jsonName[0], jsonName[1], jsonName[2], jsonName[3]);
 }
 
 void IFE::JsonManager::Input(const std::string& filename)
@@ -65,6 +40,7 @@ void IFE::JsonManager::Input(const std::string& filename)
 	if (!readingFile) {
 		readingFile.close();
 		error_ = true;
+		JsonReset();
 		return;
 	}
 	readingFile >> json_;
@@ -75,6 +51,7 @@ void IFE::JsonManager::JsonReset()
 {
 	nlohmann::json j;
 	json_ = j;
+	error_ = false;
 }
 
 std::string IFE::JsonManager::SceneInit()
@@ -93,6 +70,11 @@ std::string IFE::JsonManager::SceneInit()
 	return json_["start"];
 }
 
+bool IFE::JsonManager::IsError() const
+{
+	return error_;
+}
+
 nlohmann::json& IFE::JsonManager::GetJsonData()
 {
 	return json_;
@@ -100,75 +82,50 @@ nlohmann::json& IFE::JsonManager::GetJsonData()
 
 
 #ifdef _DEBUG
-void IFE::JsonManager::OutputFloat(const std::string& jsonName, float f)
+void IFE::JsonManager::OutputFloat2(nlohmann::json& jsonName, const Float2& f)
 {
-	json_[jsonName] = f;
+	jsonName[0] = f.x;
+	jsonName[1] = f.y;
 }
 
-void IFE::JsonManager::OutputInt(const std::string& jsonName, int32_t i)
+void IFE::JsonManager::OutputFloat3(nlohmann::json& jsonName, const Float3& f)
 {
-	json_[jsonName] = i;
+	jsonName[0] = f.x;
+	jsonName[1] = f.y;
+	jsonName[2] = f.z;
 }
 
-void IFE::JsonManager::OutputBool(const std::string& jsonName, bool b)
+void IFE::JsonManager::OutputFloat4(nlohmann::json& jsonName, const Float4& f)
 {
-	json_[jsonName] = b;
+	jsonName[0] = f.x;
+	jsonName[1] = f.y;
+	jsonName[2] = f.z;
+	jsonName[3] = f.w;
 }
 
-void IFE::JsonManager::OutputUINT(const std::string& jsonName, uint32_t i)
+void IFE::JsonManager::OutputFloat2(nlohmann::json& jsonName, const Vector2& v)
 {
-	json_[jsonName] = i;
+	jsonName[0] = v.x;
+	jsonName[1] = v.y;
 }
 
-void IFE::JsonManager::OutputString(const std::string& jsonName, const std::string& str)
+void IFE::JsonManager::OutputFloat3(nlohmann::json& jsonName, const Vector3& v)
 {
-	json_[jsonName] = str;
+	jsonName[0] = v.x;
+	jsonName[1] = v.y;
+	jsonName[2] = v.z;
 }
 
-void IFE::JsonManager::OutputFloat2(const std::string& jsonName, const Float2& f)
+void IFE::JsonManager::Output(const std::string& filename)
 {
-	json_[jsonName][0] = f.x;
-	json_[jsonName][1] = f.y;
+	string s = json_.dump(4);
+	ofstream writingFile;
+	string name = "Data/Scene/" + sceneName_ + "/" + filename + ".json";
+	writingFile.open(name, std::ios::out);
+	writingFile << s << std::endl;
+	writingFile.close();
+	JsonReset();
 }
-
-void IFE::JsonManager::OutputFloat3(const std::string& jsonName, const Float3& f)
-{
-	json_[jsonName][0] = f.x;
-	json_[jsonName][1] = f.y;
-	json_[jsonName][2] = f.z;
-}
-
-void IFE::JsonManager::OutputFloat4(const std::string& jsonName, const Float4& f)
-{
-	json_[jsonName][0] = f.x;
-	json_[jsonName][1] = f.y;
-	json_[jsonName][2] = f.z;
-	json_[jsonName][3] = f.w;
-}
-
-void IFE::JsonManager::OutputFloat2(const std::string& jsonName, const Vector2& v)
-{
-	json_[jsonName][0] = v.x;
-	json_[jsonName][1] = v.y;
-}
-
-void IFE::JsonManager::OutputFloat3(const std::string& jsonName, const Vector3& v)
-{
-	json_[jsonName][0] = v.x;
-	json_[jsonName][1] = v.y;
-	json_[jsonName][2] = v.z;
-}
-
-//void IFE::JsonManager::Output(std::string filename)
-//{
-//	string s = _json.dump(4);
-//	ofstream writingFile;
-//	string name = "Data/Scene/" + filename + ".json";
-//	writingFile.open(name, std::ios::out);
-//	writingFile << s << std::endl;
-//	writingFile.close();
-//	JsonReset();
-//}
 
 #include <direct.h>
 void IFE::JsonManager::OutputAndMakeDirectry(const std::string& filename, const std::string& directry)

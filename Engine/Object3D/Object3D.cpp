@@ -74,6 +74,7 @@ void IFE::Object3D::Draw()
 	if (!isActive_)return;
 	if (!DrawFlag_)return;
 	ComponentManager::Draw();
+	model_->Draw();
 }
 
 IFE::Object3D::~Object3D()
@@ -183,17 +184,22 @@ void IFE::Object3D::ComponentGUI()
 	ImguiManager::Instance()->ComponentGUI(objectName_, f, addFunc/*, modelFunc*/);
 }
 
-void IFE::Object3D::OutputScene(bool flag)
+void IFE::Object3D::OutputScene(nlohmann::json& j, bool flag)
 {
+	string s = objectName_;
 	if (flag)
 	{
-		string s = "P" + objectName_;
-		ComponentManager::OutputScene(s);
+		s = "P" + objectName_;
 	}
-	else
+	j["name"] = s;
+	j["model"] = model_->componentName_;
+	uint32_t i = 0;
+	for (auto& com : componentList_)
 	{
-		ComponentManager::OutputScene(objectName_);
+		j["component"][i] = com->componentName_;
+		i++;
 	}
+	ComponentManager::OutputScene(j);
 }
 void IFE::Object3D::DebugUpdate()
 {
@@ -209,10 +215,13 @@ void IFE::Object3D::DebugUpdate()
 }
 
 #endif
-//void IFE::Object3D::LoadingScene()
-//{
-//	ComponentManager::LoadingScene(objectName,);
-//}
+void IFE::Object3D::LoadingScene(nlohmann::json& j)
+{
+	for (auto& com : j["component"])
+	{
+		ComponentManager::LoadingScene(j, com);
+	}
+}
 
 void IFE::Object3D::LoadChild()
 {

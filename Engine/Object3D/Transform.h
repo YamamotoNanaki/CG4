@@ -61,9 +61,9 @@ namespace IFE
 		~Transform();
 #ifdef _DEBUG
 		void DebugGUI();
-		void OutputComponent()override;
+		void OutputComponent(nlohmann::json&json)override;
 #endif
-		void LoadingComponent()override;
+		void LoadingComponent(nlohmann::json& json)override;
 	};
 
 	class Transform2D : public Component
@@ -89,9 +89,9 @@ namespace IFE
 		~Transform2D();
 #ifdef _DEBUG
 		void DebugGUI();
-		void OutputComponent()override;
+		void OutputComponent(nlohmann::json&json)override;
 #endif
-		void LoadingComponent()override;
+		void LoadingComponent(nlohmann::json& json)override;
 	};
 
 	class TransformParticle : public Component

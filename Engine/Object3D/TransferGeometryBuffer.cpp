@@ -31,10 +31,10 @@ void IFE::TransferGeometryBuffer::Copy(Component* component)
 {
 	TransferGeometryBuffer* t = dynamic_cast<TransferGeometryBuffer*>(component);
 	if (t == nullptr)return;
-	 explosion_ = t->explosion_;
-	 gravity_ = t->gravity_;
-	 rotation_ = t->rotation_;
-	 polygonSize_ = t->polygonSize_;
+	explosion_ = t->explosion_;
+	gravity_ = t->gravity_;
+	rotation_ = t->rotation_;
+	polygonSize_ = t->polygonSize_;
 	lightFlag_ = t->lightFlag_;
 	toonFlag_ = t->toonFlag_;
 }
@@ -60,28 +60,26 @@ void IFE::TransferGeometryBuffer::DebugGUI()
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
-void IFE::TransferGeometryBuffer::OutputComponent()
+void IFE::TransferGeometryBuffer::OutputComponent(nlohmann::json& json)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat("explosion", explosion_);
-	j->OutputFloat("gravity", gravity_);
-	j->OutputFloat("rotation", rotation_);
-	j->OutputFloat("polygonSize", polygonSize_);
-	j->OutputBool("lightFlag", lightFlag_);
-	j->OutputBool("toonFlag", toonFlag_);
+	json["explosion"] = explosion_;
+	json["gravity"] = gravity_;
+	json["rotation"] = rotation_;
+	json["polygonSize"] = polygonSize_;
+	json["lightFlag"] = lightFlag_;
+	json["toonFlag"] = toonFlag_;
 }
 
 #endif
 
-void IFE::TransferGeometryBuffer::LoadingComponent()
+void IFE::TransferGeometryBuffer::LoadingComponent(nlohmann::json& json)
 {
-	JsonManager* j = JsonManager::Instance();
-	explosion_ = j->InputFloat("explosion");
-	gravity_ = j->InputFloat("gravity");
-	rotation_ = j->InputFloat("rotation");
-	polygonSize_ = j->InputFloat("polygonSize");
-	lightFlag_ = j->InputBool("lightFlag");
-	toonFlag_ = j->InputBool("toonFlag");
+	explosion_ = json["explosion"];
+	gravity_ = json["gravity"];
+	rotation_ = json["rotation"];
+	polygonSize_ = json["polygonSize"];
+	lightFlag_ = json["lightFlag"];
+	toonFlag_ = json["toonFlag"];
 	geometryBuffer_ = make_unique<ConstBuffer<ConstBufferModelGeometry>>();
 	constMapGeometry_ = geometryBuffer_->GetCBMapObject();
 }

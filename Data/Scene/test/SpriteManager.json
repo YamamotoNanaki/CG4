@@ -1,0 +1,56 @@
+[
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                0.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                372.25,
+                322.25
+            ],
+            "rotation": 169.0,
+            "scale": [
+                1.0,
+                327.75
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "a",
+        "texture": "white.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                0.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                527.0,
+                309.25
+            ],
+            "rotation": 188.0,
+            "scale": [
+                33.5,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "b",
+        "texture": "white.png"
+    }
+]

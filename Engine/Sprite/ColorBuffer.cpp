@@ -36,17 +36,17 @@ void IFE::ColorBuffer::DebugGUI()
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
-void IFE::ColorBuffer::OutputComponent()
+void IFE::ColorBuffer::OutputComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat4("color", color_);
+	j->OutputFloat4(json["color"], color_);
 }
 #endif
 
-void IFE::ColorBuffer::LoadingComponent()
+void IFE::ColorBuffer::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
-	color_ = j->InputFloat4("color");
+	color_ = j->InputFloat4(json["color"]);
 	colorBuffer_ = make_unique<ConstBuffer<ConstBufferColor>>();
 	constMapColor_ = colorBuffer_->GetCBMapObject();
 }

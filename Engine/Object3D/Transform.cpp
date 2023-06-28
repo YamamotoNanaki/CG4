@@ -187,20 +187,20 @@ void IFE::Transform::DebugGUI()
 	};
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
-void IFE::Transform::OutputComponent()
+void IFE::Transform::OutputComponent(nlohmann::json&j)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat3("scale", scale_);
-	j->OutputFloat3("rotation", eulerAngleDegrees_);
-	j->OutputFloat3("position", position_);
+	JsonManager* jm = JsonManager::Instance();
+	jm->OutputFloat3(j["scale"], scale_);
+	jm->OutputFloat3(j["rotation"], eulerAngleDegrees_);
+	jm->OutputFloat3(j["position"], position_);
 }
 #endif
-void IFE::Transform::LoadingComponent()
+void IFE::Transform::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
-	scale_ = j->InputFloat3("scale");
-	eulerAngleDegrees_ = j->InputFloat3("rotation");
-	position_ = j->InputFloat3("position");
+	scale_ = j->InputFloat3(json["scale"]);
+	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
+	position_ = j->InputFloat3(json["position"]);
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferDataTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
@@ -269,21 +269,21 @@ void IFE::Transform2D::DebugGUI()
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
-void IFE::Transform2D::OutputComponent()
+void IFE::Transform2D::OutputComponent(nlohmann::json&j)
 {
-	JsonManager* j = JsonManager::Instance();
-	j->OutputFloat2("scale", scale_);
-	j->OutputFloat("rotation", rotation_);
-	j->OutputFloat2("position", position_);
+	JsonManager* jm = JsonManager::Instance();
+	jm->OutputFloat2(j["scale"], scale_);
+	j["rotation"]= rotation_;
+	jm->OutputFloat2(j["position"], position_);
 }
 #endif
 
-void IFE::Transform2D::LoadingComponent()
+void IFE::Transform2D::LoadingComponent(nlohmann::json&json)
 {
 	JsonManager* j = JsonManager::Instance();
-	scale_ = j->InputFloat2("scale");
-	rotation_ = j->InputFloat("rotation");
-	position_ = j->InputFloat2("position");
+	scale_ = j->InputFloat2(json["scale"]);
+	rotation_ = json["rotation"];
+	position_ = j->InputFloat2(json["position"]);
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferMatrix>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 }

@@ -27,10 +27,5 @@ namespace IFE
 		VertexBuffer<VertexBone>* GetVertexBone();
 		VertexBuffer<Vertex>* GetVertex();
 		IndexBuffer* GetIB();
-#ifdef _DEBUG
-		void DebugGUI()override {};
-		void OutputScene(const std::string& object3d) { object3d; }
-#endif
-		void LoadingScene(const std::string& object3d) { object3d; }
 	};
 };

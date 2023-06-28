@@ -1,9 +1,0 @@
-{
-    "com": [
-        "Transform",
-        "TransferGeometryBuffer",
-        "Material",
-        "sphere_Model"
-    ],
-    "parent": ""
-}

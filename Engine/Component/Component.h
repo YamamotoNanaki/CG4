@@ -2,8 +2,8 @@
 #include <list>
 #include <string>
 #include <typeinfo>
+#include "JsonManager.h"
 
-//class ADXCollider;
 namespace IFE
 {
 	class Object3D;
@@ -11,15 +11,12 @@ namespace IFE
 	class Transform;
 	class Transform2D;
 	class TransformParticle;
-	//class Particle;
-	//class Emitter;
+	class ComponentManager;
 	class Component
 	{
 	public:
 		Object3D* objectPtr_ = nullptr;
 		Sprite* spritePtr_ = nullptr;
-		//Particle* particlePtr = nullptr;
-		//Emitter* emitterPtr = nullptr;
 		std::string componentName_;
 		bool componentDeleteFlag_ = false;
 	protected:
@@ -32,15 +29,11 @@ namespace IFE
 		virtual void Update() {};
 		virtual void Draw() {};
 		virtual ~Component();
-		Component(Object3D* component);
-		Component(Sprite* component);
-		//Component(Particle* component);
-		//Component(Emitter* component);
+		Component(ComponentManager* component);
 		Component() {}
 		std::string GetComponentName();
 		void SetComponentName(const std::string& componentName);
-		void SetComponents(Object3D* components);
-		void SetComponents(Sprite* components);
+		void SetComponents(ComponentManager* cm);
 		//void SetComponents(Particle* components);
 		//void SetComponents(Emitter* components);
 		bool GetComponentDeleteFlag();
@@ -49,18 +42,12 @@ namespace IFE
 		//virtual void OnColliderHit(ADXCollider* myCol, ADXCollider* col);
 		virtual void Copy(Component* component);
 #ifdef _DEBUG
-		//îÒêÑèß
 		virtual void DebugGUI();
-		//êÑèß
 		virtual void ComponentDebugGUI() {};
-		//îÒêÑèß
-		virtual void OutputScene(std::string object);
-		//êÑèß
-		virtual void OutputComponent();
+		void OutputScene(nlohmann::json& json);
+		virtual void OutputComponent(nlohmann::json& json);
 #endif
-		//îÒêÑèß
-		virtual void LoadingScene(std::string object, std::string componentName);
-		//êÑèß
-		virtual void LoadingComponent();
+		void LoadingScene(nlohmann::json& json);
+		virtual void LoadingComponent(nlohmann::json& json);
 	};
 }

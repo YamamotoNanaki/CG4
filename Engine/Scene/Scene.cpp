@@ -71,44 +71,44 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	//Emitter::StaticInitialize();
-	tex->Initialize();
-	objM->OBJInitialize();
-	spriteM->SPRITEInitialize();
-	gp.CreateBasicGraphicsPipeLine();
-	light->Initialize();
-	light->DefaultLightSetting();
-	light->SetDirLightColor(0, { 1,0,0 });
-	light->SetDirLightColor(1, { 0,1,0 });
-	light->SetDirLightColor(2, { 0,0,1 });
-	sound->Initialize();
-	cameraM->Instance();
-	cameraM->Initialize();
+	tex_->Initialize();
+	objM_->OBJInitialize();
+	spriteM_->SPRITEInitialize();
+	gp_.CreateBasicGraphicsPipeLine();
+	light_->Initialize();
+	light_->DefaultLightSetting();
+	light_->SetDirLightColor(0, { 1,0,0 });
+	light_->SetDirLightColor(1, { 0,1,0 });
+	light_->SetDirLightColor(2, { 0,0,1 });
+	sound_->Initialize();
+	cameraM_->Instance();
+	cameraM_->Initialize();
 
-	//SceneInit();
-	objM->Initialize();
-	spriteM->Initialize();
+	SceneInit();
+	objM_->Initialize();
+	spriteM_->Initialize();
 	//particleM->Initialize();
 }
 
 void IFE::Scene::Update()
 {
 	SceneChange();
-	objM->Update();
-	spriteM->Update();
+	objM_->Update();
+	spriteM_->Update();
 	//particleM->Update();
-	light->Update();
+	light_->Update();
 }
 
 void IFE::Scene::Draw()
 {
 	Sprite::DrawBefore();
-	spriteM->BackDraw();
-	gp.SetDrawBlendMode();
-	light->Draw(3);
-	objM->Draw();
+	spriteM_->BackDraw();
+	gp_.SetDrawBlendMode();
+	light_->Draw(3);
+	objM_->Draw();
 	//particleM->Draw();
 	Sprite::DrawBefore();
-	spriteM->ForeDraw();
+	spriteM_->ForeDraw();
 }
 #endif
 
@@ -146,38 +146,38 @@ void IFE::Scene::SceneInit()
 {
 	nowScene_ = JsonManager::Instance()->SceneInit();
 	JsonManager::Instance()->SetSceneName(nowScene_);
-	//tex->TexReset();
-	//objM->Reset();
-	//modelM->Reset();
-	//spriteM->Reset();
+	tex_->TexReset();
+	objM_->Reset();
+	modelM_->Reset();
+	spriteM_->Reset();
 	//particleM->Reset();
-	//tex->LoadingScene();
-	//modelM->LoadingScene();
-	//objM->LoadingScene();
-	//spriteM->LoadingScene();
+	tex_->LoadingScene();
+	modelM_->LoadingScene();
+	objM_->LoadingScene();
+	spriteM_->LoadingScene();
 	//particleM->LoadingScene();
 }
 
 void IFE::Scene::LoadingScene()
 {
-	//JsonManager::Instance()->SetSceneName(nowScene);
-	//objM->Reset();
-	//spriteM->Reset();
+	JsonManager::Instance()->SetSceneName(nowScene_);
+	objM_->Reset();
+	spriteM_->Reset();
 	//particleM->Reset();
-	//objM->LoadingScene();
-	//spriteM->LoadingScene();
+	objM_->LoadingScene();
+	spriteM_->LoadingScene();
 	//particleM->LoadingScene();
 }
 
 #ifdef _DEBUG
 void IFE::Scene::OutputScene()
 {
-	//if (debug)return;
-	//JsonManager::Instance()->MakeSceneDirectry();
-	//tex->OutputScene();
-	//modelM->OutputScene();
-	//objM->OutputScene();
-	//spriteM->OutputScene();
+	if (debug_)return;
+	JsonManager::Instance()->MakeSceneDirectry();
+	tex_->OutputScene();
+	modelM_->OutputScene();
+	objM_->OutputScene();
+	spriteM_->OutputScene();
 	//particleM->OutputScene();
 }
 #include "imgui.h"

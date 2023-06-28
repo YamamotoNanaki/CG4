@@ -1,7 +1,0 @@
-{
-    "com": [
-        "Transform2D",
-        "ColorBuffer"
-    ],
-    "tex": "white.png"
-}

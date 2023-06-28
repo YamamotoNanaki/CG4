@@ -52,12 +52,13 @@ namespace IFE
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);
 		void SetTexture(const std::string& texName);
+		void LoadingScene(nlohmann::json& j);
 
 #ifdef _DEBUG
 		virtual void DebugGUI(bool fdelete, bool fmove, std::string* str);
 		void ComponentGUI();
 		void DebugUpdate();
-		void OutputScene();
+		void OutputScene(nlohmann::json& j);
 #endif
 	};
 }

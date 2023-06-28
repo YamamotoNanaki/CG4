@@ -30,7 +30,7 @@ namespace IFE
 		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
 		// ÉtÉFÉìÉXÇÃê∂ê¨
 		ComPtr<ID3D12Fence> fence_ = nullptr;
-		UINT64 fenceVal_ = 0;
+		uint64_t fenceVal_ = 0;
 		vector<D3D12_VIEWPORT> viewport_{};
 
 	private:
@@ -66,7 +66,7 @@ namespace IFE
 		ID3D12CommandQueue* GetCommandQueue();
 		ID3D12Fence* GetFence();
 		ID3D12CommandAllocator* GetCommandAllocator();
-		UINT64& GetFenceVal();
+		uint64_t& GetFenceVal();
 
 	public:
 		void SetClearColor(const Float4& color);

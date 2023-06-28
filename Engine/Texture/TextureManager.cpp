@@ -37,7 +37,7 @@ void IFE::TextureManager::Initialize()
 	HRESULT result = GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap_));
 	assert(SUCCEEDED(result));
 #else
-	GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap));
+	GraphicsAPI::GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap_));
 
 #endif
 
@@ -287,6 +287,7 @@ void IFE::TextureManager::DebugGUI()
 void IFE::TextureManager::OutputScene()
 {
 	JsonManager* j = JsonManager::Instance();
+	j->JsonReset();
 	nlohmann::json& js = j->GetJsonData();
 	int32_t num = 0;
 	for (uint16_t i = 1; i < 1000; i++)
@@ -295,14 +296,14 @@ void IFE::TextureManager::OutputScene()
 		js["Texture"][num] = tex_[i].texName_;
 		num++;
 	}
-	j->OutputAndMakeDirectry("Texture","Texture");
+	j->Output("Texture");
 }
 #endif
 
 void IFE::TextureManager::LoadingScene()
 {
 	JsonManager* j = JsonManager::Instance();
-	j->Input("Texture/Texture");
+	j->Input("Texture");
 	nlohmann::json js = j->GetJsonData();
 	for (auto& i : js["Texture"])
 	{

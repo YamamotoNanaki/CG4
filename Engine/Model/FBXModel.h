@@ -18,6 +18,7 @@ namespace IFE
 		template<class T> using vector = std::vector<T>;
 	private:
 		AddModelSettings setting_;
+		bool smooth_;
 
 	public:
 		std::vector<std::unique_ptr<Node>> nodes_{};
@@ -26,21 +27,20 @@ namespace IFE
 		std::vector<Matrix> transformMatrixs_{};
 		std::string fileName_;
 
-
 	public:
 		void Initialize()override;
 		void Update()override {};
 		void Draw()override;
 		void BoneTransform(float TimeInSeconds);
 		void SetSettings(const AddModelSettings& setting);
+		void SetSmooth(bool smooth);
 	private:
 		void ReadNodeHeirarchy(float AnimationTime, Node* pNode);
 
 	public:
 #ifdef _DEBUG
 		void DebugGUI()override;
-		void OutputScene(const std::string& object3d);
+		void OutputComponent(nlohmann::json& json);
 #endif
-		void LoadingScene(const std::string& object3d);
 	};
 };

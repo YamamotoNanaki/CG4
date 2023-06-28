@@ -77,6 +77,7 @@ void IFE::ModelManager::Add(const std::string& modelName, const AddModelSettings
 			ptr->CreateSphere();
 			break;
 		}
+		ptr->SetSmooth(smooth);
 		buff = std::unique_ptr<Component>(ptr);
 	}
 	string n = modelName;
@@ -161,38 +162,36 @@ void IFE::ModelManager::OutputScene()
 {
 	JsonManager* jm = JsonManager::Instance();
 	nlohmann::json& js = jm->GetJsonData();
-	int32_t num = 0;
+	uint32_t num = 0;
 	for (auto& itr : modelList_)
 	{
-		js[num] = itr->GetComponentName();
+		js[num]["name"] = itr->componentName_;
+		itr->OutputScene(js[num]);
 		num++;
 	}
-	jm->OutputAndMakeDirectry("ModelManager","Model");
-	for (auto& itr : modelList_)
-	{
-		itr->OutputScene("");
-	}
+	jm->Output("ModelManager");
 }
 #endif
 void IFE::ModelManager::LoadingScene()
 {
 	JsonManager* jm = JsonManager::Instance();
-	jm->Input("Model/ModelManager");
-	nlohmann::json& js = jm->GetJsonData();
-	vector<string>names;
-	for (auto& itr : js)
+	jm->Input("ModelManager");
+	if (jm->IsError())
 	{
-		names.push_back(itr);
+		return;
+	}
+	nlohmann::json& js = jm->GetJsonData();
+	for (auto& j : js)
+	{
+		string name = j["name"];
+		AddModelSettings ams = (AddModelSettings)j[name]["settings"];
+		bool smooth = j[name]["smooth"];
+		string file = "";
+		if ((uint32_t)ams < 100)
+		{
+			file = j[name]["fileName"];
+		}
+		Add(name, ams, file, smooth);
 	}
 	jm->JsonReset();
-	for (int32_t i = 0; i < names.size(); i++)
-	{
-		string s = "Model/" + names[i];
-		jm->Input(s);
-		string componentName = jm->InputString("componentName");
-		string fileName = jm->InputString("fileName");
-		AddModelSettings setting = (AddModelSettings)jm->InputUINT("settings");
-		Add(names[i], setting, fileName);
-		jm->JsonReset();
-	}
 }

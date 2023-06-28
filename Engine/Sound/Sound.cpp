@@ -136,7 +136,7 @@ void IFE::Sound::StopSound(uint16_t soundNum)
 	assert(SUCCEEDED(result));
 
 #else
-	soundDatas[soundNum].pSourceVoice->Stop();
+	soundDatas_[soundNum].pSourceVoice->Stop();
 #endif
 	soundDatas_[soundNum].pSourceVoice = nullptr;
 }

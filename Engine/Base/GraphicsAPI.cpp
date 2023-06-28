@@ -51,7 +51,6 @@ void IFE::GraphicsAPI::Finalize()
 		debugInterface->Release();
 	}
 #endif
-	sDevice_->Release();
 }
 
 void GraphicsAPI::Initialize(const HWND& hwnd, uint32_t window_width, uint32_t window_height)
@@ -359,7 +358,7 @@ ID3D12Fence* IFE::GraphicsAPI::GetFence()
 	return fence_.Get();
 }
 
-UINT64& IFE::GraphicsAPI::GetFenceVal()
+uint64_t& IFE::GraphicsAPI::GetFenceVal()
 {
 	return fenceVal_;
 }
