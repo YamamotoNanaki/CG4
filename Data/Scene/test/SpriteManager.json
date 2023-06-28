@@ -1,1 +1,29 @@
-null
+[
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                584.5,
+                244.5
+            ],
+            "rotation": 0.0,
+            "scale": [
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "test",
+        "texture": "white.png"
+    }
+]

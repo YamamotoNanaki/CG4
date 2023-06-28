@@ -21,9 +21,29 @@ void IFE::Player::OnColliderHit(Collider* collider)
 void IFE::Player::Move()
 {
 	Input* input = Input::Instance();
-	float x = ((float)input->KeyDown(Key_Rigth) - (float)input->KeyDown(Key_Left)) * speed_;
-	float z = ((float)input->KeyDown(Key_Up) - (float)input->KeyDown(Key_Down)) * speed_;
+	float x = ((float)input->KeyDown(Key_Rigth) - (float)input->KeyDown(Key_Left));
+	float z = ((float)input->KeyDown(Key_Up) - (float)input->KeyDown(Key_Down));
 	move_ = { x, 0, z };
 	move_.Normalize();
-	transform_->position_ += move_;
+	transform_->position_ += move_ * speed_;
+}
+
+
+
+#ifdef _DEBUG
+#include "ImguiManager.h"
+void IFE::Player::ComponentDebugGUI()
+{
+	ImguiManager::Instance()->DragFloatGUI(&speed_, "speed", 0.05f);
+}
+
+void IFE::Player::OutputComponent(nlohmann::json& json)
+{
+	json["speed"] = speed_;
+}
+#endif
+
+void IFE::Player::LoadingComponent(nlohmann::json& json)
+{
+	speed_ = json["speed"];
 }

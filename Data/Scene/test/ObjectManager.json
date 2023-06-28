@@ -25,7 +25,9 @@
             ],
             "terxtureName": "airplane.png"
         },
-        "Player": null,
+        "Player": {
+            "speed": 0.30000001192092896
+        },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
             "gravity": 0.0,

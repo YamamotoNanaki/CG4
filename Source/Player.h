@@ -13,6 +13,12 @@ namespace IFE
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 
+#ifdef _DEBUG
+		void ComponentDebugGUI()override;
+		void OutputComponent(nlohmann::json& json)override;
+#endif
+		void LoadingComponent(nlohmann::json& json)override;
+
 	private:
 		void Move();
 	};

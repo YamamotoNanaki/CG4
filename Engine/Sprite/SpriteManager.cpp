@@ -356,7 +356,7 @@ void IFE::SpriteManager::LoadingScene()
 	for (auto& j : js)
 	{
 		auto spr = Add(j["name"]);
-		spr->SetTexture(j["texture"]);
+		spr->Initialize(j["texture"]);
 		spr->LoadingScene(j);
 	}
 }

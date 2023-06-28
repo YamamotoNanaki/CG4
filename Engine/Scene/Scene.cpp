@@ -25,8 +25,6 @@ void IFE::Scene::Initialize()
 	cameraM_->Initialize();
 
 	SceneInit();
-	objM_->Initialize();
-	spriteM_->Initialize();
 	//particleM->Initialize();
 }
 
@@ -85,8 +83,6 @@ void IFE::Scene::Initialize()
 	cameraM_->Initialize();
 
 	SceneInit();
-	objM_->Initialize();
-	spriteM_->Initialize();
 	//particleM->Initialize();
 }
 
