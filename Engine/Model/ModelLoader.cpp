@@ -218,7 +218,7 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 	if (fileType == ".obj")objType_ = true;
 	f += fileName + "/" + fileName + fileType;
 	filename_ = fileName;
-	uint32_t sf = aiProcess_GenNormals;
+	uint32_t sf = 0;
 	if (smooth == true)
 	{
 		sf = aiProcess_GenSmoothNormals;
@@ -228,7 +228,7 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
 		aiProcess_SortByPType | aiProcess_ConvertToLeftHanded |
-		sf | aiProcess_FixInfacingNormals
+		sf
 	);
 
 	if (scene == nullptr)
