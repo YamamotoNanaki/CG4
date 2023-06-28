@@ -6,6 +6,7 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 #include "ColorBuffer.h"
+#include "Player.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -35,6 +36,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetT<ColorBuffer>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetT<Material>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetT<Player>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

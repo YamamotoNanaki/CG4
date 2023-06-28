@@ -112,6 +112,12 @@
     <Filter Include="ヘッダー ファイル\Engine\Sprite">
       <UniqueIdentifier>{f20445aa-2249-4cd0-9be8-c2ce8c91d6db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Source">
+      <UniqueIdentifier>{3eb842f0-1b98-4f1c-a8f2-f3ecfb4fa862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Source">
+      <UniqueIdentifier>{37611639-83fc-4dbb-8992-ec679f317602}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -252,11 +258,14 @@
     <ClCompile Include="Engine\Util\Ease.cpp">
       <Filter>ソース ファイル\Engine\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Component\ComponentHelp.cpp">
-      <Filter>ソース ファイル\Engine\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Component\ComponentManager.cpp">
       <Filter>ソース ファイル\Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>ソース ファイル\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\ComponentHelp.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Component\ComponentManager.h">
       <Filter>ヘッダー ファイル\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>ヘッダー ファイル\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

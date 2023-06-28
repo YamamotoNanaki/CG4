@@ -1,1 +1,62 @@
-null
+[
+    {
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "airplane.png"
+        },
+        "Player": null,
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                5.25,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                180.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Player",
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "airplane_Model",
+        "name": "airplane"
+    }
+]

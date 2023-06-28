@@ -16,9 +16,6 @@ void IFE::Scene::Initialize()
 	gp_.CreateBasicGraphicsPipeLine();
 	light_->Initialize();
 	light_->DefaultLightSetting();
-	light_->SetDirLightColor(0, { 1,0,0 });
-	light_->SetDirLightColor(1, { 0,1,0 });
-	light_->SetDirLightColor(2, { 0,0,1 });
 	sound_->Initialize();
 	gui_.Initialize();
 	cameraM_->Instance();
@@ -77,9 +74,6 @@ void IFE::Scene::Initialize()
 	gp_.CreateBasicGraphicsPipeLine();
 	light_->Initialize();
 	light_->DefaultLightSetting();
-	light_->SetDirLightColor(0, { 1,0,0 });
-	light_->SetDirLightColor(1, { 0,1,0 });
-	light_->SetDirLightColor(2, { 0,0,1 });
 	sound_->Initialize();
 	cameraM_->Instance();
 	cameraM_->Initialize();
