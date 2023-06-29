@@ -3,6 +3,7 @@
 #include <thread>
 #include "Debug.h"
 #include "IFETime.h"
+#include "WindowsAPI.h"
 
 using namespace Microsoft::WRL;
 using namespace std;
@@ -53,7 +54,7 @@ void IFE::GraphicsAPI::Finalize()
 #endif
 }
 
-void GraphicsAPI::Initialize(const HWND& hwnd, uint32_t window_width, uint32_t window_height)
+void GraphicsAPI::Initialize(const HWND& hwnd)
 {
 	IFETime::Initialize();
 	InitializeFixFps();
@@ -149,6 +150,8 @@ void GraphicsAPI::Initialize(const HWND& hwnd, uint32_t window_width, uint32_t w
 		commandAllocator_.Get(), nullptr,
 		IID_PPV_ARGS(&commandList_));
 	assert(SUCCEEDED(result));
+	uint32_t window_width = WindowsAPI::Instance()->winWidth_;
+	uint32_t window_height = WindowsAPI::Instance()->winHeight_;
 
 	D3D12_COMMAND_QUEUE_DESC commandQueueDesc{};
 	result = sDevice_->CreateCommandQueue(&commandQueueDesc, IID_PPV_ARGS(&commandQueue_));

@@ -34,7 +34,6 @@ void IFE::Scene::Update()
 	gui_.StartNewFrame();
 	DebugGUI();
 
-	cameraM_->Update();
 	if (debug_ && !stop_)
 	{
 		objM_->Update();
@@ -47,6 +46,7 @@ void IFE::Scene::Update()
 		spriteM_->DebugUpdate();
 		//particleM->DebugUpdate();
 	}
+	cameraM_->Update();
 	light_->Update();
 }
 
@@ -92,6 +92,7 @@ void IFE::Scene::Update()
 	objM_->Update();
 	spriteM_->Update();
 	//particleM->Update();
+	cameraM_->Update();
 	light_->Update();
 }
 

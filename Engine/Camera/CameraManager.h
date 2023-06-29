@@ -1,5 +1,7 @@
 #pragma once
 #include "Camera.h"
+#include <list>
+#include <memory>
 
 namespace IFE
 {
@@ -9,6 +11,8 @@ namespace IFE
 		CameraManager(const CameraManager&) {}
 		CameraManager& operator=(const CameraManager&) {}
 		~CameraManager();
+
+		std::list<std::unique_ptr<Camera>>cameraList;
 
 	public:
 		static Camera* sActivCamera_;

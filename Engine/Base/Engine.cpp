@@ -13,8 +13,8 @@ Engine* IFE::Engine::Instance()
 
 void IFE::Engine::Initialize()
 {
-	window_->Initialize(1280, 720);
-	gapi_->Initialize(*WindowsAPI::Instance()->GetHWnd(), 1280, 720);
+	window_->Initialize(1600, 900);
+	gapi_->Initialize(*WindowsAPI::Instance()->GetHWnd());
 	Input::Initalize();
 	IFERand::Initialize();
 }

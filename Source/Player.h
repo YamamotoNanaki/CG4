@@ -21,5 +21,6 @@ namespace IFE
 
 	private:
 		void Move();
+		void CameraFollow();
 	};
 }

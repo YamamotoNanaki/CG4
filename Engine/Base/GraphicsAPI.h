@@ -52,7 +52,7 @@ namespace IFE
 	public:
 		static GraphicsAPI* Instance();
 		static void Finalize();
-		void Initialize(const HWND& hwnd, uint32_t window_width, uint32_t window_height);
+		void Initialize(const HWND& hwnd);
 		void DrawBefore();
 		void DrawSetViewport(int32_t viewportNum = 0);
 		void DrawAfter();
