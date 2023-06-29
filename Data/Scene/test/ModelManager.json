@@ -6,5 +6,20 @@
             "smooth": true
         },
         "name": "airplane_Model"
+    },
+    {
+        "name": "sphere_Model",
+        "sphere_Model": {
+            "settings": 104,
+            "smooth": false
+        }
+    },
+    {
+        "name": "skydome_Model",
+        "skydome_Model": {
+            "fileName": "skydome",
+            "settings": 0,
+            "smooth": false
+        }
     }
 ]

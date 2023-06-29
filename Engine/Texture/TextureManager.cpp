@@ -104,6 +104,8 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 
 	assert(SUCCEEDED(result));
 
+	metadata.format = MakeSRGB(metadata.format);
+
 	ID3D12Device* device = GraphicsAPI::GetDevice();
 
 	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
