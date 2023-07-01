@@ -27,6 +27,8 @@ void IFE::Player::Move()
 	Input* input = Input::Instance();
 	float x = ((float)input->KeyDown(Key_Rigth) - (float)input->KeyDown(Key_Left));
 	float z = ((float)input->KeyDown(Key_Up) - (float)input->KeyDown(Key_Down));
+	x = input->GetLXAnalog();
+	z = input->GetLYAnalog();
 	move_ = { x, 0, z };
 	move_.Normalize();
 	transform_->position_ += move_ * speed_;
