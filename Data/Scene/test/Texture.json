@@ -2,6 +2,14 @@
     "Texture": [
         "white.png",
         "airplane.png",
-        "Fine_Basin.jpg"
+        "Fine_Basin.jpg",
+        "AnalogL.png",
+        "ButtonR.png",
+        "idou.png",
+        "kougeki.png",
+        "tex_body.png",
+        "tex_facialparts.png",
+        "tex_hair.png",
+        "tex_cloth.png"
     ]
 }

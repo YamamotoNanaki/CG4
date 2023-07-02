@@ -82,7 +82,8 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 				f = f.substr(f.find("\\") + 1);
 			}
 			/*f = filename + "/" + f;*/
-			TextureManager::Instance()->LoadTexture(f);
+			auto tex = TextureManager::Instance()->LoadTexture(f);
+			mesh_->SetTexture(tex);
 		}
 
 		mesh_->GetVertex()->SetVerticle(vertices);

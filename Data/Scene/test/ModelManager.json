@@ -1,13 +1,5 @@
 [
     {
-        "airplane_Model": {
-            "fileName": "airplane",
-            "settings": 0,
-            "smooth": true
-        },
-        "name": "airplane_Model"
-    },
-    {
         "name": "sphere_Model",
         "sphere_Model": {
             "settings": 104,
@@ -24,7 +16,7 @@
     },
     {
         "girl_Model": {
-            "fileName": "SciFi",
+            "fileName": "Player",
             "settings": 1,
             "smooth": true
         },

@@ -19,6 +19,7 @@ namespace IFE
 		VertexBuffer<VertexBone>vb_;
 		VertexBuffer<Vertex>vt_;
 		IndexBuffer ib_;
+		Texture* tex_ = nullptr;
 
 	public:
 		void Initialize()override;
@@ -27,5 +28,6 @@ namespace IFE
 		VertexBuffer<VertexBone>* GetVertexBone();
 		VertexBuffer<Vertex>* GetVertex();
 		IndexBuffer* GetIB();
+		void SetTexture(Texture* tex);
 	};
 };
