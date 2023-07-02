@@ -236,6 +236,41 @@ bool IFE::ObjectManager::SearchName(const std::string& name)
 	return false;
 }
 
+Object3D* IFE::ObjectManager::SearchObject(const std::string& name)
+{
+	for (unique_ptr<Object3D>& itr : objectList_)
+	{
+		if (itr->GetObjectName() == name)return itr.get();
+	}
+	for (unique_ptr<Object3D>& itr : prefabList_)
+	{
+		if (itr->GetObjectName() == name)return itr.get();
+	}
+	return nullptr;
+}
+
+Object3D* IFE::ObjectManager::Instantiate(const std::string& objectName, const std::string& newObjectName)
+{
+	return Instantiate(objectName, { 0,0,0 }, newObjectName);
+}
+
+Object3D* IFE::ObjectManager::Instantiate(const std::string& objectName, const Float3& position, const std::string& newObjectName)
+{
+	auto obj = SearchObject(objectName);
+	if (obj == nullptr)return nullptr;
+	std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
+	string s = newObjectName;
+	if (s == "")
+	{
+		s = objectName + "(add)";
+	}
+	ptr->SetObjectName(s);
+	obj->CopyValue(ptr.get());
+	ptr->transform_->position_ = position;
+	objectList_.push_back(std::move(ptr));
+	return objectList_.back().get();
+}
+
 #ifdef _DEBUG
 #include "imgui.h"
 void IFE::ObjectManager::DebugGUI()
@@ -391,6 +426,13 @@ void IFE::ObjectManager::OutputScene()
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
 		itr->OutputScene(j[i]);
+		j[i]["prefab"] = false;
+		i++;
+	}
+	for (unique_ptr<Object3D>& itr : prefabList_)
+	{
+		itr->OutputScene(j[i]);
+		j[i]["prefab"] = true;
 		i++;
 	}
 	jm->Output("ObjectManager");
@@ -412,7 +454,9 @@ void IFE::ObjectManager::LoadingScene()
 	nlohmann::json js = jm->GetJsonData();
 	for (auto& j : js)
 	{
-		auto obj = Add(j["name"]);
+		Object3D* obj;
+		if (j["prefab"])obj = AddPrefab(j["name"]);
+		else obj = Add(j["name"]);
 		obj->SetModel(ModelManager::Instance()->GetModel(j["model"]));
 		obj->LoadingScene(j);
 		obj->Initialize();

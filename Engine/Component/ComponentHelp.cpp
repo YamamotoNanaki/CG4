@@ -8,6 +8,8 @@
 #include "ColorBuffer.h"
 #include "Collider.h"
 #include "Player.h"
+#include "Enemy.h"
+#include "Bullet.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -41,6 +43,10 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<Collider>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Player>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Enemy>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Bullet>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

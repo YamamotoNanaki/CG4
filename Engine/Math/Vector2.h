@@ -24,7 +24,8 @@ namespace IFE
 		Vector2& operator/=(float s);
 		Vector2& operator= (const Vector2& obj) = default;
 		Vector2& operator= (const Float2& obj);
-
+		static Vector2 zero;
+		bool operator==(const Vector2& v);
 	};
 	const Vector2 operator+(const Vector2& v1, const Vector2& v2);
 	const Vector2 operator-(const Vector2& v1, const Vector2& v2);

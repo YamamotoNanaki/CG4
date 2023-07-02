@@ -50,10 +50,12 @@ namespace IFE
 		void Update();
 		void Draw();
 		void Finalize();
+		void SetTransform();
 		void SetObjectPtr(Object3D* objectPtr);
 		void SetSpritePtr(Sprite* spritePtr);
 		std::vector<std::string> GetAllComponentName();
 		void OnColliderHit(Collider* collider);
+		void CopyValue(ComponentManager* ptr);
 #ifdef _DEBUG
 		void DebugGUI();
 		void OutputScene(nlohmann::json& json);

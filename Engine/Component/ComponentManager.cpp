@@ -33,6 +33,14 @@ void IFE::ComponentManager::Finalize()
 	componentList_.clear();
 }
 
+void IFE::ComponentManager::SetTransform()
+{
+	for (auto& itr : componentList_)
+	{
+		itr->SetTransform();
+	}
+}
+
 void IFE::ComponentManager::SetObjectPtr(Object3D* p)
 {
 	objectPtr_ = p;
@@ -65,6 +73,20 @@ void IFE::ComponentManager::OnColliderHit(Collider* collider)
 	}
 }
 
+void IFE::ComponentManager::CopyValue(ComponentManager* ptr)
+{
+	for (auto& itr : componentList_)
+	{
+		if (itr)
+		{
+			std::string s = itr->GetComponentName();
+			auto c = StringToComponent(s);
+			c->CopyValue(itr.get());
+			ptr->AddComponentBack<Component>(std::unique_ptr<Component>(c));
+		}
+	}
+}
+
 #ifdef _DEBUG
 void IFE::ComponentManager::DebugGUI()
 {
@@ -92,7 +114,7 @@ void IFE::ComponentManager::DebugUpdate()
 		else if (name == "TransferGeometryBuffer");
 		else if (name == "Material");
 		else if (name.find("_Model") != std::string::npos);
-		else if (name=="ColorBuffer");
+		else if (name == "ColorBuffer");
 		else
 		{
 			continue;

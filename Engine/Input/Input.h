@@ -56,6 +56,7 @@ namespace IFE
 		XINPUT_STATE oldpad_{};
 		XINPUT_VIBRATION vibration_{};
 		static Input* sInputInstance_;
+		static bool sPadConnected_;
 
 	private:
 		Input() {}
@@ -98,18 +99,18 @@ namespace IFE
 		static bool MouseRelease(const MouseCode& mouse);
 		static Mouse GetMouse3D();
 		//コントローラーの判定
-		static Float2 GetLAnalog(std::int32_t unresponsive_range = 200);
-		static Float2 GetRAnalog(std::int32_t unresponsive_range = 200);
-		static float GetLXAnalog(std::int32_t unresponsive_range = 200);
-		static float GetRXAnalog(std::int32_t unresponsive_range = 200);
-		static float GetLYAnalog(std::int32_t unresponsive_range = 200);
-		static float GetRYAnalog(std::int32_t unresponsive_range = 200);
+		static Float2 GetLAnalog(std::int32_t unresponsive_range = 1000);
+		static Float2 GetRAnalog(std::int32_t unresponsive_range = 1000);
+		static float GetLXAnalog(std::int32_t unresponsive_range = 1000);
+		static float GetRXAnalog(std::int32_t unresponsive_range = 1000);
+		static float GetLYAnalog(std::int32_t unresponsive_range = 1000);
+		static float GetRYAnalog(std::int32_t unresponsive_range = 1000);
 		static bool PadPush(const PADCODE& pad);
 		static bool PadTriggere(const PADCODE& pad);
 		static bool PadRelease(const PADCODE& pad);
 		static void PadVibrationStart(const WORD& L, const WORD& R);
 		static void PadVibrationStop();
-
+		static bool GetPadConnected();
 	};
 }
 

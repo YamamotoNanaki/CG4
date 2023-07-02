@@ -44,6 +44,8 @@ namespace IFE
 		void DeleteChild(const std::string& childName);
 		void DeleteChildAll();
 
+		void CopyValue(Object3D* ptr);
+
 #ifdef _DEBUG
 		void DebugGUI(bool flagdelete, bool fmove, std::string* str);
 		void ComponentGUI();

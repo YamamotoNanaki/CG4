@@ -63,6 +63,8 @@
     <ClCompile Include="Engine\Util\Rand.cpp" />
     <ClCompile Include="Engine\Util\StringUtil.cpp" />
     <ClCompile Include="Engine\Util\Util.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +129,8 @@
     <ClInclude Include="Engine\Util\Rand.h" />
     <ClInclude Include="Engine\Util\StringUtil.h" />
     <ClInclude Include="Engine\Util\Util.h" />
+    <ClInclude Include="Source\Bullet.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Player.h" />
   </ItemGroup>
   <ItemGroup>

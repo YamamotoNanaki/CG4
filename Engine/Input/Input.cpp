@@ -6,6 +6,7 @@
 using namespace IFE;
 
 Input* Input::sInputInstance_ = nullptr;
+bool Input::sPadConnected_ = false;
 
 Input* IFE::Input::Instance()
 {
@@ -70,9 +71,18 @@ void IFE::Input::Update()
 	result = sInputInstance_->devMouse_->GetDeviceState(sizeof(sInputInstance_->mouse_), &sInputInstance_->mouse_);
 
 	sInputInstance_->oldpad_ = sInputInstance_->pad_;
-	XInputGetState(
+	DWORD dwResult;
+	dwResult = XInputGetState(
 		0,       // DWORD         dwUserIndex
 		&sInputInstance_->pad_); // XINPUT_STATE* pState
+	if (dwResult == ERROR_SUCCESS)
+	{
+		sPadConnected_ = true;
+	}
+	else
+	{
+		sPadConnected_ = false;
+	}
 }
 
 bool IFE::Input::KeyTriggere(const KeyCode& keyCode)
@@ -191,4 +201,9 @@ void Input::PadVibrationStop()
 	sInputInstance_->vibration_.wLeftMotorSpeed = 0;
 	sInputInstance_->vibration_.wRightMotorSpeed = 0;
 	XInputSetState(0, &sInputInstance_->vibration_);
+}
+
+bool IFE::Input::GetPadConnected()
+{
+	return sPadConnected_;
 }

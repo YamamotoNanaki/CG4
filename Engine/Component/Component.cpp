@@ -5,6 +5,12 @@
 #include "Collider.h"
 //#include "Particle.h"
 
+void IFE::Component::SetTransform()
+{
+	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();
+	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
+}
+
 std::string IFE::Component::GetComponentName()
 {
 	return componentName_;
@@ -88,6 +94,14 @@ void IFE::Component::OnColliderHit(Collider* collider)
 {
 	collider;
 }
+
+void IFE::Component::CopyValue(Component* component)
+{
+	component->componentName_ = componentName_;
+	Copy(component);
+}
+
+void IFE::Component::CopyValueComponent(Component* component) { component; }
 
 #ifdef _DEBUG
 #include "ImguiManager.h"

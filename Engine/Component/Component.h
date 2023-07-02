@@ -32,6 +32,7 @@ namespace IFE
 		virtual ~Component();
 		Component(ComponentManager* component);
 		Component() {}
+		void SetTransform();
 		std::string GetComponentName();
 		void SetComponentName(const std::string& componentName);
 		void SetComponents(ComponentManager* cm);
@@ -43,6 +44,8 @@ namespace IFE
 		//virtual void OnColliderHit(ADXCollider* myCol, ADXCollider* col);
 		virtual void Copy(Component* component);
 		virtual void OnColliderHit(Collider* collider);
+		void CopyValue(Component* component);
+		virtual void CopyValueComponent(Component* component);
 #ifdef _DEBUG
 		virtual void DebugGUI();
 		virtual void ComponentDebugGUI() {};

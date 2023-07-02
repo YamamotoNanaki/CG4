@@ -1,69 +1,5 @@
 [
     {
-        "Collider": null,
-        "Material": {
-            "ambient": [
-                1.0,
-                1.0,
-                1.0
-            ],
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "diffuse": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "specular": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "terxtureName": "airplane.png"
-        },
-        "Player": {
-            "speed": 0.30000001192092896
-        },
-        "TransferGeometryBuffer": {
-            "explosion": 0.0,
-            "gravity": 0.0,
-            "lightFlag": true,
-            "polygonSize": 1.0,
-            "rotation": 0.0,
-            "toonFlag": false
-        },
-        "Transform": {
-            "position": [
-                0.0,
-                5.0,
-                0.0
-            ],
-            "rotation": [
-                360.0,
-                180.0,
-                360.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "component": [
-            "Collider",
-            "Player",
-            "Transform",
-            "TransferGeometryBuffer",
-            "Material"
-        ],
-        "model": "airplane_Model",
-        "name": "airplane"
-    },
-    {
         "Material": {
             "ambient": [
                 1.0,
@@ -119,6 +55,198 @@
             "Material"
         ],
         "model": "skydome_Model",
-        "name": "sky"
+        "name": "sky",
+        "prefab": false
+    },
+    {
+        "Collider": null,
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "Player": {
+            "speed": 0.30000001192092896
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Collider",
+            "Player",
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "girl_Model",
+        "name": "Player",
+        "prefab": false
+    },
+    {
+        "Collider": null,
+        "Enemy": null,
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                0.0,
+                0.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -20.0,
+                1.0,
+                50.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Collider",
+            "Enemy",
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "cube_Model",
+        "name": "Enemy",
+        "prefab": false
+    },
+    {
+        "Bullet": null,
+        "Collider": null,
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                5.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Collider",
+            "Bullet",
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "sphere_Model",
+        "name": "Bullet",
+        "prefab": true
     }
 ]

@@ -3,6 +3,8 @@
 
 using namespace IFE;
 
+Vector2 Vector2::zero = { 0,0 };
+
 Vector2::Vector2()
 {
 	x = 0;
@@ -87,6 +89,11 @@ Vector2& IFE::Vector2::operator=(const Float2& obj)
 {
 	x = obj.x; y = obj.y;
 	return *this;
+}
+
+bool IFE::Vector2::operator==(const Vector2& v)
+{
+	return x == v.x && y == v.y;
 }
 
 const Vector2 IFE::operator+(const Vector2& v1, const Vector2& v2)

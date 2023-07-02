@@ -32,6 +32,9 @@ namespace IFE
 		std::list<std::unique_ptr<Object3D>>* GetObjList();
 		void Reset();
 		bool SearchName(const std::string& name);
+		Object3D* SearchObject(const std::string& name);
+		Object3D* Instantiate(const std::string& objectName, const std::string& newObjectName = "");
+		Object3D* Instantiate(const std::string& objectName, const Float3& position, const std::string& newObjectName = "");
 
 #ifdef _DEBUG
 		void DebugGUI();
