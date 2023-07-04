@@ -18,5 +18,8 @@ namespace IFE
 
 	public:
 		void SetDrawBlendMode();
+
+		void SetRootSignature(ID3D12RootSignature* rootsignature);
+		void SetPipelineState(ID3D12PipelineState* pipelinestate);
 	};
 }
