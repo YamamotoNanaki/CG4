@@ -3,6 +3,10 @@
 #include "Debug.h"
 #include <cassert>
 
+#pragma comment (lib, "xinput.lib")
+#pragma comment(lib,"dinput8.lib")
+#pragma comment(lib,"dxguid.lib")
+
 using namespace IFE;
 
 Input* Input::sInputInstance_ = nullptr;

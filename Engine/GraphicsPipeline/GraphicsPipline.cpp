@@ -9,37 +9,9 @@
 using namespace std;
 using namespace IFE;
 
-Microsoft::WRL::ComPtr<ID3DBlob> GraphicsPipeline::sErrorBlob_ = nullptr;
-string GraphicsPipeline::sDefaultDirectory_ = "Data/Shaders/";
-
 bool IFE::GraphicsPipeline::CreateGraphicsPpipeline(const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout,
 	const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc)
 {
-	ID3D12Device* device = GraphicsAPI::GetDevice();
-	ID3DBlob* rootSigBlob = nullptr;
-	HRESULT result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &sErrorBlob_);
-
-	if (FAILED(result)) {
-		// errorBlobからエラー内容をstring型にコピー
-		string error;
-		error.resize(sErrorBlob_->GetBufferSize());
-
-		copy_n((char*)sErrorBlob_->GetBufferPointer(), sErrorBlob_->GetBufferSize(), error.begin());
-		error += "\n";
-		// エラー内容を出力ウィンドウに表示
-		OutputDebugStringA(error.c_str());
-		assert(SUCCEEDED(result));
-		return true;
-	}
-	result = device->CreateRootSignature(0, rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(), IID_PPV_ARGS(&rootsignature_));
-	assert(SUCCEEDED(result));
-	rootSigBlob->Release();
-
-	pipelineDesc.pRootSignature = rootsignature_.Get();
-
-	result = device->CreateGraphicsPipelineState(&pipelineDesc, IID_PPV_ARGS(&pipelinestate_));
-	return false;
-	inputLayout;
 }
 
 bool IFE::GraphicsPipeline::ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting)

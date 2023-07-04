@@ -6,10 +6,6 @@
 #include <chrono>
 #include "IFMath.h"
 
-#pragma comment(lib,"d3d12.lib")
-#pragma comment(lib,"dxgi.lib")
-
-
 namespace IFE
 {
 	class GraphicsAPI final

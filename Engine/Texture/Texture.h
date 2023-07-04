@@ -7,8 +7,6 @@
 #include <wrl.h>
 #include <string>
 
-#pragma comment(lib,"d3d12.lib")
-
 namespace IFE
 {
 	struct Texture

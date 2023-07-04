@@ -2,6 +2,8 @@
 #include "Debug.h"
 #include <cassert>
 
+#pragma comment(lib,"xaudio2.lib")
+
 using namespace IFE;
 
 void IFE::Sound::Initialize()

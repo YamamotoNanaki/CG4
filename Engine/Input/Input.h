@@ -5,10 +5,6 @@
 #include <cstdint>
 #include "Float2.h"
 
-#pragma comment (lib, "xinput.lib")
-#pragma comment(lib,"dinput8.lib")
-#pragma comment(lib,"dxguid.lib")
-
 namespace IFE
 {
 	typedef BYTE KeyCode;

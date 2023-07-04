@@ -2,6 +2,8 @@
 #include "TextureManager.h"
 #include "GraphicsAPI.h"
 
+#pragma comment(lib,"d3d12.lib")
+
 using namespace IFE;
 
 IFE::Texture::Texture()
