@@ -14,7 +14,8 @@ namespace IFE
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelinestate_;
 
 	public:
-		std::string name_;
+		uint8_t pipelineNum_ = 0;
+		std::string name_ = "";
 
 	public:
 		void SetDrawBlendMode();

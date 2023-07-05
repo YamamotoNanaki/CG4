@@ -13,7 +13,7 @@ void IFE::Scene::Initialize()
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
-	gp_.CreateBasicGraphicsPipeLine();
+	gp_->CreateBasicGraphicsPipeLine();
 	light_->Initialize();
 	light_->DefaultLightSetting();
 	light_->SetDirLightColor(0, { 1,0,0 });
@@ -52,10 +52,10 @@ void IFE::Scene::Update()
 
 void IFE::Scene::Draw()
 {
+	cameraM_->Draw();
+	light_->Draw();
 	Sprite::DrawBefore();
 	spriteM_->BackDraw();
-	gp_.SetDrawBlendMode();
-	light_->Draw(3);
 	objM_->Draw();
 	//particleM->Draw();
 	Sprite::DrawBefore();

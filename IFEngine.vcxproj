@@ -134,6 +134,8 @@
     <ClInclude Include="Source\Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Shaders\Common.hlsli" />
+    <None Include="Data\Shaders\CommonModel.hlsli" />
     <None Include="Data\Shaders\Model.hlsli" />
     <None Include="Data\Shaders\ModelAnim.hlsli" />
     <None Include="Data\Shaders\Particle.hlsli" />

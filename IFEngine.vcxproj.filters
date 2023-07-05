@@ -505,6 +505,12 @@
     <None Include="Data\Shaders\ModelAnim.hlsli">
       <Filter>シェーダーファイル</Filter>
     </None>
+    <None Include="Data\Shaders\Common.hlsli">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Data\Shaders\CommonModel.hlsli">
+      <Filter>シェーダーファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Data\Shaders\ParticleGS.hlsl">

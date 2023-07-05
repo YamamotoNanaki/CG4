@@ -17,8 +17,8 @@ namespace IFE
 	{
 		using Component::Component;
 		Camera* camera_ = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferDataTransform>> transformBuffer_;
-		ConstBufferDataTransform* constMapTransform_ = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferTransform>> transformBuffer_;
+		ConstBufferTransform* constMapTransform_ = nullptr;
 
 		Float3 lossyScale_;
 	public:
@@ -70,9 +70,8 @@ namespace IFE
 	{
 		using Component::Component;
 		Camera* camera_ = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferMatrix>> transformBuffer_;
-		ConstBufferMatrix* constMapTransform_ = nullptr;
-		static Matrix matPro_;
+		std::unique_ptr<ConstBuffer<ConstBufferTransform>> transformBuffer_;
+		ConstBufferTransform* constMapTransform_ = nullptr;
 	public:
 		float rotation_;
 		Matrix matWorld_;
@@ -80,7 +79,6 @@ namespace IFE
 		Float2 position_ = { 0,0 };
 
 	public:
-		static void StaticInitialize();
 		void Initialize()override;
 		void Update()override;
 		void Draw()override;
@@ -98,8 +96,8 @@ namespace IFE
 	{
 		using Component::Component;
 		Camera* camera_ = nullptr;
-		std::unique_ptr<ConstBuffer<ConstBufferBillboard>> transformBuffer_;
-		ConstBufferBillboard* constMapTransform_ = nullptr;
+		std::unique_ptr<ConstBuffer<ConstBufferTransform>> transformBuffer_;
+		ConstBufferTransform* constMapTransform_ = nullptr;
 
 		Float3 lossyScale_;
 	public:

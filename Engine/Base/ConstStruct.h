@@ -5,14 +5,37 @@
 namespace IFE
 {
 	static const int32_t MAX_BONES = 128;
-	struct ConstBufferDataTransform
+	static const uint32_t MAX_BONE_INDICES = 4;
+
+	//CB
+	//0
+	struct ConstBufferCamera
 	{
 		Matrix viewPro;
-		Matrix world;
+		Matrix matBillboard;
+		Matrix matBillboardY;
 		Float3 cameraPos;
 		float pad;
 	};
-
+	//1
+	struct ConstBufferCamera2D
+	{
+		Matrix pro;
+	};
+	//3
+	struct ConstBufferTime
+	{
+		float time;
+		float deltaTime;
+		float pad;
+		float pad1;
+	};
+	//4
+	struct ConstBufferTransform
+	{
+		Matrix world;
+	};
+	//model5
 	struct ConstBufferModelGeometry
 	{
 		float explosion;
@@ -24,20 +47,7 @@ namespace IFE
 		float pad;
 		float pad1;
 	};
-
-	struct ConstBufferBillboard
-	{
-		Matrix mat;
-		Matrix matBillboard;
-	};
-	struct ConstBufferMatrix
-	{
-		Matrix mat;
-	};
-	struct ConstBufferColor
-	{
-		Float4 color;
-	};
+	//model6
 	struct ConstBufferMaterial
 	{
 		Float4 color;	//色(RGBA)
@@ -48,6 +58,17 @@ namespace IFE
 		Float3 specular;
 		float alpha;
 	};
+	//anim7
+	struct ConstBufferDataSkin
+	{
+		Matrix bones[MAX_BONES];
+	};
+	//sprite,particle5
+	struct ConstBufferColor
+	{
+		Float4 color;
+	};
+	//posteffect5
 	struct ConstBufferPostEffect
 	{
 		//0~0.005くらいで
@@ -56,10 +77,9 @@ namespace IFE
 		uint32_t grayscale = 0;
 		float sepia = 0;
 	};
-	struct ConstBufferDataSkin
-	{
-		Matrix bones[MAX_BONES];
-	};
+
+
+	//VS
 	struct Vertex
 	{
 		Float3 pos;			//XYZ座標
@@ -76,7 +96,6 @@ namespace IFE
 		Float3 pos;			//XYZ座標
 	};
 
-	const uint32_t MAX_BONE_INDICES = 4;
 	struct VertexBone
 	{
 		Float3 pos{};			//XYZ座標

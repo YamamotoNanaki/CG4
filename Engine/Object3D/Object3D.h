@@ -3,6 +3,7 @@
 #include "ComponentManager.h"
 #include "Component.h"
 #include "JsonManager.h"
+#include "GraphicsPipeline.h"
 #include <memory>
 
 namespace IFE
@@ -22,6 +23,7 @@ namespace IFE
 		std::vector<std::string> childName_;
 		int32_t childCount_ = 0;
 		Component* model_ = nullptr;
+		GraphicsPipeline* gp_;
 
 	public:
 		Object3D();

@@ -11,6 +11,12 @@
 using namespace IFE;
 using namespace std;
 
+GraphicsPipelineManager* IFE::GraphicsPipelineManager::Instance()
+{
+	static GraphicsPipelineManager inst;
+	return &inst;
+}
+
 bool IFE::GraphicsPipelineManager::ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting)
 {
 	const static LPCSTR setting_shader_type[3] = { "vs_5_0","ps_5_0","gs_5_0" };
@@ -38,7 +44,7 @@ bool IFE::GraphicsPipelineManager::ShaderCompile(const std::string& shaderName, 
 
 void* defaultDirectory_;
 
-void IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
+GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 {
 	string vs = defaultDirectory_ + "ModelVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
@@ -49,7 +55,7 @@ void IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -60,12 +66,23 @@ void IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 		rootParams.push_back(rootParamSeed);
 	}
 
-	D3D12_ROOT_PARAMETER rootParamSeed2;
-	rootParamSeed2.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;		//種類
-	rootParamSeed2.DescriptorTable.pDescriptorRanges = &TextureManager::Instance()->GetDescRangeSRV();				//デスクリプタレンジ
-	rootParamSeed2.DescriptorTable.NumDescriptorRanges = 1;							//デスクリプタレンジ数
-	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
-	rootParams.push_back(rootParamSeed2);
+	D3D12_ROOT_PARAMETER textureParam;
+	textureParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;		//種類
+	textureParam.DescriptorTable.pDescriptorRanges = &TextureManager::Instance()->GetDescRangeSRV();				//デスクリプタレンジ
+	textureParam.DescriptorTable.NumDescriptorRanges = 1;							//デスクリプタレンジ数
+	textureParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
+	rootParams.push_back(textureParam);
+
+	for (size_t i = 0; i < commonModelConstBufferNum_; i++)
+	{
+		D3D12_ROOT_PARAMETER rootParam;
+		//定数用
+		rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;				//種類
+		rootParam.Descriptor.ShaderRegister = (UINT)i;								//デスクリプタレンジ
+		rootParam.Descriptor.RegisterSpace = 0;									//デスクリプタレンジ数
+		rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;				//すべてのシェーダーから見える
+		rootParams.push_back(rootParam);
+	}
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout;
 	inputLayout.push_back({ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 });
@@ -135,10 +152,14 @@ void IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	CreateGraphicsPipeline("3dNormal", rootSignatureDesc, pipelineDesc);
+	if (CreateGraphicsPipeline("3dNormal", rootSignatureDesc, pipelineDesc))
+	{
+		return nullptr;
+	}
+	return pipelineList_.back().get();
 }
 
-void IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
+GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 {
 	string vs = defaultDirectory_ + "SpriteVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
@@ -147,7 +168,7 @@ void IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < commonConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -164,6 +185,17 @@ void IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 	rootParamSeed2.DescriptorTable.NumDescriptorRanges = 1;							//デスクリプタレンジ数
 	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(rootParamSeed2);
+
+	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
+	{
+		D3D12_ROOT_PARAMETER rootParamSeed;
+		//定数用
+		rootParamSeed.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;				//種類
+		rootParamSeed.Descriptor.ShaderRegister = (UINT)i;								//デスクリプタレンジ
+		rootParamSeed.Descriptor.RegisterSpace = 0;									//デスクリプタレンジ数
+		rootParamSeed.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;				//すべてのシェーダーから見える
+		rootParams.push_back(rootParamSeed);
+	}
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout;
 	inputLayout.push_back({ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 });
@@ -232,10 +264,14 @@ void IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	CreateGraphicsPipeline("2dNormal", rootSignatureDesc, pipelineDesc);
+	if(CreateGraphicsPipeline("2dNormal", rootSignatureDesc, pipelineDesc))
+	{
+		return nullptr;
+	}
+	return pipelineList_.back().get();
 }
 
-void IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeLine()
+GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeLine()
 {
 	string vs = defaultDirectory_ + "ParticleVS.hlsl";
 	ShaderCompile(vs, SHADER_COMPILE_SETTINGS::Vertex);
@@ -246,7 +282,7 @@ void IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeLine()
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < commonConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -263,6 +299,17 @@ void IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeLine()
 	rootParamSeed2.DescriptorTable.NumDescriptorRanges = 1;							//デスクリプタレンジ数
 	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(rootParamSeed2);
+
+	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
+	{
+		D3D12_ROOT_PARAMETER rootParamSeed;
+		//定数用
+		rootParamSeed.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;				//種類
+		rootParamSeed.Descriptor.ShaderRegister = (UINT)i;								//デスクリプタレンジ
+		rootParamSeed.Descriptor.RegisterSpace = 0;									//デスクリプタレンジ数
+		rootParamSeed.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;				//すべてのシェーダーから見える
+		rootParams.push_back(rootParamSeed);
+	}
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout;
 	inputLayout.push_back({ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 });
@@ -330,7 +377,11 @@ void IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeLine()
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	CreateGraphicsPipeline("ParticleNormal", rootSignatureDesc, pipelineDesc);
+	if(CreateGraphicsPipeline("ParticleNormal", rootSignatureDesc, pipelineDesc))
+	{
+		return nullptr;
+	}
+	return pipelineList_.back().get();
 }
 
 bool IFE::GraphicsPipelineManager::CreateGraphicsPipeline(const string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc)
@@ -364,6 +415,36 @@ bool IFE::GraphicsPipelineManager::CreateGraphicsPipeline(const string& pipeline
 
 	pipelineList_.back()->SetRootSignature(rootsignature);
 	pipelineList_.back()->SetPipelineState(pipelinestate);
-
+	pipelineList_.back()->name_ = pipelineName;
+	pipelineList_.back()->pipelineNum_ = nextNum_++;
+	if (nextNum_ > NumMax_)
+	{
+		nextNum_ = 0;
+	}
 	return false;
 }
+
+GraphicsPipeline* IFE::GraphicsPipelineManager::GetGraphicsPipeline(const std::string& name)
+{
+	for (auto& itr : pipelineList_)
+	{
+		if (itr->name_ == name)
+		{
+			return itr.get();
+		}
+	}
+	return nullptr;
+}
+
+GraphicsPipeline* IFE::GraphicsPipelineManager::GetGraphicsPipeline(uint8_t number)
+{
+	for (auto& itr : pipelineList_)
+	{
+		if (itr->pipelineNum_ == number)
+		{
+			return itr.get();
+		}
+	}
+	return nullptr;
+}
+

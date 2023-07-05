@@ -1,12 +1,7 @@
-cbuffer cbuff0:register(b0)
+#include "Common.hlsli"
+cbuffer cbuff0:register(b5)
 {
 	float4 color;				//色(RGBA)
-};
-
-cbuffer ConstBufferDataTransform : register(b1)
-{
-	matrix mat;					//3D変換行列
-	matrix matBillboard;		//ビルボード行列
 };
 
 struct VSOutput

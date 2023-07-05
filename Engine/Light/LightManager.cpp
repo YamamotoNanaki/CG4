@@ -245,9 +245,9 @@ void IFE::LightManager::Update()
 	}
 }
 
-void IFE::LightManager::Draw(uint32_t rootParameterIndex)
+void IFE::LightManager::Draw()
 {
-	constBuff_->SetConstBuffView(rootParameterIndex);
+	constBuff_->SetConstBuffView(3);
 }
 
 LightManager* IFE::LightManager::Instance()

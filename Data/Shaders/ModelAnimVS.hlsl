@@ -38,11 +38,11 @@ SkinOutput ComputeSkin(VSInput input)
 VSOutput main(VSInput input)
 {
     SkinOutput skinned = ComputeSkin(input);
-    float4 wnormal = normalize(mul(world, float4(skinned.normal, 0)));
-    float4 wpos = mul(world, skinned.pos);
+    float4 wnormal = normalize(mul(worldMatrix, float4(skinned.normal, 0)));
+    float4 wpos = mul(worldMatrix, skinned.pos);
 
 	VSOutput output;//ピクセルシェーダーに渡す値
-    output.svpos = mul(mul(viewPro, world), skinned.pos); //座標に行列を乗算
+    output.svpos = mul(mul(viewPro, worldMatrix), skinned.pos); //座標に行列を乗算
 	output.worldpos = wpos;
 	output.normal = wnormal.xyz;
 	output.uv = input.uv;

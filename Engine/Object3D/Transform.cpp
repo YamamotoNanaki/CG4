@@ -9,7 +9,7 @@ using namespace std;
 
 void IFE::Transform::Initialize()
 {
-	transformBuffer_ = make_unique<ConstBuffer<ConstBufferDataTransform>>();
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
 }
@@ -24,9 +24,7 @@ void IFE::Transform::Draw()
 	View* v = camera_->GetView();
 	Projection* p = camera_->GetProjection();
 	constMapTransform_->world = matWorld_;
-	constMapTransform_->viewPro = v->Get() * p->Get();
-	constMapTransform_->cameraPos = v->eye_;
-	transformBuffer_->SetConstBuffView(0);
+	transformBuffer_->SetConstBuffView(4);
 }
 
 void IFE::Transform::UpdateMatrix()
@@ -201,20 +199,15 @@ void IFE::Transform::LoadingComponent(nlohmann::json& json)
 	scale_ = j->InputFloat3(json["scale"]);
 	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
 	position_ = j->InputFloat3(json["position"]);
-	transformBuffer_ = make_unique<ConstBuffer<ConstBufferDataTransform>>();
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
 }
 
 #include "WindowsAPI.h"
-Matrix Transform2D::matPro_;
-void IFE::Transform2D::StaticInitialize()
-{
-	matPro_ = MatrixOrthoGraphicProjection((float)0, (float)WindowsAPI::Instance()->winWidth_, (float)0, (float)WindowsAPI::Instance()->winHeight_, (float)0, (float)1);
-}
 void IFE::Transform2D::Initialize()
 {
-	transformBuffer_ = make_unique<ConstBuffer<ConstBufferMatrix>>();
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 }
 
@@ -225,7 +218,7 @@ void IFE::Transform2D::Update()
 void IFE::Transform2D::Draw()
 {
 	UpdateMatrix();
-	transformBuffer_->SetConstBuffView(1);
+	transformBuffer_->SetConstBuffView(4);
 }
 
 void IFE::Transform2D::UpdateMatrix()
@@ -237,7 +230,7 @@ void IFE::Transform2D::UpdateMatrix()
 	matWorld_ *= MatrixTranslation(position_.x, position_.y, 0);
 
 	//定数バッファへのデータ転送
-	constMapTransform_->mat = matWorld_ * matPro_;
+	constMapTransform_->world = matWorld_;
 }
 
 IFE::Transform2D::~Transform2D()
@@ -284,13 +277,13 @@ void IFE::Transform2D::LoadingComponent(nlohmann::json&json)
 	scale_ = j->InputFloat2(json["scale"]);
 	rotation_ = json["rotation"];
 	position_ = j->InputFloat2(json["position"]);
-	transformBuffer_ = make_unique<ConstBuffer<ConstBufferMatrix>>();
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 }
 
 void IFE::TransformParticle::Initialize()
 {
-	transformBuffer_ = make_unique<ConstBuffer<ConstBufferBillboard>>();
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
 }
@@ -304,8 +297,7 @@ void IFE::TransformParticle::Draw()
 	UpdateMatrix();
 	View* v = camera_->GetView();
 	Projection* p = camera_->GetProjection();
-	constMapTransform_->mat = matWorld_ * v->Get() * p->Get();
-	constMapTransform_->matBillboard = View::sMatBillBoard_;
+	constMapTransform_->world = matWorld_;
 	transformBuffer_->SetConstBuffView(1);
 }
 

@@ -7,8 +7,9 @@ using namespace std;
 
 void IFE::Camera::CameraInitialize()
 {
-	matView_ = make_unique<View>() ;
+	matView_ = make_unique<View>();
 	matPro_ = make_unique<Projection>(45, 1280, 720);
+	mapPtr = constBuffCamera_.GetCBMapObject();
 }
 
 void IFE::Camera::CameraUpdate()
@@ -25,6 +26,11 @@ View* IFE::Camera::GetView()
 Projection* IFE::Camera::GetProjection()
 {
 	return matPro_.get();
+}
+
+void IFE::Camera::Draw()
+{
+	constBuffCamera_.SetConstBuffView(0);
 }
 
 IFE::Camera::~Camera()

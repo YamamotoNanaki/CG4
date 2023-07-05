@@ -13,11 +13,10 @@ namespace IFE
 	class Transform2D;
 	class Sprite :public ComponentManager
 	{
-	protected:
-		static GraphicsPipeline gp_;
-
-	protected:
+	private:
+		static GraphicsPipeline* gp_;
 		VertexBuffer<Vertex2D> vb_;
+
 	public:
 		//ƒAƒtƒBƒ“•ÏŠ·î•ñ
 		//Float2 scale = { 1,1 };

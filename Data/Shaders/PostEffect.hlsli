@@ -1,4 +1,6 @@
-cbuffer cbuff0 : register(b0)
+#include "Common.hlsli"
+
+cbuffer cbuff0 : register(b5)
 {
     float shift;
 };
