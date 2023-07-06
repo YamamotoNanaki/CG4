@@ -14,7 +14,7 @@ namespace IFE
 	class Sprite :public ComponentManager
 	{
 	protected:
-		static GraphicsPipeline gp_;
+		static GraphicsPipeline* gp_;
 
 	protected:
 		VertexBuffer<Vertex2D> vb_;

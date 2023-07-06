@@ -45,12 +45,11 @@ GraphicsAPI* IFE::GraphicsAPI::Instance()
 void IFE::GraphicsAPI::Finalize()
 {
 #ifdef _DEBUG
-	ID3D12DebugDevice* debugInterface = nullptr;
-	if (SUCCEEDED(sDevice_->QueryInterface(&debugInterface)))
-	{
-		debugInterface->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
-		debugInterface->Release();
-	}
+	//ComPtr<ID3D12DebugDevice> debugInterface = nullptr;
+	//if (SUCCEEDED(sDevice_->QueryInterface(debugInterface.GetAddressOf())))
+	//{
+	//	debugInterface->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
+	//}
 #endif
 }
 
@@ -126,6 +125,7 @@ void GraphicsAPI::Initialize(const HWND& hwnd)
 	if (SUCCEEDED(sDevice_->QueryInterface(IID_PPV_ARGS(&infoQueue))))
 	{
 		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
+		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
 		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 		D3D12_MESSAGE_ID denyids[] = { D3D12_MESSAGE_ID_RESOURCE_BARRIER_BEFORE_AFTER_MISMATCH, D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INCOMPATIBLE_RESOURCE_STATE };
 		D3D12_MESSAGE_SEVERITY severities[] = { D3D12_MESSAGE_SEVERITY_INFO };

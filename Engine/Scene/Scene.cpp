@@ -9,11 +9,11 @@ void IFE::Scene::Initialize()
 {
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
+	gp_->CreateBasicGraphicsPipeLine();
 	//Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
-	gp_.CreateBasicGraphicsPipeLine();
 	light_->Initialize();
 	light_->DefaultLightSetting();
 	light_->SetDirLightColor(0, { 1,0,0 });
@@ -54,8 +54,6 @@ void IFE::Scene::Draw()
 {
 	Sprite::DrawBefore();
 	spriteM_->BackDraw();
-	gp_.SetDrawBlendMode();
-	light_->Draw(3);
 	objM_->Draw();
 	//particleM->Draw();
 	Sprite::DrawBefore();

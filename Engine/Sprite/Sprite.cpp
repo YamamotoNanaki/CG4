@@ -7,12 +7,13 @@
 #include "GraphicsAPI.h"
 #include "Transform.h"
 #include "ColorBuffer.h"
+#include "GraphicsPipelineManager.h"
 
 using namespace IFE;
 using namespace Microsoft::WRL;
 using namespace std;
 
-GraphicsPipeline Sprite::gp_;
+GraphicsPipeline* Sprite::gp_ = nullptr;
 
 IFE::Sprite::Sprite()
 {
@@ -21,7 +22,7 @@ IFE::Sprite::Sprite()
 
 void IFE::Sprite::StaticInitialize()
 {
-	gp_.CreateBasic2DGraphicsPipeLine();
+	gp_ = GraphicsPipelineManager::Instance()->CreateBasic2DGraphicsPipeLine();
 }
 
 void IFE::Sprite::BufferInitialize()
@@ -98,7 +99,7 @@ void IFE::Sprite::DrawBefore()
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-	gp_.SetDrawBlendMode();
+	gp_->SetDrawBlendMode();
 }
 
 void IFE::Sprite::Update()

@@ -9,6 +9,7 @@
 #include "Rigidbody.h"
 #include "ComponentHelp.h"
 #include "CollideManager.h"
+#include "LightManager.h"
 
 using namespace IFE;
 using namespace std;
@@ -54,8 +55,25 @@ void IFE::ObjectManager::Update()
 void IFE::ObjectManager::Draw()
 {
 	Object3D::DrawBefore();
+
+	list<Object3D*>objList;
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
+		if (!itr->isActive_)continue;
+		if (!itr->DrawFlag_)continue;
+		objList.push_back(itr.get());
+	}
+
+	objList.sort([](const Object3D* objA, const Object3D* objB) {return objA->gp_->pipelineNum_ > objB->gp_->pipelineNum_; });
+	uint8_t num = 255;
+	for (auto& itr : objList)
+	{
+		if (num != itr->gp_->pipelineNum_)
+		{
+			itr->gp_->SetDrawBlendMode();
+			num = itr->gp_->pipelineNum_;
+			LightManager::Instance()->Draw(3);
+		}
 		itr->Draw();
 	}
 }

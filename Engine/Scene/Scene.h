@@ -1,6 +1,6 @@
 #pragma once
 #include "ObjectManager.h"
-#include "GraphicsPipeline.h"
+#include "GraphicsPipelineManager.h"
 #include "TextureManager.h"
 #include "LightManager.h"
 #include "Sound.h"
@@ -15,7 +15,7 @@ namespace IFE
 	class Scene final
 	{
 	private:
-		GraphicsPipeline gp_;
+		GraphicsPipelineManager* gp_=GraphicsPipelineManager::Instance();
 		TextureManager* tex_ = TextureManager::Instance();
 		LightManager* light_ = LightManager::Instance();
 		Sound* sound_ = Sound::Instance();

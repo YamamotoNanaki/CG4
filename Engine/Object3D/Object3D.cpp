@@ -1,7 +1,7 @@
 #include "Object3D.h"
 #include "ObjectManager.h"
 #include "PrimitiveModel.h"
-#include "GraphicsPipeline.h"
+#include "GraphicsPipelineManager.h"
 #include "TextureManager.h"
 #include "Material.h"
 #include "Texture.h"
@@ -31,6 +31,7 @@ void IFE::Object3D::OBJInitialize()
 
 void IFE::Object3D::Initialize()
 {
+	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dNormal");
 	ComponentManager::Initialize();
 	transform_ = GetComponent<Transform>();
 }
