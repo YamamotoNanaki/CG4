@@ -124,6 +124,12 @@
     <Filter Include="ソース ファイル\Engine\Collider">
       <UniqueIdentifier>{e6cc88fb-b453-4b3b-9187-b22ad104c7e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\Particle">
+      <UniqueIdentifier>{8effd1d1-700d-4139-9e62-bd9a7d357598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\Particle">
+      <UniqueIdentifier>{f67b137f-986c-4c03-9726-7408fc4fb67b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -484,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="Source\Bullet.h">
       <Filter>ヘッダー ファイル\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Particle\Compute.h">
+      <Filter>ヘッダー ファイル\Engine\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

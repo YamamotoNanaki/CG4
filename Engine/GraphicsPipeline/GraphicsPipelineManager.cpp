@@ -19,7 +19,7 @@ GraphicsPipelineManager* IFE::GraphicsPipelineManager::Instance()
 
 bool IFE::GraphicsPipelineManager::ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting)
 {
-	const static LPCSTR setting_shader_type[3] = { "vs_5_0","ps_5_0","gs_5_0" };
+	const static LPCSTR setting_shader_type[4] = { "vs_5_0","ps_5_0","gs_5_0","cs_5_0" };
 	size_t num = static_cast<size_t>(setting);
 	std::wstring wname = StringToWString(shaderName);
 	HRESULT result = D3DCompileFromFile(wname.c_str(),  // シェーダファイル名
@@ -401,5 +401,10 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::GetGraphicsPipeline(const std::s
 		}
 	}
 	return nullptr;
+}
+
+ID3DBlob* IFE::GraphicsPipelineManager::GetBlob(uint8_t num)
+{
+	return blobs_[num].Get();
 }
 

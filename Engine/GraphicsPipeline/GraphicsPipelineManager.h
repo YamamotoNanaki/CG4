@@ -18,8 +18,8 @@ namespace IFE
 	private:
 		std::list<std::unique_ptr<GraphicsPipeline>> pipelineList_;
 		Microsoft::WRL::ComPtr<ID3DBlob> errorBlob_;
-		std::string defaultDirectory_="Data/Shaders/";
-		std::array<Microsoft::WRL::ComPtr<ID3DBlob>, 3> blobs_ = { nullptr,nullptr,nullptr };
+		std::string defaultDirectory_ = "Data/Shaders/";
+		std::array<Microsoft::WRL::ComPtr<ID3DBlob>, 4> blobs_ = { nullptr,nullptr,nullptr,nullptr };
 		uint8_t NumMax_ = 0;
 
 	public:
@@ -32,8 +32,9 @@ namespace IFE
 		GraphicsPipeline* CreateBasic2DGraphicsPipeLine();
 		GraphicsPipeline* CreateBasicParticleGraphicsPipeLine();
 		bool CreateGraphicsPipeline(const std::string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc,
-			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc ,uint8_t pipelineNum);
+			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc, uint8_t pipelineNum);
 		GraphicsPipeline* GetGraphicsPipeline(const std::string& name);
+		ID3DBlob* GetBlob(uint8_t num);
 
 	private:
 		GraphicsPipelineManager() {}
