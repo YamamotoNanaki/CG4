@@ -8,6 +8,7 @@ using namespace IFE;
 void IFE::Scene::Initialize()
 {
 	Sprite::StaticInitialize();
+	gp_->CreateBasicGraphicsPipeLine();
 	//Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();

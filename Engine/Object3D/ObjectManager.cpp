@@ -64,13 +64,13 @@ void IFE::ObjectManager::Draw()
 	}
 
 	objList.sort([](const Object3D* objA, const Object3D* objB) {return objA->gp_->pipelineNum_ > objB->gp_->pipelineNum_; });
-	uint8_t num = 255;
+	string name;
 	for (auto& itr : objList)
 	{
-		if (num != itr->gp_->pipelineNum_)
+		if (name != itr->gp_->name_)
 		{
 			itr->gp_->SetDrawBlendMode();
-			num = itr->gp_->pipelineNum_;
+			name = itr->gp_->name_;
 		}
 		itr->Draw();
 	}
