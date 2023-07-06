@@ -555,5 +555,8 @@
     <FxCompile Include="Data\Shaders\ModelVS.hlsl">
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
+    <FxCompile Include="Data\Shaders\testCS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

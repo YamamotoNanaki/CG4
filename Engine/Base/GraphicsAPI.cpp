@@ -276,8 +276,8 @@ void GraphicsAPI::DrawAfter()
 	HRESULT result = commandList_->Close();
 	assert(SUCCEEDED(result));
 	// コマンドリストの実行
-	ID3D12CommandList* commandLists[] = { commandList_.Get() }; // コマンドリストの配列
-	commandQueue_->ExecuteCommandLists(1, commandLists);
+	Microsoft::WRL::ComPtr<ID3D12CommandList> commandLists[] = { commandList_.Get() }; // コマンドリストの配列
+	commandQueue_->ExecuteCommandLists(1, commandLists->GetAddressOf());
 
 	// バッファをフリップ（裏表の入替え）
 	result = swapchain_->Present(1, 0);

@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Debug.h"
 #include "Transform.h"
+#include "Compute.h"
 
 using namespace IFE;
 
@@ -25,6 +26,13 @@ void IFE::Scene::Initialize()
 	cameraM_->Initialize();
 
 	SceneInit();
+
+	std::vector<float>test(256, 0);
+	Compute<float>cs;
+	cs.Initialize("test", test.size());
+	cs.Execution();
+	test.assign(cs.data, cs.data + test.size());
+
 	//particleM->Initialize();
 }
 
