@@ -8,7 +8,7 @@ using namespace std;
 void IFE::Camera::CameraInitialize()
 {
 	matView_ = make_unique<View>();
-	matPro_ = make_unique<Projection>(45, 1280, 720);
+	matPro_ = make_unique<Projection>(45.f, 1280.f, 720.f);
 	mapPtr = constBuffCamera_.GetCBMapObject();
 }
 

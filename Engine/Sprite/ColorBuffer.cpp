@@ -18,7 +18,7 @@ void IFE::ColorBuffer::Update()
 
 void IFE::ColorBuffer::Draw()
 {
-	colorBuffer_->SetConstBuffView(0);
+	colorBuffer_->SetConstBuffView(5);
 }
 
 #ifdef _DEBUG

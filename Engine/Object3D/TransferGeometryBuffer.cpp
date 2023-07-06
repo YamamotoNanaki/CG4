@@ -24,7 +24,7 @@ void IFE::TransferGeometryBuffer::Update()
 
 void IFE::TransferGeometryBuffer::Draw()
 {
-	geometryBuffer_->SetConstBuffView(1);
+	geometryBuffer_->SetConstBuffView(5);
 }
 
 void IFE::TransferGeometryBuffer::Copy(Component* component)

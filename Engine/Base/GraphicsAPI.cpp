@@ -59,8 +59,6 @@ void IFE::GraphicsAPI::Finalize()
 
 void GraphicsAPI::Initialize(const HWND& hwnd)
 {
-	IFETime::Initialize();
-	InitializeFixFps();
 	//èâä˙âª
 	ComPtr < IDXGIAdapter4> tmpAdapter = nullptr;
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
@@ -261,6 +259,8 @@ void GraphicsAPI::DrawBefore()
 	commandList_->ClearDepthStencilView(dsvH, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 	commandList_->RSSetScissorRects(1, &scissorrect_);
+	IFETime::Initialize();
+	InitializeFixFps();
 }
 
 void IFE::GraphicsAPI::DrawSetViewport(int32_t viewportNum)

@@ -247,7 +247,7 @@ void IFE::LightManager::Update()
 
 void IFE::LightManager::Draw()
 {
-	constBuff_->SetConstBuffView(3);
+	constBuff_->SetConstBuffView(2);
 }
 
 LightManager* IFE::LightManager::Instance()

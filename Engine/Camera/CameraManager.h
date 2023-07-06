@@ -3,7 +3,6 @@
 #include "ConstBuffer.h"
 #include "ConstStruct.h"
 #include <list>
-#include <memory>
 
 namespace IFE
 {

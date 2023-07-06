@@ -8,7 +8,6 @@ using namespace IFE;
 void IFE::Scene::Initialize()
 {
 	Sprite::StaticInitialize();
-	Transform2D::StaticInitialize();
 	//Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();

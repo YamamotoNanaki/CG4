@@ -23,8 +23,6 @@ IFE::Sprite::Sprite()
 void IFE::Sprite::StaticInitialize()
 {
 	gp_ = GraphicsPipelineManager::Instance()->CreateBasic2DGraphicsPipeLine();
-	auto buff = constBufferCamera_.GetCBMapObject();
-	buff;
 }
 
 void IFE::Sprite::BufferInitialize()

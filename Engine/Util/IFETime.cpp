@@ -9,12 +9,20 @@ std::chrono::steady_clock::time_point IFETime::sNowTime_;
 std::chrono::steady_clock::time_point IFETime::sFrontTime_;
 float IFETime::sDeltaTime_;
 float IFETime::sTime_;
+IFETime* IFETime::sInstance_ = nullptr;
+
+IFETime* IFE::IFETime::Instance()
+{
+	static IFETime inst;
+	return &inst;
+}
 
 void IFE::IFETime::Initialize()
 {
 	sStartTime_ = steady_clock::now();
 	sFrontTime_ = sStartTime_;
 	sNowTime_ = sStartTime_;
+	sInstance_ = Instance();
 }
 
 std::chrono::steady_clock::time_point IFE::IFETime::GetNowTime()
@@ -36,6 +44,11 @@ void IFE::IFETime::Update()
 
 	sTime_ = (float)t.count() / 1000.f;
 	sDeltaTime_ = (float)dt.count() / 1000.f;
+
+	auto map = sInstance_->constBuff_.GetCBMapObject();
+	map->deltaTime = sDeltaTime_;
+	map->time = sTime_;
+	sInstance_->constBuff_.SetConstBuffView(3);
 }
 
 void FrameCountTime::Set(int32_t e)

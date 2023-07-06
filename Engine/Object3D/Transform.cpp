@@ -21,8 +21,6 @@ void IFE::Transform::Update()
 void IFE::Transform::Draw()
 {
 	UpdateMatrix();
-	View* v = camera_->GetView();
-	Projection* p = camera_->GetProjection();
 	constMapTransform_->world = matWorld_;
 	transformBuffer_->SetConstBuffView(4);
 }
@@ -295,10 +293,8 @@ void IFE::TransformParticle::Update()
 void IFE::TransformParticle::Draw()
 {
 	UpdateMatrix();
-	View* v = camera_->GetView();
-	Projection* p = camera_->GetProjection();
 	constMapTransform_->world = matWorld_;
-	transformBuffer_->SetConstBuffView(1);
+	transformBuffer_->SetConstBuffView(4);
 }
 
 void IFE::TransformParticle::UpdateMatrix()

@@ -1,5 +1,7 @@
 #pragma once
 #include <chrono>
+#include "ConstBuffer.h"
+#include "ConstStruct.h"
 
 namespace IFE
 {
@@ -14,11 +16,14 @@ namespace IFE
 		static std::chrono::steady_clock::time_point sNowTime_;
 		static std::chrono::steady_clock::time_point sFrontTime_;
 
+		static IFETime* sInstance_;
+		ConstBuffer<ConstBufferTime> constBuff_;
 	public:
 		static float sDeltaTime_;
 		static float sTime_;
 
 	public:
+		static IFETime* Instance();
 		static void Initialize();
 		static std::chrono::steady_clock::time_point GetNowTime();
 		static std::chrono::steady_clock::time_point GetStartTime();

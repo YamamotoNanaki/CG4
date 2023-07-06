@@ -36,12 +36,12 @@ void IFE::Material::Draw()
 	constMapMaterial_->ambient = ambient_;
 	constMapMaterial_->diffuse = diffuse_;
 	constMapMaterial_->specular = specular_;
-	materialBuffer_->SetConstBuffView(2);
+	materialBuffer_->SetConstBuffView(6);
 	if (tex_ == nullptr)
 	{
 		tex_ = TextureManager::Instance()->GetTexture("white.png");
 	}
-	tex_->SetTexture(4);
+	tex_->SetTexture(5);
 }
 
 void IFE::Material::SetTexture(Texture* texture)

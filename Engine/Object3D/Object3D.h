@@ -23,7 +23,7 @@ namespace IFE
 		std::vector<std::string> childName_;
 		int32_t childCount_ = 0;
 		Component* model_ = nullptr;
-		GraphicsPipeline* gp_;
+		GraphicsPipeline* gp_ = nullptr;
 
 	public:
 		Object3D();
@@ -51,7 +51,7 @@ namespace IFE
 #ifdef _DEBUG
 		void DebugGUI(bool flagdelete, bool fmove, std::string* str);
 		void ComponentGUI();
-		void OutputScene(nlohmann::json& j,bool prefab = false);
+		void OutputScene(nlohmann::json& j, bool prefab = false);
 		void DebugUpdate();
 #endif
 		void LoadingScene(nlohmann::json& json);
