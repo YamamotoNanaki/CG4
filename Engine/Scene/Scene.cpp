@@ -51,9 +51,9 @@ void IFE::Scene::Update()
 
 void IFE::Scene::Draw()
 {
+	Sprite::DrawBefore();
 	cameraM_->Draw();
 	light_->Draw();
-	Sprite::DrawBefore();
 	spriteM_->BackDraw();
 	objM_->Draw();
 	//particleM->Draw();

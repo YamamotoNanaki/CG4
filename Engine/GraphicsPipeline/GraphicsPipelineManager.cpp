@@ -55,7 +55,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
-	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
+	for (size_t i = 0; i < commonConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -73,7 +73,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 	textureParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(textureParam);
 
-	for (size_t i = 0; i < commonModelConstBufferNum_; i++)
+	for (size_t i = commonConstBufferNum_; i < commonConstBufferNum_ + commonModelConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParam;
 		//定数用
@@ -152,7 +152,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicGraphicsPipeLine()
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	if (CreateGraphicsPipeline("3dNormal", rootSignatureDesc, pipelineDesc))
+	if (CreateGraphicsPipeline("3dNormal", rootSignatureDesc, pipelineDesc, (uint8_t)PIPELINE_SETTING::Normal))
 	{
 		return nullptr;
 	}
@@ -186,7 +186,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(rootParamSeed2);
 
-	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
+	for (size_t i = commonConstBufferNum_; i < commonConstBufferNum_ + spriteColorConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -264,7 +264,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasic2DGraphicsPipeLine()
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	if(CreateGraphicsPipeline("2dNormal", rootSignatureDesc, pipelineDesc))
+	if (CreateGraphicsPipeline("2dNormal", rootSignatureDesc, pipelineDesc, (uint8_t)PIPELINE_SETTING::SPrite))
 	{
 		return nullptr;
 	}
@@ -300,7 +300,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(rootParamSeed2);
 
-	for (size_t i = 0; i < spriteColorConstBufferNum_; i++)
+	for (size_t i = commonConstBufferNum_; i < commonConstBufferNum_ + spriteColorConstBufferNum_; i++)
 	{
 		D3D12_ROOT_PARAMETER rootParamSeed;
 		//定数用
@@ -377,16 +377,15 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
 
-	if(CreateGraphicsPipeline("ParticleNormal", rootSignatureDesc, pipelineDesc))
+	if (CreateGraphicsPipeline("ParticleNormal", rootSignatureDesc, pipelineDesc, (uint8_t)PIPELINE_SETTING::Transparent))
 	{
 		return nullptr;
 	}
 	return pipelineList_.back().get();
 }
 
-bool IFE::GraphicsPipelineManager::CreateGraphicsPipeline(const string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc)
+bool IFE::GraphicsPipelineManager::CreateGraphicsPipeline(const string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc, uint8_t pipelineNum)
 {
-	pipelineList_.push_back(std::make_unique<GraphicsPipeline>());
 	ID3D12Device* device = GraphicsAPI::GetDevice();
 	ID3DBlob* rootSigBlob = nullptr;
 	HRESULT result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &errorBlob_);
@@ -412,15 +411,13 @@ bool IFE::GraphicsPipelineManager::CreateGraphicsPipeline(const string& pipeline
 	pipelineDesc.pRootSignature = rootsignature;
 
 	result = device->CreateGraphicsPipelineState(&pipelineDesc, IID_PPV_ARGS(&pipelinestate));
+	assert(SUCCEEDED(result));
 
+	pipelineList_.push_back(std::make_unique<GraphicsPipeline>());
 	pipelineList_.back()->SetRootSignature(rootsignature);
 	pipelineList_.back()->SetPipelineState(pipelinestate);
 	pipelineList_.back()->name_ = pipelineName;
-	pipelineList_.back()->pipelineNum_ = nextNum_++;
-	if (nextNum_ > NumMax_)
-	{
-		nextNum_ = 0;
-	}
+	pipelineList_.back()->pipelineNum_ = pipelineNum;
 	return false;
 }
 
@@ -429,18 +426,6 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::GetGraphicsPipeline(const std::s
 	for (auto& itr : pipelineList_)
 	{
 		if (itr->name_ == name)
-		{
-			return itr.get();
-		}
-	}
-	return nullptr;
-}
-
-GraphicsPipeline* IFE::GraphicsPipelineManager::GetGraphicsPipeline(uint8_t number)
-{
-	for (auto& itr : pipelineList_)
-	{
-		if (itr->pipelineNum_ == number)
 		{
 			return itr.get();
 		}

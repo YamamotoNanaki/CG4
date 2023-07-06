@@ -22,10 +22,7 @@ void IFE::CameraManager::Initialize()
 	sActivCamera_ = cameraList.front().get();
 	sActivCamera_->CameraInitialize();
 
-	auto mat2d = MatrixOrthoGraphicProjection((float)0, (float)WindowsAPI::Instance()->winWidth_, (float)0, (float)WindowsAPI::Instance()->winHeight_, (float)0, (float)1);
-	auto map = camera2D_.GetCBMapObject();
-	map->pro = mat2d;
-	camera2D_.SetConstBuffView(1);
+	mat2d_ = MatrixOrthoGraphicProjection((float)0, (float)WindowsAPI::Instance()->winWidth_, (float)0, (float)WindowsAPI::Instance()->winHeight_, (float)0, (float)1);
 }
 
 void IFE::CameraManager::Update()
@@ -36,6 +33,9 @@ void IFE::CameraManager::Update()
 void IFE::CameraManager::Draw()
 {
 	sActivCamera_->Draw();
+	auto map = camera2D_.GetCBMapObject();
+	map->pro = mat2d_;
+	camera2D_.SetConstBuffView(1);
 }
 
 #ifdef _DEBUG

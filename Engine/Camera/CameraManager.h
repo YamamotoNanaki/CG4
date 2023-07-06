@@ -15,6 +15,7 @@ namespace IFE
 
 		std::list<std::unique_ptr<Camera>>cameraList;
 		ConstBuffer<ConstBufferCamera2D>camera2D_;
+		Matrix mat2d_;
 	public:
 		static Camera* sActivCamera_;
 		static CameraManager* Instance();

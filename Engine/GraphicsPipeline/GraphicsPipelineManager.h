@@ -9,6 +9,10 @@ namespace IFE
 	{
 		Vertex, Pixel, Geometry, Compute
 	};
+	enum class PIPELINE_SETTING
+	{
+		Normal = 0, Transparent = 30, SPrite = 100
+	};
 	class GraphicsPipelineManager
 	{
 	private:
@@ -16,7 +20,6 @@ namespace IFE
 		Microsoft::WRL::ComPtr<ID3DBlob> errorBlob_;
 		std::string defaultDirectory_="Data/Shaders/";
 		std::array<Microsoft::WRL::ComPtr<ID3DBlob>, 3> blobs_ = { nullptr,nullptr,nullptr };
-		uint8_t nextNum_ = 0;
 		uint8_t NumMax_ = 0;
 
 		uint8_t commonConstBufferNum_ = 5;
@@ -33,10 +36,9 @@ namespace IFE
 		GraphicsPipeline* CreateBasicGraphicsPipeLine();
 		GraphicsPipeline* CreateBasic2DGraphicsPipeLine();
 		GraphicsPipeline* CreateBasicParticleGraphicsPipeLine();
-		bool CreateGraphicsPipeline(const std::string& pipelineName,
-			const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc, D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc);
+		bool CreateGraphicsPipeline(const std::string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc,
+			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc ,uint8_t pipelineNum);
 		GraphicsPipeline* GetGraphicsPipeline(const std::string& name);
-		GraphicsPipeline* GetGraphicsPipeline(uint8_t number);
 
 	private:
 		GraphicsPipelineManager() {}
