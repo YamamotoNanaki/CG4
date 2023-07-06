@@ -160,6 +160,7 @@ void IFE::Object3D::CopyValue(Object3D* ptr)
 	ptr->deleteFlag_ = deleteFlag_;
 	ptr->DrawFlag_ = DrawFlag_;
 	ptr->model_ = model_;
+	ptr->gp_ = gp_;
 	ComponentManager::CopyValue(ptr);
 	ptr->transform_ = ptr->GetComponent<Transform>();
 	ptr->SetTransform();
