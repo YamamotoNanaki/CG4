@@ -27,15 +27,6 @@ void IFE::Scene::Initialize()
 
 	SceneInit();
 
-	std::vector<float>test;
-	for (int i = 0; i < 10; i++)
-	{
-		test.push_back(0);
-	}
-	Compute<float>cs;
-	cs.Initialize("test", test);
-	cs.Execute();
-
 	//particleM->Initialize();
 }
 
