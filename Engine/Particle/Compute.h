@@ -6,38 +6,22 @@
 #include <cassert>
 #include <wrl.h>
 #include <vector>
-#include <array>
-#include <random>
-
-struct IDs {
-	float grpId;
-	float grpThrdId;
-	float dsptThrdId;
-	unsigned int grpIdx;
-};
-
-struct SimpleBuffer_t
-{
-	int		i;
-	float	f;
-};
-std::array<SimpleBuffer_t, 64> indata;
-std::vector<IDs> uavdata(2 * 2 * 2 * 4 * 4 * 4);
 
 namespace IFE
 {
 	template <class T>
 	class Compute
 	{
-		ID3D12CommandAllocator* cmdAlloc_ = nullptr;
-		ID3D12GraphicsCommandList* cmdList_ = nullptr;
-		ID3D12PipelineState* pipeline_ = nullptr;
-		ID3D12RootSignature* rootSignature_ = nullptr;
-		ID3D12DescriptorHeap* descriptorHeap_ = nullptr;
-		ID3D12CommandQueue* cmdQue_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> cmdAlloc_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipeline_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12CommandQueue> cmdQue_ = nullptr;
 
-		ID3D12Resource* uavBuffer = nullptr;
-		ID3D12Resource* inBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> uavBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> inBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> cpyBuffer = nullptr;
 
 	private:
 		inline static const std::string defaultDirectory_ = "Data/Shaders/";
@@ -76,7 +60,7 @@ namespace IFE
 		result = GraphicsAPI::GetDevice()->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COMPUTE, IID_PPV_ARGS(&cmdAlloc_));
 		assert(SUCCEEDED(result));
 		//コマンドリスト作成
-		result = GraphicsAPI::GetDevice()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_COMPUTE, cmdAlloc_, pipeline_, IID_PPV_ARGS(&cmdList_));
+		result = GraphicsAPI::GetDevice()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_COMPUTE, cmdAlloc_.Get(), pipeline_.Get(), IID_PPV_ARGS(cmdList_.GetAddressOf()));
 		assert(SUCCEEDED(result));
 
 		D3D12_COMMAND_QUEUE_DESC queDesc = {};
@@ -88,34 +72,25 @@ namespace IFE
 		assert(SUCCEEDED(result));
 
 
+		CreateCopyBuffer(*cpyBuffer.GetAddressOf());
 
-		CreateUAVBuffer(uavBuffer);
-		CreateUAV(uavBuffer);
+		CreateUAVBuffer(*uavBuffer.GetAddressOf());
+		CreateUAV(*uavBuffer.GetAddressOf());
 
-		CreateSRVBuffer(inBuffer);
-		CreateSRV(inBuffer);
+		CreateSRVBuffer(*inBuffer.GetAddressOf());
+		CreateSRV(*inBuffer.GetAddressOf());
 	}
 
 	template<class T>
 	inline void Compute<T>::Execute()
 	{
-		std::random_device seed;
-		std::mt19937 mt(seed());
-		std::uniform_real_distribution<float> distf(0.0, 1.0);
-		std::uniform_int_distribution<unsigned int> disti(1, 600);
-		for (auto& d : indata) {
-			d.f = distf(mt);
-			d.i = disti(mt);
-		}
-
-		//T* cbuff = nullptr;
-		SimpleBuffer_t* cbuff = nullptr;
+		T* cbuff = nullptr;
 		inBuffer->Map(0, nullptr, (void**)&cbuff);
-		copy(indata.begin(), indata.end(), cbuff);
+		copy(data_.begin(), data_.end(), cbuff);
 		inBuffer->Unmap(0, nullptr);
 
-		cmdList_->SetComputeRootSignature(rootSignature_);//ルートシグネチャセット
-		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_ };
+		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ルートシグネチャセット
+		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get()};
 		cmdList_->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
 
 		//ルートパラメータのセット
@@ -124,27 +99,23 @@ namespace IFE
 		);
 		cmdList_->Dispatch(2, 2, 2);//ディスパッチ
 
-
-		ID3D12Resource* cpyBuffer = nullptr;
-		CreateCopyBuffer(cpyBuffer);
-
 		//バリア
 		D3D12_RESOURCE_BARRIER barrier = {};
-		barrier.Transition.pResource = uavBuffer;
+		barrier.Transition.pResource = uavBuffer.Get();
 		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
 		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_COPY_SOURCE;
 		barrier.Transition.Subresource = 0;
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		cmdList_->ResourceBarrier(1, &barrier);
 
-		cmdList_->CopyResource(cpyBuffer, uavBuffer);
+		cmdList_->CopyResource(cpyBuffer.Get(), uavBuffer.Get());
 
 		cmdList_->Close();
 		auto fence_ = GraphicsAPI::Instance()->GetFence();
 		auto& fenceValue_ = GraphicsAPI::Instance()->GetFenceVal();
 
-		ID3D12CommandList* cmdLists[] = { cmdList_ };
-		cmdQue_->ExecuteCommandLists(1, cmdLists);
+		Microsoft::WRL::ComPtr<ID3D12CommandList> cmdLists[] = { cmdList_.Get()};
+		cmdQue_->ExecuteCommandLists(1, cmdLists->GetAddressOf());
 		cmdQue_->Signal(fence_, ++fenceValue_);
 
 		if (fence_->GetCompletedValue() != fenceValue_)
@@ -155,17 +126,17 @@ namespace IFE
 			CloseHandle(event);
 		}
 
-		IDs* mappedRes = nullptr;
+		T* mappedRes = nullptr;
 		D3D12_RANGE rng = {};
 		rng.Begin = 0;
-		rng.End = uavdata.size() * sizeof(float);
+		rng.End = data_.size() * sizeof(float);
 		cpyBuffer->Map(0, &rng, (void**)(&mappedRes));
-		std::copy_n(mappedRes, uavdata.size(), uavdata.data());
+		std::copy_n(mappedRes, data_.size(), data_.data());
 		cpyBuffer->Unmap(0, nullptr);
 
 		auto result = cmdAlloc_->Reset(); // キューをクリア
 		assert(SUCCEEDED(result));
-		result = cmdList_->Reset(cmdAlloc_, nullptr);  // 再びコマンドリストを貯める準備
+		result = cmdList_->Reset(cmdAlloc_.Get(), nullptr);  // 再びコマンドリストを貯める準備
 		assert(SUCCEEDED(result));
 	}
 
@@ -180,7 +151,7 @@ namespace IFE
 		//計算結果を書き込む先のバッファを作成
 		resDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(uavdata[0]) * uavdata.size();//計算結果書き込み先のサイズを計算
+		resDesc.Width = sizeof(data_[0]) * data_.size();//計算結果書き込み先のサイズを計算
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -203,7 +174,7 @@ namespace IFE
 		//入力バッファ作成
 		resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(indata[0]) * indata.size();//入力サイズを計算
+		resDesc.Width = sizeof(data_[0]) * data_.size();//入力サイズを計算
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -225,7 +196,7 @@ namespace IFE
 		D3D12_RESOURCE_DESC resDesc = {};
 		resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(uavdata[0]) * uavdata.size();//コピー先のサイズを計算(UAVと同じ)
+		resDesc.Width = sizeof(data_[0]) * data_.size();//コピー先のサイズを計算(UAVと同じ)
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -244,7 +215,7 @@ namespace IFE
 	inline void Compute<T>::CreateRootSignature()
 	{
 		HRESULT result = S_OK;
-		ID3DBlob* errBlob = nullptr;
+		Microsoft::WRL::ComPtr<ID3DBlob> errBlob = nullptr;
 		D3D12_DESCRIPTOR_RANGE range[2] = {};
 		range[0].NumDescriptors = 1;//1つ
 		range[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;//u
@@ -291,7 +262,7 @@ namespace IFE
 		pldesc.CS.pShaderBytecode = csBlob->GetBufferPointer();
 		pldesc.CS.BytecodeLength = csBlob->GetBufferSize();
 		pldesc.NodeMask = 0;
-		pldesc.pRootSignature = rootSignature_;
+		pldesc.pRootSignature = rootSignature_.Get();
 		auto result = GraphicsAPI::GetDevice()->CreateComputePipelineState(&pldesc, IID_PPV_ARGS(&pipeline_));
 		assert(SUCCEEDED(result));
 	}
@@ -315,8 +286,8 @@ namespace IFE
 		D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
 		uavDesc.Format = DXGI_FORMAT_UNKNOWN;
 		uavDesc.ViewDimension = D3D12_UAV_DIMENSION_BUFFER;//バッファとして
-		uavDesc.Buffer.NumElements = (UINT)uavdata.size();//要素の総数
-		uavDesc.Buffer.StructureByteStride = sizeof(uavdata[0]);//1個当たりの大きさ
+		uavDesc.Buffer.NumElements = (UINT)data_.size();//要素の総数
+		uavDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1個当たりの大きさ
 		uavDesc.Buffer.FirstElement = 0;
 		uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_NONE;
 		GraphicsAPI::GetDevice()->CreateUnorderedAccessView(res, nullptr, &uavDesc, descriptorHeap_->GetCPUDescriptorHandleForHeapStart());
@@ -328,8 +299,8 @@ namespace IFE
 		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.Format = DXGI_FORMAT_UNKNOWN;
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_BUFFER;//バッファとして
-		srvDesc.Buffer.NumElements = (UINT)indata.size();//要素の総数
-		srvDesc.Buffer.StructureByteStride = sizeof(indata[0]);//1個当たりの大きさ
+		srvDesc.Buffer.NumElements = (UINT)data_.size();//要素の総数
+		srvDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1個当たりの大きさ
 		srvDesc.Buffer.FirstElement = 0;
 		srvDesc.Buffer.Flags = D3D12_BUFFER_SRV_FLAG_NONE;
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;

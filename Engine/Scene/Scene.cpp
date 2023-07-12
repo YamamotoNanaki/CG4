@@ -27,8 +27,12 @@ void IFE::Scene::Initialize()
 
 	SceneInit();
 
-	std::vector<SimpleBuffer_t>test;
-	Compute<SimpleBuffer_t>cs;
+	std::vector<float>test;
+	for (int i = 0; i < 10; i++)
+	{
+		test.push_back(0);
+	}
+	Compute<float>cs;
 	cs.Initialize("test", test);
 	cs.Execute();
 
