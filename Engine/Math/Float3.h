@@ -25,7 +25,7 @@ namespace IFE
 
 
 		static Float3 zero() { return Float3(0, 0, 0); };
-		virtual ~Float3() {};
+		//virtual ~Float3() {};
 	};
 	Float3 operator/(Float3 f, float s);
 	Float3 operator*(Float3 f, float s);

@@ -21,6 +21,6 @@ namespace IFE
 
 		bool operator==(const Float2& f)const;
 
-		virtual ~Float2() {};
+		//virtual ~Float2() {};
 	};
 };
