@@ -141,13 +141,19 @@ namespace IFE
 
 		cmdList_->Close();
 		auto fence_ = GraphicsAPI::Instance()->GetFence();
-		auto fenceValue_ = GraphicsAPI::Instance()->GetFenceVal();
+		auto& fenceValue_ = GraphicsAPI::Instance()->GetFenceVal();
 
 		ID3D12CommandList* cmdLists[] = { cmdList_ };
 		cmdQue_->ExecuteCommandLists(1, cmdLists);
 		cmdQue_->Signal(fence_, ++fenceValue_);
-		//‘Ò‚¿
-		while (fence_->GetCompletedValue() < fenceValue_) { ; }
+
+		if (fence_->GetCompletedValue() != fenceValue_)
+		{
+			HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+			fence_->SetEventOnCompletion(fenceValue_, event);
+			WaitForSingleObject(event, INFINITE);
+			CloseHandle(event);
+		}
 
 		IDs* mappedRes = nullptr;
 		D3D12_RANGE rng = {};
