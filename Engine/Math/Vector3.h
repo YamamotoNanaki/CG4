@@ -3,9 +3,8 @@
 
 namespace IFE
 {
-	class Vector3 : public Float3
+	struct Vector3 : public Float3
 	{
-	public:
 		Vector3();
 		Vector3(float x, float y, float z);
 		Vector3(const Float3& f3);

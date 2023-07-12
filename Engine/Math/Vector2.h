@@ -3,10 +3,8 @@
 
 namespace IFE
 {
-	class Vector2 :public Float2
+	struct Vector2 :public Float2
 	{
-
-	public:
 		Vector2();
 		Vector2(float x, float y);
 		void Set(float x, float y);

@@ -3,9 +3,8 @@
 
 namespace IFE
 {
-	class Matrix
+	struct Matrix
 	{
-	public:
 		float m[4][4];
 
 	public:
