@@ -9,7 +9,7 @@
 namespace IFE
 {
 	class Transform;
-	class Object3D :public ComponentManager
+	class Object3D final :public ComponentManager
 	{
 		std::string objectName_;
 	public:

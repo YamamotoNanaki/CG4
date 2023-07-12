@@ -69,3 +69,8 @@ Float2& Float2::operator/=(float f)
 	y /= f;
 	return *this;
 }
+
+bool IFE::Float2::operator==(const Float2& f)const
+{
+	return x == f.x && y == f.y;
+}

@@ -63,6 +63,7 @@ namespace IFE
 #endif
 		void LoadingScene(nlohmann::json& json, const std::string& comName);
 
+		virtual ~ComponentManager() {};
 	private:
 		std::string SetName(const std::string& name);
 	};

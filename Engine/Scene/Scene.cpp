@@ -27,11 +27,10 @@ void IFE::Scene::Initialize()
 
 	SceneInit();
 
-	std::vector<float>test(256, 0);
-	Compute<float>cs;
-	cs.Initialize("test", test.size());
-	cs.Execution();
-	test.assign(cs.data, cs.data + test.size());
+	std::vector<SimpleBuffer_t>test;
+	Compute<SimpleBuffer_t>cs;
+	cs.Initialize("test", test);
+	cs.Execute();
 
 	//particleM->Initialize();
 }

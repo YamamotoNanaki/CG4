@@ -91,10 +91,10 @@ Vector2& IFE::Vector2::operator=(const Float2& obj)
 	return *this;
 }
 
-bool IFE::Vector2::operator==(const Vector2& v)
-{
-	return x == v.x && y == v.y;
-}
+//bool IFE::Vector2::operator==(const Vector2& v)
+//{
+//	return x == v.x && y == v.y;
+//}
 
 const Vector2 IFE::operator+(const Vector2& v1, const Vector2& v2)
 {
