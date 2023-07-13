@@ -491,8 +491,8 @@
     <ClInclude Include="Source\Bullet.h">
       <Filter>ヘッダー ファイル\Source</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Particle\Compute.h">
-      <Filter>ヘッダー ファイル\Engine\Particle</Filter>
+    <ClInclude Include="Engine\Base\Compute.h">
+      <Filter>ヘッダー ファイル\Engine\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
