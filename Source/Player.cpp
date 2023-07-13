@@ -86,7 +86,14 @@ void IFE::Player::EnemyCollide()
 void IFE::Player::Shoot()
 {
 	Input* input = Input::Instance();
-	if (!input->PadTriggere(PADCODE::RSHOULDER))return;
+	if (input->GetPadConnected())
+	{
+		if (!input->PadTriggere(PADCODE::RSHOULDER))return;
+	}
+	else
+	{
+		if (!input->KeyTriggere(Key_Space))return;
+	}
 	Float3 pos = { pos_.x - moveVec_.x * 2,pos_.y,pos_.z - moveVec_.y * 2 };
 	auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
 	if (bullet == nullptr)return;
