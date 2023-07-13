@@ -229,6 +229,12 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Engine\Assimp\code\assimp.vcxproj">
+      <Project>{3e5c3cf0-29cb-32e1-b4b9-2be688518f48}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Engine\Assimp\contrib\zlib\zlibstatic.vcxproj">
+      <Project>{dc03f165-7449-3851-81cc-da12d35fdb42}</Project>
+    </ProjectReference>
     <ProjectReference Include="Engine\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
@@ -271,7 +277,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)Engine\Assimp\lib</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\Engine\DirectXTex;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
