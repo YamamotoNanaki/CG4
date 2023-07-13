@@ -277,7 +277,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Engine\Assimp\lib</OutDir>
+    <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\Engine\DirectXTex;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
