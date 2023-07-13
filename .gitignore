@@ -100,6 +100,8 @@ x64/*/*.obj
 *.exe
 *.ini
 
+!Engine/Assimp/code/AssetLib/Obj
+
 # Chutzpah Test files
 _Chutzpah*
 
