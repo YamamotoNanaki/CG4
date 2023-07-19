@@ -8,6 +8,6 @@ RWStructuredBuffer<float> outBuff : register(u0);
 void main(uint3 dtid : SV_DispatchThreadID)
 {
 	//‚½‚¾‚½‚¾ID‚ð‘ã“ü
-    outBuff[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] = dtid.x * 8 * 8 + dtid.y * 8 + dtid.z;
+    outBuff[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] = inBuff0[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] + dtid.x * 8 * 8 + dtid.y * 8 + dtid.z;
 
 }

@@ -84,6 +84,8 @@ namespace IFE
 	template<class T>
 	inline void Compute<T>::Execute()
 	{
+		cmdList_->SetPipelineState(pipeline_.Get());
+
 		T* cbuff = nullptr;
 		inBuffer->Map(0, nullptr, (void**)&cbuff);
 		copy(data_.begin(), data_.end(), cbuff);
