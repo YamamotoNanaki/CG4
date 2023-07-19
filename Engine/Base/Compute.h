@@ -2,6 +2,7 @@
 #include "GraphicsAPI.h"
 #include "GraphicsPipelineManager.h"
 #include <d3d12.h>
+#include <d3dx12.h>
 #include <d3dcompiler.h>
 #include <cassert>
 #include <wrl.h>
