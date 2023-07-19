@@ -8,11 +8,19 @@ namespace IFE
 		Float3 position;
 		float speed;
 		Float3 velocity;
-		float lifeTime;
+		float time;
 	};
 	class Emitter
 	{
+	private:
 		std::vector<Particle>particles;
 		Compute<Particle> compute;
+
+	public:
+		void Initialize();
+		void Update();
+		void Draw();
+
+	private:
 	};
 }
