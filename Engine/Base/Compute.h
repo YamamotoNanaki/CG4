@@ -8,8 +8,14 @@
 #include <wrl.h>
 #include <vector>
 
+#include "ConstBuffer.h"
+
 namespace IFE
 {
+	struct Float
+	{
+		float f;
+	};
 	template <class T>
 	class Compute
 	{
@@ -20,19 +26,22 @@ namespace IFE
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_ = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> cmdQue_ = nullptr;
 
-		Microsoft::WRL::ComPtr<ID3D12Resource> uavBuffer = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12Resource> inBuffer = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12Resource> cpyBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> uavBuffer_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> inBuffer_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> cpyBuffer_ = nullptr;
 
 	private:
 		inline static const std::string defaultDirectory_ = "Data/Shaders/";
+		uint32_t constantBufferNum_ = 0;
 
 	public:
 		std::vector<T> data_;
 		std::string name_;
 
+		ConstBuffer<Float>test;
+
 	public:
-		void Initialize(const std::string& name, const std::vector<T>& data, const std::string& shaderName = "testCS.hlsl");
+		void Initialize(const std::string& name, const std::vector<T>& data, const std::string& shaderName = "testCS.hlsl", uint32_t constantBufferNum = 0);
 		void Execute();
 
 	private:
@@ -47,11 +56,12 @@ namespace IFE
 	};
 
 	template<class T>
-	inline void Compute<T>::Initialize(const std::string& name, const std::vector<T>& data, const std::string& shaderName)
+	inline void Compute<T>::Initialize(const std::string& name, const std::vector<T>& data, const std::string& shaderName, uint32_t constantBufferNum)
 	{
 		HRESULT result = S_OK;
 		name_ = name;
 		data_ = data;
+		constantBufferNum_ = constantBufferNum;
 
 		CreateRootSignature();
 		CreateComputePipeline(defaultDirectory_ + shaderName);
@@ -73,51 +83,56 @@ namespace IFE
 		assert(SUCCEEDED(result));
 
 
-		CreateCopyBuffer(*cpyBuffer.GetAddressOf());
+		CreateCopyBuffer(*cpyBuffer_.GetAddressOf());
 
-		CreateUAVBuffer(*uavBuffer.GetAddressOf());
-		CreateUAV(*uavBuffer.GetAddressOf());
+		CreateUAVBuffer(*uavBuffer_.GetAddressOf());
+		CreateUAV(*uavBuffer_.GetAddressOf());
 
-		CreateSRVBuffer(*inBuffer.GetAddressOf());
-		CreateSRV(*inBuffer.GetAddressOf());
+		CreateSRVBuffer(*inBuffer_.GetAddressOf());
+		CreateSRV(*inBuffer_.GetAddressOf());
 	}
 
 	template<class T>
 	inline void Compute<T>::Execute()
 	{
 		cmdList_->SetPipelineState(pipeline_.Get());
+		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ルートシグネチャセット
 
 		T* cbuff = nullptr;
-		inBuffer->Map(0, nullptr, (void**)&cbuff);
+		inBuffer_->Map(0, nullptr, (void**)&cbuff);
 		copy(data_.begin(), data_.end(), cbuff);
-		inBuffer->Unmap(0, nullptr);
+		inBuffer_->Unmap(0, nullptr);
 
-		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ルートシグネチャセット
-		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get()};
+		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get() };
 		cmdList_->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
 
 		//ルートパラメータのセット
 		cmdList_->SetComputeRootDescriptorTable(0,
 			descriptorHeap_->GetGPUDescriptorHandleForHeapStart()
 		);
+
+		auto a = test.GetCBMapObject();
+		a->f = 100;
+		test.SetConstBuffView(1, cmdList_.Get());
+
 		cmdList_->Dispatch(2, 2, 2);//ディスパッチ
 
 		//バリア
 		D3D12_RESOURCE_BARRIER barrier = {};
-		barrier.Transition.pResource = uavBuffer.Get();
+		barrier.Transition.pResource = uavBuffer_.Get();
 		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
 		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_COPY_SOURCE;
 		barrier.Transition.Subresource = 0;
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		cmdList_->ResourceBarrier(1, &barrier);
 
-		cmdList_->CopyResource(cpyBuffer.Get(), uavBuffer.Get());
+		cmdList_->CopyResource(cpyBuffer_.Get(), uavBuffer_.Get());
 
 		cmdList_->Close();
 		auto fence_ = GraphicsAPI::Instance()->GetFence();
 		auto& fenceValue_ = GraphicsAPI::Instance()->GetFenceVal();
 
-		Microsoft::WRL::ComPtr<ID3D12CommandList> cmdLists[] = { cmdList_.Get()};
+		Microsoft::WRL::ComPtr<ID3D12CommandList> cmdLists[] = { cmdList_.Get() };
 		cmdQue_->ExecuteCommandLists(1, cmdLists->GetAddressOf());
 		cmdQue_->Signal(fence_, ++fenceValue_);
 
@@ -133,9 +148,9 @@ namespace IFE
 		D3D12_RANGE rng = {};
 		rng.Begin = 0;
 		rng.End = data_.size() * sizeof(float);
-		cpyBuffer->Map(0, &rng, (void**)(&mappedRes));
+		cpyBuffer_->Map(0, &rng, (void**)(&mappedRes));
 		std::copy_n(mappedRes, data_.size(), data_.data());
-		cpyBuffer->Unmap(0, nullptr);
+		cpyBuffer_->Unmap(0, nullptr);
 
 		auto result = cmdAlloc_->Reset(); // キューをクリア
 		assert(SUCCEEDED(result));
@@ -232,15 +247,19 @@ namespace IFE
 		range[1].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 		range[1].RegisterSpace = 0;
 
-		D3D12_ROOT_PARAMETER rp[1] = {};
+		D3D12_ROOT_PARAMETER rp[2] = {};
 		rp[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		rp[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 		rp[0].DescriptorTable.NumDescriptorRanges = 2;
 		rp[0].DescriptorTable.pDescriptorRanges = range;
 
-		D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+		rp[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
+		rp[1].Descriptor.ShaderRegister = (UINT)0;
+		rp[1].Descriptor.RegisterSpace = 0;
+		rp[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
 		D3D12_ROOT_SIGNATURE_DESC rootSigDesc = {};
-		rootSigDesc.NumParameters = 1;
+		rootSigDesc.NumParameters = 2;
 		rootSigDesc.pParameters = rp;
 		rootSigDesc.NumStaticSamplers = 0;
 		rootSigDesc.pStaticSamplers = nullptr;

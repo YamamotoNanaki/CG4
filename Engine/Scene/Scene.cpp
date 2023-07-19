@@ -2,6 +2,8 @@
 #include "Debug.h"
 #include "Transform.h"
 
+#include "Compute.h"
+
 using namespace IFE;
 
 #ifdef _DEBUG
@@ -26,6 +28,11 @@ void IFE::Scene::Initialize()
 
 	SceneInit();
 
+	Compute<float> c;
+	std::vector<float>v(10);
+	c.Initialize("test", v);
+	c.Execute();
+	v = c.data_;
 	//particleM->Initialize();
 }
 

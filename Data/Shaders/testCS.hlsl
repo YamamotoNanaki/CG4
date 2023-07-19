@@ -1,4 +1,7 @@
-
+cbuffer cbuff0 : register(b0)
+{
+    float a; //F(RGBA)
+};
 
 StructuredBuffer<float> inBuff0 : register(t0);
 
@@ -8,6 +11,6 @@ RWStructuredBuffer<float> outBuff : register(u0);
 void main(uint3 dtid : SV_DispatchThreadID)
 {
 	//‚½‚¾‚½‚¾ID‚ğ‘ã“ü
-    outBuff[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] = inBuff0[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] + dtid.x * 8 * 8 + dtid.y * 8 + dtid.z;
+    outBuff[dtid.x * 8 * 8 + dtid.y * 8 + dtid.z] = a;
 
 }

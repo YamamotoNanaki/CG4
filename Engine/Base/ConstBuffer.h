@@ -20,6 +20,7 @@ namespace IFE
 		~ConstBuffer();
 
 		void SetConstBuffView(uint32_t rootParameterIndex);
+		void SetConstBuffView(uint32_t rootParameterIndex, ID3D12GraphicsCommandList*cmdList);
 		T* GetCBMapObject();
 	};
 
@@ -62,6 +63,11 @@ namespace IFE
 	inline void ConstBuffer<T>::SetConstBuffView(uint32_t rootParameterIndex)
 	{
 		sCmdList_->SetGraphicsRootConstantBufferView(rootParameterIndex, cbuffResource_->GetGPUVirtualAddress());
+	}
+	template<class T>
+	inline void ConstBuffer<T>::SetConstBuffView(uint32_t rootParameterIndex, ID3D12GraphicsCommandList* cmdList)
+	{
+		cmdList->SetComputeRootConstantBufferView(rootParameterIndex, cbuffResource_->GetGPUVirtualAddress());
 	}
 	template<class T>
 	inline T* ConstBuffer<T>::GetCBMapObject()
