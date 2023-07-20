@@ -62,27 +62,12 @@ void IFE::Enemy::SetPlayerTransform(Transform* transform)
 
 void IFE::Enemy::Move()
 {
-	static float timer;
-	timer += IFETime::sDeltaTime_;
-
 	(this->*ActtionTable[action_])();
-	//if (timer > 2)
-	//{
-	//	timer = 0;
-	//	left_ = !left_;
-	//}
-	//if (left_)
-	//{
-	//	transform_->position_.x -= speed_;
-	//}
-	//else
-	//{
-	//	transform_->position_.x += speed_;
-	//}
 }
 
 void IFE::Enemy::Stanby()
 {
+	action_ = patrolPoint_.size() > 1 ? uint8_t(EnemyAction::Patrol) : action_;
 	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
@@ -102,8 +87,8 @@ void IFE::Enemy::Patrol()
 	Vector3 vec = nextPointPos - nowPointPos;
 	vec.Normalize();
 	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
-	
-	if (NearEqual(transform_->position_ , nextPointPos,0.25))
+
+	if (NearEqual(transform_->position_, nextPointPos, 0.25))
 	{
 		nowPoint_ = nextPoint;
 	}
@@ -113,6 +98,16 @@ void IFE::Enemy::Patrol()
 
 void IFE::Enemy::Detection()
 {
+	Float3 pPos = playerTransform_->position_;
+	Float3 ePos = transform_->position_;
+
+	Vector3 vec = pPos - ePos;
+	float distance = vec.Length();
+	vec.Normalize();
+	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
+
+	action_ = distance <= 5 ? uint8_t(EnemyAction::Attack) : action_;
+	action_ = distance > 50 ? uint8_t(EnemyAction::Stanby) : action_;
 }
 
 void IFE::Enemy::Attack()
@@ -135,7 +130,7 @@ void IFE::Enemy::ComponentDebugGUI()
 	ImguiManager* gui = ImguiManager::Instance();
 	if (gui->NewTreeNode("status view"))
 	{
-		std::string hpText = "Hp : " + hp_;
+		std::string hpText = "HP : " + std::to_string(hp_);
 		gui->TextGUI(hpText);
 		std::string actionText = "action : ";
 		switch (action_)
