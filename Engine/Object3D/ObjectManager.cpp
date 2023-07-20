@@ -42,8 +42,8 @@ void IFE::ObjectManager::Initialize()
 
 void IFE::ObjectManager::Update()
 {
-	objectList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
-	prefabList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
+	objectList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->GetDeleteFlag(); });
+	prefabList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->GetDeleteFlag(); });
 	CollideManager::Instance()->Reset();
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
@@ -457,8 +457,8 @@ void IFE::ObjectManager::OutputScene()
 }
 void IFE::ObjectManager::DebugUpdate()
 {
-	objectList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
-	prefabList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->deleteFlag_; });
+	objectList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->GetDeleteFlag(); });
+	prefabList_.remove_if([](unique_ptr<Object3D>& obj) {return obj->GetDeleteFlag(); });
 	for (unique_ptr<Object3D>& itr : objectList_)
 	{
 		itr->DebugUpdate();

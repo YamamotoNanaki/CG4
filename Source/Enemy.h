@@ -21,6 +21,8 @@ namespace IFE
 		uint8_t hp_ = 2;
 
 		static Transform* playerTransform_;
+		float deathDirectionTimer_;
+		float deathDirectionMaxTime_ = 0.5;
 
 	public:
 		void Initialize()override;

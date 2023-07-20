@@ -32,6 +32,7 @@ void IFE::Enemy::Update()
 	else
 	{
 		objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
+		action_ = (uint8_t)EnemyAction::Death;
 	}
 	//if (isHit_)
 	//{
@@ -116,6 +117,11 @@ void IFE::Enemy::Attack()
 
 void IFE::Enemy::Death()
 {
+	deathDirectionTimer_ += IFETime::sDeltaTime_;
+	if (deathDirectionTimer_ > deathDirectionMaxTime_)
+	{
+		objectPtr_->Destroy();
+	}
 }
 
 void (Enemy::* Enemy::ActtionTable[])() =

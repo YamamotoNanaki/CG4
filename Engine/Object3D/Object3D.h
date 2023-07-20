@@ -11,10 +11,11 @@ namespace IFE
 	class Transform;
 	class Object3D final :public ComponentManager
 	{
+	private:
 		std::string objectName_;
+		bool deleteFlag_ = false;
 	public:
 		bool isActive_ = true;
-		bool deleteFlag_ = false;
 		bool DrawFlag_ = true;
 		Transform* transform_ = nullptr;
 		Object3D* parent_ = nullptr;
@@ -47,6 +48,8 @@ namespace IFE
 		void DeleteChildAll();
 
 		void CopyValue(Object3D* ptr);
+		void Destroy();
+		bool GetDeleteFlag();
 
 #ifdef _DEBUG
 		void DebugGUI(bool flagdelete, bool fmove, std::string* str);

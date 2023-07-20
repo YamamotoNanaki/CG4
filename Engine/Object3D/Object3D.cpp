@@ -166,6 +166,16 @@ void IFE::Object3D::CopyValue(Object3D* ptr)
 	ptr->SetTransform();
 }
 
+void IFE::Object3D::Destroy()
+{
+	deleteFlag_ = true;
+}
+
+bool IFE::Object3D::GetDeleteFlag()
+{
+	return deleteFlag_;
+}
+
 #ifdef _DEBUG
 void IFE::Object3D::DebugGUI(bool fdelete, bool fmove, std::string* str)
 {

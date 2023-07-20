@@ -15,7 +15,7 @@ void IFE::Bullet::OnColliderHit(Collider* collider)
 {
 	if (collider->GetObjectPtr()->GetComponent<Enemy>())
 	{
-		objectPtr_->deleteFlag_ = true;
+		objectPtr_->Destroy();
 	}
 }
 
@@ -32,5 +32,5 @@ void IFE::Bullet::Move()
 void IFE::Bullet::Timer()
 {
 	lifeTimer_ += IFETime::sDeltaTime_;
-	if (lifeTimer_ > timerMax_)objectPtr_->deleteFlag_ = true;
+	if (lifeTimer_ > timerMax_)objectPtr_->Destroy();
 }
