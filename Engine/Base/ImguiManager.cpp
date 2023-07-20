@@ -674,5 +674,193 @@ Object3D* IFE::ImguiManager::SetObject(Object3D* obj, const std::string& label)
 }
 
 
+void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::string& label, float speed, float min, float max)
+{
+	if (ImGui::TreeNode(label.c_str()))
+	{
+
+		for (uint32_t i = 0; i < f.size(); i++)
+		{
+			std::string num = "[" + std::to_string(i) + "]";
+			ImGui::DragFloat(num.c_str(), &f[i], speed, min, max);
+			ImGui::SameLine();
+			if (ImGui::Button("ª"))
+			{
+				if (i != 0)
+				{
+					float n = f[i];
+					f[i] = f[i - 1];
+					f[i - 1] = n;
+				}
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("«"))
+			{
+				if (i != f.size() - 1)
+				{
+					float n = f[i];
+					f[i] = f[i + 1];
+					f[i + 1] = n;
+				}
+
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("~"))
+			{
+				f.erase(f.begin() + i);
+			}
+		}
+
+		if (ImGui::Button("Add"))
+		{
+			f.push_back(0);
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::string& label, float speed, float min, float max)
+{
+	if (ImGui::TreeNode(label.c_str()))
+	{
+
+		for (uint32_t i = 0; i < f.size(); i++)
+		{
+			std::string num = "[" + std::to_string(i) + "]";
+			DragFloat2GUI(&f[i], num, speed, min, max);
+			ImGui::SameLine();
+			if (ImGui::Button("ª"))
+			{
+				if (i != 0)
+				{
+					Float2 n = f[i];
+					f[i] = f[i - 1];
+					f[i - 1] = n;
+				}
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("«"))
+			{
+				if (i != f.size() - 1)
+				{
+					Float2 n = f[i];
+					f[i] = f[i + 1];
+					f[i + 1] = n;
+				}
+
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("~"))
+			{
+				f.erase(f.begin() + i);
+			}
+		}
+
+		if (ImGui::Button("Add"))
+		{
+			f.push_back(0);
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+void IFE::ImguiManager::DragVectorFloat3GUI(std::vector<Float3>& f, const std::string& label, float speed, float min, float max)
+{
+	if (ImGui::TreeNode(label.c_str()))
+	{
+
+		for (uint32_t i = 0; i < f.size(); i++)
+		{
+			std::string num = "[" + std::to_string(i) + "]";
+			DragFloat3GUI(&f[i], num, speed, min, max);
+			ImGui::SameLine();
+			std::string text = num + "UP";
+			if (ImGui::Button(text.c_str()))
+			{
+				if (i != 0)
+				{
+					Float3 n = f[i];
+					f[i] = f[i - 1];
+					f[i - 1] = n;
+				}
+			}
+			ImGui::SameLine();
+			text = num + "DOWN";
+			if (ImGui::Button(text.c_str()))
+			{
+				if (i != f.size() - 1)
+				{
+					Float3 n = f[i];
+					f[i] = f[i + 1];
+					f[i + 1] = n;
+				}
+
+			}
+			ImGui::SameLine();
+			text = num + "DELETE";
+			if (ImGui::Button(text.c_str()))
+			{
+				f.erase(f.begin() + i);
+			}
+		}
+
+		if (ImGui::Button("Add"))
+		{
+			f.push_back(0);
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::string& label, float speed, float min, float max)
+{
+	if (ImGui::TreeNode(label.c_str()))
+	{
+
+		for (uint32_t i = 0; i < f.size(); i++)
+		{
+			std::string num = "[" + std::to_string(i) + "]";
+			DragFloat4GUI(&f[i], num, speed, min, max);
+			ImGui::SameLine();
+			if (ImGui::Button("ª"))
+			{
+				if (i != 0)
+				{
+					Float4 n = f[i];
+					f[i] = f[i - 1];
+					f[i - 1] = n;
+				}
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("«"))
+			{
+				if (i != f.size() - 1)
+				{
+					Float4 n = f[i];
+					f[i] = f[i + 1];
+					f[i + 1] = n;
+				}
+
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("~"))
+			{
+				f.erase(f.begin() + i);
+			}
+		}
+
+		if (ImGui::Button("Add"))
+		{
+			f.push_back(0);
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+
 
 #endif

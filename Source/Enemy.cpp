@@ -6,45 +6,161 @@
 #include "Object3D.h"
 #include "Material.h"
 
+using namespace IFE;
+
+Transform* Enemy::playerTransform_ = nullptr;
+
+void IFE::Enemy::Initialize()
+{
+	if (action_ == (uint8_t)EnemyAction::Patrol)
+	{
+		transform_->position_ = patrolPoint_[0];
+	}
+}
+
 void IFE::Enemy::Update()
 {
 	Move();
-	if (isHit_)
+	if (hp_ == 2)
 	{
 		objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
-		colorTimer_ += IFETime::sDeltaTime_;
-		if (colorTimer_ > 0.7f)
-		{
-			isHit_ = false;
-		}
 	}
-	else objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
+	else if (hp_ == 1)
+	{
+		objectPtr_->GetComponent<Material>()->color_ = { 0,1,0,1 };
+	}
+	else
+	{
+		objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
+	}
+	//if (isHit_)
+	//{
+	//	objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+	//	colorTimer_ += IFETime::sDeltaTime_;
+	//	if (colorTimer_ > 0.7f)
+	//	{
+	//		isHit_ = false;
+	//	}
+	//}
+	//else objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
 }
 
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
 	if (collider->GetObjectPtr()->GetComponent<Bullet>())
 	{
-		colorTimer_ = 0;
-		isHit_ = true;
+		//colorTimer_ = 0;
+		//isHit_ = true;
+		hp_--;
 	}
+}
+
+void IFE::Enemy::SetPlayerTransform(Transform* transform)
+{
+	playerTransform_ = transform;
 }
 
 void IFE::Enemy::Move()
 {
 	static float timer;
 	timer += IFETime::sDeltaTime_;
-	if (timer > 2)
+
+	(this->*ActtionTable[action_])();
+	//if (timer > 2)
+	//{
+	//	timer = 0;
+	//	left_ = !left_;
+	//}
+	//if (left_)
+	//{
+	//	transform_->position_.x -= speed_;
+	//}
+	//else
+	//{
+	//	transform_->position_.x += speed_;
+	//}
+}
+
+void IFE::Enemy::Stanby()
+{
+	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
+}
+
+void IFE::Enemy::Patrol()
+{
+	if (patrolPoint_.size() < 2)
 	{
-		timer = 0;
-		left_ = !left_;
+		action_ = uint8_t(EnemyAction::Stanby);
+		return;
 	}
-	if (left_)
+
+	uint8_t nextPoint = nowPoint_ + 1 < patrolPoint_.size() ? nowPoint_ + 1 : 0;
+
+	Float3 nowPointPos = patrolPoint_[nowPoint_];
+	Float3 nextPointPos = patrolPoint_[nextPoint];
+	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
+}
+
+void IFE::Enemy::Detection()
+{
+}
+
+void IFE::Enemy::Attack()
+{
+}
+
+void IFE::Enemy::Death()
+{
+}
+
+void (Enemy::* Enemy::ActtionTable[])() =
+{
+	&Enemy::Stanby,&Enemy::Patrol,&Enemy::Detection,&Enemy::Attack,&Enemy::Death,
+};
+
+#ifdef _DEBUG
+#include "ImguiManager.h"
+void IFE::Enemy::ComponentDebugGUI()
+{
+	ImguiManager* gui = ImguiManager::Instance();
+	if (gui->NewTreeNode("status view"))
 	{
-		transform_->position_.x -= speed_;
+		std::string hpText = "Hp : " + hp_;
+		gui->TextGUI(hpText);
+		std::string actionText = "action : ";
+		switch (action_)
+		{
+		case uint8_t(EnemyAction::Stanby):
+			actionText += "Stanby";
+			break;
+		case uint8_t(EnemyAction::Patrol):
+			actionText += "Patrol";
+			break;
+		case uint8_t(EnemyAction::Detection):
+			actionText += "Detection";
+			break;
+		case uint8_t(EnemyAction::Attack):
+			actionText += "Attack";
+			break;
+		case uint8_t(EnemyAction::Death):
+			actionText += "Death";
+			break;
+		}
+		gui->TextGUI(actionText);
+		gui->EndTreeNode();
 	}
-	else
+	gui->DragFloatGUI(&speed_, "speed");
+	gui->DragVectorFloat3GUI(patrolPoint_, "patrol point");
+	if (gui->NewTreeNode("start Action"))
 	{
-		transform_->position_.x += speed_;
+		int32_t tempNum = action_;
+		gui->RadioButtonGUI("Stanby", &tempNum, uint32_t(EnemyAction::Stanby));
+		gui->RadioButtonGUI("Patrol", &tempNum, uint32_t(EnemyAction::Patrol));
+		gui->RadioButtonGUI("Detection", &tempNum, uint32_t(EnemyAction::Detection));
+		gui->RadioButtonGUI("Attack", &tempNum, uint32_t(EnemyAction::Attack));
+		gui->RadioButtonGUI("Death", &tempNum, uint32_t(EnemyAction::Death));
+		action_ = uint8_t(tempNum);
+		gui->EndTreeNode();
 	}
 }
+#endif

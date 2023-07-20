@@ -34,11 +34,11 @@ namespace IFE
 		bool ObjectGUI(const std::string& objectName, const  bool& flagdelete, const bool& move, bool* moveFlag, Object3D* obj);
 		bool SpriteGUI(const std::string& spriteName, const bool& flagdelete, const bool& m, bool* moveFlag);
 		bool EmitterGUI(const std::string& spriteName, const bool& flagdelete);
-		bool ObjectAddGUI(std::string* newObjectName, std::string* modelName, const std::function<std::string(void)> &guiFunc);
+		bool ObjectAddGUI(std::string* newObjectName, std::string* modelName, const std::function<std::string(void)>& guiFunc);
 		void NewGUI(const std::string& guiName, int32_t flag = 0);
 		void ModelManagerGUI(bool* flagadd, bool* flagdelete);
 		bool ModelAddGUI(std::string* newObjectName, std::string* newFilename, uint16_t* settings, bool* smooth);
-		int32_t GetModelNameGUI(const std::vector<std::string>&names);
+		int32_t GetModelNameGUI(const std::vector<std::string>& names);
 		void ModelGUI(const std::string& modelName);
 		void ComponentGUI(const std::function<void(void)>& guiFunc, const std::function<void(void)>& deleteFunc, const std::string& componentName);
 		void ChangeTextureGUI(const std::function<void(std::string)>& guiFunc);
@@ -62,6 +62,11 @@ namespace IFE
 		bool NewTreeNode(const std::string& label);
 		void EndTreeNode();
 		Object3D* SetObject(Object3D* obj, const std::string& label);
+
+		void DragVectorFloatGUI(std::vector<float>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
+		void DragVectorFloat2GUI(std::vector<Float2>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
+		void DragVectorFloat3GUI(std::vector<Float3>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
+		void DragVectorFloat4GUI(std::vector<Float4>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 	};
 }
 #endif

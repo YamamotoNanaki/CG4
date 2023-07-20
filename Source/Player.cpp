@@ -16,6 +16,7 @@ using namespace IFE;
 void IFE::Player::Initialize()
 {
 	moveVec_ = Float2{ 0,-1 };
+	Enemy::SetPlayerTransform(transform_);
 }
 
 void IFE::Player::Update()
