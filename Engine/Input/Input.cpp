@@ -175,7 +175,7 @@ float Input::GetRYAnalog(int32_t unresponsive_range)
 	if (y == -32768)y = -32767;
 	return y / 32767.0f;
 }
-bool Input::PadPush(const PADCODE& p)
+bool Input::PadDown(const PADCODE& p)
 {
 	if (sInputInstance_->pad_.Gamepad.wButtons & (uint32_t)p)return true;
 	return false;

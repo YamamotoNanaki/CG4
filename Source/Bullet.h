@@ -6,7 +6,7 @@ namespace IFE
 	class Bullet : public Component
 	{
 	private:
-		float speed_=0.7f;
+		float speed_ = 200;
 		Vector2 moveVec_;
 		float lifeTimer_ = 0;
 		float timerMax_ = 5;

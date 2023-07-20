@@ -26,7 +26,7 @@ void IFE::Bullet::SetMoveVector(const Vector2& moveVec)
 
 void IFE::Bullet::Move()
 {
-	transform_->position_ += Float3{ moveVec_.x, 0, moveVec_.y } * speed_;
+	transform_->position_ += Float3{ moveVec_.x, 0, moveVec_.y } * speed_ * IFETime::sDeltaTime_;
 }
 
 void IFE::Bullet::Timer()

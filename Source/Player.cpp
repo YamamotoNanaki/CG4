@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "IFMath.h"
+#include "IFETime.h"
 #include <cmath>
 
 using namespace IFE;
@@ -57,7 +58,7 @@ void IFE::Player::Move()
 	}
 	move_ = { x, 0, z };
 	move_.Normalize();
-	pos_ += move_ * speed_;
+	pos_ += move_ * speed_ * IFETime::sDeltaTime_;
 }
 
 void IFE::Player::Rota()
@@ -86,19 +87,25 @@ void IFE::Player::EnemyCollide()
 
 void IFE::Player::Shoot()
 {
-	Input* input = Input::Instance();
-	if (input->GetPadConnected())
+	static float timer = 0;
+	timer += IFETime::sDeltaTime_;
+	if (timer > nextBulletTime_)
 	{
-		if (!input->PadTriggere(PADCODE::RSHOULDER))return;
+		Input* input = Input::Instance();
+		if (input->GetPadConnected())
+		{
+			if (!input->PadDown(PADCODE::RSHOULDER))return;
+		}
+		else
+		{
+			if (!input->KeyDown(Key_Space))return;
+		}
+		Float3 pos = { pos_.x - moveVec_.x * 2,pos_.y + transform_->scale_.y / 2,pos_.z - moveVec_.y * 2 };
+		auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
+		if (bullet == nullptr)return;
+		bullet->GetComponent<Bullet>()->SetMoveVector(-moveVec_);
+		timer = 0;
 	}
-	else
-	{
-		if (!input->KeyTriggere(Key_Space))return;
-	}
-	Float3 pos = { pos_.x - moveVec_.x * 2,pos_.y,pos_.z - moveVec_.y * 2 };
-	auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
-	if (bullet == nullptr)return;
-	bullet->GetComponent<Bullet>()->SetMoveVector(-moveVec_);
 }
 
 
@@ -107,15 +114,18 @@ void IFE::Player::Shoot()
 void IFE::Player::ComponentDebugGUI()
 {
 	ImguiManager::Instance()->DragFloatGUI(&speed_, "speed", 0.05f);
+	ImguiManager::Instance()->DragFloatGUI(&nextBulletTime_, "nextBulletTime", 0.05f);
 }
 
 void IFE::Player::OutputComponent(nlohmann::json& json)
 {
 	json["speed"] = speed_;
+	json["nextBulletTime"] = nextBulletTime_;
 }
 #endif
 
 void IFE::Player::LoadingComponent(nlohmann::json& json)
 {
 	speed_ = json["speed"];
+	nextBulletTime_ = json["nextBulletTime"];
 }

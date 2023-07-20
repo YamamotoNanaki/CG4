@@ -7,11 +7,12 @@ namespace IFE
 	class Player : public Component
 	{
 	private:
-		float speed_ = 0.3f;
+		float speed_ = 10;
 		Vector3 move_;
 		Float3 oldPos_;
 		Float3 pos_;
 		Vector2 moveVec_;
+		float nextBulletTime_ = 0.3f;
 	public:
 		void Initialize()override;
 		void Update()override;
