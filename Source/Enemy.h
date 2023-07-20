@@ -1,5 +1,6 @@
 #pragma once
 #include <Component.h>
+#include "JsonManager.h"
 
 namespace IFE
 {
@@ -47,8 +48,11 @@ namespace IFE
 #ifdef _DEBUG
 	public:
 		void ComponentDebugGUI()override;
+		void OutputComponent(nlohmann::json& j)override;
 
 	private:
 #endif
+
+		void LoadingComponent(nlohmann::json& j)override;
 	};
 }

@@ -97,10 +97,20 @@ Vector3 IFE::Vector3Cross(const Vector3& v1, const Vector3& v2)
 	return vec;
 }
 
-bool IFE::NearEqual(float S1, float S2, float Epsilon)
+bool IFE::NearEqual(float S1, float S2, float epsilon)
 {
 	float Delta = S1 - S2;
-	return (fabsf(Delta) <= Epsilon);
+	return (fabsf(Delta) <= epsilon);
+}
+
+bool IFE::NearEqual(const Float2& f1, const Float2& f2, float epsilon)
+{
+	return NearEqual(f1.x, f2.x, epsilon) && NearEqual(f1.y, f2.y, epsilon);
+}
+
+bool IFE::NearEqual(const Float3& f1, const Float3& f2, float epsilon)
+{
+	return NearEqual(f1.x, f2.x, epsilon) && NearEqual(f1.y, f2.y, epsilon) && NearEqual(f1.z, f2.z, epsilon);
 }
 
 void IFE::ScalarSinCos(float* pSin, float* pCos, float Value)

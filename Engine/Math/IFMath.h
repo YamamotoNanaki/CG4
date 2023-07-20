@@ -56,7 +56,9 @@ namespace IFE
 	Vector3 VectorLerp(const Vector3& v0,const Vector3& v1,float t);
 
 	Matrix MatrixPerspectiveFovLH(float FovAngleY, float AspectRatio, float NearZ, float FarZ);
-	bool NearEqual(float S1, float S2, float Epsilon);
+	bool NearEqual(float S1, float S2, float epsilon);
+	bool NearEqual(const Float2& f1, const Float2& f2, float epsilon);
+	bool NearEqual(const Float3& f1, const Float3& f2, float epsilon);
 	void ScalarSinCos(float* pSin, float* pCos, float  Value);
 	float ConvertToRadians(float fDegrees);
 	float ConvertToDegrees(float fRadians);

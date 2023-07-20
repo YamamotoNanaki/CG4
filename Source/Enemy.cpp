@@ -12,7 +12,7 @@ Transform* Enemy::playerTransform_ = nullptr;
 
 void IFE::Enemy::Initialize()
 {
-	if (action_ == (uint8_t)EnemyAction::Patrol)
+	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
 	}
@@ -98,6 +98,16 @@ void IFE::Enemy::Patrol()
 
 	Float3 nowPointPos = patrolPoint_[nowPoint_];
 	Float3 nextPointPos = patrolPoint_[nextPoint];
+
+	Vector3 vec = nextPointPos - nowPointPos;
+	vec.Normalize();
+	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
+	
+	if (NearEqual(transform_->position_ , nextPointPos,0.25))
+	{
+		nowPoint_ = nextPoint;
+	}
+
 	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
@@ -163,4 +173,28 @@ void IFE::Enemy::ComponentDebugGUI()
 		gui->EndTreeNode();
 	}
 }
+
+void IFE::Enemy::OutputComponent(nlohmann::json& j)
+{
+	j["speed"] = speed_;
+	j["action"] = action_;
+	j["patrolPointSize"] = patrolPoint_.size();
+	for (uint32_t i = 0; i < patrolPoint_.size(); i++)
+	{
+		JsonManager::Instance()->OutputFloat3(j["patrolPoint"][i], patrolPoint_[i]);
+	}
+}
 #endif
+
+void IFE::Enemy::LoadingComponent(nlohmann::json& j)
+{
+	speed_ = j["speed"];
+	action_ = j["action"];
+	if (j["patrolPointSize"] != 0)
+	{
+		for (auto& point : j["patrolPoint"])
+		{
+			patrolPoint_.push_back(JsonManager::Instance()->InputFloat3(point));
+		}
+	}
+}

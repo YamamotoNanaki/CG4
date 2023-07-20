@@ -103,27 +103,32 @@ Float3 IFE::Float3::operator=(float* f)
 	return *this;
 }
 
-Float3 IFE::operator/(Float3 f, float s)
+bool IFE::Float3::operator==(const Float3& f)
+{
+	return f.x == x && f.y == y && f.z == z;
+}
+
+Float3 IFE::operator/(const Float3& f, float s)
 {
 	return Float3(f.x / s, f.y / s, f.z / s);
 }
 
-Float3 IFE::operator*(Float3 f, float s)
+Float3 IFE::operator*(const Float3& f, float s)
 {
 	return Float3(f.x * s, f.y * s, f.z * s);
 }
 
-Float3 IFE::operator*(float s, Float3 f)
+Float3 IFE::operator*(float s, const Float3& f)
 {
 	return Float3(f.x * s, f.y * s, f.z * s);
 }
 
-Float3 IFE::operator+(Float3 f1, Float3 f2)
+Float3 IFE::operator+(const Float3& f1, const Float3& f2)
 {
 	return Float3(f1.x + f2.x, f1.y + f2.y, f1.z + f2.z);
 }
 
-Float3 IFE::operator-(Float3 f1, Float3 f2)
+Float3 IFE::operator-(const Float3& f1, const Float3& f2)
 {
 	return Float3(f1.x - f2.x, f1.y - f2.y, f1.z - f2.z);
 }
