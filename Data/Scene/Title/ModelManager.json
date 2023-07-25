@@ -1,0 +1,32 @@
+[
+    {
+        "name": "sphere_Model",
+        "sphere_Model": {
+            "settings": 104,
+            "smooth": false
+        }
+    },
+    {
+        "name": "skydome_Model",
+        "skydome_Model": {
+            "fileName": "skydome",
+            "settings": 0,
+            "smooth": false
+        }
+    },
+    {
+        "girl_Model": {
+            "fileName": "Player",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "girl_Model"
+    },
+    {
+        "cube_Model": {
+            "settings": 100,
+            "smooth": false
+        },
+        "name": "cube_Model"
+    }
+]
