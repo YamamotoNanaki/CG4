@@ -24,6 +24,7 @@ namespace IFE
 		Float3 operator=(float* f);
 
 		bool operator==(const Float3& f);
+		bool operator!=(const Float3& f);
 
 		static Float3 zero() { return Float3(0, 0, 0); };
 		//virtual ~Float3() {};

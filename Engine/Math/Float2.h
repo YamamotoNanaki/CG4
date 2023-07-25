@@ -20,6 +20,7 @@ namespace IFE
 		Float2& operator/=(float f);
 
 		bool operator==(const Float2& f)const;
+		bool operator!=(const Float2& f)const;
 
 		//virtual ~Float2() {};
 	};
