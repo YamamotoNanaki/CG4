@@ -65,6 +65,7 @@ namespace IFE
 		ImguiManager& gui_ = *ImguiManager::Instance();
 		bool debug_ = false;
 		bool stop_ = false;
+		bool nextFlame_ = false;
 		void OutputScene();
 		void DebugGUI();
 #endif

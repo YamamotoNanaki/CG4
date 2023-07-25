@@ -39,7 +39,7 @@ void IFE::Scene::Update()
 		gui_.StartNewFrame();
 		DebugGUI();
 
-		if (debug_ && !stop_)
+		if (debug_ && (nextFlame_ || !stop_))
 		{
 			objM_->Update();
 			spriteM_->Update();
@@ -264,9 +264,14 @@ void IFE::Scene::DebugGUI()
 	{
 		if (stop_)
 		{
+			nextFlame_ = false;
 			if (gui_.ButtonGUI("start"))
 			{
 				stop_ = false;
+			}
+			if (gui_.ButtonGUI("Next"))
+			{
+				nextFlame_ = true;
 			}
 		}
 		else
