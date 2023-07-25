@@ -18,6 +18,7 @@ namespace IFE
 		D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle_{};
 		D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle_{};
 		std::string texName_{};
+		std::string name_{};
 		bool free_ = false;
 
 	public:

@@ -47,6 +47,7 @@ void IFE::TextureManager::Initialize()
 		tex_[i].CPUHandle_.ptr = 0;
 		tex_[i].GPUHandle_.ptr = 0;
 		tex_[i].texName_.clear();
+		tex_[i].name_.clear();
 		tex_[i].free_ = false;
 	}
 }
@@ -57,6 +58,7 @@ Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 	{
 		if (tex_[i].free_ == false)continue;
 		if (tex_[i].texName_ == filename)return &tex_[i];
+		if (tex_[i].name_ == filename)return &tex_[i];
 	}
 	return nullptr;
 }
@@ -94,6 +96,10 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 
 	Texture newtex;
 	newtex.texName_ = filename;
+	string separator = ".";
+	string::size_type pos = 0;
+	pos = filename.find(separator, pos);
+	newtex.name_ = filename.substr(0, pos);
 	string file = "Data/Resources/Texture/" + filename;
 	wchar_t szFile[256];
 	MultiByteToWideChar(CP_ACP, 0, file.c_str(), -1, szFile, _countof(szFile));
