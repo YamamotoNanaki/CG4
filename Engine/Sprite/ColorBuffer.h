@@ -11,6 +11,8 @@ namespace IFE
 		using Component::Component;
 		std::unique_ptr<ConstBuffer<ConstBufferColor>> colorBuffer_;
 		ConstBufferColor* constMapColor_ = nullptr;
+
+	public:
 		Float4 color_ = {1,1,1,1};
 
 	public:

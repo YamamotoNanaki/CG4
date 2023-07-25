@@ -37,8 +37,8 @@ void IFE::SpriteManager::Initialize()
 
 void IFE::SpriteManager::Update()
 {
-	backgroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag_; });
-	foregroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->deleteFlag_; });
+	backgroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->GetDeleteFlag(); });
+	foregroundList_.remove_if([](unique_ptr<Sprite>& spr) {return spr->GetDeleteFlag(); });
 	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
 		itr->Update();
@@ -334,8 +334,8 @@ void IFE::SpriteManager::OutputScene()
 
 void IFE::SpriteManager::DebugUpdate()
 {
-	foregroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag_; });
-	backgroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->deleteFlag_; });
+	foregroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->GetDeleteFlag(); });
+	backgroundList_.remove_if([](unique_ptr<Sprite>& obj) {return obj->GetDeleteFlag(); });
 	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
 		itr->DebugUpdate();

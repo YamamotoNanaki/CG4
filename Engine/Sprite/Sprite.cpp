@@ -160,6 +160,16 @@ void IFE::Sprite::LoadingScene(nlohmann::json& j)
 	}
 }
 
+void IFE::Sprite::Destroy()
+{
+	deleteFlag_ = true;
+}
+
+bool IFE::Sprite::GetDeleteFlag() const
+{
+	return deleteFlag_;
+}
+
 #ifdef _DEBUG
 #include "ImguiManager.h"
 

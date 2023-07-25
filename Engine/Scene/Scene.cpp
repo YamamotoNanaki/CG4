@@ -3,6 +3,9 @@
 #include "Transform.h"
 #include "Compute.h"
 #include "IFETime.h"
+#include "ColorBuffer.h"
+#include "Ease.h"
+#include "WindowsAPI.h"
 
 using namespace IFE;
 
@@ -173,7 +176,18 @@ void IFE::Scene::SceneTransitionIn()
 		transitionTimer_ += IFETime::sDeltaTime_;
 		if (transitionTimer_ < maxTransitionTime_)
 		{
+			//‘JˆÚ‚Ì‰‰o
 
+			float alpha = InOutQuad(0, 1, maxTransitionTime_, transitionTimer_);
+			auto* fade = spriteM_->GetSpritePtr("fade");
+			if (!fade)
+			{
+				spriteM_->AddInitialize("fade", "white");
+				fade = spriteM_->GetSpritePtr("fade");
+				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
+				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
+			}
+			fade->GetComponent<ColorBuffer>()->color_ = Float4(0, 0, 0, alpha);
 		}
 		else
 		{
@@ -192,10 +206,23 @@ void IFE::Scene::SceneTransitionOut()
 		transitionTimer_ += IFETime::sDeltaTime_;
 		if (transitionTimer_ < maxTransitionTime_)
 		{
+			//‘JˆÚ‚Ì‰‰o
 
+			float alpha = InOutQuad(1, 0, maxTransitionTime_, transitionTimer_);
+			auto* fade = spriteM_->GetSpritePtr("fade");
+			if (!fade)
+			{
+				spriteM_->AddInitialize("fade", "white");
+				fade = spriteM_->GetSpritePtr("fade");
+				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
+				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
+			}
+			fade->GetComponent<ColorBuffer>()->color_ = Float4(0, 0, 0, alpha);
 		}
 		else
 		{
+			auto* fade = spriteM_->GetSpritePtr("fade");
+			fade->spritePtr_->Destroy();
 			transitionTimer_ = 0;
 			isOut_ = false;
 			nextFlag_ = false;
