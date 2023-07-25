@@ -114,9 +114,9 @@
             ]
         },
         "component": [
+            "Transform",
             "Collider",
             "Player",
-            "Transform",
             "TransferGeometryBuffer",
             "Material"
         ],
@@ -203,9 +203,9 @@
             ]
         },
         "component": [
+            "Transform",
             "Collider",
             "Enemy",
-            "Transform",
             "TransferGeometryBuffer",
             "Material"
         ],
@@ -266,9 +266,9 @@
             ]
         },
         "component": [
+            "Transform",
             "Collider",
             "Bullet",
-            "Transform",
             "TransferGeometryBuffer",
             "Material"
         ],

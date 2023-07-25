@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "TitleUI.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -47,6 +48,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<Enemy>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Bullet>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<TitleUI>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

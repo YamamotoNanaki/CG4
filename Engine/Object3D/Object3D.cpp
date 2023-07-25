@@ -194,7 +194,7 @@ void IFE::Object3D::ComponentGUI()
 {
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
 	{
-		SetComponentFront(std::move(com));
+		SetComponent(std::move(com));
 	};
 	//std::function<void(Component*)> modelFunc = [&](Component* com)
 	//{

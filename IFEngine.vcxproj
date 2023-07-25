@@ -66,6 +66,7 @@
     <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Compute.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\TitleUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Model.hlsli" />
