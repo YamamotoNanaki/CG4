@@ -365,7 +365,11 @@ void IFE::ObjectManager::DebugGUI()
 			im->CheckBoxGUI(&pre, "add from prefab");
 			if (im->ObjectAddGUI(&name, &model, func))
 			{
-				if (SearchName(name))
+				if (name == "")
+				{
+					im->TextGUI("error : no name has been set");
+				}
+				else if (SearchName(name))
 				{
 					im->TextGUI("error : an object with the same name exists");
 				}

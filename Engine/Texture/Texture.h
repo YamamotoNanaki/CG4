@@ -20,12 +20,8 @@ namespace IFE
 		std::string texName_{};
 		bool free_ = false;
 
-	private:
-		Texture* ptr_;
-
 	public:
-		Texture();
 		void SetTexture(uint32_t rootParameterIndex);
-		Texture* GetPtr()const;
+		Texture* GetPtr();
 	};
 }

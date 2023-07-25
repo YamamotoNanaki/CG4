@@ -503,7 +503,7 @@ void IFE::ImguiManager::TextureLoadGUI(const std::function<void(std::string)>& g
 	}
 }
 
-void IFE::ImguiManager::ShowTextureGUI(const std::array<Texture, 1024>& tex)
+void IFE::ImguiManager::ShowTextureGUI(std::array<Texture, 1024>& tex)
 {
 	if (ImGui::CollapsingHeader("All Textures"))
 	{
@@ -514,7 +514,7 @@ void IFE::ImguiManager::ShowTextureGUI(const std::array<Texture, 1024>& tex)
 			if (!tex[i].free_)continue;
 			t[j] = tex[i].GetPtr();
 			j++;
-			if (j % 5 == 4)
+			if (j % 5 == 0 && j != 0)
 			{
 				for (int32_t k = 0; k < 5; k++)
 				{
@@ -527,6 +527,7 @@ void IFE::ImguiManager::ShowTextureGUI(const std::array<Texture, 1024>& tex)
 					ImGui::Image((ImTextureID)t[k]->GPUHandle_.ptr, { 96,96 });
 					if (k != 4)ImGui::SameLine();
 				}
+				j = 0;
 			}
 		}
 

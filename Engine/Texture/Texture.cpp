@@ -4,11 +4,6 @@
 
 using namespace IFE;
 
-IFE::Texture::Texture()
-{
-	ptr_ = this;
-}
-
 void IFE::Texture::SetTexture(uint32_t rootParameterIndex)
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
@@ -18,7 +13,7 @@ void IFE::Texture::SetTexture(uint32_t rootParameterIndex)
 	commandList->SetGraphicsRootDescriptorTable((UINT)rootParameterIndex, GPUHandle_);
 }
 
-Texture* IFE::Texture::GetPtr()const
+Texture* IFE::Texture::GetPtr()
 {
-	return ptr_;
+	return this;
 }

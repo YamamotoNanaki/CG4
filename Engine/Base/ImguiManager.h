@@ -44,7 +44,7 @@ namespace IFE
 		void ChangeTextureGUI(const std::function<void(std::string)>& guiFunc);
 		void TextureGUI(bool* load, bool* search);
 		void TextureLoadGUI(const std::function<void(std::string)>&);
-		void ShowTextureGUI(const std::array<Texture, 1024>& texture);
+		void ShowTextureGUI(std::array<Texture, 1024>& texture);
 		void SearchTextureGUI(const std::array<Texture, 1024>& texture);
 
 
