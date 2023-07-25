@@ -108,6 +108,11 @@ bool IFE::Float3::operator==(const Float3& f)
 	return f.x == x && f.y == y && f.z == z;
 }
 
+bool IFE::Float3::operator!=(const Float3& f)
+{
+	return !(*this == f);
+}
+
 Float3 IFE::operator/(const Float3& f, float s)
 {
 	return Float3(f.x / s, f.y / s, f.z / s);

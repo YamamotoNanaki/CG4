@@ -1,4 +1,5 @@
 #pragma once
+#include <future>
 #include "ObjectManager.h"
 #include "GraphicsPipelineManager.h"
 #include "TextureManager.h"
@@ -28,6 +29,12 @@ namespace IFE
 		std::string nowScene_;
 		std::string nextScene_;
 		bool nextFlag_ = false;
+
+		std::future<void> sceneInitialize_;
+		bool loadEnd_ = true;
+		bool isOut_ = false;
+		float transitionTimer_ = 0;
+		float maxTransitionTime_ = 1;
 	public:
 		void Initialize();
 		void Update();
@@ -46,8 +53,14 @@ namespace IFE
 		void SceneChange();
 		void SceneInit();
 
+		void SceneTransitionIn();
+		void SceneTransitionOut();
+		void LoadUpdate();
+		void LoadDraw();
+
 	public:
 		void LoadingScene();
+		void AsyncLoad();
 #ifdef _DEBUG
 		ImguiManager& gui_ = *ImguiManager::Instance();
 		bool debug_ = false;

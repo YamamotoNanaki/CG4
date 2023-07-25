@@ -2,6 +2,7 @@
 #include "Debug.h"
 #include "Transform.h"
 #include "Compute.h"
+#include "IFETime.h"
 
 using namespace IFE;
 
@@ -33,34 +34,48 @@ void IFE::Scene::Initialize()
 void IFE::Scene::Update()
 {
 	SceneChange();
-	gui_.StartNewFrame();
-	DebugGUI();
-
-	if (debug_ && !stop_)
+	if (loadEnd_)
 	{
-		objM_->Update();
-		spriteM_->Update();
-		//particleM->Update();
+		gui_.StartNewFrame();
+		DebugGUI();
+
+		if (debug_ && !stop_)
+		{
+			objM_->Update();
+			spriteM_->Update();
+			//particleM->Update();
+		}
+		else
+		{
+			objM_->DebugUpdate();
+			spriteM_->DebugUpdate();
+			//particleM->DebugUpdate();
+		}
+		cameraM_->Update();
+		light_->Update();
 	}
 	else
 	{
-		objM_->DebugUpdate();
-		spriteM_->DebugUpdate();
-		//particleM->DebugUpdate();
+		LoadUpdate();
 	}
-	cameraM_->Update();
-	light_->Update();
 }
 
 void IFE::Scene::Draw()
 {
-	Sprite::DrawBefore();
-	spriteM_->BackDraw();
-	objM_->Draw();
-	//particleM->Draw();
-	Sprite::DrawBefore();
-	spriteM_->ForeDraw();
-	gui_.Draw();
+	if (loadEnd_)
+	{
+		Sprite::DrawBefore();
+		spriteM_->BackDraw();
+		objM_->Draw();
+		//particleM->Draw();
+		Sprite::DrawBefore();
+		spriteM_->ForeDraw();
+		gui_.Draw();
+	}
+	else
+	{
+		LoadDraw();
+	}
 }
 #else
 
@@ -131,9 +146,7 @@ void IFE::Scene::SceneChange()
 {
 	if (nextFlag_)
 	{
-		nowScene_ = nextScene_;
-		LoadingScene();
-		nextFlag_ = false;
+		AsyncLoad();
 	}
 }
 
@@ -153,16 +166,70 @@ void IFE::Scene::SceneInit()
 	//particleM->LoadingScene();
 }
 
+void IFE::Scene::SceneTransitionIn()
+{
+	if (!isOut_)
+	{
+		transitionTimer_ += IFETime::sDeltaTime_;
+		if (transitionTimer_ < maxTransitionTime_)
+		{
+
+		}
+		else
+		{
+			transitionTimer_ = 0;
+			isOut_ = true;
+			loadEnd_ = false;
+			sceneInitialize_ = std::async(std::launch::async, [this] {return LoadingScene(); });
+		}
+	}
+}
+
+void IFE::Scene::SceneTransitionOut()
+{
+	if (isOut_ && loadEnd_)
+	{
+		transitionTimer_ += IFETime::sDeltaTime_;
+		if (transitionTimer_ < maxTransitionTime_)
+		{
+
+		}
+		else
+		{
+			transitionTimer_ = 0;
+			isOut_ = false;
+			nextFlag_ = false;
+		}
+	}
+}
+
+void IFE::Scene::LoadUpdate()
+{
+}
+
+void IFE::Scene::LoadDraw()
+{
+}
+
 void IFE::Scene::LoadingScene()
 {
-	JsonManager::Instance()->SetSceneName(nowScene_);
+	JsonManager::Instance()->SetSceneName(nextScene_);
 	objM_->Reset();
 	spriteM_->Reset();
 	//particleM->Reset();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	//particleM->LoadingScene();
+	nowScene_ = nextScene_;
+	loadEnd_ = true;
 }
+
+void IFE::Scene::AsyncLoad()
+{
+	SceneTransitionIn();
+	SceneTransitionOut();
+}
+
 
 #ifdef _DEBUG
 void IFE::Scene::OutputScene()
