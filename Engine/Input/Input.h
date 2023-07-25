@@ -36,6 +36,8 @@ namespace IFE
 		B = XINPUT_GAMEPAD_B,
 		X = XINPUT_GAMEPAD_X,
 		Y = XINPUT_GAMEPAD_Y,
+		ABXY = A | B | X | Y,
+		ALL = A | B | X | Y | UP | DOWN | LEFT | RIGHT | START | BACK | LTHUMB| RTHUMB | LSHOULDER | RSHOULDER,
 	};
 
 	enum class MouseCode

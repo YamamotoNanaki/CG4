@@ -1,6 +1,8 @@
 #include "TitleUI.h"
 #include "Transform.h"
 #include "IFETime.h"
+#include "Input.h"
+#include "Scene.h"
 
 using namespace IFE;
 
@@ -19,4 +21,10 @@ void IFE::TitleUI::Update()
 	pos.y = initPos_.y + sinf(float(M_PI) * 2 * (timer_ / maxTime_)) * 20;
 
 	transform2D_->position_ = pos;
+
+	Input* input = Input::Instance();
+	if (input->KeyDown(Key_Space)||input->PadDown(PADCODE::ABXY))
+	{
+		Scene::Instance()->SetNextScene("test");
+	}
 }
