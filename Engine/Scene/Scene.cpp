@@ -280,6 +280,7 @@ void IFE::Scene::DebugGUI()
 		{
 			debug_ = false;
 			stop_ = false;
+			nextScene_ = nowScene_;
 			LoadingScene();
 			objM_->Initialize();
 		}
