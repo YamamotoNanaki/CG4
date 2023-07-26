@@ -41,12 +41,30 @@ void IFE::Emitter::SetTexture(const std::string& texName)
 	this->tex_ = TextureManager::Instance()->GetTexture(texName);
 }
 
+Particle* IFE::Emitter::AddParticle(bool parentFlag)
+{
+	particles_.push_back(std::make_unique<Particle>());
+	auto p = particles_.back().get();
+	p->SetEmitter(this);
+	p->Initialize(parentFlag);
+	return p;
+}
+
+Particle* IFE::Emitter::AddParticle(Float3 pos)
+{
+	particles_.push_back(std::make_unique<Particle>());
+	auto p = particles_.back().get();
+	p->SetEmitter(this);
+	p->Initialize(pos);
+	return p;
+}
+
 Particle* IFE::Emitter::AddParticle()
 {
 	particles_.push_back(std::make_unique<Particle>());
 	auto p = particles_.back().get();
 	p->SetEmitter(this);
-	p->Initialize();
+	p->Initialize(transform_->position_);
 	return p;
 }
 

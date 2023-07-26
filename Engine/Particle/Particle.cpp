@@ -15,12 +15,21 @@ IFE::Particle::Particle()
 	SetParticlePtr(this);
 }
 
-void Particle::Initialize()
+void IFE::Particle::Initialize(Float3 position)
+{
+	AddComponent<TransformParticle>();
+	ComponentManager::Initialize();
+	transform_ = GetComponent<TransformParticle>();
+	transform_->position_ = position;
+}
+
+void IFE::Particle::Initialize(bool parentFlag)
 {
 	AddComponent<TransformParticle>();
 	ComponentManager::Initialize();
 	transform_ = GetComponent<TransformParticle>();
 	transform_->parent_ = emitter_->transform_;
+	parentFlag;
 }
 
 void IFE::Particle::SetComponent(std::unique_ptr<Component> component)

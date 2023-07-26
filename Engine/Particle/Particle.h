@@ -26,7 +26,8 @@ namespace IFE
 
 	public:
 		Particle();
-		void Initialize();
+		void Initialize(Float3 position);
+		void Initialize(bool parentFlag);
 		static void StaticInitialize();
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);

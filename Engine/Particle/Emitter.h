@@ -35,6 +35,8 @@ namespace IFE
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);
 		void SetTexture(const std::string& texName);
+		Particle* AddParticle(bool parentFlag);
+		Particle* AddParticle(Float3 pos);
 		Particle* AddParticle();
 		void Update();
 		//static void DrawBefore();
