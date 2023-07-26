@@ -22,6 +22,8 @@ namespace IFE
 	public:
 		Object3D* objectPtr_ = nullptr;
 		Sprite* spritePtr_ = nullptr;
+		Emitter* emitterPtr_ = nullptr;
+		Particle* particlePtr_ = nullptr;
 
 	public:
 		template <class T>
@@ -41,6 +43,14 @@ namespace IFE
 		template <class T>
 		void AddComponentBack(std::unique_ptr<Component> ptr, Sprite* components);
 		template <class T>
+		void AddComponent(std::unique_ptr<Component> ptr, Emitter* components);
+		template <class T>
+		void AddComponentBack(std::unique_ptr<Component> ptr, Emitter* components);
+		template <class T>
+		void AddComponent(std::unique_ptr<Component> ptr, Particle* components);
+		template <class T>
+		void AddComponentBack(std::unique_ptr<Component> ptr, Particle* components);
+		template <class T>
 		T* GetComponent();
 		template <class T>
 		void DeleteComponent();
@@ -53,6 +63,8 @@ namespace IFE
 		void SetTransform();
 		void SetObjectPtr(Object3D* objectPtr);
 		void SetSpritePtr(Sprite* spritePtr);
+		void SetEmitterPtr(Emitter* emitterPtr);
+		void SetParticlePtr(Particle* particlePtr);
 		std::vector<std::string> GetAllComponentName();
 		void OnColliderHit(Collider* collider);
 		void CopyValue(ComponentManager* ptr);
@@ -152,6 +164,30 @@ namespace IFE
 	}
 	template<class T>
 	inline void ComponentManager::AddComponentBack(std::unique_ptr<Component> ptr, Sprite* components)
+	{
+		if (components)ptr->SetComponents(components);
+		componentList_.push_back(std::move(ptr));
+	}
+	template<class T>
+	inline void ComponentManager::AddComponent(std::unique_ptr<Component> ptr, Emitter* components)
+	{
+		if (components)ptr->SetComponents(components);
+		componentList_.push_front(std::move(ptr));
+	}
+	template<class T>
+	inline void ComponentManager::AddComponentBack(std::unique_ptr<Component> ptr, Emitter* components)
+	{
+		if (components)ptr->SetComponents(components);
+		componentList_.push_back(std::move(ptr));
+	}
+	template<class T>
+	inline void ComponentManager::AddComponent(std::unique_ptr<Component> ptr, Particle* components)
+	{
+		if (components)ptr->SetComponents(components);
+		componentList_.push_front(std::move(ptr));
+	}
+	template<class T>
+	inline void ComponentManager::AddComponentBack(std::unique_ptr<Component> ptr, Particle* components)
 	{
 		if (components)ptr->SetComponents(components);
 		componentList_.push_back(std::move(ptr));

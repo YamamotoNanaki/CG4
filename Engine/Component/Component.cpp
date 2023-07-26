@@ -2,6 +2,8 @@
 #include "Transform.h"
 #include "Object3D.h"
 #include "Sprite.h"
+#include "Emitter.h"
+#include "Particle.h"
 #include "Collider.h"
 //#include "Particle.h"
 
@@ -62,10 +64,16 @@ void IFE::Component::SetComponents(ComponentManager* cm)
 		spritePtr_ = cm->spritePtr_;
 		transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	}
-	//particlePtr = p;
-	//transformParticle = particlePtr->GetComponent<TransformParticle>();
-	//emitterPtr = e;
-	//transformParticle = emitterPtr->GetComponent<TransformParticle>();
+	else if (cm->particlePtr_ != nullptr)
+	{
+		particlePtr_ = cm->particlePtr_;
+		transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
+	}
+	else if (cm->spritePtr_ != nullptr)
+	{
+		emitterPtr_ = cm->emitterPtr_;
+		transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
+	}
 }
 
 bool IFE::Component::GetComponentDeleteFlag()
@@ -81,6 +89,16 @@ IFE::Object3D* IFE::Component::GetObjectPtr()
 IFE::Sprite* IFE::Component::GetSpritePtr()
 {
 	return spritePtr_;
+}
+
+IFE::Emitter* IFE::Component::GetEmitterPtr()
+{
+	return emitterPtr_;
+}
+
+IFE::Particle* IFE::Component::GetParticlePtr()
+{
+	return particlePtr_;
 }
 
 //void IFE::Component::OnColliderHit(ADXCollider* myCol, ADXCollider* col)

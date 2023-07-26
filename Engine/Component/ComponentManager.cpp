@@ -1,6 +1,9 @@
 #include "ComponentManager.h"
 #include "ComponentHelp.h"
 #include "Object3D.h"
+#include "Sprite.h"
+#include "Emitter.h"
+#include "Particle.h"
 #include "Collider.h"
 
 void IFE::ComponentManager::Initialize()
@@ -152,4 +155,14 @@ std::string IFE::ComponentManager::SetName(const std::string& name)
 void IFE::ComponentManager::SetSpritePtr(Sprite* p)
 {
 	spritePtr_ = p;
+}
+
+void IFE::ComponentManager::SetEmitterPtr(Emitter* emitterPtr)
+{
+	emitterPtr_ = emitterPtr;
+}
+
+void IFE::ComponentManager::SetParticlePtr(Particle* particlePtr)
+{
+	particlePtr = particlePtr;
 }

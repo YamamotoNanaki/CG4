@@ -8,6 +8,8 @@ namespace IFE
 {
 	class Object3D;
 	class Sprite;
+	class Particle;
+	class Emitter;
 	class Transform;
 	class Transform2D;
 	class TransformParticle;
@@ -18,6 +20,8 @@ namespace IFE
 	public:
 		Object3D* objectPtr_ = nullptr;
 		Sprite* spritePtr_ = nullptr;
+		Particle* particlePtr_ = nullptr;
+		Emitter* emitterPtr_ = nullptr;
 		std::string componentName_;
 		bool componentDeleteFlag_ = false;
 	protected:
@@ -36,12 +40,11 @@ namespace IFE
 		std::string GetComponentName();
 		void SetComponentName(const std::string& componentName);
 		void SetComponents(ComponentManager* cm);
-		//void SetComponents(Particle* components);
-		//void SetComponents(Emitter* components);
 		bool GetComponentDeleteFlag();
 		Object3D* GetObjectPtr();
 		Sprite* GetSpritePtr();
-		//virtual void OnColliderHit(ADXCollider* myCol, ADXCollider* col);
+		Emitter* GetEmitterPtr();
+		Particle* GetParticlePtr();
 		virtual void Copy(Component* component);
 		virtual void OnColliderHit(Collider* collider);
 		void CopyValue(Component* component);
