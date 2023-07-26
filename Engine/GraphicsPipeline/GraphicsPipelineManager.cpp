@@ -315,7 +315,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	pipelineDesc.PS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
 	pipelineDesc.PS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
 	//デプスステンシルステートの設定
-	pipelineDesc.DepthStencilState.DepthEnable = true;		//深度テストを行わない
+	pipelineDesc.DepthStencilState.DepthEnable = false;		//深度テストを行わない
 	pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
 	pipelineDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;		//深度値フォーマット
 
@@ -324,7 +324,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID; // ポリゴン内塗りつぶし
 	pipelineDesc.RasterizerState.DepthClipEnable = true; // 深度クリッピングを有効に
 
-	pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;	//書き込み許可
+	pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;	//書き込み許可
 
 	pipelineDesc.InputLayout.pInputElementDescs = inputLayout.data();
 	pipelineDesc.InputLayout.NumElements = (UINT)inputLayout.size();
@@ -344,8 +344,8 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	blendDesc.DestBlendAlpha = D3D12_BLEND_ZERO;			//デストの値を  0%使う
 
 	blendDesc.BlendOp = D3D12_BLEND_OP_ADD;				//加算
-	blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;			//ソースのアルファ値
-	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;		//1.0f-ソースのアルファ値
+	blendDesc.SrcBlend = D3D12_BLEND_ONE;				//ソースの値を100%使う
+	blendDesc.DestBlend = D3D12_BLEND_ONE;				//ソースの値を100%使う
 
 	if (CreateGraphicsPipeline("ParticleNormal", rootSignatureDesc, pipelineDesc, (uint8_t)PIPELINE_SETTING::Transparent))
 	{

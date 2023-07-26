@@ -5,12 +5,13 @@
 #include "Emitter.h"
 #include "Particle.h"
 #include "Collider.h"
-//#include "Particle.h"
 
 void IFE::Component::SetTransform()
 {
 	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
+	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
+	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
 }
 
 std::string IFE::Component::GetComponentName()
@@ -22,6 +23,8 @@ void IFE::Component::INITIALIZE()
 {
 	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
+	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
+	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
 	Initialize();
 }
 
@@ -41,10 +44,16 @@ IFE::Component::Component(ComponentManager* c)
 		spritePtr_ = c->spritePtr_;
 		transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	}
-	//particlePtr = p;
-	//transformParticle = particlePtr->GetComponent<TransformParticle>();
-	//emitterPtr = e;
-	//transformParticle = emitterPtr->GetComponent<TransformParticle>();
+	else if (c->particlePtr_ != nullptr)
+	{
+		particlePtr_ = c->particlePtr_;
+		transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
+	}
+	else if (c->emitterPtr_ != nullptr)
+	{
+		emitterPtr_ = c->emitterPtr_;
+		transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
+	}
 }
 
 void IFE::Component::SetComponentName(const std::string& n)
@@ -69,7 +78,7 @@ void IFE::Component::SetComponents(ComponentManager* cm)
 		particlePtr_ = cm->particlePtr_;
 		transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
 	}
-	else if (cm->spritePtr_ != nullptr)
+	else if (cm->emitterPtr_ != nullptr)
 	{
 		emitterPtr_ = cm->emitterPtr_;
 		transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();

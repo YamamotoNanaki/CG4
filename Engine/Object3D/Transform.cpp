@@ -41,7 +41,6 @@ void IFE::Transform::UpdateMatrix()
 
 	//////回転//////
 
-	//合成用回転行列を宣言し、ZXYの順に合成
 	Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
 	rotation_ = EulerToQuaternion(eulerRadians);
 	matRot_ = RotateMatrix(rotation_);
@@ -321,9 +320,9 @@ void IFE::TransformParticle::UpdateMatrix()
 
 	//////回転//////
 
-	//合成用回転行列を宣言し、ZXYの順に合成
-	float r = ConvertToRadians(rotation_);
-	matRot_ *= MatrixRotationZ(r);
+	Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
+	rotation_ = EulerToQuaternion(eulerRadians);
+	matRot_ = RotateMatrix(rotation_);
 
 	//////平行移動//////
 	//移動量を行列に設定する
@@ -396,4 +395,55 @@ void IFE::TransformParticle::SetWorldPosition(const Vector3& worldPos)
 
 IFE::TransformParticle::~TransformParticle()
 {
+}
+
+void IFE::TransformParticle::DebugGUI()
+{
+	ImguiManager* im = ImguiManager::Instance();
+	std::function<void(void)> guiFunc = [&]()
+	{
+		im->DragFloat3GUI(&position_, "position");
+		im->DragFloat3GUI(&eulerAngleDegrees_, "rotation", 1.0f);
+		if (eulerAngleDegrees_.x >= 360)
+		{
+			eulerAngleDegrees_.x -= 360;
+		}
+		if (eulerAngleDegrees_.y >= 360)
+		{
+			eulerAngleDegrees_.y -= 360;
+		}
+		if (eulerAngleDegrees_.z >= 360)
+		{
+			eulerAngleDegrees_.z -= 360;
+		}
+		if (eulerAngleDegrees_.x <= 0)
+		{
+			eulerAngleDegrees_.x += 360;
+		}
+		if (eulerAngleDegrees_.y <= 0)
+		{
+			eulerAngleDegrees_.y += 360;
+		}
+		if (eulerAngleDegrees_.z <= 0)
+		{
+			eulerAngleDegrees_.z += 360;
+		}
+		rotation_ = EulerToQuaternion(eulerAngleDegrees_);
+		im->DragFloat3GUI(&scale_, "scale");
+	};
+	std::function<void(void)> deleteFunc = [&]()
+	{
+		componentDeleteFlag_ = true;
+	};
+	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
+}
+
+void IFE::TransformParticle::OutputComponent(nlohmann::json& json)
+{
+	json;
+}
+
+void IFE::TransformParticle::LoadingComponent(nlohmann::json& json)
+{
+	json;
 }

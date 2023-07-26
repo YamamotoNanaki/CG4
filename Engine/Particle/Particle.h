@@ -22,10 +22,7 @@ namespace IFE
 		static VertexBuffer<VertexPos>vb_;
 		TransformParticle* transform_ = nullptr;
 		Emitter* emitter_ = nullptr;
-		bool isActive_ = true;
-		bool DrawFlag_ = true;
-		bool deleteFlag_ = false;
-		FrameCountTime timer_;
+		float timer_;
 
 	public:
 		Particle();
@@ -35,6 +32,7 @@ namespace IFE
 		void SetComponentFront(std::unique_ptr<Component> component);
 		void Update();
 		static void DrawBefore();
+		void SetEmitter(Emitter* emitter);
 		void Draw();
 		~Particle();
 	};

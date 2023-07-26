@@ -3,7 +3,6 @@
 #include "Ease.h"
 #include "GraphicsAPI.h"
 #include "Transform.h"
-#include "ColorBuffer.h"
 #include <cassert>
 
 using namespace IFE;
@@ -18,7 +17,6 @@ IFE::Particle::Particle()
 
 void Particle::Initialize()
 {
-	AddComponent<ColorBuffer>();
 	AddComponent<TransformParticle>();
 	ComponentManager::Initialize();
 	transform_ = GetComponent<TransformParticle>();
@@ -43,7 +41,6 @@ void IFE::Particle::StaticInitialize()
 
 void IFE::Particle::Update()
 {
-	if (!isActive_)return;
 	ComponentManager::Update();
 }
 
@@ -54,10 +51,13 @@ void IFE::Particle::DrawBefore()
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 }
 
+void IFE::Particle::SetEmitter(Emitter* emitter)
+{
+	emitter_ = emitter;
+}
+
 void Particle::Draw()
 {
-	if (!isActive_)return;
-	if (!DrawFlag_)return;
 	ComponentManager::Draw();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	//頂点バッファの設定

@@ -23,6 +23,7 @@ namespace IFE
 		Texture* tex_ = nullptr;
 		std::string emitterName_;
 		GraphicsPipeline* gp_;
+		float particleMaxTime_ = 1;
 
 	public:
 		//PostEffect* postEffect = nullptr;
@@ -34,6 +35,7 @@ namespace IFE
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);
 		void SetTexture(const std::string& texName);
+		Particle* AddParticle();
 		void Update();
 		//static void DrawBefore();
 		void Draw();

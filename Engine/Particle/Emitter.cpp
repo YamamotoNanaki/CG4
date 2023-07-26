@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "TextureManager.h"
 #include "GraphicsPipelineManager.h"
+#include "ColorBuffer.h"
 
 using namespace IFE;
 using namespace std;
@@ -14,6 +15,7 @@ IFE::Emitter::Emitter()
 
 void IFE::Emitter::Initialize()
 {
+	if (GetComponent<ColorBuffer>() == nullptr)AddComponent<ColorBuffer>();
 	if (GetComponent<TransformParticle>() == nullptr)AddComponent<TransformParticle>();
 	transform_ = GetComponent<TransformParticle>();
 	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("ParticleNormal");
@@ -39,11 +41,20 @@ void IFE::Emitter::SetTexture(const std::string& texName)
 	this->tex_ = TextureManager::Instance()->GetTexture(texName);
 }
 
+Particle* IFE::Emitter::AddParticle()
+{
+	particles_.push_back(std::make_unique<Particle>());
+	auto p = particles_.back().get();
+	p->SetEmitter(this);
+	p->Initialize();
+	return p;
+}
+
 void IFE::Emitter::Update()
 {
 	if (!isActive_)return;
+	particles_.remove_if([&](unique_ptr<Particle>& obj) {return (obj->timer_ += IFETime::sDeltaTime_) > particleMaxTime_; });
 	ComponentManager::Update();
-	particles_.remove_if([](unique_ptr<Particle>& obj) {return obj->deleteFlag_; });
 	for (std::unique_ptr<Particle>& itr : particles_)
 	{
 		itr->Update();
@@ -58,9 +69,10 @@ void IFE::Emitter::Draw()
 {
 	if (!isActive_)return;
 	if (!DrawFlag_)return;
-	Particle::DrawBefore();
 	gp_->SetDrawBlendMode();
+	Particle::DrawBefore();
 	tex_->SetTexture(2);
+	ComponentManager::Draw();
 	for (std::unique_ptr<Particle>& itr : particles_)
 	{
 		itr->Draw();
@@ -87,7 +99,7 @@ void IFE::Emitter::ComponentGUI()
 {
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
 	{
-		SetComponentFront(std::move(com));
+		SetComponent(std::move(com));
 	};
 	std::function<void(void)>f = [&]()
 	{

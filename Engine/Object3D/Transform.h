@@ -104,6 +104,7 @@ namespace IFE
 		Float3 lossyScale_;
 	public:
 		bool eulerFlag_ = false;
+		Float3 eulerAngleDegrees_;
 		uint8_t billbord_ = 0;
 		Matrix matWorld_;
 		Matrix matScale_;
@@ -111,7 +112,7 @@ namespace IFE
 		Matrix matTrans_;
 		Float3 scale_ = { 1,1,1 };
 		Float3 position_ = { 0,0,0 };
-		float rotation_;
+		Quaternion rotation_;
 
 		TransformParticle* parent_ = nullptr;
 
@@ -135,5 +136,10 @@ namespace IFE
 		void SetWorldPosition(const Vector3& worldPos);
 
 		~TransformParticle();
+#ifdef _DEBUG
+		void DebugGUI();
+		void OutputComponent(nlohmann::json& json)override;
+#endif
+		void LoadingComponent(nlohmann::json& json)override;
 	};
 }

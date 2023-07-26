@@ -15,7 +15,8 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	gp_->CreateBasicGraphicsPipeLine();
-	//Emitter::StaticInitialize();
+	gp_->CreateBasicParticleGraphicsPipeLine();
+	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
@@ -31,7 +32,7 @@ void IFE::Scene::Initialize()
 
 	SceneInit();
 
-	//particleM->Initialize();
+	particleM->Initialize();
 }
 
 void IFE::Scene::Update()
@@ -46,13 +47,13 @@ void IFE::Scene::Update()
 		{
 			objM_->Update();
 			spriteM_->Update();
-			//particleM->Update();
+			particleM->Update();
 		}
 		else
 		{
 			objM_->DebugUpdate();
 			spriteM_->DebugUpdate();
-			//particleM->DebugUpdate();
+			particleM->DebugUpdate();
 		}
 		cameraM_->Update();
 		light_->Update();
@@ -70,7 +71,7 @@ void IFE::Scene::Draw()
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
 		objM_->Draw();
-		//particleM->Draw();
+		particleM->Draw();
 		Sprite::DrawBefore();
 		spriteM_->ForeDraw();
 		gui_.Draw();
@@ -128,7 +129,7 @@ void IFE::Scene::Draw()
 void IFE::Scene::Finalize()
 {
 	ModelManager::Finalize();
-	//ParticleManager::Finalize();
+	ParticleManager::Finalize();
 	Sound::Finalize();
 }
 
@@ -161,12 +162,12 @@ void IFE::Scene::SceneInit()
 	objM_->Reset();
 	modelM_->Reset();
 	spriteM_->Reset();
-	//particleM->Reset();
+	particleM->Reset();
 	tex_->LoadingScene();
 	modelM_->LoadingScene();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
-	//particleM->LoadingScene();
+	particleM->LoadingScene();
 }
 
 void IFE::Scene::SceneTransitionIn()
@@ -243,10 +244,10 @@ void IFE::Scene::LoadingScene()
 	JsonManager::Instance()->SetSceneName(nextScene_);
 	objM_->Reset();
 	spriteM_->Reset();
-	//particleM->Reset();
+	particleM->Reset();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
-	//particleM->LoadingScene();
+	particleM->LoadingScene();
 	nowScene_ = nextScene_;
 	loadEnd_ = true;
 }
@@ -267,7 +268,7 @@ void IFE::Scene::OutputScene()
 	modelM_->OutputScene();
 	objM_->OutputScene();
 	spriteM_->OutputScene();
-	//particleM->OutputScene();
+	particleM->OutputScene();
 }
 #include "imgui.h"
 void IFE::Scene::DebugGUI()
@@ -338,6 +339,6 @@ void IFE::Scene::DebugGUI()
 	modelM_->DebugGUI();
 	tex_->DebugGUI();
 	cameraM_->DebugGUI();
-	//particleM->DebugGUI();
+	particleM->DebugGUI();
 }
 #endif

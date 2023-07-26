@@ -84,7 +84,8 @@ Emitter* IFE::ParticleManager::Instantiate(Emitter* gameObject, const Float3& po
 	emitterList_.push_back(std::move(ptr));
 	Emitter* obj = emitterList_.back().get();
 	obj->transform_->position_ = position;
-	obj->transform_->rotation_ = rotation;
+	//obj->transform_->rotation_ = 
+		rotation;
 	return obj;
 }
 

@@ -9,7 +9,7 @@
 #include "ImguiManager.h"
 #include "CameraManager.h"
 #include "SpriteManager.h"
-//#include "ParticleManager.h"
+#include "ParticleManager.h"
 
 namespace IFE
 {
@@ -24,7 +24,7 @@ namespace IFE
 		ModelManager* modelM_ = ModelManager::Instance();
 		CameraManager* cameraM_ = CameraManager::Instance();
 		SpriteManager* spriteM_ = SpriteManager::Instance();
-		//ParticleManager* particleM = ParticleManager::Instance();
+		ParticleManager* particleM = ParticleManager::Instance();
 
 		std::string nowScene_;
 		std::string nextScene_;
