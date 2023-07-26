@@ -2,6 +2,7 @@
 #include "Particle.h"
 #include "Texture.h"
 #include "GraphicsPipeline.h"
+#include <nlohmann/json.hpp>
 #include <memory>
 #include <list>
 #include <string>
@@ -46,8 +47,9 @@ namespace IFE
 #ifdef _DEBUG
 		void DebugGUI(bool flagdelete);
 		void ComponentGUI();
-		void OutputScene();
+		void OutputScene(nlohmann::json& j);
 		void DebugUpdate();
 #endif
+		void LoadingScene(nlohmann::json& j);
 	};
 }

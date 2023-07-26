@@ -1,0 +1,22 @@
+[
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "TestParticle": null,
+        "TransformParticle": null,
+        "component": [
+            "TransformParticle",
+            "ColorBuffer",
+            "TestParticle"
+        ],
+        "maxTime": 1.0,
+        "name": "test",
+        "texture": "particle.png"
+    }
+]

@@ -130,8 +130,18 @@ void IFE::Emitter::ComponentGUI()
 	ImguiManager::Instance()->ComponentGUI2D(emitterName_, f, addFunc);
 }
 
-void IFE::Emitter::OutputScene()
+void IFE::Emitter::OutputScene(nlohmann::json& j)
 {
+	j["name"] = emitterName_;
+	j["maxTime"] = particleMaxTime_;
+	j["texture"] = tex_->texName_;
+	uint32_t i = 0;
+	for (auto& com : componentList_)
+	{
+		j["component"][i] = com->componentName_;
+		i++;
+	}
+	ComponentManager::OutputScene(j);
 }
 
 void IFE::Emitter::DebugUpdate()
@@ -139,3 +149,7 @@ void IFE::Emitter::DebugUpdate()
 	ComponentManager::DebugUpdate();
 }
 #endif
+void IFE::Emitter::LoadingScene(nlohmann::json& j)
+{
+	j;
+}
