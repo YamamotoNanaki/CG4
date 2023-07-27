@@ -18,6 +18,8 @@ void IFE::Player::Initialize()
 {
 	moveVec_ = Float2{ 0,-1 };
 	Enemy::SetPlayerTransform(transform_);
+	pos_ = transform_->position_;
+	oldPos_ = pos_;
 }
 
 void IFE::Player::Update()
