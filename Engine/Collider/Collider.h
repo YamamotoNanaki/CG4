@@ -42,5 +42,12 @@ namespace IFE
 
 		MeshCollider* GetMeshCollider();
 		bool GetPushBackFlag();
+
+		void LoadingComponent(nlohmann::json& json)override;
+
+#ifdef _DEBUG
+		void OutputComponent(nlohmann::json& json)override;
+		void ComponentDebugGUI()override;
+#endif
 	};
 }

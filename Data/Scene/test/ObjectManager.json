@@ -59,7 +59,10 @@
         "prefab": false
     },
     {
-        "Collider": null,
+        "Collider": {
+            "colliderType": 0,
+            "pushBack": true
+        },
         "Material": {
             "ambient": [
                 1.0,
@@ -125,7 +128,10 @@
         "prefab": false
     },
     {
-        "Collider": null,
+        "Collider": {
+            "colliderType": 0,
+            "pushBack": true
+        },
         "Enemy": {
             "action": 1,
             "patrolPoint": [
@@ -215,7 +221,10 @@
     },
     {
         "Bullet": null,
-        "Collider": null,
+        "Collider": {
+            "colliderType": 0,
+            "pushBack": false
+        },
         "Material": {
             "ambient": [
                 1.0,

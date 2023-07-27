@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Object3D.h"
 #include "FBXModel.h"
+#include "JsonManager.h"
 
 using namespace IFE;
 
@@ -11,7 +12,7 @@ void IFE::Collider::Initialize()
 	if (colliderType_ == ColliderType::MESH)
 	{
 		auto mesh = new MeshCollider(dynamic_cast<FBXModel*>(objectPtr_->GetModel()), &transform_->matWorld_);
-		meshCollider_ =std::unique_ptr<MeshCollider>(mesh);
+		meshCollider_ = std::unique_ptr<MeshCollider>(mesh);
 	}
 }
 
@@ -73,3 +74,32 @@ bool IFE::Collider::GetPushBackFlag()
 {
 	return pushBack_;
 }
+
+void IFE::Collider::LoadingComponent(nlohmann::json& json)
+{
+	colliderType_ = json["colliderType"];
+	pushBack_ = json["pushBack"];
+}
+
+#ifdef _DEBUG
+void IFE::Collider::OutputComponent(nlohmann::json& json)
+{
+	json["colliderType"] = colliderType_;
+	json["pushBack"] = pushBack_;
+}
+
+#include "ImguiManager.h"
+void IFE::Collider::ComponentDebugGUI()
+{
+	ImguiManager* gui = ImguiManager::Instance();
+	gui->CheckBoxGUI(&pushBack_, "pushBack");
+	if (gui->NewTreeNode("Collider Type"))
+	{
+		int32_t num = (int32_t)colliderType_;
+		gui->RadioButtonGUI("Sphere", &num,(int32_t)ColliderType::SPHERE);
+		gui->RadioButtonGUI("Mesh", &num,(int32_t)ColliderType::MESH);
+		colliderType_ = (ColliderType)num;
+		gui->EndTreeNode();
+	}
+}
+#endif
