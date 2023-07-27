@@ -15,11 +15,12 @@ namespace IFE
 		CollideManager& operator=(const CollideManager& obj) = delete;
 	public:
 		static CollideManager* Instance();
+		void RaycastSystemUpdate();
 		void CollidersUpdate();
 		void Reset();
 		void ColliderSet(Collider* collider);
-		bool Raycast(const Ray& ray, float maxDistance = D3D12_FLOAT32_MAX);
-		bool Raycast(const Ray& ray, uint16_t attribute, float maxDistance = D3D12_FLOAT32_MAX);
+		bool Raycast(const Ray& ray, RaycastHit* hitInfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
+		bool Raycast(const Ray& ray, uint16_t attribute, RaycastHit* hitInfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 
 	private:
 		void PushBack(Collider* colA, Collider* colB, const Vector3& reject);
