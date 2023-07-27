@@ -38,10 +38,6 @@ void IFE::Player::OnColliderHit(Collider* collider)
 	{
 		EnemyCollide();
 	}
-	else
-	{
-		return;
-	}
 	CameraFollow();
 	return;
 	collider;
@@ -61,6 +57,8 @@ void IFE::Player::Move()
 	move_ = { x, 0, z };
 	move_.Normalize();
 	pos_ += move_ * speed_ * IFETime::sDeltaTime_;
+	gravity_ += 9.8 * IFETime::sDeltaTime_;
+	pos_.y -= gravity_;
 }
 
 void IFE::Player::Rota()

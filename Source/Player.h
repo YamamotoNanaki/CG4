@@ -13,6 +13,7 @@ namespace IFE
 		Float3 pos_;
 		Vector2 moveVec_;
 		float nextBulletTime_ = 0.3f;
+		float gravity_ = 1;
 	public:
 		void Initialize()override;
 		void Update()override;
