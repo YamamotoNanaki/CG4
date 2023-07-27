@@ -75,6 +75,11 @@ bool IFE::Collider::GetPushBackFlag()
 	return pushBack_;
 }
 
+bool IFE::Collider::GetGroundJudgeFlag()
+{
+	return groundJudge_;
+}
+
 void IFE::Collider::LoadingComponent(nlohmann::json& json)
 {
 	colliderType_ = json["colliderType"];

@@ -13,8 +13,33 @@ CollideManager* CollideManager::Instance()
 	return &inst;
 }
 
+void IFE::CollideManager::RaycastSystemUpdate()
+{
+	static const float adsDistance = 0.2f;
+	for (auto itr : colliders_)
+	{
+		if (itr->GetGroundJudgeFlag() && !itr->onGround)
+		{
+			Ray ray;
+			ray.start = itr->GetColliderPosition();
+			ray.start.y += itr->GetColliderScale().y;
+			ray.dir = { 0,-1,0 };
+			if (Raycast(ray, (uint16_t)Attribute::LANDSHAPE, &itr->groundHit, itr->GetColliderScale().y * 2 + adsDistance))
+			{
+				itr->onGround = true;
+				itr->transform_->position_.y -= (itr->groundHit.distance - itr->GetColliderScale().y * 2.0f);
+			}
+			else
+			{
+				itr->onGround = false;
+			}
+		}
+	}
+}
+
 void IFE::CollideManager::CollidersUpdate()
 {
+	RaycastSystemUpdate();
 	if (colliders_.size() < 2)return;
 	list<Collider*>::iterator itA;
 	list<Collider*>::iterator itB;
@@ -85,12 +110,12 @@ void IFE::CollideManager::ColliderSet(Collider* collider)
 	colliders_.push_back(collider);
 }
 
-bool IFE::CollideManager::Raycast(const Ray& ray, float maxDistance)
+bool IFE::CollideManager::Raycast(const Ray& ray, RaycastHit* hitInfo, float maxDistance)
 {
-	return Raycast(ray, (uint16_t)Attribute::ALL, maxDistance);
+	return Raycast(ray, (uint16_t)Attribute::ALL, hitInfo, maxDistance);
 }
 
-bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, float maxDistance)
+bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, RaycastHit* hitInfo, float maxDistance)
 {
 	bool result = false;
 	std::list<Collider*>::iterator it;
@@ -137,12 +162,11 @@ bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, float maxD
 		}
 	}
 
-	//if (result && hitInfo) {
-	//	hitInfo->distance = distance;
-	//	hitInfo->inter = inter;
-	//	hitInfo->collider = *it_hit;
-	//	hitInfo->object = hitInfo->collider->GetObject3d();
-	//}
+	if (result && hitInfo) {
+		hitInfo->distance = distance;
+		hitInfo->inter = inter;
+		hitInfo->collider = *it_hit;
+	}
 
 	return result;
 }

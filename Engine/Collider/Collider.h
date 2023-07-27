@@ -5,7 +5,7 @@ namespace IFE
 {
 	enum class ColliderType
 	{
-		SPHERE,MESH
+		SPHERE, MESH
 	};
 	enum class Attribute
 	{
@@ -20,11 +20,14 @@ namespace IFE
 		Float3 offsetScale_;
 		ColliderType colliderType_;
 		bool pushBack_ = false;
+		bool groundJudge_ = false;
 
 		std::unique_ptr<MeshCollider> meshCollider_;
 	public:
 		Vector3 interPoint_;
 		uint16_t attribute_ = (uint16_t)Attribute::ALL;
+		bool onGround = false;
+		RaycastHit groundHit;
 
 	public:
 		void Initialize()override;
@@ -42,6 +45,7 @@ namespace IFE
 
 		MeshCollider* GetMeshCollider();
 		bool GetPushBackFlag();
+		bool GetGroundJudgeFlag();
 
 		void LoadingComponent(nlohmann::json& json)override;
 
