@@ -18,7 +18,7 @@ void IFE::CollideManager::RaycastSystemUpdate()
 	static const float adsDistance = 0.2f;
 	for (auto itr : colliders_)
 	{
-		if (itr->GetGroundJudgeFlag() && !itr->onGround_)
+		if (itr->GetGroundJudgeFlag())
 		{
 			Ray ray;
 			ray.start = itr->GetColliderPosition();
@@ -39,7 +39,6 @@ void IFE::CollideManager::RaycastSystemUpdate()
 
 void IFE::CollideManager::CollidersUpdate()
 {
-	RaycastSystemUpdate();
 	if (colliders_.size() < 2)return;
 	list<Collider*>::iterator itA;
 	list<Collider*>::iterator itB;
@@ -102,6 +101,7 @@ void IFE::CollideManager::CollidersUpdate()
 			}
 		}
 	}
+	RaycastSystemUpdate();
 }
 
 void IFE::CollideManager::Reset()
