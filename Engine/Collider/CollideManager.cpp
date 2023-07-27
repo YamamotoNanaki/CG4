@@ -75,10 +75,12 @@ void IFE::CollideManager::CollidersUpdate()
 				MeshCollider* mesh = colA->GetMeshCollider();
 				Sphere sphere(colB->GetColliderPosition(), colB->GetColliderScale().x);
 				Vector3 inter;
-				if (mesh->CheckCollisionSphere(sphere, &inter))
+				Vector3 reject;
+				if (mesh->CheckCollisionSphere(sphere, &inter, &reject))
 				{
 					colA->interPoint_ = inter;
 					colB->interPoint_ = inter;
+					PushBack(colA, colB, reject);
 					colA->objectPtr_->OnColliderHit(colB);
 					colB->objectPtr_->OnColliderHit(colA);
 				}
@@ -88,10 +90,12 @@ void IFE::CollideManager::CollidersUpdate()
 				MeshCollider* mesh = colB->GetMeshCollider();
 				Sphere sphere(colA->GetColliderPosition(), colA->GetColliderScale().x);
 				Vector3 inter;
-				if (mesh->CheckCollisionSphere(sphere, &inter))
+				Vector3 reject;
+				if (mesh->CheckCollisionSphere(sphere, &inter, &reject))
 				{
 					colA->interPoint_ = inter;
 					colB->interPoint_ = inter;
+					PushBack(colA, colB, reject);
 					colA->objectPtr_->OnColliderHit(colB);
 					colB->objectPtr_->OnColliderHit(colA);
 				}
@@ -183,8 +187,8 @@ void IFE::CollideManager::PushBack(Collider* colA, Collider* colB, const Vector3
 		float cos = Vector3Dot(rejectDir, up);
 		if (-threshold < cos && cos < threshold)
 		{
-			colA->transform_->MovePushBack(reject / 2);
-			colB->transform_->MovePushBack(-reject / 2);
+			colA->transform_->MovePushBack(reject);
+			colB->transform_->MovePushBack(-reject);
 		}
 	}
 	else if (colA->GetPushBackFlag())

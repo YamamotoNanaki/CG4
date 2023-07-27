@@ -45,6 +45,7 @@ void IFE::Player::OnColliderHit(Collider* collider)
 
 void IFE::Player::Move()
 {
+	pos_ = transform_->position_;
 	oldPos_ = pos_;
 	Input* input = Input::Instance();
 	float x = ((float)input->KeyDown(Key_Rigth) - (float)input->KeyDown(Key_Left));

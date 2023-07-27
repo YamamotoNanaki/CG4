@@ -24,7 +24,8 @@
     },
     {
         "cube_Model": {
-            "settings": 100,
+            "fileName": "cube",
+            "settings": 0,
             "smooth": false
         },
         "name": "cube_Model"
