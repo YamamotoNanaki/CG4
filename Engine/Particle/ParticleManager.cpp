@@ -240,18 +240,16 @@ void IFE::ParticleManager::DebugUpdate()
 
 void IFE::ParticleManager::LoadingScene()
 {
-	//JsonManager* jm = JsonManager::Instance();
-	//jm->Input("ObjectManager");
-	//nlohmann::json js = jm->GetJsonData();
-	//for (auto& j : js)
-	//{
-	//	Object3D* obj;
-	//	if (j["prefab"])obj = AddPrefab(j["name"]);
-	//	else obj = Add(j["name"]);
-	//	obj->SetModel(ModelManager::Instance()->GetModel(j["model"]));
-	//	obj->LoadingScene(j);
-	//	obj->Initialize();
-	//}
+	JsonManager* jm = JsonManager::Instance();
+	jm->Input("ParticleManager");
+	nlohmann::json js = jm->GetJsonData();
+	for (auto& j : js)
+	{
+		Emitter* e;
+		e = Add(j["name"]);
+		e->LoadingScene(j);
+		e->Initialize();
+	}
 }
 
 std::string IFE::ParticleManager::GetNewName(const std::string& emitterName)

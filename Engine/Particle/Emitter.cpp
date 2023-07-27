@@ -151,5 +151,10 @@ void IFE::Emitter::DebugUpdate()
 #endif
 void IFE::Emitter::LoadingScene(nlohmann::json& j)
 {
-	j;
+	tex_ = TextureManager::Instance()->GetTexture(j["texture"]);
+	particleMaxTime_ = j["maxTime"];
+	for (auto& com : j["component"])
+	{
+		ComponentManager::LoadingScene(j, com);
+	}
 }

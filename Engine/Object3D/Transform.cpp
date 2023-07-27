@@ -440,10 +440,19 @@ void IFE::TransformParticle::DebugGUI()
 
 void IFE::TransformParticle::OutputComponent(nlohmann::json& json)
 {
-	json;
+	JsonManager* jm = JsonManager::Instance();
+	jm->OutputFloat3(json["scale"], scale_);
+	jm->OutputFloat3(json["rotation"], eulerAngleDegrees_);
+	jm->OutputFloat3(json["position"], position_);
 }
 
 void IFE::TransformParticle::LoadingComponent(nlohmann::json& json)
 {
-	json;
+	JsonManager* j = JsonManager::Instance();
+	scale_ = j->InputFloat3(json["scale"]);
+	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
+	position_ = j->InputFloat3(json["position"]);
+	transformBuffer_ = make_unique<ConstBuffer<ConstBufferBillboard>>();
+	constMapTransform_ = transformBuffer_->GetCBMapObject();
+	camera_ = CameraManager::sActivCamera_;
 }
