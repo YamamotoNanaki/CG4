@@ -57,7 +57,12 @@ void IFE::Player::Move()
 	move_ = { x, 0, z };
 	move_.Normalize();
 	pos_ += move_ * speed_ * IFETime::sDeltaTime_;
-	gravity_ += 9.8 * IFETime::sDeltaTime_;
+	if (objectPtr_->GetComponent<Collider>()->onGround_)
+	{
+		gravity_ = 0;
+		return;
+	}
+	gravity_ += 9.8f * IFETime::sDeltaTime_;
 	pos_.y -= gravity_;
 }
 

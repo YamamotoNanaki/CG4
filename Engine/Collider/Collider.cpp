@@ -84,6 +84,8 @@ void IFE::Collider::LoadingComponent(nlohmann::json& json)
 {
 	colliderType_ = json["colliderType"];
 	pushBack_ = json["pushBack"];
+	attribute_ = json["attribute"];
+	groundJudge_ = json["groundJudge"];
 }
 
 #ifdef _DEBUG
@@ -91,6 +93,8 @@ void IFE::Collider::OutputComponent(nlohmann::json& json)
 {
 	json["colliderType"] = colliderType_;
 	json["pushBack"] = pushBack_;
+	json["attribute"] = attribute_;
+	json["groundJudge"] = groundJudge_;
 }
 
 #include "ImguiManager.h"
@@ -98,12 +102,22 @@ void IFE::Collider::ComponentDebugGUI()
 {
 	ImguiManager* gui = ImguiManager::Instance();
 	gui->CheckBoxGUI(&pushBack_, "pushBack");
+	gui->CheckBoxGUI(&groundJudge_, "ground judgement");
 	if (gui->NewTreeNode("Collider Type"))
 	{
 		int32_t num = (int32_t)colliderType_;
 		gui->RadioButtonGUI("Sphere", &num,(int32_t)ColliderType::SPHERE);
 		gui->RadioButtonGUI("Mesh", &num,(int32_t)ColliderType::MESH);
 		colliderType_ = (ColliderType)num;
+		gui->EndTreeNode();
+	}
+	if (gui->NewTreeNode("attribute"))
+	{
+		int32_t num = (int32_t)attribute_;
+		gui->RadioButtonGUI("Landshape", &num,(int32_t)Attribute::LANDSHAPE);
+		gui->RadioButtonGUI("Allies", &num, (int32_t)Attribute::ALLIES);
+		gui->RadioButtonGUI("Enemys", &num, (int32_t)Attribute::ENEMYS);
+		attribute_ = (uint16_t)num;
 		gui->EndTreeNode();
 	}
 }

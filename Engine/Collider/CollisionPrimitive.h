@@ -39,6 +39,7 @@ namespace IFE
 		bool CheckCollisionRay(const Ray& ray, float* distance = nullptr, Vector3* inter = nullptr);
 		~MeshCollider() {};
 	};
+	class Collider;
 	struct RaycastHit
 	{
 		//衝突したコライダー

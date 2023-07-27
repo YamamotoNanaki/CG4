@@ -60,7 +60,9 @@
     },
     {
         "Collider": {
+            "attribute": 2,
             "colliderType": 0,
+            "groundJudge": true,
             "pushBack": true
         },
         "Material": {
@@ -129,7 +131,9 @@
     },
     {
         "Collider": {
+            "attribute": 4,
             "colliderType": 0,
+            "groundJudge": false,
             "pushBack": true
         },
         "Enemy": {
@@ -220,6 +224,12 @@
         "prefab": false
     },
     {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "pushBack": false
+        },
         "Material": {
             "ambient": [
                 0.30000001192092896,
@@ -272,7 +282,8 @@
         "component": [
             "Transform",
             "TransferGeometryBuffer",
-            "Material"
+            "Material",
+            "Collider"
         ],
         "model": "ground_Model",
         "name": "ground",
@@ -281,7 +292,9 @@
     {
         "Bullet": null,
         "Collider": {
+            "attribute": 0,
             "colliderType": 0,
+            "groundJudge": false,
             "pushBack": false
         },
         "Material": {

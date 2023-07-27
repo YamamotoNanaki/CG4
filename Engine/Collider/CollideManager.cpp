@@ -18,20 +18,20 @@ void IFE::CollideManager::RaycastSystemUpdate()
 	static const float adsDistance = 0.2f;
 	for (auto itr : colliders_)
 	{
-		if (itr->GetGroundJudgeFlag() && !itr->onGround)
+		if (itr->GetGroundJudgeFlag() && !itr->onGround_)
 		{
 			Ray ray;
 			ray.start = itr->GetColliderPosition();
 			ray.start.y += itr->GetColliderScale().y;
 			ray.dir = { 0,-1,0 };
-			if (Raycast(ray, (uint16_t)Attribute::LANDSHAPE, &itr->groundHit, itr->GetColliderScale().y * 2 + adsDistance))
+			if (Raycast(ray, (uint16_t)Attribute::LANDSHAPE, &itr->groundHit_, itr->GetColliderScale().y * 2 + adsDistance))
 			{
-				itr->onGround = true;
-				itr->transform_->position_.y -= (itr->groundHit.distance - itr->GetColliderScale().y * 2.0f);
+				itr->onGround_ = true;
+				itr->transform_->position_.y -= (itr->groundHit_.distance - itr->GetColliderScale().y * 2.0f);
 			}
 			else
 			{
-				itr->onGround = false;
+				itr->onGround_ = false;
 			}
 		}
 	}
