@@ -24,6 +24,7 @@ namespace IFE
 		void Transfer(const std::vector<T>& vertices);
 		D3D12_VERTEX_BUFFER_VIEW* GetVBView();
 		size_t GetSize();
+		std::vector<T> GetVertex();
 	};
 
 	template<class T>
@@ -148,5 +149,10 @@ namespace IFE
 	inline size_t VertexBuffer<T>::GetSize()
 	{
 		return vertices_.size();
+	}
+	template<class T>
+	inline std::vector<T> VertexBuffer<T>::GetVertex()
+	{
+		return vertices_;
 	}
 }

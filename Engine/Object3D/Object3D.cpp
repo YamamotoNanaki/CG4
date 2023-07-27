@@ -42,6 +42,11 @@ void IFE::Object3D::SetModel(Component* model)
 	model_ = model;
 }
 
+Component* IFE::Object3D::GetModel()
+{
+	return model_;
+}
+
 void IFE::Object3D::SetComponent(std::unique_ptr<Component> component)
 {
 	AddComponentBack<Component>(std::move(component));

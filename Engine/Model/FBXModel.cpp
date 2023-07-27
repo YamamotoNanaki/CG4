@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "ImguiManager.h"
 #include "JsonManager.h"
+#include "CollisionPrimitive.h"
 #include <cassert>
 
 using namespace IFE;
@@ -230,6 +231,38 @@ void IFE::FBXModel::SetSettings(const AddModelSettings& s)
 void IFE::FBXModel::SetSmooth(bool smooth)
 {
 	smooth_ = smooth;
+}
+
+std::vector<Triangle> IFE::FBXModel::GetMeshColliderTriangle()
+{
+	std::vector<Triangle>triangles;
+	size_t start = 0;
+	for (auto& node : nodes_)
+	{
+		for (auto itr : node->meshes)
+		{
+			vector<uint32_t> indices = itr->GetIndexArray();
+			vector<Vertex> vertices = itr->GetVertexArray();
+			size_t triangleNum = indices.size() / 3;
+			triangles.resize(triangles.size() + triangleNum);
+			for (uint32_t i = 0; i < triangleNum; i++)
+			{
+				Triangle& tri = triangles[start + i];
+				uint32_t idx0 = indices[i * 3 + 0];
+				uint32_t idx1 = indices[i * 3 + 1];
+				uint32_t idx2 = indices[i * 3 + 2];
+
+				tri.p0 = { vertices[idx0].pos.x,vertices[idx0].pos.y,vertices[idx0].pos.z };
+				tri.p1 = { vertices[idx1].pos.x,vertices[idx1].pos.y,vertices[idx1].pos.z };
+				tri.p2 = { vertices[idx2].pos.x,vertices[idx2].pos.y,vertices[idx2].pos.z };
+
+				tri.ComputeNormal();
+			}
+			start += triangleNum;
+		}
+	}
+
+	return triangles;
 }
 
 #ifdef _DEBUG

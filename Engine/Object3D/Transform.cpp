@@ -123,6 +123,11 @@ Vector3 IFE::Transform::GetRightVector()
 	return MultiplyQuaternionAndVector3(rotation_, Vector3(1, 0, 0)).Normalize();
 }
 
+void IFE::Transform::MovePushBack(Vector3 move)
+{
+	position_ += move;
+}
+
 Vector3 Transform::GetWorldPosition()
 {
 	UpdateMatrix();

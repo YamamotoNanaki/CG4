@@ -28,6 +28,9 @@ namespace IFE
 		VertexBuffer<VertexBone>* GetVertexBone();
 		VertexBuffer<Vertex>* GetVertex();
 		IndexBuffer* GetIB();
+		std::vector<uint32_t> GetIndexArray();
+		std::vector<Vertex> GetVertexArray();
+
 		void SetTexture(Texture* tex);
 	};
 };

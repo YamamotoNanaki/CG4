@@ -31,6 +31,7 @@ namespace IFE
 		void OBJInitialize();
 		void Initialize();
 		void SetModel(Component* model);
+		Component* GetModel();
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);
 		void OBJUpdate();

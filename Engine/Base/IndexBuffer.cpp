@@ -68,3 +68,8 @@ size_t IFE::IndexBuffer::GetSize()
 {
 	return indices_.size();
 }
+
+std::vector<uint32_t> IFE::IndexBuffer::GetIndex()
+{
+	return indices_;
+}

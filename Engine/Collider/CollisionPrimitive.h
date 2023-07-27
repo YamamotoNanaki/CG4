@@ -1,5 +1,6 @@
 #pragma once
 #include "IFMath.h"
+#include <vector>
 
 namespace IFE
 {
@@ -26,6 +27,17 @@ namespace IFE
 	{
 		Vector3 start{};
 		Vector3 dir = { 1,0,0 };
+	};
+	class FBXModel;
+	struct MeshCollider
+	{
+		std::vector<Triangle>triangles;
+		Matrix* matWorld_;
+		Matrix invMatWorld;
+		MeshCollider(FBXModel* model, Matrix* matWorld);
+		bool CheckCollisionSphere(const Sphere& sphere, Vector3* inter = nullptr, Vector3* reject = nullptr);
+		bool CheckCollisionRay(const Ray& ray, float* distance = nullptr, Vector3* inter = nullptr);
+		~MeshCollider() {};
 	};
 }
 

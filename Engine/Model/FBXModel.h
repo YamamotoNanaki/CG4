@@ -12,6 +12,7 @@
 
 namespace IFE
 {
+	struct Triangle;
 	class FBXModel :public Component
 	{
 		using Component::Component;
@@ -34,6 +35,8 @@ namespace IFE
 		void BoneTransform(float TimeInSeconds);
 		void SetSettings(const AddModelSettings& setting);
 		void SetSmooth(bool smooth);
+
+		std::vector<Triangle> GetMeshColliderTriangle();
 	private:
 		void ReadNodeHeirarchy(float AnimationTime, Node* pNode);
 

@@ -47,6 +47,7 @@ namespace IFE
 		Vector3 GetForwardVector();
 		Vector3 GetUpVector();
 		Vector3 GetRightVector();
+		void MovePushBack(Vector3 move);
 
 		/// <summary>
 		///ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é

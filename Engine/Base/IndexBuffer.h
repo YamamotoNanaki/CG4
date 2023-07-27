@@ -16,5 +16,6 @@ namespace IFE
 		void Initialize();
 		D3D12_INDEX_BUFFER_VIEW* GetIBView();
 		size_t GetSize();
+		std::vector<uint32_t> GetIndex();
 	};
 }

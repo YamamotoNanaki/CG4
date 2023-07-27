@@ -54,6 +54,16 @@ IndexBuffer* IFE::Mesh::GetIB()
 	return &ib_;
 }
 
+std::vector<uint32_t> IFE::Mesh::GetIndexArray()
+{
+	return ib_.GetIndex();
+}
+
+std::vector<Vertex> IFE::Mesh::GetVertexArray()
+{
+	return vt_.GetVertex();
+}
+
 void IFE::Mesh::SetTexture(Texture* tex)
 {
 	tex_ = tex;

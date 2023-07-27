@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "TransferGeometryBuffer.h"
 #include "Material.h"
+#include "CollisionPrimitive.h"
 #include "Collider.h"
 #include "Rigidbody.h"
 #include "ColorBuffer.h"
