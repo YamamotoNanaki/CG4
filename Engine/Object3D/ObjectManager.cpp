@@ -61,6 +61,7 @@ void IFE::ObjectManager::Draw()
 	{
 		if (!itr->isActive_)continue;
 		if (!itr->DrawFlag_)continue;
+		//if (itr->backGround_)continue;
 		objList.push_back(itr.get());
 	}
 
@@ -77,6 +78,33 @@ void IFE::ObjectManager::Draw()
 		itr->Draw();
 	}
 }
+
+//void IFE::ObjectManager::DrawBackGround()
+//{
+//	Object3D::DrawBefore();
+//
+//	list<Object3D*>objList;
+//	for (unique_ptr<Object3D>& itr : objectList_)
+//	{
+//		if (!itr->isActive_)continue;
+//		if (!itr->DrawFlag_)continue;
+//		//if (!itr->backGround_)continue;
+//		objList.push_back(itr.get());
+//	}
+//
+//	objList.sort([](const Object3D* objA, const Object3D* objB) {return objA->gp_->pipelineNum_ > objB->gp_->pipelineNum_; });
+//	uint8_t num = 255;
+//	for (auto& itr : objList)
+//	{
+//		if (num != itr->gp_->pipelineNum_)
+//		{
+//			itr->gp_->SetDrawBlendMode();
+//			num = itr->gp_->pipelineNum_;
+//			LightManager::Instance()->Draw(3);
+//		}
+//		itr->Draw();
+//	}
+//}
 
 void IFE::ObjectManager::AddInitialize(const std::string& objectName, Component* model)
 {
@@ -121,85 +149,6 @@ Object3D* IFE::ObjectManager::GetObjectPtr(const std::string& objectName)
 	}
 	return nullptr;
 }
-//
-//Object3D* IFE::ObjectManager::AddFromPrefab(std::string objectName, std::string prefabName)
-//{
-//	Object3D* obj = nullptr;
-//	for (unique_ptr<Object3D>& itr : prefabList)
-//	{
-//		if (itr->GetObjectName() == prefabName)
-//		{
-//			std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
-//			*ptr = *itr;
-//			ptr->SetObjectName(objectName);
-//			objectList.push_back(std::move(ptr));
-//			obj = objectList.back().get();
-//			for (int32_t i = 0; i < obj->childName.size(); i++)
-//			{
-//				std::unique_ptr<Object3D> ptr2 = make_unique<Object3D>();
-//				for (unique_ptr<Object3D>& itr2 : prefabList)
-//				{
-//					if (itr2->GetObjectName() == obj->childName[i])
-//					{
-//						string s = objectName + "child" + to_string(i);
-//						*ptr2 = *itr2;
-//						ptr2->SetObjectName(s);
-//						obj->child.push_back(ptr2.get());
-//						obj->childName.push_back(ptr2->GetObjectName());
-//						ptr2->parent = obj;
-//						ptr2->parentName = obj->GetObjectName();
-//						ptr2->Initialize();
-//						objectList.push_back(std::move(ptr2));
-//						break;
-//					}
-//				}
-//			}
-//			obj->Initialize();
-//			break;
-//		}
-//	}
-//	return obj;
-//}
-//
-//Object3D* IFE::ObjectManager::AddFromPrefab(std::string prefabName)
-//{
-//	Object3D* obj = nullptr;
-//	for (unique_ptr<Object3D>& itr : prefabList)
-//	{
-//		if (itr->GetObjectName() == prefabName)
-//		{
-//			std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
-//			*ptr = *itr;
-//			string objectName = GetNewName(prefabName);
-//			ptr->SetObjectName(objectName);
-//			objectList.push_back(std::move(ptr));
-//			obj = objectList.back().get();
-//			for (int32_t i = 0; i < obj->childName.size(); i++)
-//			{
-//				std::unique_ptr<Object3D> ptr2 = make_unique<Object3D>();
-//				for (unique_ptr<Object3D>& itr2 : prefabList)
-//				{
-//					if (itr2->GetObjectName() == obj->childName[i])
-//					{
-//						string s = objectName + "child" + to_string(i);
-//						*ptr2 = *itr2;
-//						ptr2->SetObjectName(s);
-//						obj->child.push_back(ptr2.get());
-//						obj->childName.push_back(ptr2->GetObjectName());
-//						ptr2->parent = obj;
-//						ptr2->parentName = obj->GetObjectName();
-//						ptr2->Initialize();
-//						objectList.push_back(std::move(ptr2));
-//						break;
-//					}
-//				}
-//			}
-//			obj->Initialize();
-//			break;
-//		}
-//	}
-//	return obj;
-//}
 
 Object3D* IFE::ObjectManager::GetPrefab(const std::string& name)
 {

@@ -175,7 +175,6 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		//		modelFunc();
 		//	}
 		//}
-		ImGui::Text(objectName.c_str());
 		ComponentFunc();
 		ImGui::End();
 	}

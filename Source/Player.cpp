@@ -8,6 +8,7 @@
 #include "Collider.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "BulletParticle.h"
 #include "IFMath.h"
 #include "IFETime.h"
 #include <cmath>
@@ -20,6 +21,7 @@ void IFE::Player::Initialize()
 	Enemy::SetPlayerTransform(transform_);
 	pos_ = transform_->position_;
 	oldPos_ = pos_;
+	pm_ = ParticleManager::Instance();
 }
 
 void IFE::Player::Update()
@@ -114,6 +116,12 @@ void IFE::Player::Shoot()
 		auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
 		if (bullet == nullptr)return;
 		bullet->GetComponent<Bullet>()->SetMoveVector(-moveVec_);
+		auto emitter = pm_->Instantiate("Bullet");
+		if (emitter)
+		{
+			emitter->GetComponent<BulletParticle>()->GetBullet(bullet);
+			emitter->isActive_ = true;
+		}
 		timer = 0;
 	}
 }

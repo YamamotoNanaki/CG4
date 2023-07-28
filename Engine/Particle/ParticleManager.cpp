@@ -26,6 +26,7 @@ void IFE::ParticleManager::Initialize()
 
 void IFE::ParticleManager::Update()
 {
+	emitterList_.remove_if([](unique_ptr<Emitter>& obj) {return obj->deleteFlag_; });
 	for (unique_ptr<Emitter>& itr : emitterList_)
 	{
 		itr->Update();
@@ -70,59 +71,35 @@ Emitter* IFE::ParticleManager::GetEmitterPtr(const std::string& emitterName)
 	return nullptr;
 }
 
-Emitter* IFE::ParticleManager::Instantiate(Emitter* gameObject, const Float3& position, float rotation)
+Emitter* IFE::ParticleManager::SearchEmitter(const std::string& name)
 {
-	std::unique_ptr<Emitter> ptr = make_unique<Emitter>();
-	ptr->deleteFlag_ = gameObject->deleteFlag_;
-	ptr->emitterDeleteFlag_ = gameObject->emitterDeleteFlag_;
-	ptr->transform_ = gameObject->transform_;
-	ptr->isActive_ = gameObject->isActive_;
-	ptr->DrawFlag_ = gameObject->DrawFlag_;
-	ptr->tex_ = gameObject->tex_;
-	string objectName = GetNewName(gameObject->emitterName_);
-	ptr->emitterName_ = objectName;
-	emitterList_.push_back(std::move(ptr));
-	Emitter* obj = emitterList_.back().get();
-	obj->transform_->position_ = position;
-	//obj->transform_->rotation_ = 
-		rotation;
-	return obj;
+	for (unique_ptr<Emitter>& itr : emitterList_)
+	{
+		if (itr->emitterName_ == name)return itr.get();
+	}
+	return nullptr;
 }
 
-Emitter* IFE::ParticleManager::Instantiate(Emitter* gameObject, const Float3& position)
+Emitter* IFE::ParticleManager::Instantiate(const std::string& objectName, const Float3& position, const std::string& newObjectName)
 {
-	position;
+	auto obj = SearchEmitter(objectName);
+	if (obj == nullptr)return nullptr;
 	std::unique_ptr<Emitter> ptr = make_unique<Emitter>();
-	//*ptr = *gameObject;
-	ptr->deleteFlag_ = gameObject->deleteFlag_;
-	ptr->emitterDeleteFlag_ = gameObject->emitterDeleteFlag_;
-	ptr->transform_ = gameObject->transform_;
-	ptr->isActive_ = gameObject->isActive_;
-	ptr->DrawFlag_ = gameObject->DrawFlag_;
-	ptr->tex_ = gameObject->tex_;
-	std::string emitterName;
-	string objectName = GetNewName(gameObject->emitterName_);
-	ptr->emitterName_ = objectName;
+	string s = newObjectName;
+	if (s == "")
+	{
+		s = objectName + "(add)";
+	}
+	ptr->emitterName_ = s;
+	obj->CopyValue(ptr.get());
+	ptr->transform_->position_ = position;
 	emitterList_.push_back(std::move(ptr));
-	Emitter* obj = emitterList_.back().get();
-	obj->transform_->position_ = position;
-	return obj;
+	return emitterList_.back().get();
 }
 
-Emitter* IFE::ParticleManager::Instantiate(Emitter* gameObject)
+Emitter* IFE::ParticleManager::Instantiate(const std::string& objectName, const std::string& newObjectName)
 {
-	std::unique_ptr<Emitter> ptr = make_unique<Emitter>();
-	ptr->deleteFlag_ = gameObject->deleteFlag_;
-	ptr->emitterDeleteFlag_ = gameObject->emitterDeleteFlag_;
-	ptr->transform_ = gameObject->transform_;
-	ptr->isActive_ = gameObject->isActive_;
-	ptr->DrawFlag_ = gameObject->DrawFlag_;
-	ptr->tex_ = gameObject->tex_;
-	string objectName = GetNewName(gameObject->emitterName_);
-	ptr->emitterName_ = objectName;
-	emitterList_.push_back(std::move(ptr));
-	Emitter* obj = emitterList_.back().get();
-	return obj;
+	return Instantiate(objectName, { 0,0,0 }, newObjectName);
 }
 
 void IFE::ParticleManager::SetTexture(const std::string& emitterName, const std::string& texName)

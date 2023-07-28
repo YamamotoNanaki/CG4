@@ -1,1 +1,39 @@
-null
+[
+    {
+        "BulletParticle": null,
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "TransformParticle": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "TransformParticle",
+            "ColorBuffer",
+            "BulletParticle"
+        ],
+        "isActive": false,
+        "maxTime": 0.30000001192092896,
+        "name": "Bullet",
+        "texture": "particle.png"
+    }
+]

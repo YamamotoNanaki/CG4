@@ -13,6 +13,7 @@
 #include "Bullet.h"
 #include "TitleUI.h"
 #include "TestParticle.h"
+#include "BulletParticle.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -45,15 +46,17 @@ Component* IFE::StringToComponent(const std::string& str)
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Collider>(str));
 	if (tmp != nullptr)return tmp;
-	tmp = std::move(GetPtr<Player>(str));
-	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Enemy>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Bullet>(str));
 	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<BulletParticle>(str));
+	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TitleUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TestParticle>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Player>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

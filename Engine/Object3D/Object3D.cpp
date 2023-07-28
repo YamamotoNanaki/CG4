@@ -202,12 +202,13 @@ void IFE::Object3D::ComponentGUI()
 	{
 		SetComponent(std::move(com));
 	};
-	//std::function<void(Component*)> modelFunc = [&](Component* com)
+	//std::function<void(void)> es = [&]()
 	//{
-	//	SetModel(com);
+	//	ImguiManager::Instance()->CheckBoxGUI(&backGround_, "Back Ground");
 	//};
 	std::function<void(void)>f = [&]()
 	{
+		//ImguiManager::Instance()->CollapsingHeaderGUI("Object Setting", es);
 		ComponentManager::DebugGUI();
 	};
 	ImguiManager::Instance()->ComponentGUI(objectName_, f, addFunc/*, modelFunc*/);
@@ -222,6 +223,7 @@ void IFE::Object3D::OutputScene(nlohmann::json& j, bool flag)
 	}
 	j["name"] = s;
 	j["model"] = model_->componentName_;
+	//j["backGround"] = backGround_;
 	uint32_t i = 0;
 	for (auto& com : componentList_)
 	{
@@ -246,6 +248,7 @@ void IFE::Object3D::DebugUpdate()
 #endif
 void IFE::Object3D::LoadingScene(nlohmann::json& j)
 {
+	//backGround_ = j["backGround"];
 	for (auto& com : j["component"])
 	{
 		ComponentManager::LoadingScene(j, com);

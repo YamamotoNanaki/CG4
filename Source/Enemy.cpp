@@ -63,6 +63,9 @@ void IFE::Enemy::SetPlayerTransform(Transform* transform)
 
 void IFE::Enemy::Move()
 {
+	Vector3 vec = playerTransform_->position_ - transform_->position_;
+	float len = vec.Length();
+	isFoundPlayer_ = len < sDetectionDistance_;
 	(this->*ActtionTable[action_])();
 }
 
@@ -107,12 +110,17 @@ void IFE::Enemy::Detection()
 	vec.Normalize();
 	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
 
-	action_ = distance <= 5 ? uint8_t(EnemyAction::Attack) : action_;
-	action_ = distance > 50 ? uint8_t(EnemyAction::Stanby) : action_;
+	action_ = distance <= 10 ? uint8_t(EnemyAction::Attack) : action_;
+	action_ = distance > 25 ? uint8_t(EnemyAction::Stanby) : action_;
 }
 
 void IFE::Enemy::Attack()
 {
+	attackDirectionTimer_ += IFETime::sDeltaTime_;
+	if (attackDirectionTimer_ > attackDirectionMaxTime_)
+	{
+		objectPtr_->Destroy();
+	}
 }
 
 void IFE::Enemy::Death()

@@ -21,6 +21,20 @@ void IFE::Emitter::Initialize()
 	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("ParticleNormal");
 }
 
+void IFE::Emitter::CopyValue(Emitter* ptr)
+{
+	ptr->isActive_ = isActive_;
+	ptr->deleteFlag_ = deleteFlag_;
+	ptr->DrawFlag_ = DrawFlag_;
+	ptr->emitterDeleteFlag_ = emitterDeleteFlag_;
+	ptr->gp_ = gp_;
+	ptr->particleMaxTime_ = particleMaxTime_;
+	ptr->tex_ = tex_;
+	ComponentManager::CopyValue(ptr);
+	ptr->transform_ = ptr->GetComponent<TransformParticle>();
+	ptr->SetTransform();
+}
+
 void IFE::Emitter::StaticInitialize()
 {
 	Particle::StaticInitialize();
@@ -115,19 +129,26 @@ void IFE::Emitter::DebugGUI(bool flagdelete)
 
 void IFE::Emitter::ComponentGUI()
 {
+	ImguiManager* imgui = ImguiManager::Instance();
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
 	{
 		SetComponent(std::move(com));
 	};
+	std::function<void(void)> es = [&]()
+	{
+		imgui->CheckBoxGUI(&isActive_, "active");
+		imgui->DragFloatGUI(&particleMaxTime_, "Particle Max Time", 0.1f);
+	};
 	std::function<void(void)>f = [&]()
 	{
+		imgui->CollapsingHeaderGUI("Emitter Setting", es);
 		ComponentManager::DebugGUI();
 	};
 	std::function<void(const std::string&)>texFunc = [&](const std::string& name)
 	{
 		tex_ = TextureManager::Instance()->GetTexture(name);
 	};
-	ImguiManager::Instance()->ComponentGUI2D(emitterName_, f, addFunc);
+	imgui->ComponentGUI2D(emitterName_, f, addFunc);
 }
 
 void IFE::Emitter::OutputScene(nlohmann::json& j)
@@ -135,6 +156,7 @@ void IFE::Emitter::OutputScene(nlohmann::json& j)
 	j["name"] = emitterName_;
 	j["maxTime"] = particleMaxTime_;
 	j["texture"] = tex_->texName_;
+	j["isActive"] = isActive_;
 	uint32_t i = 0;
 	for (auto& com : componentList_)
 	{
@@ -153,6 +175,7 @@ void IFE::Emitter::LoadingScene(nlohmann::json& j)
 {
 	tex_ = TextureManager::Instance()->GetTexture(j["texture"]);
 	particleMaxTime_ = j["maxTime"];
+	isActive_ = j["isActive"];
 	for (auto& com : j["component"])
 	{
 		ComponentManager::LoadingScene(j, com);

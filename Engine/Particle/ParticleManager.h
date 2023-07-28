@@ -28,9 +28,9 @@ namespace IFE
 		void AddInitialize(const std::string& emitterName, const std::string& textureName);
 		Emitter* Add(const std::string& emitterName);
 		Emitter* GetEmitterPtr(const std::string& emitterName);
-		Emitter* Instantiate(Emitter* gameObject, const Float3& position, float rotation);
-		Emitter* Instantiate(Emitter* gameObject, const Float3& position);
-		Emitter* Instantiate(Emitter* gameObject);
+		Emitter* SearchEmitter(const std::string& name);
+		Emitter* Instantiate(const std::string& emitterName, const Float3& position, const std::string& newObjectName = "");
+		Emitter* Instantiate(const std::string& emitterName, const std::string& newObjectName = "");
 		void SetTexture(const std::string& emitterName, const std::string& texName);
 		std::list<std::unique_ptr<Emitter>>* GetEmitterList();
 		void Reset();

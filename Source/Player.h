@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Vector3.h"
+#include "ParticleManager.h"
 
 namespace IFE
 {
@@ -14,6 +15,7 @@ namespace IFE
 		Vector2 moveVec_;
 		float nextBulletTime_ = 0.3f;
 		float gravity_ = 1;
+		inline static ParticleManager* pm_ = nullptr;
 	public:
 		void Initialize()override;
 		void Update()override;

@@ -67,6 +67,7 @@ void IFE::Scene::Draw()
 	{
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
+		//objM_->DrawBackGround();
 		objM_->Draw();
 		particleM->Draw();
 		Sprite::DrawBefore();

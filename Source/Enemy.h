@@ -11,24 +11,37 @@ namespace IFE
 	class Enemy : public Component
 	{
 	private:
+		//1秒に進むスピード
 		float speed_ = 1;
+		//現在のアクション
 		uint8_t action_;
+		//プレイヤーを見つけたかどうか
 		bool isFoundPlayer_ = false;
 
+		//巡回地点
 		std::vector<Float3>patrolPoint_;
 		uint8_t nowPoint_ = 0;
 
+		//敵のHP
 		uint8_t hp_ = 2;
 
+		//プレイヤーのトランスフォーム参照用
 		static Transform* playerTransform_;
+		//死亡演出用の時間
 		float deathDirectionTimer_;
 		float deathDirectionMaxTime_ = 0.5;
+		//攻撃演出用の時間
+		float attackDirectionTimer_;
+		float attackDirectionMaxTime_ = 0.5;
+		//発見距離
+		inline const static float sDetectionDistance_ = 20;
 
 	public:
 		void Initialize()override;
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 
+		//プレイヤーのトランスフォーム参照用
 		static void SetPlayerTransform(Transform* transform);
 
 	private:

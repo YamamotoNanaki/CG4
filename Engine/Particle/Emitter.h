@@ -32,6 +32,7 @@ namespace IFE
 	public:
 		Emitter();
 		void Initialize();
+		void CopyValue(Emitter* ptr);
 		static void StaticInitialize();
 		void SetComponent(std::unique_ptr<Component> component);
 		void SetComponentFront(std::unique_ptr<Component> component);

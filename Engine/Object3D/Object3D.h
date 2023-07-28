@@ -17,6 +17,7 @@ namespace IFE
 	public:
 		bool isActive_ = true;
 		bool DrawFlag_ = true;
+		//bool backGround_ = false;
 		Transform* transform_ = nullptr;
 		Object3D* parent_ = nullptr;
 		std::vector<Object3D*> child_;
