@@ -69,6 +69,7 @@
     <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\BulletParticle.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\FireworkChrysanthemum.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
     <ClCompile Include="Source\TitleUI.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\BulletParticle.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\FireworkChrysanthemum.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\TestParticle.h" />
     <ClInclude Include="Source\TitleUI.h" />

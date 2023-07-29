@@ -333,6 +333,9 @@
     <ClCompile Include="Source\BulletParticle.cpp">
       <Filter>ソース ファイル\Source\Emitter</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FireworkChrysanthemum.cpp">
+      <Filter>ソース ファイル\Source\Emitter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -546,6 +549,9 @@
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Source\BulletParticle.h">
+      <Filter>ヘッダー ファイル\Source\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FireworkChrysanthemum.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
   </ItemGroup>

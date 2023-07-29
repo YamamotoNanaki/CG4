@@ -27,8 +27,8 @@
             ]
         },
         "component": [
-            "TransformParticle",
             "ColorBuffer",
+            "TransformParticle",
             "BulletParticle"
         ],
         "isActive": false,

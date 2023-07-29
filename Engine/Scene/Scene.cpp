@@ -186,7 +186,7 @@ void IFE::Scene::SceneTransitionIn()
 				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
 				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
 			}
-			fade->GetComponent<ColorBuffer>()->color_ = Float4(0, 0, 0, alpha);
+			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
 		}
 		else
 		{
@@ -216,7 +216,7 @@ void IFE::Scene::SceneTransitionOut()
 				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
 				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
 			}
-			fade->GetComponent<ColorBuffer>()->color_ = Float4(0, 0, 0, alpha);
+			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
 		}
 		else
 		{

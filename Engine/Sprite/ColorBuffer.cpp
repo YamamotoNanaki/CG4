@@ -11,14 +11,20 @@ void IFE::ColorBuffer::Initialize()
 	constMapColor_ = colorBuffer_->GetCBMapObject();
 }
 
-void IFE::ColorBuffer::Update()
-{
-	constMapColor_->color = color_;
-}
-
 void IFE::ColorBuffer::Draw()
 {
+	constMapColor_->color = color_;
 	colorBuffer_->SetConstBuffView(0);
+}
+
+void IFE::ColorBuffer::SetColor(const Float4& color)
+{
+	color_ = color;
+}
+
+void IFE::ColorBuffer::SetColor(float r, float g, float b, float a)
+{
+	color_ = Float4(r,g,b,a);
 }
 
 #ifdef _DEBUG

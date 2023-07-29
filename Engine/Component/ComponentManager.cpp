@@ -164,5 +164,5 @@ void IFE::ComponentManager::SetEmitterPtr(Emitter* emitterPtr)
 
 void IFE::ComponentManager::SetParticlePtr(Particle* particlePtr)
 {
-	particlePtr = particlePtr;
+	particlePtr_ = particlePtr;
 }

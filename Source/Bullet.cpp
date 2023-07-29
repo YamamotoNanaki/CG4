@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Enemy.h"
 #include "Collider.h"
+#include "Player.h"
 
 void IFE::Bullet::Update()
 {
@@ -14,6 +15,10 @@ void IFE::Bullet::Update()
 void IFE::Bullet::OnColliderHit(Collider* collider)
 {
 	if (collider->GetObjectPtr()->GetComponent<Enemy>())
+	{
+
+	}
+	if (!collider->GetObjectPtr()->GetComponent<Player>())
 	{
 		objectPtr_->Destroy();
 	}
