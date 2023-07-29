@@ -166,6 +166,9 @@ void IFE::Scene::SceneInit()
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
+	objM_->Initialize();
+	spriteM_->Initialize();
+	particleM->Initialize();
 }
 
 void IFE::Scene::SceneTransitionIn()
@@ -246,6 +249,9 @@ void IFE::Scene::LoadingScene()
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
+	objM_->Initialize();
+	spriteM_->Initialize();
+	particleM->Initialize();
 	nowScene_ = nextScene_;
 	loadEnd_ = true;
 }
