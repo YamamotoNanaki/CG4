@@ -1,4 +1,4 @@
-# InitializeForgotEngine
+# Initialize Forgot Engine
 
 ## 2D/3D描画エンジン
 
