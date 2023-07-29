@@ -11,8 +11,6 @@
 #include "Emitter.h"
 #include "IFETime.h"
 
-#pragma comment(lib,"d3d12.lib")
-
 namespace IFE
 {
 	class TransformParticle;

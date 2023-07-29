@@ -5,6 +5,10 @@
 
 using namespace IFE;
 
+#pragma comment (lib, "xinput.lib")
+#pragma comment(lib,"dinput8.lib")
+#pragma comment(lib,"dxguid.lib")
+
 Input* Input::sInputInstance_ = nullptr;
 bool Input::sPadConnected_ = false;
 

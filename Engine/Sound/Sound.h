@@ -6,8 +6,6 @@
 #include <string>
 #include <vector>
 
-#pragma comment(lib,"xaudio2.lib")
-
 namespace IFE
 {
 	class Sound
