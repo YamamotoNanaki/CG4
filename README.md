@@ -1,4 +1,4 @@
-# InitializeForgotEngine
+# Initialize Forgot Engine
 
 ## 2D/3D描画エンジン
 
@@ -25,3 +25,13 @@
 
 ## 推奨環境
 - windows10
+
+## 使用外部ライブラリ
+- [Assimp](https://github.com/assimp/assimp)
+  - モデルの読み込みに使用
+- [DirectXTex](https://github.com/microsoft/DirectXTex)
+  - テクスチャの読み込みに使用
+- [Dear ImGui](https://github.com/ocornut/imgui)
+  - エディタ画面のGUIに使用
+- [JSON for Modern C++](https://github.com/nlohmann/json)
+  - シーンデータの書き込み及び読み込みに使用
