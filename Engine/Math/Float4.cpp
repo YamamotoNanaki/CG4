@@ -86,3 +86,30 @@ Float4& Float4::operator/=(float f)
 	w /= f;
 	return *this;
 }
+
+Float4 IFE::Float4::operator=(const Float4& f)
+{
+	x = f.x;
+	y = f.y;
+	z = f.z;
+	w = f.w;
+	return *this;
+}
+
+Float4 IFE::Float4::operator=(float* f)
+{
+	x = f[0];
+	y = f[1];
+	z = f[2];
+	w = f[3];
+	return *this;
+}
+
+Float4 IFE::Float4::operator=(float f)
+{
+	x = f;
+	y = f;
+	z = f;
+	w = f;
+	return *this;
+}

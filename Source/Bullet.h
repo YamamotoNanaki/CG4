@@ -10,6 +10,7 @@ namespace IFE
 		Vector2 moveVec_;
 		float lifeTimer_ = 0;
 		float timerMax_ = 5;
+		inline static Emitter* sChrysanthemum_ = nullptr;
 	public:
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;

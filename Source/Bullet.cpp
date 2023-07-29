@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Collider.h"
 #include "Player.h"
+#include "FireworkChrysanthemum.h"
 
 void IFE::Bullet::Update()
 {
@@ -16,7 +17,8 @@ void IFE::Bullet::OnColliderHit(Collider* collider)
 {
 	if (collider->GetObjectPtr()->GetComponent<Enemy>())
 	{
-
+		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
 	}
 	if (!collider->GetObjectPtr()->GetComponent<Player>())
 	{
@@ -31,7 +33,7 @@ void IFE::Bullet::SetMoveVector(const Vector2& moveVec)
 
 void IFE::Bullet::Move()
 {
-	transform_->position_ += Float3{ moveVec_.x, 0, moveVec_.y } * speed_ * IFETime::sDeltaTime_;
+	transform_->position_ += Float3{ moveVec_.x, 0, moveVec_.y } *speed_ * IFETime::sDeltaTime_;
 }
 
 void IFE::Bullet::Timer()

@@ -11,6 +11,7 @@
 #include "BulletParticle.h"
 #include "IFMath.h"
 #include "IFETime.h"
+#include "FireworkChrysanthemum.h"
 #include <cmath>
 
 using namespace IFE;
@@ -22,6 +23,7 @@ void IFE::Player::Initialize()
 	pos_ = transform_->position_;
 	oldPos_ = pos_;
 	pm_ = ParticleManager::Instance();
+	FireworkChrysanthemum::InitDefaultVelocity();
 }
 
 void IFE::Player::Update()

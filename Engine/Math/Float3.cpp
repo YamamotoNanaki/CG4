@@ -103,6 +103,22 @@ Float3 IFE::Float3::operator=(float* f)
 	return *this;
 }
 
+Float3 IFE::Float3::operator=(const Float3& f)
+{
+	x = f.x;
+	y = f.y;
+	z = f.z;
+	return *this;
+}
+
+Float3 IFE::Float3::operator=(float f)
+{
+	x = f;
+	y = f;
+	z = f;
+	return *this;
+}
+
 bool IFE::Float3::operator==(const Float3& f)
 {
 	return f.x == x && f.y == y && f.z == z;

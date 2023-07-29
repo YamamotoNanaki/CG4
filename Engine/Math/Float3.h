@@ -22,6 +22,8 @@ namespace IFE
 		Float3& operator*=(float f);
 		Float3& operator/=(float f);
 		Float3 operator=(float* f);
+		Float3 operator=(const Float3& f);
+		Float3 operator=(float f);
 
 		bool operator==(const Float3& f);
 		bool operator!=(const Float3& f);
