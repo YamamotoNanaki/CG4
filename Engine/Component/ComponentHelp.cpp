@@ -16,6 +16,9 @@
 #include "BulletParticle.h"
 #include "FireworkChrysanthemum.h"
 #include "Goal.h"
+#include "EnemyCountUI.h"
+#include "OverUI.h"
+#include "ClearUI.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -56,13 +59,19 @@ Component* IFE::StringToComponent(const std::string& str)
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<FireworkChrysanthemum>(str));
 	if (tmp != nullptr)return tmp;
-	tmp = std::move(GetPtr<TitleUI>(str));
-	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TestParticle>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Player>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Goal>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<EnemyCountUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<TitleUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<ClearUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<OverUI>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

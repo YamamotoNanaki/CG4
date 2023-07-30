@@ -10,6 +10,8 @@ namespace IFE
 	};
 	class Enemy : public Component
 	{
+	public:
+		inline static uint32_t sDeathEnemyNum_ = 0;
 	private:
 		//1秒に進むスピード
 		float speed_ = 1;
@@ -25,7 +27,6 @@ namespace IFE
 		//敵のHP
 		uint8_t hp_ = 2;
 
-		inline static uint32_t sDeathEnemyNum_ = 0;
 
 		//プレイヤーのトランスフォーム参照用
 		static Transform* playerTransform_;

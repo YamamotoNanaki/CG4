@@ -345,6 +345,15 @@
     <ClCompile Include="Source\Goal.cpp">
       <Filter>ソース ファイル\Source\Area</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EnemyCountUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ClearUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\OverUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -565,6 +574,15 @@
     </ClInclude>
     <ClInclude Include="Source\Goal.h">
       <Filter>ヘッダー ファイル\Source\Area</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyCountUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ClearUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OverUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

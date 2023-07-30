@@ -12,6 +12,19 @@
         "tex_hair.png",
         "tex_cloth.png",
         "title.png",
-        "particle.png"
+        "particle.png",
+        "number0.png",
+        "number1.png",
+        "number2.png",
+        "number3.png",
+        "number4.png",
+        "number5.png",
+        "number6.png",
+        "number7.png",
+        "number8.png",
+        "number9.png",
+        "gameover.png",
+        "clear.png",
+        "kill.png"
     ]
 }
