@@ -343,7 +343,7 @@
       <Filter>ソース ファイル\Source\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Source\Goal.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Source\Area</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -564,7 +564,7 @@
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Source\Goal.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Source\Area</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

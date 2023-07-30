@@ -34,7 +34,7 @@ namespace IFE
 		float attackDirectionTimer_;
 		float attackDirectionMaxTime_ = 0.5;
 		//”­Œ©‹——£
-		inline const static float sDetectionDistance_ = 20;
+		inline const static float sDetectionDistance_ = 80;
 
 	public:
 		void Initialize()override;

@@ -1,0 +1,110 @@
+[
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                1400.0,
+                630.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                2.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "kougeki",
+        "texture": "kougeki.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                1400.0,
+                750.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                2.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "idou",
+        "texture": "idou.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                1230.0,
+                630.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "ButtonR",
+        "texture": "ButtonR.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                1230.0,
+                750.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "AnalogL",
+        "texture": "AnalogL.png"
+    }
+]

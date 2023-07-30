@@ -1,0 +1,1366 @@
+[
+    {
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                0.029411792755126953,
+                0.024365652352571487,
+                0.024365652352571487,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "Fine_Basin.jpg"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": false,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                49.75
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "skydome_Model",
+        "name": "sky",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 2,
+            "colliderType": 0,
+            "groundJudge": true,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "Player": {
+            "nextBulletTime": 0.4000000059604645,
+            "speed": 30.0
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                -85.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "Collider",
+            "Player",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "girl_Model",
+        "name": "Player",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 0,
+            "patrolPointSize": 0,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                0.0,
+                0.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -66.25,
+                -0.75,
+                -27.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "Collider",
+            "Enemy",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "cube_Model",
+        "name": "Enemy",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                0.024509787559509277,
+                0.018968934193253517,
+                0.012735477648675442,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                -8.25,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "ground_Model",
+        "name": "ground",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -90.0,
+                0.0,
+                -40.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall2",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                90.0,
+                0.0,
+                -40.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall3",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -90.0,
+                0.0,
+                130.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall4",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                90.0,
+                0.0,
+                130.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall5",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                220.0
+            ],
+            "rotation": [
+                360.0,
+                90.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall6",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                -133.5
+            ],
+            "rotation": [
+                360.0,
+                90.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall1",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -61.25,
+                0.0,
+                100.0
+            ],
+            "rotation": [
+                360.0,
+                90.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall_Model",
+        "name": "wall7",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": true,
+            "pushBack": false
+        },
+        "Goal": null,
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                0.062745101749897,
+                0.5215686559677124,
+                0.14509804546833038,
+                0.6117647290229797
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.0,
+                210.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Goal",
+            "Collider"
+        ],
+        "model": "cube_Model",
+        "name": "goal",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 0,
+            "patrolPointSize": 0,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -38.75,
+                -0.75,
+                11.75
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy1",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 0,
+            "patrolPointSize": 0,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                -0.75,
+                56.75
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy2",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 1,
+            "patrolPoint": [
+                [
+                    40.0,
+                    -0.75,
+                    78.0
+                ],
+                [
+                    75.0,
+                    -0.75,
+                    78.0
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                40.0,
+                -0.75,
+                78.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy3",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 1,
+            "patrolPoint": [
+                [
+                    35.0,
+                    -0.75,
+                    15.0
+                ],
+                [
+                    70.0,
+                    -0.75,
+                    15.0
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                35.0,
+                -0.75,
+                15.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy4",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 1,
+            "patrolPoint": [
+                [
+                    0.0,
+                    -0.75,
+                    155.0
+                ],
+                [
+                    30.0,
+                    -0.75,
+                    190.0
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                -0.75,
+                155.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy5",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 4,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": true
+        },
+        "Enemy": {
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -25.0,
+                    -0.75,
+                    -8.0
+                ],
+                [
+                    -25.0,
+                    -0.75,
+                    55.0
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 5.0
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -25.0,
+                -0.75,
+                -8.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "model": "sphere_Model",
+        "name": "enemy6",
+        "prefab": false
+    },
+    {
+        "Bullet": null,
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                5.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ]
+        },
+        "component": [
+            "Transform",
+            "Collider",
+            "Bullet",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "model": "sphere_Model",
+        "name": "Bullet",
+        "prefab": true
+    }
+]

@@ -11,6 +11,7 @@ namespace IFE
 		using Component::Component;
 		std::unique_ptr<ConstBuffer<ConstBufferModelGeometry>> geometryBuffer_;
 		ConstBufferModelGeometry* constMapGeometry_ = nullptr;
+	public:
 		float explosion_ = 0;
 		float gravity_ = 0;
 		float rotation_ = 0;

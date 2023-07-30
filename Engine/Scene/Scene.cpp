@@ -253,6 +253,7 @@ void IFE::Scene::LoadingScene()
 	objM_->Initialize();
 	spriteM_->Initialize();
 	particleM->Initialize();
+	cameraM_->LoadingScene();
 	nowScene_ = nextScene_;
 	loadEnd_ = true;
 }

@@ -5,6 +5,8 @@
 #include "Bullet.h"
 #include "Object3D.h"
 #include "Material.h"
+#include "TransferGeometryBuffer.h"
+#include "Ease.h"
 
 using namespace IFE;
 
@@ -111,7 +113,7 @@ void IFE::Enemy::Detection()
 	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
 
 	action_ = distance <= 10 ? uint8_t(EnemyAction::Attack) : action_;
-	action_ = distance > 25 ? uint8_t(EnemyAction::Stanby) : action_;
+	action_ = distance > sDetectionDistance_ ? uint8_t(EnemyAction::Stanby) : action_;
 }
 
 void IFE::Enemy::Attack()
@@ -126,6 +128,12 @@ void IFE::Enemy::Attack()
 void IFE::Enemy::Death()
 {
 	deathDirectionTimer_ += IFETime::sDeltaTime_;
+	auto tgb = objectPtr_->GetComponent<TransferGeometryBuffer>();
+	tgb->explosion_ = deathDirectionTimer_ * 150;
+	tgb->rotation_ = deathDirectionTimer_ * 25;
+	tgb->gravity_ = deathDirectionTimer_ * 35;
+	tgb->polygonSize_ = Lerp(5, 0, deathDirectionMaxTime_, deathDirectionTimer_);
+	objectPtr_->GetComponent<Material>()->color_.z = Lerp(1, 0, deathDirectionMaxTime_, deathDirectionTimer_);
 	if (deathDirectionTimer_ > deathDirectionMaxTime_)
 	{
 		objectPtr_->Destroy();

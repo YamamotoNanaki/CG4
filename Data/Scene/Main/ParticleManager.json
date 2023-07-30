@@ -1,0 +1,79 @@
+[
+    {
+        "BulletParticle": null,
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "TransformParticle": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "ColorBuffer",
+            "TransformParticle",
+            "BulletParticle"
+        ],
+        "isActive": false,
+        "maxTime": 0.30000001192092896,
+        "name": "Bullet",
+        "texture": "particle.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "FireworkChrysanthemum": {
+            "sScale": 0.25,
+            "sStartSpeed": 30.0
+        },
+        "TransformParticle": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "TransformParticle",
+            "ColorBuffer",
+            "FireworkChrysanthemum"
+        ],
+        "isActive": false,
+        "maxTime": 4.0,
+        "name": "Chrysanthemum",
+        "texture": "particle.png"
+    }
+]

@@ -12,12 +12,13 @@ namespace IFE
 		CameraManager& operator=(const CameraManager&) {}
 		~CameraManager();
 
-		std::list<std::unique_ptr<Camera>>cameraList;
+		std::list<std::unique_ptr<Camera>>cameraList_;
 
 	public:
 		static Camera* sActivCamera_;
 		static CameraManager* Instance();
 		void Initialize();
+		void LoadingScene();
 		void Update();
 
 #ifdef _DEBUG

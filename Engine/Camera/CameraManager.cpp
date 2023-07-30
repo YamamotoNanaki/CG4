@@ -6,7 +6,7 @@ Camera* CameraManager::sActivCamera_ = nullptr;
 
 IFE::CameraManager::~CameraManager()
 {
-	cameraList.clear();
+	cameraList_.clear();
 }
 
 CameraManager* IFE::CameraManager::Instance()
@@ -17,9 +17,16 @@ CameraManager* IFE::CameraManager::Instance()
 
 void IFE::CameraManager::Initialize()
 {
-	cameraList.push_back(std::make_unique<Camera>());
-	sActivCamera_ = cameraList.front().get();
+	cameraList_.push_back(std::make_unique<Camera>());
+	sActivCamera_ = cameraList_.front().get();
 	sActivCamera_->CameraInitialize();
+}
+
+void IFE::CameraManager::LoadingScene()
+{
+	sActivCamera_->GetView()->Initialze({ 0,10,-50 }, { 0,10,1 }, { 0,1,0 });
+	//cameraList_.clear();
+	//Initialize();
 }
 
 void IFE::CameraManager::Update()

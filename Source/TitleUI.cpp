@@ -34,6 +34,6 @@ void IFE::TitleUI::Update()
 	if (input->KeyDown(Key_Space) || input->PadDown(PADCODE::ABXY))
 	{
 		Sound::Instance()->StopSound("title");
-		Scene::Instance()->SetNextScene("test");
+		Scene::Instance()->SetNextScene("Main");
 	}
 }
