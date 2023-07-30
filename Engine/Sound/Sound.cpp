@@ -77,8 +77,21 @@ uint16_t IFE::Sound::LoadWave(const std::string& filename)
 	soundDatas_[num].pBuffer = std::move(byteBuff);
 	soundDatas_[num].bufferSize = data.size;
 	soundDatas_[num].free = true;
+	soundDatas_[num].name = filename;
 
 	return num;
+}
+
+uint16_t IFE::Sound::GetSoundNum(const std::string& wave)
+{
+	for (uint16_t i = 0; i < sMAX_SOUND_; i++)
+	{
+		if (wave == soundDatas_[i].name)
+		{
+			return i;
+		}
+	}
+	return (uint16_t)-1;
 }
 
 void IFE::Sound::SoundUnLoad(uint16_t soundNum)
@@ -102,6 +115,7 @@ void IFE::Sound::AllUnLoad()
 
 void IFE::Sound::SoundPlay(uint16_t soundNum, bool roop)
 {
+	StopSound(soundNum);
 	HRESULT result;
 	result = xAudio_.Get()->CreateSourceVoice(&soundDatas_[soundNum].pSourceVoice, &soundDatas_[soundNum].wfex);
 	assert(SUCCEEDED(result));
@@ -141,6 +155,58 @@ void IFE::Sound::StopSound(uint16_t soundNum)
 	soundDatas_[soundNum].pSourceVoice->Stop();
 #endif
 	soundDatas_[soundNum].pSourceVoice = nullptr;
+}
+
+void IFE::Sound::SetVolume(std::string soundName, std::int32_t volume)
+{
+	uint16_t soundNum = GetSoundNum(soundName);
+	if (soundNum == uint16_t(-1))return;
+	soundDatas_[soundNum].volume = (float)volume / 255.0f;
+	if (soundDatas_[soundNum].pSourceVoice != nullptr)soundDatas_[soundNum].pSourceVoice->SetVolume(soundDatas_[soundNum].volume);
+}
+
+void IFE::Sound::SoundPlay(std::string soundName, bool roop)
+{
+	uint16_t soundNum = GetSoundNum(soundName);
+	if (soundNum == uint16_t(-1))return;
+	StopSound(soundNum);
+	HRESULT result;
+	result = xAudio_.Get()->CreateSourceVoice(&soundDatas_[soundNum].pSourceVoice, &soundDatas_[soundNum].wfex);
+	assert(SUCCEEDED(result));
+
+	XAUDIO2_BUFFER buf{};
+	buf.pAudioData = soundDatas_[soundNum].pBuffer.data();
+	buf.AudioBytes = soundDatas_[soundNum].bufferSize;
+	if (roop)buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+	else buf.LoopCount = 0;
+	buf.Flags = XAUDIO2_END_OF_STREAM;
+
+	soundDatas_[soundNum].pSourceVoice->SetVolume(soundDatas_[soundNum].volume);
+	result = soundDatas_[soundNum].pSourceVoice->SubmitSourceBuffer(&buf);
+	result = soundDatas_[soundNum].pSourceVoice->Start();
+}
+
+void IFE::Sound::StopSound(std::string soundName)
+{
+	uint16_t soundNum = GetSoundNum(soundName);
+	if (soundNum == uint16_t(-1))return;
+	if (soundDatas_[soundNum].pSourceVoice == nullptr)return;
+#ifdef _DEBUG
+	HRESULT result = soundDatas_[soundNum].pSourceVoice->Stop();
+	assert(SUCCEEDED(result));
+
+#else
+	soundDatas_[soundNum].pSourceVoice->Stop();
+#endif
+	soundDatas_[soundNum].pSourceVoice = nullptr;
+}
+
+void IFE::Sound::AllStop()
+{
+	for (uint16_t i = 0; i < sMAX_SOUND_; i++)
+	{
+		StopSound(i);
+	}
 }
 
 void IFE::Sound::Finalize()

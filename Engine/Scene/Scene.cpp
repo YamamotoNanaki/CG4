@@ -196,6 +196,7 @@ void IFE::Scene::SceneTransitionIn()
 			transitionTimer_ = 0;
 			isOut_ = true;
 			loadEnd_ = false;
+			sound_->AllStop();
 			sceneInitialize_ = std::async(std::launch::async, [this] {return LoadingScene(); });
 		}
 	}
@@ -313,6 +314,7 @@ void IFE::Scene::DebugGUI()
 			debug_ = false;
 			stop_ = false;
 			nextScene_ = nowScene_;
+			sound_->AllStop();
 			LoadingScene();
 			objM_->Initialize();
 		}

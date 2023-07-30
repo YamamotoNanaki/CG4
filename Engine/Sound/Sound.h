@@ -42,17 +42,22 @@ namespace IFE
 	private:
 		Microsoft::WRL::ComPtr<IXAudio2> xAudio_;
 		IXAudio2MasteringVoice* masterVoice_;
-		static const int16_t sMAX_SOUND_ = 128;
+		static const uint16_t sMAX_SOUND_ = 128;
 		std::array<SoundData, sMAX_SOUND_> soundDatas_;
 
 	public:
 		void Initialize();
 		uint16_t LoadWave(const std::string& wave);
+		uint16_t GetSoundNum(const std::string& wave);
 		void SoundUnLoad(uint16_t soundNum);
 		void AllUnLoad();
 		void SetVolume(uint16_t soundNum, std::int32_t volume);
 		void SoundPlay(uint16_t soundNum, bool roop = true);
 		void StopSound(uint16_t soundNum);
+		void SetVolume(std::string soundName, std::int32_t volume);
+		void SoundPlay(std::string soundName, bool roop = true);
+		void StopSound(std::string soundName);
+		void AllStop();
 		static Sound* Instance();
 		static void Finalize();
 

@@ -15,6 +15,7 @@ namespace IFE
 		Vector2 moveVec_;
 		float nextBulletTime_ = 0.3f;
 		float gravity_ = 1;
+		bool soundFlag_ = false;
 		inline static ParticleManager* pm_ = nullptr;
 	public:
 		void Initialize()override;

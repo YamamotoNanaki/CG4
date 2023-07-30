@@ -12,6 +12,7 @@
 #include "IFMath.h"
 #include "IFETime.h"
 #include "FireworkChrysanthemum.h"
+#include "Sound.h"
 #include <cmath>
 
 using namespace IFE;
@@ -24,10 +25,17 @@ void IFE::Player::Initialize()
 	oldPos_ = pos_;
 	pm_ = ParticleManager::Instance();
 	FireworkChrysanthemum::InitDefaultVelocity();
+	auto num = Sound::Instance()->LoadWave("main");
+	Sound::Instance()->SetVolume(num, 25);
 }
 
 void IFE::Player::Update()
 {
+	if (!soundFlag_)
+	{
+		Sound::Instance()->SoundPlay("main");
+		soundFlag_ = true;
+	}
 	Move();
 	Rota();
 	Shoot();

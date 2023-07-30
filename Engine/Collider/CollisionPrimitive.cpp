@@ -19,7 +19,7 @@ IFE::MeshCollider::MeshCollider(FBXModel* model, Matrix* matWorld)
 {
 	matWorld_ = matWorld;
 	invMatWorld = MatrixInverse(*matWorld);
-
+	triangles.clear();
 	triangles = model->GetMeshColliderTriangle();
 }
 
@@ -49,6 +49,7 @@ bool IFE::MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3* inte
 
 bool IFE::MeshCollider::CheckCollisionRay(const Ray& ray, float* distance, Vector3* inter)
 {
+	invMatWorld = MatrixInverse(*matWorld_);
 	Ray localRay(Vector3Transform(ray.start, invMatWorld), Vector3TransformNormal(ray.dir, invMatWorld));
 
 	std::vector<Triangle>::const_iterator it = triangles.cbegin();

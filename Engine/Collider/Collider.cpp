@@ -11,6 +11,7 @@ void IFE::Collider::Initialize()
 {
 	if (colliderType_ == ColliderType::MESH)
 	{
+		if(meshCollider_)meshCollider_.release();
 		auto mesh = new MeshCollider(dynamic_cast<FBXModel*>(objectPtr_->GetModel()), &transform_->matWorld_);
 		meshCollider_ = std::unique_ptr<MeshCollider>(mesh);
 	}

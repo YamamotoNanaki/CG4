@@ -3,16 +3,24 @@
 #include "IFETime.h"
 #include "Input.h"
 #include "Scene.h"
+#include "Sound.h"
 
 using namespace IFE;
 
 void IFE::TitleUI::Initialize()
 {
 	if (transform2D_)initPos_ = transform2D_->position_;
+	auto num = Sound::Instance()->LoadWave("title");
+	Sound::Instance()->SetVolume(num, 25);
 }
 
 void IFE::TitleUI::Update()
 {
+	if (!soundFlag_)
+	{
+		soundFlag_ = true;
+		Sound::Instance()->SoundPlay("title");
+	}
 	Float2 pos = initPos_;
 
 	timer_ += IFETime::sDeltaTime_;
@@ -23,8 +31,9 @@ void IFE::TitleUI::Update()
 	transform2D_->position_ = pos;
 
 	Input* input = Input::Instance();
-	if (input->KeyDown(Key_Space)||input->PadDown(PADCODE::ABXY))
+	if (input->KeyDown(Key_Space) || input->PadDown(PADCODE::ABXY))
 	{
+		Sound::Instance()->StopSound("title");
 		Scene::Instance()->SetNextScene("test");
 	}
 }
