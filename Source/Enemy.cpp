@@ -6,6 +6,8 @@
 #include "Object3D.h"
 #include "Material.h"
 #include "TransferGeometryBuffer.h"
+#include "ParticleManager.h"
+#include "FireworkChrysanthemum.h"
 #include "Ease.h"
 
 using namespace IFE;
@@ -36,6 +38,10 @@ void IFE::Enemy::Update()
 	{
 		objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
 		action_ = (uint8_t)EnemyAction::Death;
+	}
+	if (action_ == (uint8_t)EnemyAction::Attack)
+	{
+		objectPtr_->GetComponent<Material>()->color_ = { 0,0,0,0 };
 	}
 	//if (isHit_)
 	//{
@@ -120,6 +126,13 @@ void IFE::Enemy::Detection()
 void IFE::Enemy::Attack()
 {
 	objectPtr_->GetComponent<Collider>()->SetOffsetScale({ 3,3,3 });
+
+	if (!attackFlag_)
+	{
+		attackFlag_ = true;
+		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
+	}
 	attackDirectionTimer_ += IFETime::sDeltaTime_;
 	if (attackDirectionTimer_ > attackDirectionMaxTime_)
 	{

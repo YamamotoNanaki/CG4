@@ -26,6 +26,7 @@ namespace IFE
 
 		//敵のHP
 		uint8_t hp_ = 2;
+		bool attackFlag_ = false;
 
 
 		//プレイヤーのトランスフォーム参照用
