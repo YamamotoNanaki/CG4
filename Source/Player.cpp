@@ -13,6 +13,9 @@
 #include "IFETime.h"
 #include "FireworkChrysanthemum.h"
 #include "Sound.h"
+#include "TransferGeometryBuffer.h"
+#include "Ease.h"
+#include "Scene.h"
 #include <cmath>
 
 using namespace IFE;
@@ -36,6 +39,13 @@ void IFE::Player::Update()
 		Sound::Instance()->SoundPlay("main");
 		soundFlag_ = true;
 	}
+
+	if (hp_<=0)
+	{
+		Death();
+		return;
+	}
+
 	Move();
 	Rota();
 	Shoot();
@@ -150,6 +160,22 @@ void IFE::Player::Shoot()
 			emitter->isActive_ = true;
 		}
 		timer = 0;
+	}
+}
+
+void IFE::Player::Death()
+{
+	deathTimer_ += IFETime::sDeltaTime_;
+	auto tgb = objectPtr_->GetComponent<TransferGeometryBuffer>();
+	tgb->explosion_ = deathTimer_ * 150;
+	tgb->rotation_ = deathTimer_ * 25;
+	tgb->gravity_ = deathTimer_ * 35;
+	tgb->polygonSize_ = Lerp(5, 0, maxDeathTime_, deathTimer_);
+	objectPtr_->GetComponent<Material>()->color_.z = Lerp(1, 0, maxDeathTime_, deathTimer_);
+	if (deathTimer_ > maxDeathTime_)
+	{
+		Scene::Instance()->SetNextScene("over");
+		objectPtr_->Destroy();
 	}
 }
 

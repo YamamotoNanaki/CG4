@@ -19,6 +19,7 @@
 #include "EnemyCountUI.h"
 #include "OverUI.h"
 #include "ClearUI.h"
+#include "HPbar.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -72,6 +73,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<ClearUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<OverUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<HPbar>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

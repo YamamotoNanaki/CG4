@@ -17,11 +17,14 @@ namespace IFE
 		float gravity_ = 1;
 		bool soundFlag_ = false;
 		inline static ParticleManager* pm_ = nullptr;
-		uint16_t hp_ = 5;
 		bool invincible_ = false;
 		float invincibleTimer_ = 0;
 		float invincibleMaxTime = 3;
+
+		float deathTimer_ = 0;
+		float maxDeathTime_ = 3;
 	public:
+		int16_t hp_ = 5;
 		void Initialize()override;
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
@@ -38,5 +41,6 @@ namespace IFE
 		void CameraFollow();
 		void EnemyCollide();
 		void Shoot();
+		void Death();
 	};
 }

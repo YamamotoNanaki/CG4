@@ -25,6 +25,8 @@
         "number9.png",
         "gameover.png",
         "clear.png",
-        "kill.png"
+        "kill.png",
+        "HPbar.png",
+        "HP.png"
     ]
 }

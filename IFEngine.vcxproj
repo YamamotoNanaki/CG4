@@ -73,6 +73,7 @@
     <ClCompile Include="Source\EnemyCountUI.cpp" />
     <ClCompile Include="Source\FireworkChrysanthemum.cpp" />
     <ClCompile Include="Source\Goal.cpp" />
+    <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Source\EnemyCountUI.h" />
     <ClInclude Include="Source\FireworkChrysanthemum.h" />
     <ClInclude Include="Source\Goal.h" />
+    <ClInclude Include="Source\HPbar.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\TestParticle.h" />

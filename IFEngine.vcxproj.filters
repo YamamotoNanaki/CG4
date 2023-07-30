@@ -354,6 +354,9 @@
     <ClCompile Include="Source\OverUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HPbar.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -582,6 +585,9 @@
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\OverUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HPbar.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
   </ItemGroup>

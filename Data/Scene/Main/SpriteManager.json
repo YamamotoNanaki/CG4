@@ -106,5 +106,61 @@
         ],
         "name": "AnalogL",
         "texture": "AnalogL.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                315.0,
+                800.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                7.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "hp",
+        "texture": "HP.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "HPbar": null,
+        "Transform2D": {
+            "position": [
+                800.0,
+                800.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                1.600000023841858,
+                0.699999988079071
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer",
+            "HPbar"
+        ],
+        "name": "hpbar",
+        "texture": "HPbar.png"
     }
 ]
