@@ -42,6 +42,18 @@ void IFE::Player::Update()
 	CameraFollow();
 	objectPtr_->GetComponent<Material>()->color_ = { 1,1,1,1 };
 	transform_->position_ = pos_;
+
+	if (invincible_)
+	{
+		invincibleTimer_ += IFETime::sDeltaTime_;
+		if(int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
+		else objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+		if (invincibleTimer_ > invincibleMaxTime)
+		{
+			invincible_ = false;
+			invincibleTimer_ = 0;
+		}
+	}
 }
 
 void IFE::Player::OnColliderHit(Collider* collider)
@@ -104,7 +116,12 @@ void IFE::Player::CameraFollow()
 
 void IFE::Player::EnemyCollide()
 {
-	objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+	if (!invincible_)
+	{
+		hp_--;
+		invincible_ = true;
+		invincibleTimer_ = 0;
+	}
 }
 
 void IFE::Player::Shoot()
@@ -141,6 +158,8 @@ void IFE::Player::Shoot()
 #include "ImguiManager.h"
 void IFE::Player::ComponentDebugGUI()
 {
+	std::string s = "HP : " + std::to_string(hp_);
+	ImguiManager::Instance()->TextGUI(s);
 	ImguiManager::Instance()->DragFloatGUI(&speed_, "speed", 0.05f);
 	ImguiManager::Instance()->DragFloatGUI(&nextBulletTime_, "nextBulletTime", 0.05f);
 }

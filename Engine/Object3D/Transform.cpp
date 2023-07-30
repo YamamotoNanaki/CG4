@@ -402,6 +402,7 @@ IFE::TransformParticle::~TransformParticle()
 {
 }
 
+#ifdef _DEBUG
 void IFE::TransformParticle::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();
@@ -450,6 +451,7 @@ void IFE::TransformParticle::OutputComponent(nlohmann::json& json)
 	jm->OutputFloat3(json["rotation"], eulerAngleDegrees_);
 	jm->OutputFloat3(json["position"], position_);
 }
+#endif
 
 void IFE::TransformParticle::LoadingComponent(nlohmann::json& json)
 {

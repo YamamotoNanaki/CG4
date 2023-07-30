@@ -1,0 +1,31 @@
+[
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "TitleUI": null,
+        "Transform2D": {
+            "position": [
+                800.0,
+                325.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                15.0,
+                3.0
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "TitleUI",
+            "ColorBuffer"
+        ],
+        "name": "title",
+        "texture": "title.png"
+    }
+]

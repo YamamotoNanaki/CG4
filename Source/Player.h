@@ -17,6 +17,10 @@ namespace IFE
 		float gravity_ = 1;
 		bool soundFlag_ = false;
 		inline static ParticleManager* pm_ = nullptr;
+		uint16_t hp_ = 5;
+		bool invincible_ = false;
+		float invincibleTimer_ = 0;
+		float invincibleMaxTime = 3;
 	public:
 		void Initialize()override;
 		void Update()override;

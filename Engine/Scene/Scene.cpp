@@ -86,41 +86,55 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	gp_->CreateBasicGraphicsPipeLine();
-	//Emitter::StaticInitialize();
+	gp_->CreateBasicParticleGraphicsPipeLine();
+	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
 	light_->Initialize();
 	light_->DefaultLightSetting();
-	light_->SetDirLightColor(0, { 1,0,0 });
-	light_->SetDirLightColor(1, { 0,1,0 });
-	light_->SetDirLightColor(2, { 0,0,1 });
 	sound_->Initialize();
 	cameraM_->Instance();
 	cameraM_->Initialize();
 
 	SceneInit();
-	//particleM->Initialize();
+
+	particleM->Initialize();
 }
 
 void IFE::Scene::Update()
 {
 	SceneChange();
-	objM_->Update();
-	spriteM_->Update();
-	//particleM->Update();
-	cameraM_->Update();
-	light_->Update();
+	if (loadEnd_)
+	{
+		objM_->Update();
+		spriteM_->Update();
+		particleM->Update();
+		cameraM_->Update();
+		light_->Update();
+	}
+	else
+	{
+		LoadUpdate();
+	}
 }
 
 void IFE::Scene::Draw()
 {
-	Sprite::DrawBefore();
-	spriteM_->BackDraw();
-	objM_->Draw();
-	//particleM->Draw();
-	Sprite::DrawBefore();
-	spriteM_->ForeDraw();
+	if (loadEnd_)
+	{
+		Sprite::DrawBefore();
+		spriteM_->BackDraw();
+		//objM_->DrawBackGround();
+		objM_->Draw();
+		particleM->Draw();
+		Sprite::DrawBefore();
+		spriteM_->ForeDraw();
+	}
+	else
+	{
+		LoadDraw();
+	}
 }
 #endif
 

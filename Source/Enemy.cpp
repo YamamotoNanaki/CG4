@@ -14,6 +14,7 @@ Transform* Enemy::playerTransform_ = nullptr;
 
 void IFE::Enemy::Initialize()
 {
+	sDeathEnemyNum_ = 0;
 	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
@@ -118,6 +119,7 @@ void IFE::Enemy::Detection()
 
 void IFE::Enemy::Attack()
 {
+	objectPtr_->GetComponent<Collider>()->SetOffsetScale({ 3,3,3 });
 	attackDirectionTimer_ += IFETime::sDeltaTime_;
 	if (attackDirectionTimer_ > attackDirectionMaxTime_)
 	{
@@ -136,6 +138,7 @@ void IFE::Enemy::Death()
 	objectPtr_->GetComponent<Material>()->color_.z = Lerp(1, 0, deathDirectionMaxTime_, deathDirectionTimer_);
 	if (deathDirectionTimer_ > deathDirectionMaxTime_)
 	{
+		sDeathEnemyNum_++;
 		objectPtr_->Destroy();
 	}
 }

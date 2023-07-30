@@ -25,6 +25,8 @@ namespace IFE
 		//敵のHP
 		uint8_t hp_ = 2;
 
+		inline static uint32_t sDeathEnemyNum_ = 0;
+
 		//プレイヤーのトランスフォーム参照用
 		static Transform* playerTransform_;
 		//死亡演出用の時間
