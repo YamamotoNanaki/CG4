@@ -20,6 +20,7 @@ namespace IFE
 		Float3 offsetScale_;
 		ColliderType colliderType_;
 		bool pushBack_ = false;
+		bool notPushBack_ = false;
 		bool groundJudge_ = false;
 
 		std::unique_ptr<MeshCollider> meshCollider_;
@@ -45,6 +46,7 @@ namespace IFE
 
 		MeshCollider* GetMeshCollider();
 		bool GetPushBackFlag();
+		bool GetNoPushBackFlag();
 		bool GetGroundJudgeFlag();
 
 		void LoadingComponent(nlohmann::json& json)override;

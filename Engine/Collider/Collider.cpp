@@ -76,6 +76,11 @@ bool IFE::Collider::GetPushBackFlag()
 	return pushBack_;
 }
 
+bool IFE::Collider::GetNoPushBackFlag()
+{
+	return notPushBack_;
+}
+
 bool IFE::Collider::GetGroundJudgeFlag()
 {
 	return groundJudge_;
@@ -87,6 +92,7 @@ void IFE::Collider::LoadingComponent(nlohmann::json& json)
 	pushBack_ = json["pushBack"];
 	attribute_ = json["attribute"];
 	groundJudge_ = json["groundJudge"];
+	notPushBack_ = json["notPushBack"];
 }
 
 #ifdef _DEBUG
@@ -96,6 +102,7 @@ void IFE::Collider::OutputComponent(nlohmann::json& json)
 	json["pushBack"] = pushBack_;
 	json["attribute"] = attribute_;
 	json["groundJudge"] = groundJudge_;
+	json["notPushBack"] = notPushBack_;
 }
 
 #include "ImguiManager.h"
@@ -103,6 +110,7 @@ void IFE::Collider::ComponentDebugGUI()
 {
 	ImguiManager* gui = ImguiManager::Instance();
 	gui->CheckBoxGUI(&pushBack_, "pushBack");
+	gui->CheckBoxGUI(&notPushBack_, "notPushBack");
 	gui->CheckBoxGUI(&groundJudge_, "ground judgement");
 	if (gui->NewTreeNode("Collider Type"))
 	{

@@ -180,7 +180,7 @@ void IFE::CollideManager::PushBack(Collider* colA, Collider* colB, const Vector3
 	// ’n–Ê”»’è‚µ‚«‚¢’l
 	static const float threshold = cosf(ConvertToRadians(30.0f));
 	static const Vector3 up = { 0,1,0 };
-
+	if (colA->GetNoPushBackFlag() || colB->GetNoPushBackFlag())return;
 	if (colA->GetPushBackFlag() && colB->GetPushBackFlag())
 	{
 		Vector3 rejectDir = Vector3Normalize(reject);

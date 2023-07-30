@@ -148,6 +148,12 @@
     <Filter Include="ソース ファイル\Source\Emitter">
       <UniqueIdentifier>{de6754bb-1413-4ba1-81bd-24b03e418439}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Source\Area">
+      <UniqueIdentifier>{da482da8-e6ad-4261-aa57-aa1870dea56b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Source\Area">
+      <UniqueIdentifier>{0f115a67-6a41-4287-a392-5af657f5c93b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -335,6 +341,9 @@
     </ClCompile>
     <ClCompile Include="Source\FireworkChrysanthemum.cpp">
       <Filter>ソース ファイル\Source\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Goal.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -553,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="Source\FireworkChrysanthemum.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Goal.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

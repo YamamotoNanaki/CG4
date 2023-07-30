@@ -63,6 +63,7 @@
             "attribute": 2,
             "colliderType": 0,
             "groundJudge": true,
+            "notPushBack": false,
             "pushBack": true
         },
         "Material": {
@@ -134,6 +135,7 @@
             "attribute": 4,
             "colliderType": 0,
             "groundJudge": false,
+            "notPushBack": false,
             "pushBack": true
         },
         "Enemy": {
@@ -228,6 +230,7 @@
             "attribute": 1,
             "colliderType": 1,
             "groundJudge": false,
+            "notPushBack": false,
             "pushBack": false
         },
         "Material": {
@@ -294,6 +297,7 @@
             "attribute": 1,
             "colliderType": 1,
             "groundJudge": false,
+            "notPushBack": false,
             "pushBack": false
         },
         "Material": {
@@ -356,11 +360,81 @@
         "prefab": false
     },
     {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": true,
+            "pushBack": false
+        },
+        "Goal": null,
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                0.21885810792446136,
+                0.4852941036224365,
+                0.2658762037754059,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -15.75,
+                -3.25,
+                -46.5
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                5.0,
+                5.0,
+                5.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Goal",
+            "Collider"
+        ],
+        "model": "cube_Model",
+        "name": "goal",
+        "prefab": false
+    },
+    {
         "Bullet": null,
         "Collider": {
             "attribute": 0,
             "colliderType": 0,
             "groundJudge": false,
+            "notPushBack": false,
             "pushBack": false
         },
         "Material": {
