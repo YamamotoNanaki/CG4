@@ -45,5 +45,13 @@
             "smooth": false
         },
         "name": "Wall_Model"
+    },
+    {
+        "Wall2_Model": {
+            "fileName": "Wall2",
+            "settings": 0,
+            "smooth": false
+        },
+        "name": "Wall2_Model"
     }
 ]

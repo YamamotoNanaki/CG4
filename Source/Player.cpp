@@ -92,12 +92,13 @@ void IFE::Player::Move()
 	move_ = { x, 0, z };
 	move_.Normalize();
 	pos_ += move_ * speed_ * IFETime::sDeltaTime_;
+	pos_.z = max(-90, min(pos_.z, 212));
 	if (objectPtr_->GetComponent<Collider>()->onGround_)
 	{
 		gravity_ = 0;
 		if (input->KeyDown(Key_Z) || input->PadDown(PADCODE::ABXY))
 		{
-			gravity_ = -1.5;
+			gravity_ = -1;
 		}
 		else return;
 	}

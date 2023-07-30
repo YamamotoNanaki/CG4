@@ -677,73 +677,6 @@
             "attribute": 0,
             "colliderType": 0,
             "groundJudge": false,
-            "notPushBack": false,
-            "pushBack": false
-        },
-        "Material": {
-            "ambient": [
-                0.30000001192092896,
-                0.30000001192092896,
-                0.30000001192092896
-            ],
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "diffuse": [
-                0.30000001192092896,
-                0.30000001192092896,
-                0.30000001192092896
-            ],
-            "specular": [
-                0.30000001192092896,
-                0.30000001192092896,
-                0.30000001192092896
-            ],
-            "terxtureName": "white.png"
-        },
-        "TransferGeometryBuffer": {
-            "explosion": 0.0,
-            "gravity": 0.0,
-            "lightFlag": true,
-            "polygonSize": 1.0,
-            "rotation": 0.0,
-            "toonFlag": false
-        },
-        "Transform": {
-            "position": [
-                -61.25,
-                0.0,
-                100.0
-            ],
-            "rotation": [
-                360.0,
-                90.0,
-                360.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "component": [
-            "Transform",
-            "TransferGeometryBuffer",
-            "Material",
-            "Collider"
-        ],
-        "model": "Wall_Model",
-        "name": "wall7",
-        "prefab": false
-    },
-    {
-        "Collider": {
-            "attribute": 0,
-            "colliderType": 0,
-            "groundJudge": false,
             "notPushBack": true,
             "pushBack": false
         },
@@ -1292,6 +1225,73 @@
         ],
         "model": "sphere_Model",
         "name": "enemy6",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 1,
+            "colliderType": 1,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -61.0,
+                0.0,
+                100.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider"
+        ],
+        "model": "Wall2_Model",
+        "name": "wall8",
         "prefab": false
     },
     {
