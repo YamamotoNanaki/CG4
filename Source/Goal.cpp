@@ -6,7 +6,7 @@
 
 void IFE::Goal::Update()
 {
-	if (goal_ && Input::KeyDown(Key_Space) || Input::PadDown(PADCODE::ABXY))
+	if (goal_/* && (Input::KeyDown(Key_Space) || Input::PadDown(PADCODE::ABXY))*/)
 	{
 		Scene::Instance()->SetNextScene("Clear");
 	}
