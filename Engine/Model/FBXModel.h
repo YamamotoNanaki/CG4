@@ -41,7 +41,8 @@ namespace IFE
 		void ReadNodeHeirarchy(float AnimationTime, Node* pNode);
 
 	public:
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI()override;
 		void OutputComponent(nlohmann::json& json);
 #endif

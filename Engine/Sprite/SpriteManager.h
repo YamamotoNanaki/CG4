@@ -34,7 +34,8 @@ namespace IFE
 		void Reset();
 		bool SearchName(const std::string& name);
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputScene();
 		void DebugUpdate();

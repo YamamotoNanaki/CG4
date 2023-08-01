@@ -130,7 +130,8 @@ void IFE::Component::CopyValue(Component* component)
 
 void IFE::Component::CopyValueComponent(Component* component) { component; }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::Component::DebugGUI()
 {

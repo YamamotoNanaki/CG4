@@ -81,7 +81,8 @@ void IFE::Material::Copy(Component* component)
 	tex_ = m->tex_;
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Material::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();

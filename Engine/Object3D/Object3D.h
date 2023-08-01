@@ -53,7 +53,8 @@ namespace IFE
 		void Destroy();
 		bool GetDeleteFlag();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI(bool flagdelete, bool fmove, std::string* str);
 		void ComponentGUI();
 		void OutputScene(nlohmann::json& j, bool prefab = false);

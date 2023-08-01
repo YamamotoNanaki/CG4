@@ -117,7 +117,8 @@ IFE::Emitter::~Emitter()
 	particles_.clear();
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::Emitter::DebugGUI(bool flagdelete)
 {

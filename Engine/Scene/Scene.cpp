@@ -9,7 +9,63 @@
 
 using namespace IFE;
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+void IFE::Scene::Initialize()
+{
+	Sprite::StaticInitialize();
+	Transform2D::StaticInitialize();
+	gp_->CreateBasicGraphicsPipeLine();
+	gp_->CreateBasicParticleGraphicsPipeLine();
+	Emitter::StaticInitialize();
+	tex_->Initialize();
+	objM_->OBJInitialize();
+	spriteM_->SPRITEInitialize();
+	light_->Initialize();
+	light_->DefaultLightSetting();
+	sound_->Initialize();
+	cameraM_->Instance();
+	cameraM_->Initialize();
+
+	SceneInit();
+
+	particleM->Initialize();
+}
+
+void IFE::Scene::Update()
+{
+	SceneChange();
+	if (loadEnd_)
+	{
+		objM_->Update();
+		spriteM_->Update();
+		particleM->Update();
+		cameraM_->Update();
+		light_->Update();
+	}
+	else
+	{
+		LoadUpdate();
+	}
+}
+
+void IFE::Scene::Draw()
+{
+	if (loadEnd_)
+	{
+		Sprite::DrawBefore();
+		spriteM_->BackDraw();
+		//objM_->DrawBackGround();
+		objM_->Draw();
+		particleM->Draw();
+		Sprite::DrawBefore();
+		spriteM_->ForeDraw();
+	}
+	else
+	{
+		LoadDraw();
+	}
+}
+#else
 void IFE::Scene::Initialize()
 {
 	Sprite::StaticInitialize();
@@ -73,63 +129,6 @@ void IFE::Scene::Draw()
 		Sprite::DrawBefore();
 		spriteM_->ForeDraw();
 		gui_.Draw();
-	}
-	else
-	{
-		LoadDraw();
-	}
-}
-#else
-
-void IFE::Scene::Initialize()
-{
-	Sprite::StaticInitialize();
-	Transform2D::StaticInitialize();
-	gp_->CreateBasicGraphicsPipeLine();
-	gp_->CreateBasicParticleGraphicsPipeLine();
-	Emitter::StaticInitialize();
-	tex_->Initialize();
-	objM_->OBJInitialize();
-	spriteM_->SPRITEInitialize();
-	light_->Initialize();
-	light_->DefaultLightSetting();
-	sound_->Initialize();
-	cameraM_->Instance();
-	cameraM_->Initialize();
-
-	SceneInit();
-
-	particleM->Initialize();
-}
-
-void IFE::Scene::Update()
-{
-	SceneChange();
-	if (loadEnd_)
-	{
-		objM_->Update();
-		spriteM_->Update();
-		particleM->Update();
-		cameraM_->Update();
-		light_->Update();
-	}
-	else
-	{
-		LoadUpdate();
-	}
-}
-
-void IFE::Scene::Draw()
-{
-	if (loadEnd_)
-	{
-		Sprite::DrawBefore();
-		spriteM_->BackDraw();
-		//objM_->DrawBackGround();
-		objM_->Draw();
-		particleM->Draw();
-		Sprite::DrawBefore();
-		spriteM_->ForeDraw();
 	}
 	else
 	{
@@ -278,8 +277,8 @@ void IFE::Scene::AsyncLoad()
 	SceneTransitionOut();
 }
 
-
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Scene::OutputScene()
 {
 	if (debug_)return;

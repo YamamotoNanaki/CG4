@@ -182,7 +182,8 @@ bool IFE::Object3D::GetDeleteFlag()
 	return deleteFlag_;
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Object3D::DebugGUI(bool fdelete, bool fmove, std::string* str)
 {
 	bool m = false;

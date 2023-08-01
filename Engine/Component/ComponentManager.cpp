@@ -90,7 +90,8 @@ void IFE::ComponentManager::CopyValue(ComponentManager* ptr)
 	}
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::ComponentManager::DebugGUI()
 {
 	for (auto& itr : componentList_)

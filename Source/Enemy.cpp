@@ -161,7 +161,8 @@ void (Enemy::* Enemy::ActtionTable[])() =
 	&Enemy::Stanby,&Enemy::Patrol,&Enemy::Detection,&Enemy::Attack,&Enemy::Death,
 };
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::Enemy::ComponentDebugGUI()
 {

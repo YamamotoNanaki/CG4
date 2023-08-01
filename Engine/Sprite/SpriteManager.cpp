@@ -197,7 +197,8 @@ bool IFE::SpriteManager::SearchName(const std::string& name)
 }
 
 #include "JsonManager.h"
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 #include "Imgui.h"
 void IFE::SpriteManager::DebugGUI()

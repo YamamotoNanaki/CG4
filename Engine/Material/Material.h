@@ -36,7 +36,8 @@ namespace IFE
 		Float4 GetColor255();
 		void SetColor255(const Float4& color);
 		void Copy(Component* component);
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputComponent(nlohmann::json& json)override;
 #endif

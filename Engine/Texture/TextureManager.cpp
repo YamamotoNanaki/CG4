@@ -268,7 +268,8 @@ ID3D12DescriptorHeap* IFE::TextureManager::GetDescriptorHeap()
 	return srvHeap_.Get();
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::TextureManager::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();

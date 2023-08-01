@@ -27,7 +27,8 @@ void IFE::ColorBuffer::SetColor(float r, float g, float b, float a)
 	color_ = Float4(r,g,b,a);
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::ColorBuffer::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();

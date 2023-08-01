@@ -20,7 +20,8 @@ namespace IFE
 		void Draw()override;
 		void SetColor(const Float4& color);
 		void SetColor(float r, float g, float b, float a);
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputComponent(nlohmann::json&json)override;
 #endif

@@ -170,7 +170,8 @@ bool IFE::Sprite::GetDeleteFlag() const
 	return deleteFlag_;
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 
 void IFE::Sprite::DebugGUI(bool fdelete, bool fmove, std::string* str)

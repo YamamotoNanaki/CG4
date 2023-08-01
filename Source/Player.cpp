@@ -181,7 +181,8 @@ void IFE::Player::Death()
 }
 
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::Player::ComponentDebugGUI()
 {

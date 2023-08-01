@@ -29,7 +29,8 @@ namespace IFE
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void ComponentDebugGUI()override;
 		void OutputComponent(nlohmann::json& json)override;
 #endif

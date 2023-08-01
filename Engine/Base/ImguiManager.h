@@ -6,7 +6,8 @@
 #include <memory>
 #include "IFMath.h"
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 namespace IFE
 {
 	class ComponentManager;

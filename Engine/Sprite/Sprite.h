@@ -51,7 +51,8 @@ namespace IFE
 		void Destroy();
 		bool GetDeleteFlag()const;
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		virtual void DebugGUI(bool fdelete, bool fmove, std::string* str);
 		void ComponentGUI();
 		void DebugUpdate();

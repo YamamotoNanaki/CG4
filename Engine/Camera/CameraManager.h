@@ -21,7 +21,8 @@ namespace IFE
 		void LoadingScene();
 		void Update();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 #endif
 	};

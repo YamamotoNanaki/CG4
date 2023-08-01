@@ -64,7 +64,8 @@ namespace IFE
 		static void (Enemy::* ActtionTable[])();
 
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 	public:
 		void ComponentDebugGUI()override;
 		void OutputComponent(nlohmann::json& j)override;

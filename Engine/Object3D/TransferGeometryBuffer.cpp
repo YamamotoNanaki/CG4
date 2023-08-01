@@ -39,7 +39,8 @@ void IFE::TransferGeometryBuffer::Copy(Component* component)
 	toonFlag_ = t->toonFlag_;
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 
 void IFE::TransferGeometryBuffer::DebugGUI()
 {

@@ -95,7 +95,8 @@ void IFE::Collider::LoadingComponent(nlohmann::json& json)
 	notPushBack_ = json["notPushBack"];
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Collider::OutputComponent(nlohmann::json& json)
 {
 	json["colliderType"] = colliderType_;

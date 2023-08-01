@@ -30,7 +30,8 @@ namespace IFE
 
 		nlohmann::json& GetJsonData();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void OutputFloat2(nlohmann::json& json, const Float2& f);
 		void OutputFloat3(nlohmann::json& json, const Float3& f);
 		void OutputFloat4(nlohmann::json& json, const Float4& f);

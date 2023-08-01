@@ -238,7 +238,8 @@ Object3D* IFE::ObjectManager::Instantiate(const std::string& objectName, const F
 	return objectList_.back().get();
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "imgui.h"
 void IFE::ObjectManager::DebugGUI()
 {

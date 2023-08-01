@@ -20,7 +20,8 @@ namespace IFE
 		void StartFirework();
 		static void InitDefaultVelocity();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		virtual void ComponentDebugGUI()override;
 		virtual void OutputComponent(nlohmann::json& json)override;
 #endif

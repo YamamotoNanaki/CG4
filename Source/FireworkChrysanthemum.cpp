@@ -98,7 +98,8 @@ void IFE::FireworkChrysanthemum::InitDefaultVelocity()
 }
 
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::FireworkChrysanthemum::ComponentDebugGUI()
 {

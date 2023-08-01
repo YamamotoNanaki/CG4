@@ -265,7 +265,8 @@ std::vector<Triangle> IFE::FBXModel::GetMeshColliderTriangle()
 	return triangles;
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::FBXModel::DebugGUI()
 {
 	ImguiManager::Instance()->ModelGUI(componentName_);

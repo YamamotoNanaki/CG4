@@ -34,7 +34,8 @@ void IFE::CameraManager::Update()
 	sActivCamera_->CameraUpdate();
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 void IFE::CameraManager::DebugGUI()
 {

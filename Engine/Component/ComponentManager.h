@@ -68,7 +68,8 @@ namespace IFE
 		std::vector<std::string> GetAllComponentName();
 		void OnColliderHit(Collider* collider);
 		void CopyValue(ComponentManager* ptr);
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputScene(nlohmann::json& json);
 		void DebugUpdate();

@@ -111,7 +111,8 @@ void IFE::ModelManager::Reset()
 	modelList_.clear();
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::ModelManager::DebugGUI()
 {
 	static bool add;

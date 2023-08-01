@@ -26,7 +26,8 @@ namespace IFE
 		void Add(const std::string& modelName, const AddModelSettings& modelSetting, const std::string& fileName = "", bool smooth = false);
 		Component* GetModel(const std::string& modelName);
 		void Reset();
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		std::string GetModelNameGUI();
 		void OutputScene();

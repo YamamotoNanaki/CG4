@@ -34,7 +34,8 @@ namespace IFE
 		~TextureManager() {}
 
 	public:
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputScene();
 #endif

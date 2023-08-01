@@ -51,7 +51,8 @@ namespace IFE
 
 		void LoadingComponent(nlohmann::json& json)override;
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void OutputComponent(nlohmann::json& json)override;
 		void ComponentDebugGUI()override;
 #endif

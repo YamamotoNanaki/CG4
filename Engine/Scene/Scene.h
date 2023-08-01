@@ -61,7 +61,8 @@ namespace IFE
 	public:
 		void LoadingScene();
 		void AsyncLoad();
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		ImguiManager& gui_ = *ImguiManager::Instance();
 		bool debug_ = false;
 		bool stop_ = false;

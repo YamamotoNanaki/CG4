@@ -150,7 +150,8 @@ IFE::Transform::~Transform()
 {
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Transform::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();
@@ -248,7 +249,8 @@ IFE::Transform2D::~Transform2D()
 {
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::Transform2D::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();
@@ -402,7 +404,8 @@ IFE::TransformParticle::~TransformParticle()
 {
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::TransformParticle::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();

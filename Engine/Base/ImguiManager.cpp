@@ -1,4 +1,5 @@
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 #include "ImguiManager.h"
 #include "ObjectManager.h"
 

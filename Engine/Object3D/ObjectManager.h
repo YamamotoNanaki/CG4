@@ -37,7 +37,8 @@ namespace IFE
 		Object3D* Instantiate(const std::string& objectName, const std::string& newObjectName = "");
 		Object3D* Instantiate(const std::string& objectName, const Float3& position, const std::string& newObjectName = "");
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputScene();
 		void DebugUpdate();

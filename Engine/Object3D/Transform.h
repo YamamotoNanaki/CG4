@@ -60,7 +60,8 @@ namespace IFE
 		void SetWorldPosition(const Vector3& worldPos);
 
 		~Transform();
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputComponent(nlohmann::json&json)override;
 #endif
@@ -88,7 +89,8 @@ namespace IFE
 		void UpdateMatrix();
 
 		~Transform2D();
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputComponent(nlohmann::json&json)override;
 #endif
@@ -137,7 +139,8 @@ namespace IFE
 		void SetWorldPosition(const Vector3& worldPos);
 
 		~TransformParticle();
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI();
 		void OutputComponent(nlohmann::json& json)override;
 #endif

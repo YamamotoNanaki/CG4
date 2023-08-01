@@ -374,7 +374,8 @@ void IFE::PrimitiveModel::CreateNormal(std::vector<Vertex>& _vertices, const std
 	}
 }
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::PrimitiveModel::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();

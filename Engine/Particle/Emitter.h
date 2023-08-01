@@ -45,7 +45,8 @@ namespace IFE
 		void Draw();
 		~Emitter();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		void DebugGUI(bool flagdelete);
 		void ComponentGUI();
 		void OutputScene(nlohmann::json& j);

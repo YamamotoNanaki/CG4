@@ -81,7 +81,8 @@ nlohmann::json& IFE::JsonManager::GetJsonData()
 }
 
 
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 void IFE::JsonManager::OutputFloat2(nlohmann::json& jsonName, const Float2& f)
 {
 	jsonName[0] = f.x;

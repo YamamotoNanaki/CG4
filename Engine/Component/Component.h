@@ -49,7 +49,8 @@ namespace IFE
 		virtual void OnColliderHit(Collider* collider);
 		void CopyValue(Component* component);
 		virtual void CopyValueComponent(Component* component);
-#ifdef _DEBUG
+#ifdef NDEBUG
+#else
 		virtual void DebugGUI();
 		virtual void ComponentDebugGUI() {};
 		void OutputScene(nlohmann::json& json);
