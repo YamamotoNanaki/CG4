@@ -117,12 +117,12 @@ void IFE::Player::Rota()
 
 void IFE::Player::CameraFollow()
 {
+	Camera* camera = CameraManager::Instance()->sActivCamera_;
+	if (!camera)return;
 	Float3 tar = pos_ + Float3(0, 5, 0);
 	Float3 eye = tar + Float3(0, 0, -50);
 
-	Camera* camera = CameraManager::Instance()->sActivCamera_;
-	camera->GetView()->eye_ = eye;
-	camera->GetView()->target_ = tar;
+	camera->transform_->position_ = eye;
 }
 
 void IFE::Player::EnemyCollide()

@@ -140,7 +140,10 @@ void IFE::Scene::Finalize()
 	ModelManager::Finalize();
 	ParticleManager::Finalize();
 	Sound::Finalize();
+#ifdef NDEBUG
+#else
 	JsonManager::Instance()->SetDebugScene();
+#endif
 }
 
 Scene* IFE::Scene::Instance()
@@ -192,16 +195,18 @@ void IFE::Scene::SceneTransitionIn()
 		{
 			//‘JˆÚ‚Ì‰‰o
 
-			float alpha = InOutQuad(0, 1, maxTransitionTime_, transitionTimer_);
+			//float alpha = InOutQuad(0, 1, maxTransitionTime_, transitionTimer_);
+			float y = EaseOutBounce(-(float)WindowsAPI::Instance()->winHeight_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2, maxTransitionTime_, transitionTimer_);
 			auto* fade = spriteM_->GetSpritePtr("fade");
 			if (!fade)
 			{
 				spriteM_->AddInitialize("fade", "white");
 				fade = spriteM_->GetSpritePtr("fade");
 				fade->GetComponent<Transform2D>()->position2D_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
-				fade->GetComponent<Transform2D>()->scale2D_ = Float2(30, 30);
+				fade->GetComponent<Transform2D>()->scale2D_ = Float2(16, 9.1f);
 			}
-			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
+			fade->transform_->position2D_.y = y;
+			fade->GetComponent<ColorBuffer>()->SetColor(0.7f, 0.7f, 0.7f, 1);
 		}
 		else
 		{
@@ -223,16 +228,19 @@ void IFE::Scene::SceneTransitionOut()
 		{
 			//‘JˆÚ‚Ì‰‰o
 
-			float alpha = InOutQuad(1, 0, maxTransitionTime_, transitionTimer_);
+			//float alpha = InOutQuad(1, 0, maxTransitionTime_, transitionTimer_);
 			auto* fade = spriteM_->GetSpritePtr("fade");
+			float y = EaseInBounce((float)WindowsAPI::Instance()->winHeight_ / 2, 3 * (float)WindowsAPI::Instance()->winHeight_ / 2, maxTransitionTime_, transitionTimer_);
 			if (!fade)
 			{
 				spriteM_->AddInitialize("fade", "white");
 				fade = spriteM_->GetSpritePtr("fade");
 				fade->GetComponent<Transform2D>()->position2D_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
-				fade->GetComponent<Transform2D>()->scale2D_ = Float2(30, 30);
+				fade->GetComponent<Transform2D>()->scale2D_ = Float2(16, 9.1f);
 			}
-			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
+			fade->transform_->position2D_.y = y;
+			fade->GetComponent<ColorBuffer>()->SetColor(0.7f, 0.7f, 0.7f, 1);
+			//fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
 		}
 		else
 		{

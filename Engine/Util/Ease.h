@@ -32,6 +32,8 @@ namespace IFE
 
 	float EaseOutBounce(float startPos, float endPos, float maxTime, float time);
 
+	float EaseInBounce(float startPos, float endPos, float maxTime, float time);
+
 	float OutInRelayQuad(float startPos, float endPos, float relayPos, float maxTime, float relayTime, float time);
 
 	float InOutRelayQuad(float startPos, float endPos, float relayPos, float maxTime, float relayTime, float time);

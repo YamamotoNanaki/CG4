@@ -118,22 +118,35 @@ float IFE::EaseInBack2(float startPos, float endPos, float maxTime, float time) 
 	float c3 = c1 + 0.8f;
 	return change * (c3 * time * time * time - c1 * time * time) + startPos;
 }
-float IFE::EaseOutBounce(float startPos, float endPos, float time, float maxTime) {
+float IFE::EaseOutBounce(float startPos, float endPos, float maxTime, float time) {
 	time /= maxTime;
 	float change = endPos - startPos;
-	float n1 = 7.5625f;
-	float d1 = 2.75f;
+	const float n1 = 7.5625;
+	const float d1 = 2.75;
 
-	if (time < 1.f / d1) {
-		return n1 * time * time + startPos + change;
+	float a = 0;
+
+	if (time < 1 / d1)
+	{
+		a = n1 * time * time;
 	}
-	else if (time < 2.f / d1) {
-		return n1 * (time -= 1.5f / d1) * time + 0.75f + startPos + change;
+	else if (time < 2 / d1)
+	{
+		a = n1 * (time -= 1.5f / d1) * time + 0.75f;
 	}
-	else if (time < 2.5f / d1) {
-		return n1 * (time -= 2.25f / d1) * time + 0.9375f + startPos + change;
+	else if (time < 2.5f / d1)
+	{
+		a = n1 * (time -= 2.25f / d1) * time + 0.9375f;
 	}
 	else {
-		return n1 * (time -= 2.625f / d1) * time + 0.984375f + startPos + change;
+		a = n1 * (time -= 2.625f / d1) * time + 0.984375f;
 	}
+
+	return a * change + startPos;
+}
+
+float IFE::EaseInBounce(float startPos, float endPos, float maxTime, float time)
+{
+	time /= maxTime;
+	return (endPos - startPos) * (1 - EaseOutBounce(1, 0, 1, time)) + startPos;
 }
