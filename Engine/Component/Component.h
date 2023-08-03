@@ -13,6 +13,7 @@ namespace IFE
 	class Transform;
 	class Transform2D;
 	class TransformParticle;
+	class TransformCamera;
 	class ComponentManager;
 	class Collider;
 	class Camera;
@@ -32,6 +33,7 @@ namespace IFE
 		Transform* transform_ = nullptr;
 		TransformParticle* transformParticle_ = nullptr;
 		Transform2D* transform2D_ = nullptr;
+		TransformCamera* transformCamera_ = nullptr;
 		void INITIALIZE();
 		virtual void Update() {};
 		virtual void Draw() {};

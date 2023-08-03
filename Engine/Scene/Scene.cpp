@@ -23,7 +23,6 @@ void IFE::Scene::Initialize()
 	light_->Initialize();
 	light_->DefaultLightSetting();
 	sound_->Initialize();
-	cameraM_->Instance();
 	cameraM_->Initialize();
 
 	SceneInit();
@@ -80,7 +79,6 @@ void IFE::Scene::Initialize()
 	light_->DefaultLightSetting();
 	sound_->Initialize();
 	gui_.Initialize();
-	cameraM_->Instance();
 	cameraM_->Initialize();
 
 	SceneInit();
@@ -261,6 +259,7 @@ void IFE::Scene::LoadingScene()
 	objM_->Reset();
 	spriteM_->Reset();
 	particleM->Reset();
+	//cameraM_->Reset();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
@@ -289,6 +288,7 @@ void IFE::Scene::OutputScene()
 	objM_->OutputScene();
 	spriteM_->OutputScene();
 	particleM->OutputScene();
+	cameraM_->OutputScene();
 }
 #include "imgui.h"
 void IFE::Scene::DebugGUI()

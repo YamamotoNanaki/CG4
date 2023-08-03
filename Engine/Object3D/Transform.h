@@ -150,6 +150,7 @@ namespace IFE
 
 	class TransformCamera : public Component
 	{
+		using Component::Component;
 		Float3 lossyScale_;
 	public:
 		bool eulerFlag_ = false;

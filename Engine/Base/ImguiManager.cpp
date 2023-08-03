@@ -124,11 +124,9 @@ void IFE::ImguiManager::ObjectManagerGUI(bool* add, bool* fdelete, bool* prefab,
 		ImGui::EndMenuBar();
 	}
 }
-static bool componentDeleteFlag = false;
 
 void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const  std::function<void(Component*)>& modelFunc*/)
 {
-	static bool add = false;
 	static bool cm = false;
 	if (objectName == sOpenComponentName_)
 	{
@@ -137,12 +135,12 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		{
 			if (ImGui::BeginMenu("add"))
 			{
-				ImGui::MenuItem("Add", "", &add);
+				ImGui::MenuItem("Add", "", &componentAddFlag_);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("delete"))
 			{
-				ImGui::MenuItem("Delete", "", &componentDeleteFlag);
+				ImGui::MenuItem("Delete", "", &componentDeleteFlag_);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("change model"))
@@ -152,7 +150,7 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 			}
 			ImGui::EndMenuBar();
 		}
-		if (add)
+		if (componentAddFlag_)
 		{
 			if (ImGui::CollapsingHeader("add"))
 			{
@@ -183,8 +181,6 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 
 void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const std::function<void(std::string)>& texFunc*/)
 {
-	static bool add = false;
-	static bool cm = false;
 	if (objectName == sOpenComponentName_)
 	{
 		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
@@ -192,22 +188,17 @@ void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std:
 		{
 			if (ImGui::BeginMenu("add"))
 			{
-				ImGui::MenuItem("Add", "", &add);
+				ImGui::MenuItem("Add", "", &componentAddFlag_);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("delete"))
 			{
-				ImGui::MenuItem("Delete", "", &componentDeleteFlag);
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("change model"))
-			{
-				ImGui::MenuItem("Change Model", "", &cm);
+				ImGui::MenuItem("Delete", "", &componentDeleteFlag_);
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();
 		}
-		if (add)
+		if (componentAddFlag_)
 		{
 			if (ImGui::CollapsingHeader("add"))
 			{
@@ -223,14 +214,6 @@ void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std:
 				}
 			}
 		}
-		//if (cm)
-		//{
-		//	ModelManager::Instance()->GetModelNameGUI();
-		//	if (ImGui::Button("Change"))
-		//	{
-		//		modelFunc();
-		//	}
-		//}
 		ImGui::Text(objectName.c_str());
 		ComponentFunc();
 		ImGui::End();
@@ -445,7 +428,7 @@ void IFE::ImguiManager::ComponentGUI(const std::function<void(void)>& guiFunc, c
 {
 	if (ImGui::CollapsingHeader(componentName.c_str()))
 	{
-		if (componentDeleteFlag)
+		if (componentDeleteFlag_)
 		{
 			if (ImGui::Button("Remove"))
 			{
@@ -578,6 +561,12 @@ void IFE::ImguiManager::TextGUI(const std::string& text)
 	ImGui::Text(text.c_str());
 }
 
+void IFE::ImguiManager::InputTextGUI(const std::string& label, std::string& text)
+{
+	static char t[256];
+	ImGui::InputText(label.c_str(), t, sizeof(t));
+	text = t;
+}
 void IFE::ImguiManager::DragIntGUI(int32_t* i, const std::string& label, float speed, int32_t min, int32_t max)
 {
 	ImGui::DragInt(label.c_str(), i, speed, min, max);
@@ -860,6 +849,36 @@ void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::s
 
 		ImGui::TreePop();
 	}
+}
+
+bool IFE::ImguiManager::NewMenuBar()
+{
+	return ImGui::BeginMenuBar();
+}
+
+void IFE::ImguiManager::EndMenuBar()
+{
+	ImGui::EndMenuBar();
+}
+
+bool IFE::ImguiManager::NewMenu(const std::string& menuName)
+{
+	return ImGui::BeginMenu(menuName.c_str());
+}
+
+void IFE::ImguiManager::EndMenu()
+{
+	ImGui::EndMenu();
+}
+
+void IFE::ImguiManager::MenuItem(const std::string& itemName, bool* flag)
+{
+	ImGui::MenuItem(itemName.c_str(), "", flag);
+}
+
+bool IFE::ImguiManager::CollapsingHeaderGUI(const std::string& headerName)
+{
+	return ImGui::CollapsingHeader(headerName.c_str());
 }
 
 

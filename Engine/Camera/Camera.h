@@ -12,6 +12,7 @@
 
 namespace IFE
 {
+	class TransformCamera;
 	class Camera :public ComponentManager
 	{
 		View view_;
@@ -21,11 +22,27 @@ namespace IFE
 		Float3 eulerAngleDegrees_;
 
 	public:
+		TransformCamera* transform_;
+		std::string cameraName_;
+		bool deleteFlag_ = false;
+
+	public:
 		Camera();
+		void Initialize();
 		void CameraInitialize();
 		void CameraUpdate();
 		View* GetView();
 		Projection* GetProjection();
 		~Camera();
+		void SetComponent(std::unique_ptr<Component> component);
+		void SetComponentFront(std::unique_ptr<Component> component);
+
+#ifdef NDEBUG
+#else
+		void DebugGUI(bool fdelete);
+		void ComponentGUI();
+		void OutputScene(nlohmann::json& json);
+#endif
+		void LoadingScene(nlohmann::json& json);
 	};
 }

@@ -210,9 +210,6 @@
     <ClCompile Include="Engine\Input\Input.cpp">
       <Filter>ソース ファイル\Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Scene\Scene.cpp">
-      <Filter>ソース ファイル\Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Object3D\Object3D.cpp">
       <Filter>ソース ファイル\Engine\Object3D</Filter>
     </ClCompile>
@@ -356,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="Source\HPbar.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene\Scene.cpp">
+      <Filter>ソース ファイル\Engine\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

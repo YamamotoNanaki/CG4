@@ -13,7 +13,7 @@ void IFE::Component::SetTransform()
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
 	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
-	//else if (cameraPtr_ != nullptr)transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
+	else if (cameraPtr_ != nullptr)transformCamera_ = cameraPtr_->GetComponent<TransformCamera>();
 }
 
 std::string IFE::Component::GetComponentName()
@@ -27,7 +27,7 @@ void IFE::Component::INITIALIZE()
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
 	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
-	//else if (cameraPtr_ != nullptr)transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
+	else if (cameraPtr_ != nullptr)transformCamera_ = cameraPtr_->GetComponent<TransformCamera>();
 	Initialize();
 }
 
@@ -60,7 +60,7 @@ IFE::Component::Component(ComponentManager* c)
 	else if (c->cameraPtr_ != nullptr)
 	{
 		cameraPtr_ = c->cameraPtr_;
-		//transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
+		transformCamera_ = cameraPtr_->GetComponent<TransformCamera>();
 	}
 }
 
@@ -94,7 +94,7 @@ void IFE::Component::SetComponents(ComponentManager* cm)
 	else if (cm->cameraPtr_ != nullptr)
 	{
 		cameraPtr_ = cm->cameraPtr_;
-		//transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
+		transformCamera_ = cameraPtr_->GetComponent<TransformCamera>();
 	}
 }
 

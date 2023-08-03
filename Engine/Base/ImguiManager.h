@@ -22,6 +22,8 @@ namespace IFE
 		ImguiManager& operator=(const ImguiManager&) {}
 		~ImguiManager() {}
 	public:
+		inline static bool componentDeleteFlag_ = false;
+		inline static bool componentAddFlag_ = false;
 		static std::string sOpenComponentName_;
 		static ImguiManager* Instance();
 		void Initialize();
@@ -50,6 +52,7 @@ namespace IFE
 
 
 		void TextGUI(const std::string& text);
+		void InputTextGUI(const std::string&label,std::string& text);
 		void DragIntGUI(int32_t* i, const std::string& label, float speed = 1, int32_t min = 0, int32_t max = 0);
 		void DragFloatGUI(float* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragFloat2GUI(Float2* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
@@ -68,6 +71,13 @@ namespace IFE
 		void DragVectorFloat2GUI(std::vector<Float2>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragVectorFloat3GUI(std::vector<Float3>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragVectorFloat4GUI(std::vector<Float4>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
+
+		bool NewMenuBar();
+		void EndMenuBar();
+		bool NewMenu(const std::string& menuName);
+		void EndMenu();
+		void MenuItem(const std::string& itemName,bool*flag);
+		bool CollapsingHeaderGUI(const std::string& headerName);
 	};
 }
 #endif

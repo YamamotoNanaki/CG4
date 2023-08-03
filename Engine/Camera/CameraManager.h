@@ -20,10 +20,15 @@ namespace IFE
 		void Initialize();
 		void LoadingScene();
 		void Update();
+		void Reset();
+		Camera* Add(const std::string& cameraName);
+		Camera* AddInitialize(const std::string& cameraName);
+		bool SearchName(const std::string& name);
 
 #ifdef NDEBUG
 #else
 		void DebugGUI();
+		void OutputScene();
 #endif
 	};
 }
