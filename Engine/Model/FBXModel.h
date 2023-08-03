@@ -15,7 +15,6 @@ namespace IFE
 	struct Triangle;
 	class FBXModel :public Component
 	{
-		using Component::Component;
 		template<class T> using vector = std::vector<T>;
 	private:
 		AddModelSettings setting_;

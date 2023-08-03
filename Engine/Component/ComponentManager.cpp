@@ -167,3 +167,8 @@ void IFE::ComponentManager::SetParticlePtr(Particle* particlePtr)
 {
 	particlePtr_ = particlePtr;
 }
+
+void IFE::ComponentManager::SetCameraPtr(Camera* cameraPtr)
+{
+	cameraPtr_ = cameraPtr;
+}

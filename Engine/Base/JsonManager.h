@@ -43,6 +43,7 @@ namespace IFE
 		void MakeDirectry(const std::string& directry);
 		void MakeSceneDirectry();
 		void SetInitScene();
+		void SetDebugScene();
 #endif
 	};
 }

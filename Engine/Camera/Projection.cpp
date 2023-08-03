@@ -1,4 +1,5 @@
 #include "Projection.h"
+#include "WindowsAPI.h"
 
 using namespace IFE;
 
@@ -6,6 +7,11 @@ Projection::Projection(float radian, float winWidth, float winHeight, float near
 	:fovAngle_(radian), winWidth_(winWidth), winHeight_(winHeight), nearZ_(nearZ), farZ_(farZ)
 {
 	Inisialize(radian, winWidth, winHeight, nearZ, farZ);
+}
+
+IFE::Projection::Projection(float radian, float nearZ, float farZ)
+	:fovAngle_(radian), winWidth_((float)WindowsAPI::Instance()->winWidth_), winHeight_((float)WindowsAPI::Instance()->winHeight_), nearZ_(nearZ), farZ_(farZ)
+{
 }
 
 void Projection::Inisialize(float radian, float ww, float wh, float nz, float fz)

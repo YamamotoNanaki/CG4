@@ -7,7 +7,7 @@
 
 void IFE::ClearUI::Initialize()
 {
-	if (transform2D_)initPos_ = transform2D_->position_;
+	if (transform2D_)initPos_ = transform2D_->position2D_;
 	auto num = Sound::Instance()->LoadWave("title");
 	Sound::Instance()->SetVolume(num, 25);
 }
@@ -26,7 +26,7 @@ void IFE::ClearUI::Update()
 
 	pos.y = initPos_.y + sinf(float(M_PI) * 2 * (timer_ / maxTime_)) * 20;
 
-	transform2D_->position_ = pos;
+	transform2D_->position2D_ = pos;
 
 	Input* input = Input::Instance();
 	if (input->KeyDown(Key_Space) || input->PadDown(PADCODE::ABXY))

@@ -17,7 +17,8 @@ CameraManager* IFE::CameraManager::Instance()
 
 void IFE::CameraManager::Initialize()
 {
-	cameraList_.push_back(std::make_unique<Camera>());
+	auto c = new Camera;
+	cameraList_.push_back(std::unique_ptr<Camera>(c));
 	sActivCamera_ = cameraList_.front().get();
 	sActivCamera_->CameraInitialize();
 }

@@ -300,6 +300,6 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 
 	nodes_.clear();
 
-	fbx->fileName_ = fileName;
+	fbx->fileName_ = filename_;
 	return fbx;
 }

@@ -142,6 +142,7 @@ void IFE::Scene::Finalize()
 	ModelManager::Finalize();
 	ParticleManager::Finalize();
 	Sound::Finalize();
+	JsonManager::Instance()->SetDebugScene();
 }
 
 Scene* IFE::Scene::Instance()
@@ -199,8 +200,8 @@ void IFE::Scene::SceneTransitionIn()
 			{
 				spriteM_->AddInitialize("fade", "white");
 				fade = spriteM_->GetSpritePtr("fade");
-				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
-				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
+				fade->GetComponent<Transform2D>()->position2D_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
+				fade->GetComponent<Transform2D>()->scale2D_ = Float2(30, 30);
 			}
 			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
 		}
@@ -230,8 +231,8 @@ void IFE::Scene::SceneTransitionOut()
 			{
 				spriteM_->AddInitialize("fade", "white");
 				fade = spriteM_->GetSpritePtr("fade");
-				fade->GetComponent<Transform2D>()->position_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
-				fade->GetComponent<Transform2D>()->scale_ = Float2(30, 30);
+				fade->GetComponent<Transform2D>()->position2D_ = Float2((float)WindowsAPI::Instance()->winWidth_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2);
+				fade->GetComponent<Transform2D>()->scale2D_ = Float2(30, 30);
 			}
 			fade->GetComponent<ColorBuffer>()->SetColor(0, 0, 0, alpha);
 		}

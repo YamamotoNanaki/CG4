@@ -236,10 +236,10 @@ void IFE::Transform2D::Draw()
 void IFE::Transform2D::UpdateMatrix()
 {
 	matWorld_ = MatrixIdentity();
-	matWorld_ *= MatrixScaling(scale_.x, scale_.y, 1);
-	float r = ConvertToRadians(rotation_);
+	matWorld_ *= MatrixScaling(scale2D_.x, scale2D_.y, 1);
+	float r = ConvertToRadians(rotation2D_);
 	matWorld_ *= MatrixRotationZ(r);
-	matWorld_ *= MatrixTranslation(position_.x, position_.y, 0);
+	matWorld_ *= MatrixTranslation(position2D_.x, position2D_.y, 0);
 
 	//定数バッファへのデータ転送
 	constMapTransform_->mat = matWorld_ * matPro_;
@@ -256,17 +256,17 @@ void IFE::Transform2D::DebugGUI()
 	ImguiManager* im = ImguiManager::Instance();
 	std::function<void(void)> guiFunc = [&]()
 	{
-		im->DragFloat2GUI(&position_, "position");
-		im->DragFloatGUI(&rotation_, "rotation", 1.0f);
-		if (rotation_ > 360)
+		im->DragFloat2GUI(&position2D_, "position");
+		im->DragFloatGUI(&rotation2D_, "rotation", 1.0f);
+		if (rotation2D_ > 360)
 		{
-			rotation_ -= 360;
+			rotation2D_ -= 360;
 		}
-		if (rotation_ < 0)
+		if (rotation2D_ < 0)
 		{
-			rotation_ += 360;
+			rotation2D_ += 360;
 		}
-		im->DragFloat2GUI(&scale_, "scale");
+		im->DragFloat2GUI(&scale2D_, "scale");
 	};
 	std::function<void(void)> deleteFunc = [&]()
 	{
@@ -278,18 +278,18 @@ void IFE::Transform2D::DebugGUI()
 void IFE::Transform2D::OutputComponent(nlohmann::json&j)
 {
 	JsonManager* jm = JsonManager::Instance();
-	jm->OutputFloat2(j["scale"], scale_);
-	j["rotation"]= rotation_;
-	jm->OutputFloat2(j["position"], position_);
+	jm->OutputFloat2(j["scale"], scale2D_);
+	j["rotation"]= rotation2D_;
+	jm->OutputFloat2(j["position"], position2D_);
 }
 #endif
 
 void IFE::Transform2D::LoadingComponent(nlohmann::json&json)
 {
 	JsonManager* j = JsonManager::Instance();
-	scale_ = j->InputFloat2(json["scale"]);
-	rotation_ = json["rotation"];
-	position_ = j->InputFloat2(json["position"]);
+	scale2D_ = j->InputFloat2(json["scale"]);
+	rotation2D_ = json["rotation"];
+	position2D_ = j->InputFloat2(json["position"]);
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferMatrix>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 }
@@ -465,4 +465,188 @@ void IFE::TransformParticle::LoadingComponent(nlohmann::json& json)
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferBillboard>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
+}
+
+void IFE::TransformCamera::Draw()
+{
+	UpdateMatrix();
+}
+
+void IFE::TransformCamera::UpdateMatrix()
+{
+	////////拡縮//////
+	////スケーリング倍率を行列に設定する
+	//matScale_ =
+	//{ scale_.x,0,0,0,
+	//0,scale_.y,0,0,
+	//0,0,scale_.z,0,
+	//0,0,0,1 };
+
+	////////回転//////
+
+	//Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
+	//rotation_ = EulerToQuaternion(eulerRadians);
+	//matRot_ = RotateMatrix(rotation_);
+
+	////////平行移動//////
+	////移動量を行列に設定する
+	//matTrans_ =
+	//{ 1,0,0,0,
+	//0,1,0,0,
+	//0,0,1,0,
+	//position_.x,position_.y,position_.z,1 };
+
+
+	////単位行列を代入
+	//matWorld_ = MatrixIdentity();
+	////スケーリング行列を掛ける
+	//matWorld_ *= matScale_;
+	////合成用回転行列を掛ける
+	//matWorld_ *= matRot_;
+	////平行移動行列を掛ける
+	//matWorld_ *= matTrans_;
+
+	//if (parent_ == nullptr && objectPtr_->parent_ != nullptr)
+	//{
+	//	parent_ = objectPtr_->parent_->GetComponent<TransformCamera>();
+	//}
+	//if (parent_ != nullptr)
+	//{
+	//	parent_->UpdateMatrix();
+	//	matWorld_ *= parent_->matWorld_;//親の行列を掛け算する
+	//	matScale_ *= parent_->matScale_;//親のスケーリング行列も掛け算する
+	//	matRot_ *= parent_->matRot_;//親の回転行列も掛け算する
+	//	matTrans_ *= parent_->matTrans_;//親の平行移動行列も掛け算する
+	//}
+	//Matrix ls = matScale_ * matRot_;
+	//lossyScale_ = { ls.m[0][0],ls.m[1][1],ls.m[2][2] };
+}
+
+void IFE::TransformCamera::Copy(Component* component)
+{
+	TransformCamera* t = dynamic_cast<TransformCamera*>(component);
+	if (t == nullptr)return;
+	eulerFlag_ = t->eulerFlag_;
+	eulerAngleDegrees_ = t->eulerAngleDegrees_;
+	billbord_ = t->billbord_;
+	scale_ = t->scale_;
+	position_ = t->position_;
+	rotation_ = t->rotation_;
+}
+
+Vector3 IFE::TransformCamera::TransformPoint(const Vector3& p)
+{
+	UpdateMatrix();
+	return Matrix::Transform(p, matWorld_);
+}
+
+Vector3 IFE::TransformCamera::InverseTransformPoint(const Vector3& p)
+{
+	UpdateMatrix();
+	return Matrix::Transform(p, MatrixInverse(matWorld_));
+}
+
+Float3 IFE::TransformCamera::GetLossyScale()
+{
+	return lossyScale_;
+}
+
+Vector3 IFE::TransformCamera::GetForwardVector()
+{
+	return MultiplyQuaternionAndVector3(rotation_, Vector3(0, 0, 1)).Normalize();
+}
+
+Vector3 IFE::TransformCamera::GetUpVector()
+{
+	return MultiplyQuaternionAndVector3(rotation_, Vector3(0, 1, 0)).Normalize();
+}
+
+Vector3 IFE::TransformCamera::GetRightVector()
+{
+	return MultiplyQuaternionAndVector3(rotation_, Vector3(1, 0, 0)).Normalize();
+}
+
+void IFE::TransformCamera::MovePushBack(Vector3 move)
+{
+	position_ += move;
+}
+
+Vector3 TransformCamera::GetWorldPosition()
+{
+	UpdateMatrix();
+	return Matrix::Transform({ 0,0,0 }, matWorld_);
+}
+
+void TransformCamera::SetWorldPosition(const Vector3& worldPos)
+{
+	if (parent_ == nullptr)
+	{
+		position_ = worldPos;
+	}
+	else
+	{
+		position_ = Matrix::Transform(worldPos, MatrixInverse(parent_->matWorld_));
+	}
+}
+
+IFE::TransformCamera::~TransformCamera()
+{
+}
+
+#ifdef NDEBUG
+#else
+void IFE::TransformCamera::DebugGUI()
+{
+	ImguiManager* im = ImguiManager::Instance();
+	std::function<void(void)> guiFunc = [&]()
+	{
+		im->DragFloat3GUI(&position_, "position");
+		im->DragFloat3GUI(&eulerAngleDegrees_, "rotation", 1.0f);
+		if (eulerAngleDegrees_.x >= 360)
+		{
+			eulerAngleDegrees_.x -= 360;
+		}
+		if (eulerAngleDegrees_.y >= 360)
+		{
+			eulerAngleDegrees_.y -= 360;
+		}
+		if (eulerAngleDegrees_.z >= 360)
+		{
+			eulerAngleDegrees_.z -= 360;
+		}
+		if (eulerAngleDegrees_.x <= 0)
+		{
+			eulerAngleDegrees_.x += 360;
+		}
+		if (eulerAngleDegrees_.y <= 0)
+		{
+			eulerAngleDegrees_.y += 360;
+		}
+		if (eulerAngleDegrees_.z <= 0)
+		{
+			eulerAngleDegrees_.z += 360;
+		}
+		rotation_ = EulerToQuaternion(eulerAngleDegrees_);
+		im->DragFloat3GUI(&scale_, "scale");
+	};
+	std::function<void(void)> deleteFunc = [&]()
+	{
+		componentDeleteFlag_ = true;
+	};
+	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
+}
+void IFE::TransformCamera::OutputComponent(nlohmann::json& j)
+{
+	JsonManager* jm = JsonManager::Instance();
+	jm->OutputFloat3(j["scale"], scale_);
+	jm->OutputFloat3(j["rotation"], eulerAngleDegrees_);
+	jm->OutputFloat3(j["position"], position_);
+}
+#endif
+void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
+{
+	JsonManager* j = JsonManager::Instance();
+	scale_ = j->InputFloat3(json["scale"]);
+	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
+	position_ = j->InputFloat3(json["position"]);
 }

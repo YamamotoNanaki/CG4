@@ -5,6 +5,7 @@
 #include "Emitter.h"
 #include "Particle.h"
 #include "Collider.h"
+#include "Camera.h"
 
 void IFE::Component::SetTransform()
 {
@@ -12,6 +13,7 @@ void IFE::Component::SetTransform()
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
 	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
+	//else if (cameraPtr_ != nullptr)transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
 }
 
 std::string IFE::Component::GetComponentName()
@@ -25,6 +27,7 @@ void IFE::Component::INITIALIZE()
 	else if (spritePtr_ != nullptr)transform2D_ = spritePtr_->GetComponent<Transform2D>();
 	else if (particlePtr_ != nullptr)transformParticle_ = particlePtr_->GetComponent<TransformParticle>();
 	else if (emitterPtr_ != nullptr)transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
+	//else if (cameraPtr_ != nullptr)transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
 	Initialize();
 }
 
@@ -53,6 +56,11 @@ IFE::Component::Component(ComponentManager* c)
 	{
 		emitterPtr_ = c->emitterPtr_;
 		transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
+	}
+	else if (c->cameraPtr_ != nullptr)
+	{
+		cameraPtr_ = c->cameraPtr_;
+		//transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
 	}
 }
 
@@ -83,6 +91,11 @@ void IFE::Component::SetComponents(ComponentManager* cm)
 		emitterPtr_ = cm->emitterPtr_;
 		transformParticle_ = emitterPtr_->GetComponent<TransformParticle>();
 	}
+	else if (cm->cameraPtr_ != nullptr)
+	{
+		cameraPtr_ = cm->cameraPtr_;
+		//transformParticle_ = cameraPtr_->GetComponent<TransformCamera>();
+	}
 }
 
 bool IFE::Component::GetComponentDeleteFlag()
@@ -108,6 +121,11 @@ IFE::Emitter* IFE::Component::GetEmitterPtr()
 IFE::Particle* IFE::Component::GetParticlePtr()
 {
 	return particlePtr_;
+}
+
+IFE::Camera* IFE::Component::GetCameraPtr()
+{
+	return cameraPtr_;
 }
 
 //void IFE::Component::OnColliderHit(ADXCollider* myCol, ADXCollider* col)

@@ -67,7 +67,11 @@ std::string IFE::JsonManager::SceneInit()
 	}
 	readingFile >> json_;
 	readingFile.close();
+#ifdef NDEBUG
 	return json_["start"];
+#else
+	return json_["debug"];
+#endif
 }
 
 bool IFE::JsonManager::IsError() const
@@ -159,6 +163,7 @@ void IFE::JsonManager::SetInitScene()
 	JsonReset();
 	string name = "Data/Scene/SceneManager.json";
 	json_["start"] = sceneName_;
+	json_["debug"] = sceneName_;
 	string s = json_.dump(4);
 	ofstream writingFile;
 	writingFile.open(name, std::ios::out);
@@ -166,6 +171,31 @@ void IFE::JsonManager::SetInitScene()
 	writingFile.close();
 }
 
+void IFE::JsonManager::SetDebugScene()
+{
+	JsonReset();
+	string name = "Data/Scene/SceneManager.json";
+	ifstream readingFile;
+	readingFile.open(name, std::ios::in);
+	if (!readingFile) {
+		readingFile.close();
+		error_ = true;
+		return;
+	}
+	readingFile >> json_;
+	readingFile.close();
 
+	string start = json_["start"];
+
+	JsonReset();
+	json_["start"] = start;
+	json_["debug"] = sceneName_;
+
+	string s = json_.dump(4);
+	ofstream writingFile;
+	writingFile.open(name, std::ios::out);
+	writingFile << s << std::endl;
+	writingFile.close();
+}
 #endif
 

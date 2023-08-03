@@ -15,6 +15,7 @@ namespace IFE
 	class TransformParticle;
 	class ComponentManager;
 	class Collider;
+	class Camera;
 	class Component
 	{
 	public:
@@ -22,6 +23,7 @@ namespace IFE
 		Sprite* spritePtr_ = nullptr;
 		Particle* particlePtr_ = nullptr;
 		Emitter* emitterPtr_ = nullptr;
+		Camera* cameraPtr_ = nullptr;
 		std::string componentName_;
 		bool componentDeleteFlag_ = false;
 	protected:
@@ -45,6 +47,7 @@ namespace IFE
 		Sprite* GetSpritePtr();
 		Emitter* GetEmitterPtr();
 		Particle* GetParticlePtr();
+		Camera* GetCameraPtr();
 		virtual void Copy(Component* component);
 		virtual void OnColliderHit(Collider* collider);
 		void CopyValue(Component* component);

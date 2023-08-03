@@ -3,6 +3,7 @@
 #include "Projection.h"
 #include "Quaternion.h"
 #include "IFMath.h"
+#include "ComponentManager.h"
 
 #pragma warning(push)
 #pragma warning(disable:4244)
@@ -11,15 +12,16 @@
 
 namespace IFE
 {
-	class Camera
+	class Camera :public ComponentManager
 	{
-		std::unique_ptr<View> matView_ = nullptr;
-		std::unique_ptr<Projection> matPro_ = nullptr;
+		View view_;
+		Projection projection_;
 		Quaternion rotation_;
 		Float3 position_;
 		Float3 eulerAngleDegrees_;
 
 	public:
+		Camera();
 		void CameraInitialize();
 		void CameraUpdate();
 		View* GetView();

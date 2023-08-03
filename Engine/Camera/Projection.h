@@ -14,6 +14,7 @@ namespace IFE
 
 	public:
 		Projection(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 1000.0f);
+		Projection(float radian = 45, float nearZ = 0.1f, float farZ = 1000.0f);
 		void Inisialize(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 1000.0f);
 		void Update();
 		Matrix Get()const;

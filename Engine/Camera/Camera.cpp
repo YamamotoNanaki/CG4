@@ -5,26 +5,31 @@
 using namespace IFE;
 using namespace std;
 
+Camera::Camera()
+{
+	SetCameraPtr(this);
+}
+
 void IFE::Camera::CameraInitialize()
 {
-	matView_ = make_unique<View>() ;
-	matPro_ = make_unique<Projection>(45, 1280, 720);
+	view_ ;
+	projection_;
 }
 
 void IFE::Camera::CameraUpdate()
 {
-	matView_->Update();
-	matPro_->Update();
+	view_.Update();
+	projection_.Update();
 }
 
 View* IFE::Camera::GetView()
 {
-	return matView_.get();
+	return &view_;
 }
 
 Projection* IFE::Camera::GetProjection()
 {
-	return matPro_.get();
+	return &projection_;
 }
 
 IFE::Camera::~Camera()
