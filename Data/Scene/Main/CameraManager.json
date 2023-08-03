@@ -1,0 +1,20 @@
+[
+    {
+        "TransformCamera": {
+            "position": [
+                0.0,
+                10.0,
+                -50.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "component": [
+            "TransformCamera"
+        ],
+        "name": "initCamera"
+    }
+]

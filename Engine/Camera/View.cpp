@@ -87,3 +87,8 @@ Matrix* IFE::View::GetAddressOf()
 {
 	return &matView_;
 }
+
+void IFE::View::SetMatrixView(Matrix view)
+{
+	matView_ = view;
+}

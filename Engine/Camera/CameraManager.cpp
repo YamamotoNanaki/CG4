@@ -27,12 +27,16 @@ void IFE::CameraManager::Initialize()
 void IFE::CameraManager::Update()
 {
 	cameraList_.remove_if([](std::unique_ptr<Camera>& camera) {return camera->deleteFlag_; });
-	if (!sActivCamera_)sActivCamera_ = cameraList_.front().get();
+	if (!sActivCamera_)
+	{
+		sActivCamera_ = cameraList_.front().get();
+	}
 	sActivCamera_->CameraUpdate();
 }
 
 void IFE::CameraManager::Reset()
 {
+	sActivCamera_ = nullptr;
 	cameraList_.clear();
 }
 
@@ -142,16 +146,14 @@ void IFE::CameraManager::OutputScene()
 
 void IFE::CameraManager::LoadingScene()
 {
-	sActivCamera_->GetView()->Initialze({ 0,10,-50 }, { 0,10,1 }, { 0,1,0 });
-
-	//JsonManager* jm = JsonManager::Instance();
-	//jm->Input("CameraManager");
-	//nlohmann::json js = jm->GetJsonData();
-	//for (auto& j : js)
-	//{
-	//	Camera* camera;
-	//	Add(j["name"]);
-	//	camera->LoadingScene(j);
-	//	camera->Initialize();
-	//}
+	JsonManager* jm = JsonManager::Instance();
+	jm->Input("CameraManager");
+	nlohmann::json js = jm->GetJsonData();
+	for (auto& j : js)
+	{
+		Camera* camera = nullptr;
+		camera = Add(j["name"]);
+		camera->LoadingScene(j);
+		camera->Initialize();
+	}
 }

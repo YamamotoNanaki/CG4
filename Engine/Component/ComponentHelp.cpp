@@ -76,6 +76,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<HPbar>(str));
 	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<TransformCamera>(str));
+	if (tmp != nullptr)return tmp;
 
 	return nullptr;
 }

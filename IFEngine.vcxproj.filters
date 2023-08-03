@@ -355,7 +355,7 @@
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Scene.cpp">
-      <Filter>ソース ファイル\Engine\Sound</Filter>
+      <Filter>ソース ファイル\Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

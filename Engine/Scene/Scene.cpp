@@ -106,7 +106,6 @@ void IFE::Scene::Update()
 			spriteM_->DebugUpdate();
 			particleM->DebugUpdate();
 		}
-		cameraM_->Update();
 		light_->Update();
 	}
 	else
@@ -119,6 +118,7 @@ void IFE::Scene::Draw()
 {
 	if (loadEnd_)
 	{
+		cameraM_->Update();
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
 		//objM_->DrawBackGround();
@@ -259,7 +259,7 @@ void IFE::Scene::LoadingScene()
 	objM_->Reset();
 	spriteM_->Reset();
 	particleM->Reset();
-	//cameraM_->Reset();
+	cameraM_->Reset();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();

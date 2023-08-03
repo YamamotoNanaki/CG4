@@ -20,5 +20,6 @@ namespace IFE
 		void Update();
 		Matrix Get()const;
 		Matrix* GetAddressOf();
+		void SetMatrixView(Matrix view);
 	};
 }

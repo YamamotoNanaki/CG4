@@ -151,28 +151,24 @@ namespace IFE
 	class TransformCamera : public Component
 	{
 		using Component::Component;
-		Float3 lossyScale_;
 	public:
 		bool eulerFlag_ = false;
 		Float3 eulerAngleDegrees_;
 		uint8_t billbord_ = 0;
 		Matrix matWorld_;
-		Matrix matScale_;
 		Matrix matRot_;
 		Matrix matTrans_;
-		Float3 scale_ = { 1,1,1 };
 		Float3 position_ = { 0,0,0 };
 		Quaternion rotation_;
 
 		TransformCamera* parent_ = nullptr;
 
 	public:
-		void Draw()override;
+		void Update()override;
 		void UpdateMatrix();
 		void Copy(Component* component);
 		Vector3 TransformPoint(const Vector3& position);
 		Vector3 InverseTransformPoint(const Vector3& position);
-		Float3 GetLossyScale();
 		Vector3 GetForwardVector();
 		Vector3 GetUpVector();
 		Vector3 GetRightVector();
