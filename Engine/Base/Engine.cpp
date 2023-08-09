@@ -37,6 +37,7 @@ void IFE::Engine::Run()
 #ifdef _DEBUG
 			scene->OutputScene();
 #endif
+			scene->Finalize();
 			return;
 		}
 	}
