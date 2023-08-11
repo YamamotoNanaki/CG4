@@ -85,7 +85,6 @@ void IFE::Player::OnColliderHit(Collider* collider)
 		EnemyCollide();
 	}
 	return;
-	collider;
 }
 
 void IFE::Player::Move()
@@ -183,7 +182,7 @@ void IFE::Player::Gravity()
 	{
 		static Input* input = Input::Instance();
 		gravity_ = 0;
-		if (sMoveFlag_ && (input->KeyTriggere(Key_Z) || input->PadRelease(PADCODE::ABXY)))
+		if (sMoveFlag_ && (input->KeyTriggere(Key_Z) || input->PadTriggere(PADCODE::ABXY)))
 		{
 			gravity_ = -1;
 		}

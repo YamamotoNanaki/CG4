@@ -11,8 +11,6 @@ namespace IFE
 	private:
 		float speed_ = 10;
 		Vector3 move_;
-		Float3 oldPos_;
-		Float3 pos_;
 		Vector2 moveVec_;
 		float nextBulletTime_ = 0.3f;
 		float gravity_ = 1;
@@ -25,6 +23,8 @@ namespace IFE
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
 	public:
+		Float3 oldPos_;
+		Float3 pos_;
 		inline static bool sMoveFlag_ = false;
 		int16_t hp_ = 5;
 	public:

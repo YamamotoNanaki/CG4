@@ -10,7 +10,7 @@ void IFE::StartCamera::Update()
 		CameraManager::Instance()->SetActiveCamera("playerCamera");
 	}
 
-	Float3 eye = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, -20);
+	Float3 eye = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, -PlayerCamera::sMinDistance_);
 
 	transformCamera_->position_ = eye;
 	transformCamera_->eulerAngleDegrees_.x = 11;

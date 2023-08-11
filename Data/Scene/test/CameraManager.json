@@ -5,7 +5,7 @@
             "position": [
                 0.0,
                 7.5,
-                -20.0
+                -30.0
             ],
             "rotation": [
                 11.0,
@@ -20,7 +20,11 @@
         "name": "initCamera"
     },
     {
-        "PlayerCamera": null,
+        "PlayerCamera": {
+            "maxDistance": 40.0,
+            "maxTime": 0.800000011920929,
+            "minDistance": 30.0
+        },
         "TransformCamera": {
             "position": [
                 0.0,
