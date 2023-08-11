@@ -95,6 +95,7 @@ void IFE::Player::Move()
 		x = input->GetLXAnalog(4000);
 		z = input->GetLYAnalog(4000);
 	}
+	if(!playerCamera_) playerCamera_ = CameraManager::Instance()->GetCamera("playerCamera");
 	float rota = ConvertToRadians(playerCamera_->transform_->eulerAngleDegrees_.y);
 	Vector3 cameraF;
 	cameraF.Set({ sinf(rota),0,cosf(rota) }, { 0,0,0 });

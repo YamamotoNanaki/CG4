@@ -1,20 +1,46 @@
 [
     {
+        "StartCamera": null,
         "TransformCamera": {
             "position": [
                 0.0,
-                10.0,
-                -50.0
+                7.5,
+                -30.0
             ],
             "rotation": [
-                0.0,
-                0.0,
-                0.0
+                11.0,
+                360.0,
+                360.0
             ]
         },
         "component": [
-            "TransformCamera"
+            "TransformCamera",
+            "StartCamera"
         ],
         "name": "initCamera"
+    },
+    {
+        "PlayerCamera": {
+            "maxDistance": 40.0,
+            "maxTime": 0.800000011920929,
+            "minDistance": 30.0
+        },
+        "TransformCamera": {
+            "position": [
+                0.0,
+                7.5,
+                -105.0
+            ],
+            "rotation": [
+                11.0,
+                360.0,
+                360.0
+            ]
+        },
+        "component": [
+            "TransformCamera",
+            "PlayerCamera"
+        ],
+        "name": "playerCamera"
     }
 ]

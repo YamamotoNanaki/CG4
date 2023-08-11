@@ -66,10 +66,10 @@ void IFE::PlayerCamera::OutputComponent(nlohmann::json& json)
 	json["maxDistance"] = sMaxDistance_;
 	json["maxTime"] = sMaxTime_;
 }
+#endif
 void IFE::PlayerCamera::LoadingComponent(nlohmann::json& json)
 {
 	sMinDistance_ = json["minDistance"];
 	sMaxDistance_ = json["maxDistance"];
 	sMaxTime_ = json["maxTime"];
 }
-#endif

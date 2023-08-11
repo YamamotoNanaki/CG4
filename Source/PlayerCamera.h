@@ -24,7 +24,7 @@ namespace IFE
 #else
 		void ComponentDebugGUI()override;
 		virtual void OutputComponent(nlohmann::json& json)override;
-		virtual void LoadingComponent(nlohmann::json& json)override;
 #endif
+		virtual void LoadingComponent(nlohmann::json& json)override;
 	};
 }

@@ -6,12 +6,15 @@ namespace IFE
 {
 	class StartCamera : public Component
 	{
+	private:
+		float saveAngle_ = 0;
+		bool turnFlag_;
 	public:
 		inline static Player* sPlayerPtr_ = nullptr;
-		float timer_ = 0;
+		inline static float sTimer_ = 0;
 		inline static float sMaxTime_ = 0.5;
-		float saveAngle_ = 0;
 	public:
+		void Initialize()override;
 		void Update()override;
 
 #ifdef NDEBUG

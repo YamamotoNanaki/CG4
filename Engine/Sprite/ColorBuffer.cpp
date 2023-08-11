@@ -22,6 +22,11 @@ void IFE::ColorBuffer::SetColor(const Float4& color)
 	color_ = color;
 }
 
+void IFE::ColorBuffer::SetAlpha(float a)
+{
+	color_.w = a;
+}
+
 void IFE::ColorBuffer::SetColor(float r, float g, float b, float a)
 {
 	color_ = Float4(r,g,b,a);

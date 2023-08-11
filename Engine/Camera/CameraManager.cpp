@@ -67,7 +67,10 @@ Camera* IFE::CameraManager::GetCamera(const std::string& name)
 {
 	for (auto& itr : cameraList_)
 	{
-		if (itr->cameraName_ == name)return itr.get();
+		if (itr->cameraName_ == name)
+		{
+			return itr.get();
+		}
 	}
 	return nullptr;
 }

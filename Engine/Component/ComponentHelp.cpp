@@ -22,6 +22,7 @@
 #include "HPbar.h"
 #include "PlayerCamera.h"
 #include "StartCamera.h"
+#include "CommonGameUI.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -81,6 +82,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<OverUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<HPbar>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<CommonGameUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TransformCamera>(str));
 	if (tmp != nullptr)return tmp;

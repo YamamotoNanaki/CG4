@@ -5,9 +5,10 @@
                 1.0,
                 1.0,
                 1.0,
-                1.0
+                0.0
             ]
         },
+        "CommonGameUI": null,
         "Transform2D": {
             "position": [
                 1400.0,
@@ -21,7 +22,8 @@
         },
         "component": [
             "Transform2D",
-            "ColorBuffer"
+            "ColorBuffer",
+            "CommonGameUI"
         ],
         "name": "kougeki",
         "texture": "kougeki.png"

@@ -19,6 +19,7 @@ namespace IFE
 		void Initialize()override;
 		void Draw()override;
 		void SetColor(const Float4& color);
+		void SetAlpha(float a);
 		void SetColor(float r, float g, float b, float a);
 #ifdef NDEBUG
 #else
