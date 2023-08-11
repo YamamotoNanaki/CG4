@@ -6,6 +6,7 @@
 void IFE::PlayerCamera::Initialize()
 {
 	transformCamera_->position_ = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, -distance_);
+	transformCamera_->eulerAngleDegrees_.x = 11;
 }
 
 void IFE::PlayerCamera::Update()

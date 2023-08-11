@@ -99,12 +99,14 @@ void IFE::Scene::Update()
 			objM_->Update();
 			spriteM_->Update();
 			particleM->Update();
+			cameraM_->Update();
 		}
 		else
 		{
 			objM_->DebugUpdate();
 			spriteM_->DebugUpdate();
 			particleM->DebugUpdate();
+			cameraM_->DebugUpdate();
 		}
 		light_->Update();
 	}
@@ -118,7 +120,6 @@ void IFE::Scene::Draw()
 {
 	if (loadEnd_)
 	{
-		cameraM_->Update();
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
 		//objM_->DrawBackGround();

@@ -57,10 +57,6 @@ void IFE::Player::Update()
 		Rota();
 		Shoot();
 	}
-	else
-	{
-		Start();
-	}
 	Gravity();
 	objectPtr_->GetComponent<Material>()->color_ = { 1,1,1,1 };
 	transform_->position_ = pos_;
@@ -192,24 +188,24 @@ void IFE::Player::Gravity()
 	pos_.y -= gravity_;
 }
 
-void IFE::Player::Start()
-{
-	Input* input = Input::Instance();
-	if (input->GetPadConnected())
-	{
-		if (input->PadDown(PADCODE::ALL))
-		{
-			sMoveFlag_ = true;
-		}
-	}
-	else
-	{
-		if (input->KeyDown(Key_Space))
-		{
-			sMoveFlag_ = true;
-		}
-	}
-}
+//void IFE::Player::Start()
+//{
+//	Input* input = Input::Instance();
+//	if (input->GetPadConnected())
+//	{
+//		if (input->PadDown(PADCODE::ALL))
+//		{
+//			sMoveFlag_ = true;
+//		}
+//	}
+//	else
+//	{
+//		if (input->KeyDown(Key_Space))
+//		{
+//			sMoveFlag_ = true;
+//		}
+//	}
+//}
 
 
 #ifdef NDEBUG

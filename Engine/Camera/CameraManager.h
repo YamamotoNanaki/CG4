@@ -16,6 +16,7 @@ namespace IFE
 
 	public:
 		static Camera* sActivCamera_;
+		inline static Camera* sNextCamera_ = nullptr;
 		static CameraManager* Instance();
 		void Initialize();
 		void LoadingScene();
@@ -29,6 +30,7 @@ namespace IFE
 
 #ifdef NDEBUG
 #else
+		void DebugUpdate();
 		void DebugGUI();
 		void OutputScene();
 #endif

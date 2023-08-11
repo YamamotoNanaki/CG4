@@ -8,8 +8,6 @@ namespace IFE
 	class PlayerCamera :public Component
 	{
 	private:
-		Float3 position_;
-		Float3 rotation_ = { 11,0,0 };
 		inline static float sMaxDistance_ = 50;
 		float distance_ = 20;
 		inline static Input* sInput_ = Input::Instance();

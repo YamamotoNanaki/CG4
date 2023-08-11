@@ -81,6 +81,12 @@ void IFE::Camera::DebugGUI(bool fdelete)
 	}
 }
 
+void IFE::Camera::DebugUpdate()
+{
+	projection_.Update();
+	transform_->Update();
+}
+
 void IFE::Camera::ComponentGUI()
 {
 	auto imgui = ImguiManager::Instance();

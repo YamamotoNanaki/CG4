@@ -25,6 +25,7 @@ namespace IFE
 	IFE::Float3 LerpFloat3(const IFE::Float3& startPos, const IFE::Float3& endPos, float maxTime, float time);
 
 	float InOutQuad(float startPos, float endPos, float maxTime, float time);
+	IFE::Float3 InOutQuad(const IFE::Float3& startPos, const IFE::Float3& endPos, float maxTime, float time);
 
 	float EaseInBack(float startPos, float endPos, float maxTime, float time);
 
