@@ -27,8 +27,8 @@ void IFE::PlayerCamera::Update()
 	timer_ = min(max(0, timer_), sMaxTime_);
 
 	distance_ = InOutQuad(sMinDistance_, sMaxDistance_, sMaxTime_, timer_);
-	float padX = sInput_->GetRXAnalog(4000) * 5;
-	float padY = sInput_->GetRYAnalog(4000)/2;
+	float padX = sInput_->GetRXAnalog(4000) * 5 * IFETime::sDeltaTime_ * 80;
+	float padY = sInput_->GetRYAnalog(4000) / 2 * IFETime::sDeltaTime_ * 80;
 	if (fabsf(padX) > 0.01)
 	{
 		transformCamera_->eulerAngleDegrees_.y += padX;

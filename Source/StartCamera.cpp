@@ -34,7 +34,7 @@ void IFE::StartCamera::Update()
 	}
 	else
 	{
-		transformCamera_->eulerAngleDegrees_.y += 1;
+		transformCamera_->eulerAngleDegrees_.y += IFETime::sDeltaTime_ * 80;
 		float rotaX = ConvertToRadians(transformCamera_->eulerAngleDegrees_.y);
 		Vector3 cameraF;
 		cameraF.Set({ sinf(rotaX),0,cosf(rotaX) }, { 0,0,0 });
