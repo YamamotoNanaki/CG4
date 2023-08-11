@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "Float4.h"
 #include "Matrix.h"
 
 namespace IFE
@@ -8,6 +9,8 @@ namespace IFE
 	{
 		float x, y, z, w;
 		static Quaternion identity() { return Quaternion(0, 0, 0, 1); };
+		Float4 GetFloat4();
+		void SetFloat4(const Float4& f);
 	};
 	Quaternion quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f);
 	Quaternion quaternion(const Vector3& v, float angle);
@@ -47,7 +50,8 @@ namespace IFE
 	Quaternion MakeAxisAngle(const Vector3& axis, float angle);
 
 	Quaternion EulerToQuaternion(const Float3& eulerDegrees);
-	//Float3 QuaternionToEuler(Quaternion q);
+	Float3 QuaternionToEuler(const Quaternion& q);
 
 	Vector3 MultiplyQuaternionAndVector3(const Quaternion& rotation, const Vector3& point);
+	Quaternion DirectionToDirection(const Vector3& u, const Vector3& v);
 }

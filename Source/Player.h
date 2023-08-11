@@ -5,6 +5,7 @@
 
 namespace IFE
 {
+	class Camera;
 	class Player : public Component
 	{
 	private:
@@ -20,7 +21,7 @@ namespace IFE
 		bool invincible_ = false;
 		float invincibleTimer_ = 0;
 		float invincibleMaxTime = 3;
-
+		Camera* playerCamera_ = nullptr;
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
 	public:
@@ -45,5 +46,6 @@ namespace IFE
 		void EnemyCollide();
 		void Shoot();
 		void Death();
+		void Gravity();
 	};
 }

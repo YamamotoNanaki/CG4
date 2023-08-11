@@ -163,6 +163,11 @@ namespace IFE
 
 		TransformCamera* parent_ = nullptr;
 
+		bool eyeTargetUpFlag_ = false;
+		Float3 target_ = {0,0,0};
+		Float3 eye_ = {0,0,-5};
+		Float3 up_ = {0,0,-5};
+
 	public:
 		void Update()override;
 		void UpdateMatrix();
@@ -172,6 +177,7 @@ namespace IFE
 		Vector3 GetForwardVector();
 		Vector3 GetUpVector();
 		Vector3 GetRightVector();
+		void RotateAround(const Float3& point, const Float3& axis, float angle);
 		void MovePushBack(Vector3 move);
 
 		/// <summary>

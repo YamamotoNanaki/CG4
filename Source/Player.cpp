@@ -35,6 +35,7 @@ void IFE::Player::Initialize()
 	sMoveFlag_ = false;
 	PlayerCamera::sPlayerPtr_ = this;
 	StartCamera::sPlayerPtr_ = this;
+	playerCamera_ = CameraManager::Instance()->GetCamera("playerCamera");
 }
 
 void IFE::Player::Update()
@@ -45,7 +46,7 @@ void IFE::Player::Update()
 		soundFlag_ = true;
 	}
 
-	if (hp_<=0)
+	if (hp_ <= 0)
 	{
 		Death();
 		return;
@@ -60,13 +61,14 @@ void IFE::Player::Update()
 	{
 		Start();
 	}
+	Gravity();
 	objectPtr_->GetComponent<Material>()->color_ = { 1,1,1,1 };
 	transform_->position_ = pos_;
 
 	if (invincible_)
 	{
 		invincibleTimer_ += IFETime::sDeltaTime_;
-		if(int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
+		if (int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
 		else objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
 		if (invincibleTimer_ > invincibleMaxTime)
 		{
@@ -98,21 +100,17 @@ void IFE::Player::Move()
 		x = input->GetLXAnalog(4000);
 		z = input->GetLYAnalog(4000);
 	}
+	float rota = ConvertToRadians(playerCamera_->transform_->eulerAngleDegrees_.y);
+	Vector3 cameraF;
+	cameraF.Set({ sinf(rota),0,cosf(rota) }, { 0,0,0 });
+	cameraF.Normalize();
+	Vector3 cameraR = cameraF.Cross({ 0,1,0 });
 	move_ = { x, 0, z };
 	move_.Normalize();
-	pos_ += move_ * speed_ * IFETime::sDeltaTime_;
+	move_ *= speed_ * IFETime::sDeltaTime_;
+	pos_ -= cameraF * move_.z;
+	pos_ += cameraR * move_.x;
 	pos_.z = max(-90, min(pos_.z, 212));
-	if (objectPtr_->GetComponent<Collider>()->onGround_)
-	{
-		gravity_ = 0;
-		if (input->KeyDown(Key_Z) || input->PadDown(PADCODE::ABXY))
-		{
-			gravity_ = -1;
-		}
-		else return;
-	}
-	gravity_ += 4.9f * IFETime::sDeltaTime_;
-	pos_.y -= gravity_;
 }
 
 void IFE::Player::Rota()
@@ -140,7 +138,7 @@ void IFE::Player::Shoot()
 	timer += IFETime::sDeltaTime_;
 	if (timer > nextBulletTime_)
 	{
-		Input* input = Input::Instance();
+		static Input* input = Input::Instance();
 		if (input->GetPadConnected())
 		{
 			if (!input->PadDown(PADCODE::RSHOULDER))return;
@@ -177,6 +175,22 @@ void IFE::Player::Death()
 		Scene::Instance()->SetNextScene("over");
 		objectPtr_->Destroy();
 	}
+}
+
+void IFE::Player::Gravity()
+{
+	if (objectPtr_->GetComponent<Collider>()->onGround_)
+	{
+		static Input* input = Input::Instance();
+		gravity_ = 0;
+		if (sMoveFlag_ && (input->KeyTriggere(Key_Z) || input->PadRelease(PADCODE::ABXY)))
+		{
+			gravity_ = -1;
+		}
+		else return;
+	}
+	gravity_ += 4.9f * IFETime::sDeltaTime_;
+	pos_.y -= gravity_;
 }
 
 void IFE::Player::Start()

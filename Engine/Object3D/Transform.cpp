@@ -202,7 +202,7 @@ void IFE::Transform::DebugGUI()
 	};
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
-void IFE::Transform::OutputComponent(nlohmann::json&j)
+void IFE::Transform::OutputComponent(nlohmann::json& j)
 {
 	JsonManager* jm = JsonManager::Instance();
 	jm->OutputFloat3(j["scale"], scale_);
@@ -285,16 +285,16 @@ void IFE::Transform2D::DebugGUI()
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
-void IFE::Transform2D::OutputComponent(nlohmann::json&j)
+void IFE::Transform2D::OutputComponent(nlohmann::json& j)
 {
 	JsonManager* jm = JsonManager::Instance();
 	jm->OutputFloat2(j["scale"], scale2D_);
-	j["rotation"]= rotation2D_;
+	j["rotation"] = rotation2D_;
 	jm->OutputFloat2(j["position"], position2D_);
 }
 #endif
 
-void IFE::Transform2D::LoadingComponent(nlohmann::json&json)
+void IFE::Transform2D::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
 	scale2D_ = j->InputFloat2(json["scale"]);
@@ -485,36 +485,46 @@ void IFE::TransformCamera::Update()
 
 void IFE::TransformCamera::UpdateMatrix()
 {
-	//////‰ñ“]//////
-	Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
-	rotation_ = EulerToQuaternion(eulerRadians);
-	matRot_ = RotateMatrix(rotation_);
-
-	//////•½sˆÚ“®//////
-	//ˆÚ“®—Ê‚ðs—ñ‚ÉÝ’è‚·‚é
-	matTrans_ =
-	{ 1,0,0,0,
-	0,1,0,0,
-	0,0,1,0,
-	position_.x,position_.y,position_.z,1 };
-
-
-	//’PˆÊs—ñ‚ð‘ã“ü
-	matWorld_ = MatrixIdentity();
-	//‡¬—p‰ñ“]s—ñ‚ðŠ|‚¯‚é
-	matWorld_ *= matRot_;
-	//•½sˆÚ“®s—ñ‚ðŠ|‚¯‚é
-	matWorld_ *= matTrans_;
-
-	if (parent_ != nullptr)
+	if (eyeTargetUpFlag_)
 	{
-		parent_->UpdateMatrix();
-		matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ðŠ|‚¯ŽZ‚·‚é
-		matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
-		matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
+		auto v = cameraPtr_->GetView();
+		v->eye_ = eye_;
+		v->target_ = target_;
+		v->up_ = up_;
+		v->Update();
 	}
+	else
+	{
+		//////‰ñ“]//////
+		Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
+		rotation_ = EulerToQuaternion(eulerRadians);
+		matRot_ = RotateMatrix(rotation_);
 
-	cameraPtr_->GetView()->SetMatrixView(MatrixInverse(matWorld_));
+		//////•½sˆÚ“®//////
+		//ˆÚ“®—Ê‚ðs—ñ‚ÉÝ’è‚·‚é
+		matTrans_ =
+		{ 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		position_.x,position_.y,position_.z,1 };
+
+
+		//’PˆÊs—ñ‚ð‘ã“ü
+		matWorld_ = MatrixIdentity();
+		//‡¬—p‰ñ“]s—ñ‚ðŠ|‚¯‚é
+		matWorld_ *= matRot_;
+		//•½sˆÚ“®s—ñ‚ðŠ|‚¯‚é
+		matWorld_ *= matTrans_;
+
+		if (parent_ != nullptr)
+		{
+			parent_->UpdateMatrix();
+			matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ðŠ|‚¯ŽZ‚·‚é
+			matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
+			matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
+		}
+		cameraPtr_->GetView()->SetMatrixView(MatrixInverse(matWorld_));
+	}
 }
 
 void IFE::TransformCamera::Copy(Component* component)
@@ -553,6 +563,15 @@ Vector3 IFE::TransformCamera::GetUpVector()
 Vector3 IFE::TransformCamera::GetRightVector()
 {
 	return MultiplyQuaternionAndVector3(rotation_, Vector3(1, 0, 0)).Normalize();
+}
+
+void IFE::TransformCamera::RotateAround(const Float3& point, const Float3& axis, float angle)
+{
+	Quaternion rotation = MakeAxisAngle(axis, angle);
+	Vector3 point2 = position_ - point;
+	point2 = MultiplyQuaternionAndVector3(rotation, point2);
+	position_ = (Vector3)point + point2;
+	eulerAngleDegrees_ = QuaternionToEuler(rotation);
 }
 
 void IFE::TransformCamera::MovePushBack(Vector3 move)
@@ -616,6 +635,8 @@ void IFE::TransformCamera::DebugGUI()
 			eulerAngleDegrees_.z += 360;
 		}
 		rotation_ = EulerToQuaternion(eulerAngleDegrees_);
+		im->DragFloat3GUI(&eye_, "eye");
+		im->DragFloat3GUI(&target_, "target");
 	};
 	std::function<void(void)> deleteFunc = [&]()
 	{
@@ -627,12 +648,14 @@ void IFE::TransformCamera::OutputComponent(nlohmann::json& j)
 {
 	JsonManager* jm = JsonManager::Instance();
 	jm->OutputFloat3(j["rotation"], eulerAngleDegrees_);
+	//jm->OutputFloat4(j["rotation"], rotation_.GetFloat4());
 	jm->OutputFloat3(j["position"], position_);
 }
 #endif
 void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
+	//rotation_.SetFloat4(j->InputFloat4(json["rotation"]));
 	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
 	position_ = j->InputFloat3(json["position"]);
 }

@@ -1,4 +1,5 @@
 #include "Quaternion.h"
+#include "IFMath.h"
 #include <cmath>
 
 using namespace IFE;
@@ -281,6 +282,24 @@ Quaternion IFE::EulerToQuaternion(const Float3& euler)
 	return ret;
 }
 
+Float3 IFE::QuaternionToEuler(const Quaternion& q)
+{
+	float q0q0 = q.x * q.x;
+	float q0q1 = q.x * q.y;
+	float q0q2 = q.x * q.z;
+	float q0q3 = q.x * q.w;
+	float q1q1 = q.y * q.y;
+	float q1q2 = q.y * q.z;
+	float q1q3 = q.y * q.w;
+	float q2q2 = q.z * q.z;
+	float q2q3 = q.z * q.w;
+	float q3q3 = q.w * q.w;
+	float roll = atan2(2.0f * (q2q3 + q0q1), q0q0 - q1q1 - q2q2 + q3q3);
+	float pitch = asin(2.0f * (q0q2 - q1q3));
+	float yaw = atan2(2.0f * (q1q2 + q0q3), q0q0 + q1q1 - q2q2 - q3q3);
+	return Float3(roll, pitch, yaw);
+}
+
 Vector3 IFE::MultiplyQuaternionAndVector3(const Quaternion& rotation, const Vector3& point)
 {
 	float num = rotation.x * 2.f;
@@ -302,20 +321,28 @@ Vector3 IFE::MultiplyQuaternionAndVector3(const Quaternion& rotation, const Vect
 	return result;
 }
 
-//Float3 IFE::QuaternionToEuler(Quaternion q)
-//{
-//	float x = asinf(2 * q.y * q.z + 2 * q.x * q.w);
-//	float y = 0;
-//	float z = 0;
-//	if (y != 0)
-//	{
-//		y = atanf(-(2 * q.x * q.z - 2 * q.y * q.w) / (2 * q.w * q.w + 2 * q.z * q.z - 1));
-//		z = atanf(-(2 * q.x * q.y - 2 * q.z * q.w) / (2 * q.w * q.w + 2 * q.z * q.z - 1));
-//	}
-//	else
-//	{
-//		z = atanf((2 * q.x * q.y + 2 * q.z * q.w) / (2 * q.w * q.w + 2 * q.x * q.x - 1));
-//	}
-//	return Float3(x, y, z);
-//}
+Quaternion IFE::DirectionToDirection(const Vector3& u, const Vector3& v)
+{
+	Vector3 nu = u;
+	Vector3 nv = v;
+	nu.Normalize();
+	nv.Normalize();
+	float dot = Vector3Dot(nu, nv);
+	Vector3 cross = Vector3Cross(nu, nv);
+	Vector3 axis = Vector3Normalize(cross);
+	float theta = acos(dot);
+	return MakeAxisAngle(axis, theta);
+}
 
+Float4 IFE::Quaternion::GetFloat4()
+{
+	return Float4(x,y,z,w);
+}
+
+void IFE::Quaternion::SetFloat4(const Float4& f)
+{
+	x = f.x;
+	y = f.y;
+	z = f.z;
+	w = f.w;
+}
