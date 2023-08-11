@@ -20,6 +20,8 @@
 #include "OverUI.h"
 #include "ClearUI.h"
 #include "HPbar.h"
+#include "PlayerCamera.h"
+#include "StartCamera.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -65,6 +67,10 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<Player>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Goal>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PlayerCamera>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<StartCamera>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<EnemyCountUI>(str));
 	if (tmp != nullptr)return tmp;

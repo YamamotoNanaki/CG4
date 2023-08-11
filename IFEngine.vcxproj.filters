@@ -154,6 +154,12 @@
     <Filter Include="ソース ファイル\Source\Area">
       <UniqueIdentifier>{0f115a67-6a41-4287-a392-5af657f5c93b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Source\Camera">
+      <UniqueIdentifier>{023ea389-f55f-41e5-bd44-bb27bd2af1d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Source\Camera">
+      <UniqueIdentifier>{c4a3ed81-e451-4b6a-b869-d0edcde0d9c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -356,6 +362,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Scene\Scene.cpp">
       <Filter>ソース ファイル\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerCamera.cpp">
+      <Filter>ソース ファイル\Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StartCamera.cpp">
+      <Filter>ソース ファイル\Source\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -589,6 +601,12 @@
     </ClInclude>
     <ClInclude Include="Source\HPbar.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerCamera.h">
+      <Filter>ヘッダー ファイル\Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StartCamera.h">
+      <Filter>ヘッダー ファイル\Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

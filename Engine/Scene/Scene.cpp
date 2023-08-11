@@ -176,11 +176,13 @@ void IFE::Scene::SceneInit()
 	modelM_->Reset();
 	spriteM_->Reset();
 	particleM->Reset();
+	cameraM_->Reset();
 	tex_->LoadingScene();
 	modelM_->LoadingScene();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
+	cameraM_->LoadingScene();
 	objM_->Initialize();
 	spriteM_->Initialize();
 	particleM->Initialize();

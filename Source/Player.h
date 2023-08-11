@@ -24,7 +24,9 @@ namespace IFE
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
 	public:
+		inline static bool sMoveFlag_ = false;
 		int16_t hp_ = 5;
+	public:
 		void Initialize()override;
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
@@ -38,8 +40,8 @@ namespace IFE
 
 	private:
 		void Move();
+		void Start();
 		void Rota();
-		void CameraFollow();
 		void EnemyCollide();
 		void Shoot();
 		void Death();

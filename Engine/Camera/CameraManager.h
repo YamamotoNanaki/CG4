@@ -24,6 +24,8 @@ namespace IFE
 		Camera* Add(const std::string& cameraName);
 		Camera* AddInitialize(const std::string& cameraName);
 		bool SearchName(const std::string& name);
+		Camera* GetCamera(const std::string& name);
+		void SetActiveCamera(const std::string& name);
 
 #ifdef NDEBUG
 #else

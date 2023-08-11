@@ -9,6 +9,7 @@
 #include "ParticleManager.h"
 #include "FireworkChrysanthemum.h"
 #include "Ease.h"
+#include "Player.h"
 
 using namespace IFE;
 
@@ -74,7 +75,10 @@ void IFE::Enemy::Move()
 {
 	Vector3 vec = playerTransform_->position_ - transform_->position_;
 	float len = vec.Length();
-	isFoundPlayer_ = len < sDetectionDistance_;
+	if (Player::sMoveFlag_)
+	{
+		isFoundPlayer_ = len < sDetectionDistance_;
+	}
 	(this->*ActtionTable[action_])();
 }
 

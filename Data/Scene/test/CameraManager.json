@@ -1,10 +1,11 @@
 [
     {
+        "StartCamera": null,
         "TransformCamera": {
             "position": [
                 0.0,
-                0.0,
-                0.0
+                5.0,
+                -80.0
             ],
             "rotation": [
                 360.0,
@@ -13,8 +14,29 @@
             ]
         },
         "component": [
-            "TransformCamera"
+            "TransformCamera",
+            "StartCamera"
         ],
         "name": "initCamera"
+    },
+    {
+        "PlayerCamera": null,
+        "TransformCamera": {
+            "position": [
+                0.0,
+                5.0,
+                -80.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ]
+        },
+        "component": [
+            "TransformCamera",
+            "PlayerCamera"
+        ],
+        "name": "playerCamera"
     }
 ]

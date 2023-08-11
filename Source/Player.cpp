@@ -16,6 +16,8 @@
 #include "TransferGeometryBuffer.h"
 #include "Ease.h"
 #include "Scene.h"
+#include "PlayerCamera.h"
+#include "StartCamera.h"
 #include <cmath>
 
 using namespace IFE;
@@ -30,6 +32,9 @@ void IFE::Player::Initialize()
 	FireworkChrysanthemum::InitDefaultVelocity();
 	auto num = Sound::Instance()->LoadWave("main");
 	Sound::Instance()->SetVolume(num, 25);
+	sMoveFlag_ = false;
+	PlayerCamera::sPlayerPtr_ = this;
+	StartCamera::sPlayerPtr_ = this;
 }
 
 void IFE::Player::Update()
@@ -45,11 +50,16 @@ void IFE::Player::Update()
 		Death();
 		return;
 	}
-
-	Move();
-	Rota();
-	Shoot();
-	CameraFollow();
+	if (sMoveFlag_)
+	{
+		Move();
+		Rota();
+		Shoot();
+	}
+	else
+	{
+		Start();
+	}
 	objectPtr_->GetComponent<Material>()->color_ = { 1,1,1,1 };
 	transform_->position_ = pos_;
 
@@ -72,7 +82,6 @@ void IFE::Player::OnColliderHit(Collider* collider)
 	{
 		EnemyCollide();
 	}
-	CameraFollow();
 	return;
 	collider;
 }
@@ -113,16 +122,6 @@ void IFE::Player::Rota()
 	moveVec_ = vec;
 	moveVec_.Normalize();
 	transform_->eulerAngleDegrees_ = { 0,-ConvertToDegrees(atan2(moveVec_.y , moveVec_.x)) + 90,0 };
-}
-
-void IFE::Player::CameraFollow()
-{
-	Camera* camera = CameraManager::Instance()->sActivCamera_;
-	if (!camera)return;
-	Float3 tar = pos_ + Float3(0, 5, 0);
-	Float3 eye = tar + Float3(0, 0, -50);
-
-	camera->transform_->position_ = eye;
 }
 
 void IFE::Player::EnemyCollide()
@@ -177,6 +176,25 @@ void IFE::Player::Death()
 	{
 		Scene::Instance()->SetNextScene("over");
 		objectPtr_->Destroy();
+	}
+}
+
+void IFE::Player::Start()
+{
+	Input* input = Input::Instance();
+	if (input->GetPadConnected())
+	{
+		if (input->PadDown(PADCODE::ALL))
+		{
+			sMoveFlag_ = true;
+		}
+	}
+	else
+	{
+		if (input->KeyDown(Key_Space))
+		{
+			sMoveFlag_ = true;
+		}
 	}
 }
 

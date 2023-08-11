@@ -58,6 +58,20 @@ bool IFE::CameraManager::SearchName(const std::string& name)
 	return false;
 }
 
+Camera* IFE::CameraManager::GetCamera(const std::string& name)
+{
+	for (auto& itr : cameraList_)
+	{
+		if (itr->cameraName_ == name)return itr.get();
+	}
+	return nullptr;
+}
+
+void IFE::CameraManager::SetActiveCamera(const std::string& name)
+{
+	sActivCamera_ = GetCamera(name);
+}
+
 Camera* IFE::CameraManager::Add(const std::string& cameraName)
 {
 	std::unique_ptr<Camera> ptr = std::make_unique<Camera>();

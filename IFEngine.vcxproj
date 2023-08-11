@@ -80,6 +80,8 @@
     <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\PlayerCamera.cpp" />
+    <ClCompile Include="Source\StartCamera.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
     <ClCompile Include="Source\TitleUI.cpp" />
   </ItemGroup>
@@ -159,6 +161,8 @@
     <ClInclude Include="Source\HPbar.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\PlayerCamera.h" />
+    <ClInclude Include="Source\StartCamera.h" />
     <ClInclude Include="Source\TestParticle.h" />
     <ClInclude Include="Source\TitleUI.h" />
   </ItemGroup>

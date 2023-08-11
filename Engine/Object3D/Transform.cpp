@@ -21,6 +21,7 @@ void IFE::Transform::Update()
 void IFE::Transform::Draw()
 {
 	UpdateMatrix();
+	camera_ = CameraManager::sActivCamera_;
 	constMapTransform_->world = matWorld_;
 	if (!camera_)
 	{
@@ -317,6 +318,7 @@ void IFE::TransformParticle::Update()
 void IFE::TransformParticle::Draw()
 {
 	UpdateMatrix();
+	camera_ = CameraManager::sActivCamera_;
 	View* v = camera_->GetView();
 	Projection* p = camera_->GetProjection();
 	constMapTransform_->mat = matWorld_ * v->Get() * p->Get();
