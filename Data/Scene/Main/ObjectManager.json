@@ -59,6 +59,7 @@
         "prefab": false
     },
     {
+        "Animator": null,
         "Collider": {
             "attribute": 2,
             "colliderType": 0,
@@ -124,7 +125,8 @@
             "Collider",
             "Player",
             "TransferGeometryBuffer",
-            "Material"
+            "Material",
+            "Animator"
         ],
         "model": "girl_Model",
         "name": "Player",
