@@ -1,6 +1,7 @@
 #include "Matrix.h"
 #include <cmath>
 #include <cassert>
+#include <cfloat>
 
 using namespace IFE;
 
