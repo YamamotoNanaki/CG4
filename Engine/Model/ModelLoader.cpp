@@ -169,13 +169,16 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 				b.invInitPose.SetW(mesh->mBones[i]->mOffsetMatrix[3][0], mesh->mBones[i]->mOffsetMatrix[3][1], mesh->mBones[i]->mOffsetMatrix[3][2], mesh->mBones[i]->mOffsetMatrix[3][3]);
 				b.invInitPose = b.finalMatrix = MatrixTranspose(b.invInitPose);
 				bones_.push_back(b);
-				for (uint32_t j = 0; j < mesh->mBones[i]->mNumWeights; j++)
-				{
-					Weight w;
-					w.vertexID = i;
-					w.weight = mesh->mBones[i]->mWeights[j].mWeight;
-					lists[mesh->mBones[i]->mWeights[j].mVertexId].push_back(w);
-				}
+			}
+		}
+		for (uint32_t i = 0; i < mesh->mNumBones; i++)
+		{
+			for (uint32_t j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+			{
+				Weight w;
+				w.vertexID = i;
+				w.weight = mesh->mBones[i]->mWeights[j].mWeight;
+				lists[mesh->mBones[i]->mWeights[j].mVertexId].push_back(w);
 			}
 		}
 

@@ -46,6 +46,7 @@
     <ClCompile Include="Engine\Math\Quaternion.cpp" />
     <ClCompile Include="Engine\Math\Vector2.cpp" />
     <ClCompile Include="Engine\Math\Vector3.cpp" />
+    <ClCompile Include="Engine\Model\Animator.cpp" />
     <ClCompile Include="Engine\Model\FBXModel.cpp" />
     <ClCompile Include="Engine\Model\Mesh.cpp" />
     <ClCompile Include="Engine\Model\ModelLoader.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="Engine\Math\Quaternion.h" />
     <ClInclude Include="Engine\Math\Vector2.h" />
     <ClInclude Include="Engine\Math\Vector3.h" />
+    <ClInclude Include="Engine\Model\Animator.h" />
     <ClInclude Include="Engine\Model\FBXModel.h" />
     <ClInclude Include="Engine\Model\AddModelSettings.h" />
     <ClInclude Include="Engine\Model\Mesh.h" />

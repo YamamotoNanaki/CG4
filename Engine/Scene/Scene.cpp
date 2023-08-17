@@ -15,6 +15,7 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	gp_->CreateBasicGraphicsPipeLine();
+	gp_->CreateAnimGraphicsPipeLine();
 	gp_->CreateBasicParticleGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
@@ -70,6 +71,7 @@ void IFE::Scene::Initialize()
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	gp_->CreateBasicGraphicsPipeLine();
+	gp_->CreateAnimGraphicsPipeLine();
 	gp_->CreateBasicParticleGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();

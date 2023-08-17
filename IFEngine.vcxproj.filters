@@ -372,6 +372,9 @@
     <ClCompile Include="Source\CommonGameUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Model\Animator.cpp">
+      <Filter>ソース ファイル\Engine\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -613,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="Source\CommonGameUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Model\Animator.h">
+      <Filter>ヘッダー ファイル\Engine\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

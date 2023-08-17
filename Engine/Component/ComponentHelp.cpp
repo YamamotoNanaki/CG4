@@ -23,6 +23,7 @@
 #include "PlayerCamera.h"
 #include "StartCamera.h"
 #include "CommonGameUI.h"
+#include "Animator.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -66,6 +67,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<TestParticle>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Player>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Animator>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Goal>(str));
 	if (tmp != nullptr)return tmp;
