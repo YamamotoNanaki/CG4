@@ -149,11 +149,11 @@ static void CalcInterpolatedPosition(Vector3& Out, float AnimationTime, const No
 	Out = Start + Factor * Delta;
 }
 
-void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode)
+void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode, uint8_t animNum)
 {
 	string NodeName = pNode->name;
 
-	const Animation* pAnimation = &animations_[0];
+	const Animation* pAnimation = &animations_[animNum];
 
 	Matrix NodeTransformation = pNode->transform;
 
@@ -209,17 +209,17 @@ void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode)
 	}
 }
 
-void FBXModel::BoneTransform(float TimeInSeconds)
+void FBXModel::BoneTransform(float TimeInSeconds, uint8_t animNum)
 {
 	Matrix Identity;
 
-	float TicksPerSecond = (float)animations_[0].ticksPerSecond != 0 ?
-		(float)animations_[0].ticksPerSecond : 25.0f;
+	float TicksPerSecond = (float)animations_[animNum].ticksPerSecond != 0 ?
+		(float)animations_[animNum].ticksPerSecond : 25.0f;
 	float TimeInTicks = TimeInSeconds * TicksPerSecond;
-	float AnimationTime = (float)fmod(TimeInTicks, animations_[0].duration);
+	float AnimationTime = (float)fmod(TimeInTicks, animations_[animNum].duration);
 
 	for (uint32_t i = 0; i < nodes_.size(); i++) {
-		ReadNodeHeirarchy(AnimationTime, nodes_[i].get());
+		ReadNodeHeirarchy(AnimationTime, nodes_[i].get(), animNum);
 	}
 }
 

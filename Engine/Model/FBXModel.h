@@ -31,13 +31,13 @@ namespace IFE
 		void Initialize()override;
 		void Update()override {};
 		void Draw()override;
-		void BoneTransform(float TimeInSeconds);
+		void BoneTransform(float TimeInSeconds, uint8_t animNum);
 		void SetSettings(const AddModelSettings& setting);
 		void SetSmooth(bool smooth);
 
 		std::vector<Triangle> GetMeshColliderTriangle();
 	private:
-		void ReadNodeHeirarchy(float AnimationTime, Node* pNode);
+		void ReadNodeHeirarchy(float AnimationTime, Node* pNode, uint8_t animNum);
 
 	public:
 #ifdef NDEBUG
