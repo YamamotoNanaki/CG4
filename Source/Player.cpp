@@ -148,10 +148,10 @@ void IFE::Player::Move()
 
 void IFE::Player::Rota()
 {
-	//Vector2 vec = Vector2{ oldPos_.x - pos_.x,oldPos_.z - pos_.z };
-	//if (vec == Vector2::zero)return;
-	//moveVec_ = vec;
-	//moveVec_.Normalize();
+	Vector2 vec = Vector2{ oldPos_.x - pos_.x,oldPos_.z - pos_.z };
+	if (vec == Vector2::zero)return;
+	moveVec_ = vec;
+	moveVec_.Normalize();
 	transform_->eulerAngleDegrees_ = { 0,playerCamera_->transform_->eulerAngleDegrees_.y + 180,0 };
 }
 
@@ -183,7 +183,9 @@ void IFE::Player::Shoot()
 		Float3 pos = { pos_.x - moveVec_.x * 2,pos_.y + transform_->scale_.y / 2,pos_.z - moveVec_.y * 2 };
 		auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
 		if (bullet == nullptr)return;
-		bullet->GetComponent<Bullet>()->SetMoveVector(-moveVec_);
+		Vector3 cameraF = playerCamera_->transform_->GetForwardVector();
+
+		bullet->GetComponent<Bullet>()->SetMoveVector(cameraF);
 		auto emitter = pm_->Instantiate("Bullet");
 		if (emitter)
 		{
@@ -201,6 +203,8 @@ void IFE::Player::Shoot()
 			animator_->SetAnimation("Run_Shoot");
 		}
 		animator_->loop_ = false;
+
+		transform_->eulerAngleDegrees_ = { 0,playerCamera_->transform_->eulerAngleDegrees_.y + 180,0 };
 	}
 }
 

@@ -108,5 +108,32 @@
         ],
         "name": "AnalogL",
         "texture": "AnalogL.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                0.29411765933036804
+            ]
+        },
+        "Transform2D": {
+            "position": [
+                800.0,
+                450.0
+            ],
+            "rotation": 0.0,
+            "scale": [
+                0.25,
+                0.25
+            ]
+        },
+        "component": [
+            "Transform2D",
+            "ColorBuffer"
+        ],
+        "name": "Reticle",
+        "texture": "Reticle.png"
     }
 ]

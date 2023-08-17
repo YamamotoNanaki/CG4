@@ -7,14 +7,14 @@ namespace IFE
 	{
 	private:
 		float speed_ = 200;
-		Vector2 moveVec_;
+		Vector3 moveVec_;
 		float lifeTimer_ = 0;
 		float timerMax_ = 5;
 		inline static Emitter* sChrysanthemum_ = nullptr;
 	public:
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
-		void SetMoveVector(const Vector2& moveVec);
+		void SetMoveVector(const Vector3& moveVec);
 
 	private:
 		void Move();

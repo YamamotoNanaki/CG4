@@ -26,14 +26,14 @@ void IFE::Bullet::OnColliderHit(Collider* collider)
 	}
 }
 
-void IFE::Bullet::SetMoveVector(const Vector2& moveVec)
+void IFE::Bullet::SetMoveVector(const Vector3& moveVec)
 {
 	moveVec_ = moveVec;
 }
 
 void IFE::Bullet::Move()
 {
-	transform_->position_ += Float3{ moveVec_.x, 0, moveVec_.y } *speed_ * IFETime::sDeltaTime_;
+	transform_->position_ += moveVec_ * speed_ * IFETime::sDeltaTime_;
 }
 
 void IFE::Bullet::Timer()
