@@ -41,6 +41,7 @@ void IFE::ModelLoader::ParseNodeRecursive(const aiScene* scene, aiNode* node, No
 
 Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 {
+	MaterialiParams mat;
 	if (objType_)
 	{
 		std::vector<Vertex> vertices;
@@ -82,9 +83,23 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 				f = f.substr(f.find("\\") + 1);
 			}
 			/*f = filename + "/" + f;*/
-			auto tex = TextureManager::Instance()->LoadTexture(f);
-			mesh_->SetTexture(tex);
+			TextureManager::Instance()->LoadTexture(f);
 		}
+
+		aiColor3D col;
+		material->Get(AI_MATKEY_COLOR_AMBIENT, col);
+		mat.ambient.x = col.r;
+		mat.ambient.y = col.g;
+		mat.ambient.z = col.b;
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, col);
+		mat.diffuse.x = col.r;
+		mat.diffuse.y = col.g;
+		mat.diffuse.z = col.b;
+		material->Get(AI_MATKEY_COLOR_SPECULAR, col);
+		mat.specular.x = col.r;
+		mat.specular.y = col.g;
+		mat.specular.z = col.b;
+		material->Get(AI_MATKEY_OPACITY, mat.alpha);
 
 		mesh_->GetVertex()->SetVerticle(vertices);
 		mesh_->GetIB()->SetIndex(indices);
@@ -138,7 +153,7 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 				f = f.substr(f.find("\\") + 1);
 			}
 			/*f = filename + "/" + f;*/
-			TextureManager::Instance()->LoadTexture(f);
+			mat.tex = TextureManager::Instance()->LoadTexture(f);
 		}
 
 		//ƒ{[ƒ“
@@ -190,24 +205,26 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 			}
 		}
 
-		//aiColor3D col;
-		//material->Get(AI_MATKEY_COLOR_AMBIENT, col);
-		//mesh_->material.ambient.x = col.r;
-		//mesh_->material.ambient.y = col.g;
-		//mesh_->material.ambient.z = col.b;
-		//material->Get(AI_MATKEY_COLOR_DIFFUSE, col);
-		//mesh_->material.diffuse.x = col.r;
-		//mesh_->material.diffuse.y = col.g;
-		//mesh_->material.diffuse.z = col.b;
-		//material->Get(AI_MATKEY_COLOR_SPECULAR, col);
-		//mesh_->material.specular.x = col.r;
-		//mesh_->material.specular.y = col.g;
-		//mesh_->material.specular.z = col.b;
-		//material->Get(AI_MATKEY_OPACITY, mesh_->material.alpha);
+		aiColor3D col;
+		material->Get(AI_MATKEY_COLOR_AMBIENT, col);
+		mat.ambient.x = col.r;
+		mat.ambient.y = col.g;
+		mat.ambient.z = col.b;
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, col);
+		mat.diffuse.x = col.r;
+		mat.diffuse.y = col.g;
+		mat.diffuse.z = col.b;
+		material->Get(AI_MATKEY_COLOR_SPECULAR, col);
+		mat.specular.x = col.r;
+		mat.specular.y = col.g;
+		mat.specular.z = col.b;
+		material->Get(AI_MATKEY_OPACITY, mat.alpha);
 
 		mesh_->GetVertexBone()->SetVerticle(vertices);
 		mesh_->GetIB()->SetIndex(indices);
 		mesh_->Initialize();
+		mesh_->componentName_ = mesh->mName.C_Str();
+		mesh_->SetMaterial(mat);
 		return mesh_;
 	}
 }
@@ -217,6 +234,7 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 	Assimp::Importer importer;
 	string f = "Data/Resources/Model/";
 	if (fileType == ".obj")objType_ = true;
+	else objType_ = false;
 	f += fileName + "/" + fileName + fileType;
 	filename_ = fileName;
 	uint32_t sf = 0;

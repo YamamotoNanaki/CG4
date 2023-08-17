@@ -269,7 +269,18 @@ std::vector<Triangle> IFE::FBXModel::GetMeshColliderTriangle()
 #else
 void IFE::FBXModel::DebugGUI()
 {
-	ImguiManager::Instance()->ModelGUI(componentName_);
+	ImguiManager* imgui = ImguiManager::Instance();
+	if (imgui->NewTreeNode(fileName_))
+	{
+		for (unique_ptr<Node>& node : nodes_)
+		{
+			for (auto mesh : node->meshes)
+			{
+				mesh->DebugGUI();
+			}
+		}
+		imgui->EndTreeNode();
+	}
 }
 
 void IFE::FBXModel::OutputComponent(nlohmann::json& j)

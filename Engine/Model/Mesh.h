@@ -5,10 +5,12 @@
 #include <string>
 #include <vector>
 #include <d3d12.h>
+#include <memory>
 #include "ConstStruct.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "Component.h"
+#include "Material.h"
 
 namespace IFE
 {
@@ -19,7 +21,7 @@ namespace IFE
 		VertexBuffer<VertexBone>vb_;
 		VertexBuffer<Vertex>vt_;
 		IndexBuffer ib_;
-		Texture* tex_ = nullptr;
+		std::unique_ptr<Material> material_;
 
 	public:
 		void Initialize()override;
@@ -30,7 +32,11 @@ namespace IFE
 		IndexBuffer* GetIB();
 		std::vector<uint32_t> GetIndexArray();
 		std::vector<Vertex> GetVertexArray();
+		void SetMaterial(MaterialiParams mat);
 
-		void SetTexture(Texture* tex);
+#ifdef NDEBUG
+#else
+		void ComponentDebugGUI()override;
+#endif
 	};
 };

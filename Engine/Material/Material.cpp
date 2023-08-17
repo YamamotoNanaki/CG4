@@ -81,6 +81,16 @@ void IFE::Material::Copy(Component* component)
 	tex_ = m->tex_;
 }
 
+void IFE::Material::SetMaterial(MaterialiParams mat)
+{
+	ambient_ = mat.ambient;
+	diffuse_ = mat.diffuse;
+	specular_ = mat.specular;
+	color_ = mat.color;
+	alpha_ = mat.alpha;
+	tex_ = mat.tex;
+}
+
 #ifdef NDEBUG
 #else
 void IFE::Material::DebugGUI()

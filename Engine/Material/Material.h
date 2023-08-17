@@ -9,6 +9,15 @@
 
 namespace IFE
 {
+	struct MaterialiParams
+	{
+		Float3 ambient = { 0.3f,0.3f,0.3f };
+		Float3 diffuse = { 0.3f,0.3f,0.3f };
+		Float3 specular = { 0.3f,0.3f,0.3f };
+		Float4 color = { 1,1,1,1 };
+		float alpha = 1.0f;
+		Texture* tex = nullptr;
+	};
 	class Material : public Component
 	{
 		using Component::Component;
@@ -36,6 +45,7 @@ namespace IFE
 		Float4 GetColor255();
 		void SetColor255(const Float4& color);
 		void Copy(Component* component);
+		void SetMaterial(MaterialiParams mat);
 #ifdef NDEBUG
 #else
 		void DebugGUI();

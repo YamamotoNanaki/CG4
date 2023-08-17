@@ -25,12 +25,13 @@ void IFE::Mesh::Draw()
 	{
 		commandList->IASetVertexBuffers(0, 1, vt_.GetVBView());
 	}
-	if (tex_ != nullptr)
+	if (material_)
 	{
-		tex_->SetTexture(4);
+		material_->Draw();
 	}
 	//インデックスバッファの設定
 	commandList->IASetIndexBuffer(ib_.GetIBView());
+
 	//描画コマンド
 	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
 }
@@ -64,7 +65,22 @@ std::vector<Vertex> IFE::Mesh::GetVertexArray()
 	return vt_.GetVertex();
 }
 
-void IFE::Mesh::SetTexture(Texture* tex)
+void IFE::Mesh::SetMaterial(MaterialiParams mat)
 {
-	tex_ = tex;
+	if (!material_)
+	{
+		material_ = make_unique<Material>();
+		material_->Initialize();
+	}
+
+	material_->SetMaterial(mat);
 }
+
+#ifdef NDEBUG
+#else
+void IFE::Mesh::ComponentDebugGUI()
+{
+	material_->DebugGUI();
+	material_->componentName_ = componentName_;
+}
+#endif

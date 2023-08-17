@@ -79,6 +79,8 @@ void IFE::LightManager::DefaultLightSetting()
 	dLight_[2].SetActive(true);
 	dLight_[2].SetLightColor({ 1.0f, 1.0f, 1.0f });
 	dLight_[2].SetLightDir({ -0.5f, +0.1f, -0.2f });
+
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetAmbientColor(const Float3& color)
