@@ -16,7 +16,19 @@ void IFE::Animator::Update()
 	if (animNum_ > model_->animations_.size())animNum_ = oldAnimNum_;
 	if (oldAnimNum_ != animNum_)animTimer_ = 0;
 	animTimer_ += animSpeed_ * IFETime::sDeltaTime_;
-	if (animTimer_ > model_->animations_[animNum_].duration)animTimer_ = 0;
+	animEnd_ = false;
+	if (animTimer_ >= model_->animations_[animNum_].endTime)
+	{
+		if (loop_)
+		{
+			animTimer_ -= (float)model_->animations_[animNum_].endTime;
+		}
+		else
+		{
+			animEnd_ = true;
+			animTimer_ = (float)model_->animations_[animNum_].endTime;
+		}
+	}
 	oldAnimNum_ = animNum_;
 }
 
@@ -33,6 +45,24 @@ void IFE::Animator::Draw()
 IFE::Animator::~Animator()
 {
 	objectPtr_->gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dNormal");
+}
+
+void IFE::Animator::SetAnimation(std::string animName)
+{
+	uint8_t i = 0;
+	for (auto& anim : model_->animations_)
+	{
+		if (anim.name == animName)
+		{
+			animNum_ = i;
+		}
+		i++;
+	}
+}
+
+std::string IFE::Animator::GetAnimation()
+{
+	return model_->animations_[animNum_].name;
 }
 
 #ifdef NDEBUG

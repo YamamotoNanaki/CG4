@@ -267,6 +267,7 @@ FBXModel* IFE::ModelLoader::FBXLoad(const std::string& fileName, const std::stri
 		a.name = scene->mAnimations[i]->mName.C_Str();
 		a.duration = scene->mAnimations[i]->mDuration;
 		a.ticksPerSecond = scene->mAnimations[i]->mTicksPerSecond;
+		a.endTime = float(a.duration / a.ticksPerSecond);
 		for (uint32_t j = 0; j < scene->mAnimations[i]->mNumChannels; j++)
 		{
 			NodeAnim n;

@@ -13,15 +13,20 @@ namespace IFE
 		float animTimer_ = 0;
 		std::unique_ptr<ConstBuffer<ConstBufferDataSkin>> skinBuffer_;
 		ConstBufferDataSkin* constMapSkin_ = nullptr;
+		uint8_t animNum_ = 0;
 	public:
 		float animSpeed_ = 1.f;
-		uint8_t animNum_ = 0;
+		bool loop_ = false;
+		bool animEnd_ = false;
 
 	public:
 		void Initialize()override;
 		void Update()override;
 		void Draw()override;
 		~Animator();
+
+		void SetAnimation(std::string animName);
+		std::string GetAnimation();
 
 #ifdef NDEBUG
 #else

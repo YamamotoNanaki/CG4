@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Vector3.h"
 #include "ParticleManager.h"
+#include "Animator.h"
 
 namespace IFE
 {
@@ -22,6 +23,7 @@ namespace IFE
 		Camera* playerCamera_ = nullptr;
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
+		Animator* animator_;
 	public:
 		Float3 oldPos_;
 		Float3 pos_;

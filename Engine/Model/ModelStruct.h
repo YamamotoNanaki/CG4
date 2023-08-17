@@ -42,5 +42,6 @@ namespace IFE
 		double duration;
 		double ticksPerSecond;
 		std::vector<NodeAnim>channels;
+		float endTime;
 	};
 }
