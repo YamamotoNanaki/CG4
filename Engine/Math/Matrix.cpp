@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cfloat>
 #include <cassert>
+#include <cfloat>
 
 using namespace IFE;
 

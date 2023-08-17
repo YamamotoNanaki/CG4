@@ -9,6 +9,7 @@
 void IFE::StartCamera::Initialize()
 {
 	sTimer_ = 0;
+	transformCamera_->eulerAngleDegrees_.y = 360;
 }
 
 void IFE::StartCamera::Update()
@@ -19,7 +20,8 @@ void IFE::StartCamera::Update()
 		Float3 eye = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, -PlayerCamera::sMinDistance_);
 		sTimer_ += IFETime::sDeltaTime_;
 
-		transformCamera_->eulerAngleDegrees_.y = InOutQuad(saveAngle_, 360, sMaxTime_, sTimer_);
+		if(saveAngle_<180)transformCamera_->eulerAngleDegrees_.y = InOutQuad(saveAngle_, 0, sMaxTime_, sTimer_);
+		else transformCamera_->eulerAngleDegrees_.y = InOutQuad(saveAngle_, 360, sMaxTime_, sTimer_);
 		transformCamera_->eulerAngleDegrees_.x = InOutQuad(11, 5, sMaxTime_, sTimer_);
 		float rotaX = ConvertToRadians(transformCamera_->eulerAngleDegrees_.y);
 		Vector3 cameraF;
@@ -35,6 +37,10 @@ void IFE::StartCamera::Update()
 	else
 	{
 		transformCamera_->eulerAngleDegrees_.y += IFETime::sDeltaTime_ * 80;
+		if (transformCamera_->eulerAngleDegrees_.y > 360)
+		{
+			transformCamera_->eulerAngleDegrees_.y -= 360;
+		}
 		float rotaX = ConvertToRadians(transformCamera_->eulerAngleDegrees_.y);
 		Vector3 cameraF;
 		cameraF.Set({ sinf(rotaX),0,cosf(rotaX) }, { 0,0,0 });
