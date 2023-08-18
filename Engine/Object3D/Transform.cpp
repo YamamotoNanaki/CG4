@@ -523,7 +523,7 @@ void IFE::TransformCamera::UpdateMatrix()
 			matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
 			matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
 		}
-		cameraPtr_->GetView()->SetMatrixView(MatrixInverse(matWorld_));
+		cameraPtr_->GetView()->SetMatrixView(matWorld_);
 	}
 }
 

@@ -429,7 +429,7 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 	pipelineDesc.PS.pShaderBytecode = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferPointer();
 	pipelineDesc.PS.BytecodeLength = blobs_[(size_t)SHADER_COMPILE_SETTINGS::Pixel]->GetBufferSize();
 	//デプスステンシルステートの設定
-	pipelineDesc.DepthStencilState.DepthEnable = false;		//深度テストを行わない
+	pipelineDesc.DepthStencilState.DepthEnable = true;		//深度テストを行わない
 	pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
 	pipelineDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;		//深度値フォーマット
 

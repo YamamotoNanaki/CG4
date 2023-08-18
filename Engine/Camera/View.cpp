@@ -90,5 +90,7 @@ Matrix* IFE::View::GetAddressOf()
 
 void IFE::View::SetMatrixView(Matrix view)
 {
-	matView_ = view;
+	matView_ = MatrixInverse(view);
+	sMatBillBoard_ = view;
+	sMatBillBoard_.SetW(0, 0, 0, 1);
 }
