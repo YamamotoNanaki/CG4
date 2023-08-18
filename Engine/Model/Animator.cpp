@@ -26,7 +26,7 @@ void IFE::Animator::Update()
 		else
 		{
 			animEnd_ = true;
-			animTimer_ = (float)model_->animations_[animNum_].endTime;
+			animTimer_ = (float)model_->animations_[animNum_].endTime - FLT_EPSILON;
 		}
 	}
 	oldAnimNum_ = animNum_;

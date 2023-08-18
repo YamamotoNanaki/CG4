@@ -2,7 +2,7 @@
 
 using namespace IFE;
 
-int32_t WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int32_t nCmdShow)
+int32_t WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int32_t)
 {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	Engine* engine = Engine::Instance();
@@ -12,8 +12,4 @@ int32_t WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstanc
 	//_CrtDumpMemoryLeaks();
 
 	return 0;
-	hInstance;
-	hPrevInstance;
-	lpCmdLine;
-	nCmdShow;
 }

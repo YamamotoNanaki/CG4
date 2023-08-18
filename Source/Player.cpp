@@ -162,6 +162,9 @@ void IFE::Player::EnemyCollide()
 		hp_--;
 		invincible_ = true;
 		invincibleTimer_ = 0;
+
+		animator_->SetAnimation("HitRecieve_2");
+		animator_->loop_ = false;
 	}
 }
 
@@ -211,16 +214,14 @@ void IFE::Player::Shoot()
 void IFE::Player::Death()
 {
 	deathTimer_ += IFETime::sDeltaTime_;
-	auto tgb = objectPtr_->GetComponent<TransferGeometryBuffer>();
-	tgb->explosion_ = deathTimer_ * 150;
-	tgb->rotation_ = deathTimer_ * 25;
-	tgb->gravity_ = deathTimer_ * 35;
-	tgb->polygonSize_ = Lerp(5, 0, maxDeathTime_, deathTimer_);
-	objectPtr_->GetComponent<Material>()->color_.z = Lerp(1, 0, maxDeathTime_, deathTimer_);
+
+	animator_->SetAnimation("Death");
+	animator_->loop_ = false;
+
 	if (deathTimer_ > maxDeathTime_)
 	{
 		Scene::Instance()->SetNextScene("over");
-		objectPtr_->Destroy();
+		//objectPtr_->Destroy();
 	}
 }
 
