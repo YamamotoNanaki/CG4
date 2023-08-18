@@ -137,11 +137,11 @@ void IFE::Enemy::Attack()
 		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
 		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
 	}
-	attackDirectionTimer_ += IFETime::sDeltaTime_;
-	if (attackDirectionTimer_ > attackDirectionMaxTime_)
-	{
+	//attackDirectionTimer_ += IFETime::sDeltaTime_;
+	//if (attackDirectionTimer_ > attackDirectionMaxTime_)
+	//{
 		objectPtr_->Destroy();
-	}
+	//}
 }
 
 void IFE::Enemy::Death()
