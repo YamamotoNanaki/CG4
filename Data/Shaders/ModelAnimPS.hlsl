@@ -3,7 +3,7 @@
 Texture2D<float4> tex : register(t0);
 SamplerState smp : register(s0);
 
-float4 main(GSOutput input) : SV_TARGET
+PSOutput main(GSOutput input) : SV_TARGET
 {
 	float4 texcolor = float4(tex.Sample(smp, input.uv));
 	const float shininess = 4.0f;
@@ -85,5 +85,13 @@ float4 main(GSOutput input) : SV_TARGET
 		}
 	}
 
-    return shadecolor * texcolor * color;
+    PSOutput o;
+    o.target0 = shadecolor * texcolor * color;
+    float4 col = float4(0, 0, 0, 0);
+	col = o.target0;
+    float grayScale = col.r * 0.299 + col.g * 0.587 * col.b * 0.114;
+    float extract = smoothstep(0.2, 0.3, grayScale);
+    col *= extract;
+    o.target1 = col;
+    return o;
 }

@@ -4,11 +4,14 @@
 Texture2D<float4> tex : register(t0);
 SamplerState smp : register(s0);
 
-float4 main(GSOutput input) : SV_TARGET
+PSOutput main(GSOutput input) : SV_TARGET
 {
     if (color.a == 0)
     {
-        return float4(0, 0, 0, 0);
+        PSOutput o;
+        o.target0 = float4(0, 0, 0, 0);
+        o.target1 = o.target0;
+        return o;
     }
     float4 texcolor = float4(tex.Sample(smp, input.uv));
     const float shininess = 4.0f;
@@ -99,72 +102,15 @@ float4 main(GSOutput input) : SV_TARGET
                 shadecolor.rgb -= atten;
             }
         }
-        if (toonFlag)
-        {
-            float4 toon = shadecolor;
-            toon.r = step(0.4, shadecolor.r);
-            if (toon.r == 1)
-            {
-                if (shadecolor.r < 0.5)
-                {
-                    toon.r = Lerp(0, 0.5, 0.1, shadecolor.r - 0.4);
-                }
-                else
-                {
-                    toon.r = step(0.8, shadecolor.r);
-                    if (toon.r == 0)
-                    {
-                        toon.r = 0.5;
-                    }
-                    else if (shadecolor.r < 0.9)
-                    {
-                        toon.r = Lerp(0.5, 1, 0.1, shadecolor.r - 0.8);
-                    }
-                }
-            }
-            toon.g = step(0.4, shadecolor.g);
-            if (toon.g == 1)
-            {
-                if (shadecolor.g < 0.5)
-                {
-                    toon.g = Lerp(0, 0.5, 0.5, shadecolor.g);
-                }
-                else
-                {
-                    toon.g = step(0.8, shadecolor.g);
-                    if (toon.g == 0)
-                    {
-                        toon.g = 0.5;
-                    }
-                    else if (shadecolor.g < 0.9)
-                    {
-                        toon.g = Lerp(0.5, 1, 0.1, shadecolor.g - 0.8);
-                    }
-                }
-            }
-            toon.b = step(0.4, shadecolor.b);
-            if (toon.b == 1)
-            {
-                if (shadecolor.b < 0.5)
-                {
-                    toon.b = Lerp(0, 0.5, 0.5, shadecolor.b);
-                }
-                else
-                {
-                    toon.b = step(0.8, shadecolor.b);
-                    if (toon.b == 0)
-                    {
-                        toon.b = 0.5;
-                    }
-                    else if (shadecolor.b < 0.9)
-                    {
-                        toon.b = Lerp(0.5, 1, 0.1, shadecolor.b - 0.8);
-                    }
-                }
-            }
-            shadecolor = toon;
-        }
     }
 
-    return shadecolor * texcolor * color;
+    PSOutput o;
+    o.target0 = shadecolor * texcolor * color;
+    float4 col = o.target0;
+    float grayScale = col.r * 0.299 + col.g * 0.587 * col.b * 0.114;
+    float extract = smoothstep(0.2, 0.3, grayScale);
+    col *= extract;
+    o.target1 = col;
+
+    return o;
 }

@@ -36,14 +36,14 @@ namespace IFE
 	template<class T>
 	inline void VertexBuffer<T>::SetVerticle(const std::vector<T>& vertices)
 	{
-		void Reset();
+		Reset();
 		vertices_ = std::move(vertices);
 	}
 
 	template<class T>
 	inline void VertexBuffer<T>::SetVerticle(T vertices[], size_t vertexCount)
 	{
-		void Reset();
+		Reset();
 		for (int32_t i = 0; i < vertexCount; i++)
 		{
 			vertices_.push_back(vertices[i]);

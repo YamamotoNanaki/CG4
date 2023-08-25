@@ -16,6 +16,9 @@ namespace IFE
 	private:
 		bool deleteFlag_ = false;
 		static GraphicsPipeline* gp_;
+
+	protected:
+		//oldPostEffect—p ‰¼‚Éprotected
 		VertexBuffer<Vertex2D> vb_;
 
 	public:

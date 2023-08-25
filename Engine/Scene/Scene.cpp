@@ -48,7 +48,7 @@ void IFE::Scene::Update()
 	}
 }
 
-void IFE::Scene::Draw()
+void IFE::Scene::PostEffectDraw()
 {
 	if (loadEnd_)
 	{
@@ -59,11 +59,16 @@ void IFE::Scene::Draw()
 		particleM->Draw();
 		Sprite::DrawBefore();
 		spriteM_->ForeDraw();
+		gui_.Draw();
 	}
 	else
 	{
 		LoadDraw();
 	}
+}
+
+void IFE::Scene::Draw()
+{
 }
 #else
 void IFE::Scene::Initialize()
@@ -82,7 +87,8 @@ void IFE::Scene::Initialize()
 	sound_->Initialize();
 	gui_.Initialize();
 	cameraM_->Initialize();
-
+	oldPostEffect = std::make_unique<OldPostEffect>();
+	oldPostEffect->Initialize();
 	SceneInit();
 
 	particleM->Initialize();
@@ -116,6 +122,15 @@ void IFE::Scene::Update()
 	{
 		LoadUpdate();
 	}
+	PostEffectDraw();
+}
+
+void IFE::Scene::PostEffectDraw()
+{
+	oldPostEffect->DrawBefore();
+	objM_->Draw();
+	particleM->Draw();
+	oldPostEffect->DrawAfter();
 }
 
 void IFE::Scene::Draw()
@@ -124,10 +139,7 @@ void IFE::Scene::Draw()
 	{
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
-		//objM_->DrawBackGround();
-		objM_->Draw();
-		particleM->Draw();
-		Sprite::DrawBefore();
+		oldPostEffect->Draw();
 		spriteM_->ForeDraw();
 		gui_.Draw();
 	}

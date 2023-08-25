@@ -10,6 +10,7 @@
 #include "CameraManager.h"
 #include "SpriteManager.h"
 #include "ParticleManager.h"
+#include "OldPostEffect.h"
 
 namespace IFE
 {
@@ -25,6 +26,7 @@ namespace IFE
 		CameraManager* cameraM_ = CameraManager::Instance();
 		SpriteManager* spriteM_ = SpriteManager::Instance();
 		ParticleManager* particleM = ParticleManager::Instance();
+		std::unique_ptr<OldPostEffect> oldPostEffect = nullptr;
 
 		std::string nowScene_;
 		std::string nextScene_;
@@ -38,6 +40,7 @@ namespace IFE
 	public:
 		void Initialize();
 		void Update();
+		void PostEffectDraw();
 		void Draw();
 		void SetNextScene(const std::string& nextScene);
 

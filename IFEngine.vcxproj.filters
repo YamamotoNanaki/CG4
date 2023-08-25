@@ -160,6 +160,12 @@
     <Filter Include="ソース ファイル\Source\Camera">
       <UniqueIdentifier>{c4a3ed81-e451-4b6a-b869-d0edcde0d9c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\PostEffect">
+      <UniqueIdentifier>{98995cb4-ec75-49ac-bd71-d6e65301bf2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\PostEffect">
+      <UniqueIdentifier>{55643344-2e2f-4237-a664-2e2fb849b64a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -374,6 +380,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Model\Animator.cpp">
       <Filter>ソース ファイル\Engine\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\PostEffect\OldPostEffect.cpp">
+      <Filter>ソース ファイル\Engine\PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,6 +628,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Model\Animator.h">
       <Filter>ヘッダー ファイル\Engine\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PostEffect\OldPostEffect.h">
+      <Filter>ヘッダー ファイル\Engine\PostEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
