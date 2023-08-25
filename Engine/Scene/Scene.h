@@ -26,7 +26,6 @@ namespace IFE
 		CameraManager* cameraM_ = CameraManager::Instance();
 		SpriteManager* spriteM_ = SpriteManager::Instance();
 		ParticleManager* particleM = ParticleManager::Instance();
-		std::unique_ptr<OldPostEffect> oldPostEffect = nullptr;
 
 		std::string nowScene_;
 		std::string nextScene_;
@@ -37,6 +36,9 @@ namespace IFE
 		bool isOut_ = false;
 		float transitionTimer_ = 0;
 		float maxTransitionTime_ = 1;
+
+	public:
+		std::unique_ptr<OldPostEffect> oldPostEffect = nullptr;
 	public:
 		void Initialize();
 		void Update();

@@ -1,6 +1,9 @@
 cbuffer cbuff0 : register(b0)
 {
-    float shift;
+    float sigma;
+    float _NFocusWidth;
+    float _FFocusWidth;
+    float _FocusDepth;
 };
 
 // 頂点シェーダーからピクセルシェーダーへのやり取りに使用する構造体

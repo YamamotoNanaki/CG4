@@ -70,12 +70,14 @@ void IFE::Player::Update()
 	if (invincible_)
 	{
 		invincibleTimer_ += IFETime::sDeltaTime_;
-		if (int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
-		else objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+		//if (int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
+		//else objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+		Scene::Instance()->oldPostEffect->constMapPostEffect->sigma = InQuad(0.005f, 0, invincibleMaxTime, invincibleTimer_);
 		if (invincibleTimer_ > invincibleMaxTime)
 		{
 			invincible_ = false;
 			invincibleTimer_ = 0;
+			Scene::Instance()->oldPostEffect->constMapPostEffect->sigma = 0;
 		}
 	}
 }

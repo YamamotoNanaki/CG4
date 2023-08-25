@@ -110,7 +110,11 @@ PSOutput main(GSOutput input) : SV_TARGET
     float grayScale = col.r * 0.299 + col.g * 0.587 * col.b * 0.114;
     float extract = smoothstep(0.2, 0.3, grayScale);
     col *= extract;
-    o.target1 = col;
+    o.target1 = float4(0, 0, 0, 0);
+    col = float4(0, 0, 0, 0);
+    col.r = input.svpos.z / input.svpos.w;
+    col.w = 1;
+    o.target2 = col;
 
     return o;
 }

@@ -51,10 +51,10 @@ namespace IFE
 	struct ConstBufferPostEffect
 	{
 		//0~0.005‚­‚ç‚¢‚Å
-		float shift;
-		uint32_t nega = 0;
-		uint32_t grayscale = 0;
-		float sepia = 0;
+		float sigma;
+		float NFocusWidth = 0.05f;
+		float FFocusWidth = 0.07f;
+		float FocusDepth = 0.085f;
 	};
 	struct ConstBufferDataSkin
 	{

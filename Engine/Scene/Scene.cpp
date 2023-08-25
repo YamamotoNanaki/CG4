@@ -50,25 +50,28 @@ void IFE::Scene::Update()
 
 void IFE::Scene::PostEffectDraw()
 {
+	oldPostEffect->DrawBefore();
+	if (loadEnd_)
+	{
+		objM_->Draw();
+		particleM->Draw();
+	}
+	oldPostEffect->DrawAfter();
+}
+
+void IFE::Scene::Draw()
+{
 	if (loadEnd_)
 	{
 		Sprite::DrawBefore();
 		spriteM_->BackDraw();
-		//objM_->DrawBackGround();
-		objM_->Draw();
-		particleM->Draw();
-		Sprite::DrawBefore();
+		oldPostEffect->Draw();
 		spriteM_->ForeDraw();
-		gui_.Draw();
 	}
 	else
 	{
 		LoadDraw();
 	}
-}
-
-void IFE::Scene::Draw()
-{
 }
 #else
 void IFE::Scene::Initialize()
@@ -128,8 +131,11 @@ void IFE::Scene::Update()
 void IFE::Scene::PostEffectDraw()
 {
 	oldPostEffect->DrawBefore();
-	objM_->Draw();
-	particleM->Draw();
+	if (loadEnd_)
+	{
+		objM_->Draw();
+		particleM->Draw();
+	}
 	oldPostEffect->DrawAfter();
 }
 

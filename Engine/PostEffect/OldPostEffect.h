@@ -9,7 +9,7 @@ namespace IFE
 	class OldPostEffect : public Sprite
 	{
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource>texBuff[2];
+		Microsoft::WRL::ComPtr<ID3D12Resource>texBuff[3];
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapSRV;
 		Microsoft::WRL::ComPtr<ID3D12Resource>depthBuff;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapRTV;
@@ -39,7 +39,7 @@ namespace IFE
 		/// <param name="shift">0~0.005ˆÈ“à‚ª‚¿‚å‚¤‚Ç—Ç‚¢‚ÆŽv‚¢‚Ü‚·</param>
 		void SetRGBShift(float shift);
 		//void SetGrayscale(bool gray);
-		void SetSepia(float sepia);
+		//void SetSepia(float sepia);
 
 	private:
 		void CreateGraphicsPipelineState();
