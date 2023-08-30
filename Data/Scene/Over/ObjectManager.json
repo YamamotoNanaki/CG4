@@ -7,9 +7,9 @@
                 1.0
             ],
             "color": [
-                1.0,
-                1.0,
-                1.0,
+                0.1666666865348816,
+                0.1666666865348816,
+                0.1666666865348816,
                 1.0
             ],
             "diffuse": [
@@ -22,7 +22,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "Fine_Basin.jpg"
+            "terxtureName": "sky.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,

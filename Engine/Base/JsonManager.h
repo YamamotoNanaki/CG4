@@ -29,6 +29,7 @@ namespace IFE
 		bool IsError()const;
 
 		nlohmann::json& GetJsonData();
+		bool SceneCheck(const std::string& name);
 
 #ifdef NDEBUG
 #else

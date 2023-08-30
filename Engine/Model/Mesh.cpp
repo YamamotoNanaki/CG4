@@ -80,7 +80,10 @@ void IFE::Mesh::SetMaterial(MaterialiParams mat)
 #else
 void IFE::Mesh::ComponentDebugGUI()
 {
-	material_->DebugGUI();
-	material_->componentName_ = componentName_;
+	if (material_)
+	{
+		material_->DebugGUI();
+		material_->componentName_ = componentName_;
+	}
 }
 #endif

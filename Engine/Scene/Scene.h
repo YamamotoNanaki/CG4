@@ -73,6 +73,7 @@ namespace IFE
 		bool stop_ = false;
 		void OutputScene();
 		void DebugGUI();
+		bool SceneCheck(const std::string& sceneName);
 #endif
 	};
 }

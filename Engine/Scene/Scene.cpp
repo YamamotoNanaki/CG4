@@ -378,15 +378,37 @@ void IFE::Scene::DebugGUI()
 		}
 	}
 	static char name[256];
+	static uint8_t errorNum = 0;
 	ImGui::InputText("scene change name", name, sizeof(name));
+	std::string sname = name;
 	if (ImGui::Button("SceneChange"))
 	{
-		SetNextScene(name);
+		if (sname == "")
+		{
+			errorNum = 0b1;
+		}
+		else if (SceneCheck(sname))
+		{
+			errorNum = 0b10;
+		}
+		else
+		{
+			errorNum = 0b0;
+			SetNextScene(sname);
+		}
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Make this scene the initial scene"))
 	{
 		JsonManager::Instance()->SetInitScene();
+	}
+	if (errorNum & 0b1)
+	{
+		ImGui::Text("error : not entered");
+	}
+	if (errorNum & 0b10)
+	{
+		ImGui::Text("error : not found");
 	}
 	gui_.EndGUI();
 	objM_->DebugGUI();
@@ -396,5 +418,10 @@ void IFE::Scene::DebugGUI()
 	cameraM_->DebugGUI();
 	particleM->DebugGUI();
 	lightM_->DebugGUI();
+}
+
+bool IFE::Scene::SceneCheck(const std::string& sceneName)
+{
+	return JsonManager::Instance()->SceneCheck(sceneName);
 }
 #endif

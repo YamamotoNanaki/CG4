@@ -84,6 +84,18 @@ nlohmann::json& IFE::JsonManager::GetJsonData()
 	return json_;
 }
 
+bool IFE::JsonManager::SceneCheck(const std::string& name)
+{
+	string a = "Data/Scene/" + name + "/" + "ObjectManager" + ".json";
+	ifstream readingFile;
+	readingFile.open(a, std::ios::in);
+	if (!readingFile) {
+		readingFile.close();
+		return true;
+	}
+	return false;
+}
+
 
 #ifdef NDEBUG
 #else
