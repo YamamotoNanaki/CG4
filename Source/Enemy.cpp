@@ -44,25 +44,19 @@ void IFE::Enemy::Update()
 	{
 		objectPtr_->GetComponent<Material>()->color_ = { 0,0,0,0 };
 	}
-	//if (isHit_)
-	//{
-	//	objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
-	//	colorTimer_ += IFETime::sDeltaTime_;
-	//	if (colorTimer_ > 0.7f)
-	//	{
-	//		isHit_ = false;
-	//	}
-	//}
-	//else objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
 }
 
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
-	if (collider->GetObjectPtr()->GetComponent<Bullet>())
+	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
+	if (bullet)
 	{
-		//colorTimer_ = 0;
-		//isHit_ = true;
 		hp_--;
+		hitTimer_ = 0;
+		Vector3 vec = bullet->GetMoveVector();
+		hitPos_ = transform_->position_;
+		hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
+		action_ = (uint8_t)EnemyAction::Hit;
 	}
 }
 
@@ -140,7 +134,7 @@ void IFE::Enemy::Attack()
 	//attackDirectionTimer_ += IFETime::sDeltaTime_;
 	//if (attackDirectionTimer_ > attackDirectionMaxTime_)
 	//{
-		objectPtr_->Destroy();
+	objectPtr_->Destroy();
 	//}
 }
 
@@ -160,9 +154,19 @@ void IFE::Enemy::Death()
 	}
 }
 
+void IFE::Enemy::Hit()
+{
+	hitTimer_ += IFETime::sDeltaTime_;
+	transform_->position_ = OutQuadFloat3(hitPos_, hitAfterPos_, sMaxHitTime_, hitTimer_);
+	if (hitTimer_ > sMaxHitTime_)
+	{
+		action_ = (uint8_t)EnemyAction::Stanby;
+	}
+}
+
 void (Enemy::* Enemy::ActtionTable[])() =
 {
-	&Enemy::Stanby,&Enemy::Patrol,&Enemy::Detection,&Enemy::Attack,&Enemy::Death,
+	&Enemy::Stanby,&Enemy::Patrol,&Enemy::Detection,&Enemy::Attack,&Enemy::Death,&Enemy::Hit,
 };
 
 #ifdef NDEBUG

@@ -31,6 +31,11 @@ void IFE::Bullet::SetMoveVector(const Vector3& moveVec)
 	moveVec_ = moveVec;
 }
 
+IFE::Vector3 IFE::Bullet::GetMoveVector()
+{
+	return moveVec_;
+}
+
 void IFE::Bullet::Move()
 {
 	transform_->position_ += moveVec_ * speed_ * IFETime::sDeltaTime_;

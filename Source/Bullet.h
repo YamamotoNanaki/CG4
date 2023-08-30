@@ -15,6 +15,7 @@ namespace IFE
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 		void SetMoveVector(const Vector3& moveVec);
+		Vector3 GetMoveVector();
 
 	private:
 		void Move();
