@@ -25,6 +25,8 @@ void IFE::Scene::Initialize()
 	light_->DefaultLightSetting();
 	sound_->Initialize();
 	cameraM_->Initialize();
+	oldPostEffect = std::make_unique<OldPostEffect>();
+	oldPostEffect->Initialize();
 
 	SceneInit();
 
@@ -46,6 +48,7 @@ void IFE::Scene::Update()
 	{
 		LoadUpdate();
 	}
+	PostEffectDraw();
 }
 
 void IFE::Scene::PostEffectDraw()

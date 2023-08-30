@@ -29,6 +29,7 @@ namespace IFE
 			SLight::ConstSLightData sLights[s_PLIGHT_NUM];
 			CShadow::ConstCShadowData cShadows[s_CSHADOW_NUM];
 		};
+		inline static uint8_t nextPNum_ = 0;
 
 	private:
 		std::unique_ptr<ConstBuffer<ConstBufferData>>constBuff_;

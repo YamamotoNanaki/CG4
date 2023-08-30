@@ -15,6 +15,7 @@ namespace IFE
 		float speed_ = 5;
 		float gravity_ = 0;
 		Float4 baseColor_ = { 1,1,1,1 };
+		uint8_t num = 0;
 	public:
 		void Update()override;
 		void StartFirework();
