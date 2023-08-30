@@ -20,6 +20,7 @@ namespace IFE
 		void Update()override;
 		void StartFirework();
 		static void InitDefaultVelocity();
+		~FireworkChrysanthemum();
 
 #ifdef NDEBUG
 #else

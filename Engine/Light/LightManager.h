@@ -15,7 +15,7 @@ namespace IFE
 	private:
 		static const int32_t s_LIGHT_MAX_ = 100;
 		static const int32_t s_PLIGHT_NUM = s_LIGHT_MAX_;
-		static const int32_t s_DLIGHT_NUM = s_LIGHT_MAX_;
+		static const int32_t s_DLIGHT_NUM = 3;
 		static const int32_t s_SLIGHT_NUM = s_LIGHT_MAX_;
 		static const int32_t s_CSHADOW_NUM = s_LIGHT_MAX_;
 
@@ -26,7 +26,7 @@ namespace IFE
 			float pad1;
 			DLight::ConstDLightData dLights[s_DLIGHT_NUM];
 			PLight::ConstPLightData pLights[s_PLIGHT_NUM];
-			SLight::ConstSLightData sLights[s_PLIGHT_NUM];
+			SLight::ConstSLightData sLights[s_SLIGHT_NUM];
 			CShadow::ConstCShadowData cShadows[s_CSHADOW_NUM];
 		};
 		inline static uint8_t nextPNum_ = 0;
@@ -72,5 +72,10 @@ namespace IFE
 		void Draw(uint32_t rootParameterIndex);
 		static LightManager* Instance();
 		static void Finalize();
+
+#ifdef NDEBUG
+#else
+		void DebugGUI();
+#endif
 	};
 }

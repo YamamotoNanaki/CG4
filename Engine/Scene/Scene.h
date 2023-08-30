@@ -19,7 +19,7 @@ namespace IFE
 	private:
 		GraphicsPipelineManager* gp_=GraphicsPipelineManager::Instance();
 		TextureManager* tex_ = TextureManager::Instance();
-		LightManager* light_ = LightManager::Instance();
+		LightManager* lightM_ = LightManager::Instance();
 		Sound* sound_ = Sound::Instance();
 		ObjectManager* objM_ = ObjectManager::Instance();
 		ModelManager* modelM_ = ModelManager::Instance();

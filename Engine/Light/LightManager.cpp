@@ -94,6 +94,7 @@ void IFE::LightManager::SetDirLightActive(int32_t index, bool active)
 	assert(0 <= index && index < s_DLIGHT_NUM);
 
 	dLight_[index].SetActive(active);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetDirLightDir(int32_t index, const Vector3& lightdir)
@@ -117,6 +118,7 @@ void IFE::LightManager::SetPointLightActive(int32_t index, bool active)
 	assert(0 <= index && index < s_PLIGHT_NUM);
 
 	pLight_[index].SetActive(active);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetPointLightPos(int32_t index, const Float3& lightpos)
@@ -148,6 +150,7 @@ void IFE::LightManager::SetSpotLightActive(int32_t index, bool active)
 	assert(0 <= index && index < s_SLIGHT_NUM);
 
 	sLight_[index].SetActive(active);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetSpotLightDir(int32_t index, const Vector3& lightdir)
@@ -195,6 +198,7 @@ void IFE::LightManager::SetCircleShadowActive(int32_t index, bool active)
 	assert(0 <= index && index < s_CSHADOW_NUM);
 
 	cShadow_[index].SetActive(active);
+	dirty_ = true;
 }
 
 void IFE::LightManager::SetCircleShadowDir(int32_t index, const Vector3& lightdir)
@@ -261,3 +265,43 @@ LightManager* IFE::LightManager::Instance()
 	static LightManager instance;
 	return &instance;
 }
+
+#ifdef NDEBUG
+#else
+#include "ImguiManager.h"
+void IFE::LightManager::DebugGUI()
+{
+	auto imgui = ImguiManager::Instance();
+	imgui->NewGUI("LightManager");
+	if (imgui->CollapsingHeaderGUI("Directional Light"))
+	{
+		static int32_t num = 0;
+		imgui->DragIntGUI(&num, "select number", 1.0f, 0, s_DLIGHT_NUM);
+	}
+	if (imgui->CollapsingHeaderGUI("Point Light"))
+	{
+		static int32_t num = 0;
+		imgui->DragIntGUI(&num, "select number", 1.0f, 0, s_PLIGHT_NUM);
+		bool active = pLight_[num].IsActive();
+		Float3 pos = pLight_[num].GetLightPos();
+		Float3 atten = pLight_[num].GetLightAtten();
+		Float3 color = pLight_[num].GetLightColor();
+
+		imgui->CheckBoxGUI(&active, "active");
+		imgui->DragFloat3GUI(&pos, "pos");
+		imgui->DragFloat3GUI(&atten, "atten");
+		imgui->ColorEdit3GUI(&color, "color");
+
+		SetPointLightActive(num, active);
+		SetPointLightAtten(num, atten);
+		SetPointLightColor(num, color);
+		SetPointLightPos(num, pos);
+	}
+	if (imgui->CollapsingHeaderGUI("Spot Light"))
+	{
+		static int32_t num = 0;
+		imgui->DragIntGUI(&num, "select number", 1.0f, 0, s_SLIGHT_NUM);
+	}
+	imgui->EndGUI();
+}
+#endif

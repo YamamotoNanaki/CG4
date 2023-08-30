@@ -50,8 +50,9 @@ void IFE::FireworkChrysanthemum::Update()
 	speed_ = OutQuad(sStartSpeed_, 0, maxt, t);
 	LightManager::Instance()->SetPointLightPos(num, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(num, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuad(0.01f, 1, maxt, t);
-	LightManager::Instance()->SetPointLightAtten(num, { atten,atten,atten });
+	float atten = InQuart(0, 1, maxt, t);
+	float attenX = InQuart(0.001f, 1, maxt, t);
+	LightManager::Instance()->SetPointLightAtten(num, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::StartFirework()
@@ -80,7 +81,7 @@ void IFE::FireworkChrysanthemum::StartFirework()
 	speed_ = sStartSpeed_;
 	LightManager::Instance()->SetPointLightActive(LightManager::nextPNum_, true);
 	LightManager::Instance()->SetPointLightPos(LightManager::nextPNum_, transformParticle_->position_);
-	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, {0.01f,0.01f,0.01f});
+	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, { 0.001f,0,0 });
 	num = LightManager::nextPNum_;
 	LightManager::nextPNum_++;
 }
@@ -106,7 +107,12 @@ void IFE::FireworkChrysanthemum::InitDefaultVelocity()
 		}
 	}
 	sDefaultVelocity_[particleMaxNum_ - 1] = { 0,-radius,0 };
-	}
+}
+
+IFE::FireworkChrysanthemum::~FireworkChrysanthemum()
+{
+	LightManager::Instance()->SetPointLightActive(num, false);
+}
 
 
 #ifdef NDEBUG

@@ -59,6 +59,7 @@ namespace IFE
 		void DragFloat3GUI(Float3* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragFloat4GUI(Float4* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void ColorEdit4GUI(Float4* color, const std::string& label);
+		void ColorEdit3GUI(Float3* color, const std::string& label);
 		void CheckBoxGUI(bool* flag, const std::string& label);
 		void CollapsingHeaderGUI(const std::string& label, const std::function<void(void)>& guiFunc);
 		bool ButtonGUI(const std::string& buttonName);

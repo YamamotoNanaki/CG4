@@ -25,7 +25,7 @@ cbuffer Material : register(b2)
 };
 
 static const int LIGHT_MAX = 100;
-static const int DLIGHT_NUM = LIGHT_MAX;
+static const int DLIGHT_NUM = 3;
 
 struct DLight
 {

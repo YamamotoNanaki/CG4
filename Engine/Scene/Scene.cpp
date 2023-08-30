@@ -88,8 +88,8 @@ void IFE::Scene::Initialize()
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
-	light_->Initialize();
-	light_->DefaultLightSetting();
+	lightM_->Initialize();
+	lightM_->DefaultLightSetting();
 	sound_->Initialize();
 	gui_.Initialize();
 	cameraM_->Initialize();
@@ -122,7 +122,7 @@ void IFE::Scene::Update()
 			particleM->DebugUpdate();
 			cameraM_->DebugUpdate();
 		}
-		light_->Update();
+		lightM_->Update();
 	}
 	else
 	{
@@ -395,5 +395,6 @@ void IFE::Scene::DebugGUI()
 	tex_->DebugGUI();
 	cameraM_->DebugGUI();
 	particleM->DebugGUI();
+	lightM_->DebugGUI();
 }
 #endif

@@ -12,6 +12,12 @@ float IFE::InQuad(float startPos, float endPos, float maxTime, float time) {
 	float change = endPos - startPos;
 	return change * time * time + startPos;
 }
+float IFE::InQuart(float startPos, float endPos, float maxTime, float time)
+{
+	time /= maxTime;
+	float change = endPos - startPos;
+	return change * time * time * time * time + startPos;
+}
 float IFE::OutQuad(float startPos, float endPos, float maxTime, float time) {
 	time /= maxTime;
 	float change = endPos - startPos;

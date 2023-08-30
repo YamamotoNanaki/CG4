@@ -605,6 +605,13 @@ void IFE::ImguiManager::ColorEdit4GUI(Float4* color, const std::string& label)
 	color->Set(c[0], c[1], c[2], c[3]);
 }
 
+void IFE::ImguiManager::ColorEdit3GUI(Float3* color, const std::string& label)
+{
+	float c[3] = { color->x,color->y,color->z };
+	ImGui::ColorEdit3(label.c_str(), c);
+	color->Set(c[0], c[1], c[2]);
+}
+
 void IFE::ImguiManager::CheckBoxGUI(bool* flag, const std::string& label)
 {
 	ImGui::Checkbox(label.c_str(), flag);
