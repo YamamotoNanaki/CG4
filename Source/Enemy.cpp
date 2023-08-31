@@ -22,6 +22,10 @@ void IFE::Enemy::Initialize()
 	{
 		transform_->position_ = patrolPoint_[0];
 	}
+	if (objectPtr_->GetComponent<TransferGeometryBuffer>())
+	{
+		objectPtr_->GetComponent<TransferGeometryBuffer>()->bllomFlag_ = true;
+	}
 }
 
 void IFE::Enemy::Update()
@@ -29,15 +33,15 @@ void IFE::Enemy::Update()
 	Move();
 	if (hp_ == 2)
 	{
-		objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
+		//objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
 	}
 	else if (hp_ == 1)
 	{
-		objectPtr_->GetComponent<Material>()->color_ = { 0,1,0,1 };
+		//objectPtr_->GetComponent<Material>()->color_ = { 0,1,0,1 };
 	}
 	else
 	{
-		objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
+		//objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
 		action_ = (uint8_t)EnemyAction::Death;
 	}
 	if (action_ == (uint8_t)EnemyAction::Attack)

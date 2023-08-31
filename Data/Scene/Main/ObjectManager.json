@@ -152,8 +152,8 @@
                 0.30000001192092896
             ],
             "color": [
-                0.0,
-                0.0,
+                1.0,
+                1.0,
                 1.0,
                 1.0
             ],
@@ -167,7 +167,7 @@
                 0.0,
                 0.0
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -201,7 +201,7 @@
             "TransferGeometryBuffer",
             "Material"
         ],
-        "model": "cube_Model",
+        "model": "lantern_Model",
         "name": "Enemy",
         "prefab": false
     },
@@ -778,7 +778,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -812,7 +812,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy1",
         "prefab": false
     },
@@ -851,7 +851,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -885,7 +885,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy2",
         "prefab": false
     },
@@ -936,7 +936,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -970,7 +970,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy3",
         "prefab": false
     },
@@ -1021,7 +1021,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -1055,7 +1055,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy4",
         "prefab": false
     },
@@ -1078,7 +1078,7 @@
                 [
                     30.0,
                     -0.75,
-                    190.0
+                    155.0
                 ]
             ],
             "patrolPointSize": 2,
@@ -1106,7 +1106,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -1140,7 +1140,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy5",
         "prefab": false
     },
@@ -1191,7 +1191,7 @@
                 0.30000001192092896,
                 0.30000001192092896
             ],
-            "terxtureName": "white.png"
+            "terxtureName": "lantern.png"
         },
         "TransferGeometryBuffer": {
             "explosion": 0.0,
@@ -1225,7 +1225,7 @@
             "Collider",
             "Enemy"
         ],
-        "model": "sphere_Model",
+        "model": "lantern_Model",
         "name": "enemy6",
         "prefab": false
     },

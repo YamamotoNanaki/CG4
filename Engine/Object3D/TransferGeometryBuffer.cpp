@@ -20,6 +20,7 @@ void IFE::TransferGeometryBuffer::Update()
 	constMapGeometry_->polygonSize = polygonSize_;
 	constMapGeometry_->lightFlag = lightFlag_;
 	constMapGeometry_->toonFlag = toonFlag_;
+	constMapGeometry_->bllomFlag = bllomFlag_;
 }
 
 void IFE::TransferGeometryBuffer::Draw()
@@ -37,6 +38,7 @@ void IFE::TransferGeometryBuffer::Copy(Component* component)
 	polygonSize_ = t->polygonSize_;
 	lightFlag_ = t->lightFlag_;
 	toonFlag_ = t->toonFlag_;
+	bllomFlag_ = t->bllomFlag_;
 }
 
 #ifdef NDEBUG

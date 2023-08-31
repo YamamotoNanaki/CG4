@@ -21,8 +21,8 @@ namespace IFE
 		float rotation;
 		uint32_t lightFlag = 1;
 		uint32_t toonFlag = 0;
+		uint32_t bllomFlag = 0;
 		float pad;
-		float pad1;
 	};
 
 	struct ConstBufferBillboard

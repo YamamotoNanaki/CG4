@@ -56,8 +56,8 @@ void IFE::CollideManager::CollidersUpdate()
 			//‚Æ‚à‚É‹…
 			if (colA->GetColliderType() == ColliderType::SPHERE && colB->GetColliderType() == ColliderType::SPHERE)
 			{
-				Sphere SphereA(colA->GetColliderPosition(), colA->GetColliderScale().x);
-				Sphere SphereB(colB->GetColliderPosition(), colB->GetColliderScale().x);
+				Sphere SphereA(colA->GetColliderPosition(), Vector3(colA->GetColliderScale()).Length());
+				Sphere SphereB(colB->GetColliderPosition(), Vector3(colB->GetColliderScale()).Length());
 				Vector3 inter;
 				Vector3 reject;
 				if (Collision::CheckSphere(SphereA, SphereB, &inter, &reject))
@@ -72,7 +72,7 @@ void IFE::CollideManager::CollidersUpdate()
 			else if (colA->GetColliderType() == ColliderType::MESH && colB->GetColliderType() == ColliderType::SPHERE)
 			{
 				MeshCollider* mesh = colA->GetMeshCollider();
-				Sphere sphere(colB->GetColliderPosition(), colB->GetColliderScale().x);
+				Sphere sphere(colB->GetColliderPosition(), Vector3(colB->GetColliderScale()).Length());
 				Vector3 inter;
 				Vector3 reject;
 				if (mesh->CheckCollisionSphere(sphere, &inter, &reject))
@@ -87,7 +87,7 @@ void IFE::CollideManager::CollidersUpdate()
 			else if (colA->GetColliderType() == ColliderType::SPHERE && colB->GetColliderType() == ColliderType::MESH)
 			{
 				MeshCollider* mesh = colB->GetMeshCollider();
-				Sphere sphere(colA->GetColliderPosition(), colA->GetColliderScale().x);
+				Sphere sphere(colA->GetColliderPosition(), Vector3(colA->GetColliderScale()).Length());
 				Vector3 inter;
 				Vector3 reject;
 				if (mesh->CheckCollisionSphere(sphere, &inter, &reject))

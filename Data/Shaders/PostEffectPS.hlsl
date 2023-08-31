@@ -31,6 +31,34 @@ float4 GaussianBlur(float2 uv, Texture2D<float4> tex, float _sigma = 0.005)
             if (pickuv.x < 0 || pickuv.y < 0 || pickuv.x > 1 || pickuv.y > 1)
                 continue;
             float weight = Gaussian(uv, pickuv, _sigma);
+            col += tex.Sample(smp, pickuv) * weight;
+            totalWeight += weight;
+        }
+    }
+    col.rgb = col.rgb / totalWeight;
+    return col;
+}
+
+float4 GaussianBlurShift(float2 uv, Texture2D<float4> tex, float _sigma = 0.005)
+{
+    if (_sigma == 0)
+    {
+        return tex.Sample(smp, uv);
+    }
+    uv = clamp(uv, 0, 1);
+    float totalWeight = 0, _stepWidth = 0.001;
+    float4 col = float4(0, 0, 0, 1);
+
+	[loop]
+    for (float py = -_sigma * 2; py <= _sigma * 2; py += _stepWidth)
+    {
+        [loop]
+        for (float px = -_sigma * 2; px <= _sigma * 2; px += _stepWidth)
+        {
+            float2 pickuv = uv + float2(px, py);
+            if (pickuv.x < 0 || pickuv.y < 0 || pickuv.x > 1 || pickuv.y > 1)
+                continue;
+            float weight = Gaussian(uv, pickuv, _sigma);
             col.r += tex.Sample(smp, pickuv + float2(-_sigma / 2, _sigma / 2)).r * weight;
             col.g += tex.Sample(smp, pickuv + float2(0, -_sigma / 2)).g * weight;
             col.b += tex.Sample(smp, pickuv + float2(_sigma / 2, 0)).b * weight;
@@ -82,7 +110,7 @@ float4 main(VSOutput input) : SV_TARGET
     outFocusColor = GaussianDepthBlur(input.uv, tex0, _FFocusWidth, _FocusDepth);
 
     texcolor = inFocus * inFocusColor + middleFocus * middleFocusColor + outFocus * outFocusColor;
-    texcolor = GaussianBlur(input.uv, tex0, sigma);
+    texcolor = GaussianBlurShift(input.uv, tex0, sigma);
     texcolor += GaussianBlur(input.uv, tex1);
 
     return texcolor;

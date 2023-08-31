@@ -53,5 +53,13 @@
             "smooth": false
         },
         "name": "Wall2_Model"
+    },
+    {
+        "lantern_Model": {
+            "fileName": "lantern",
+            "settings": 0,
+            "smooth": true
+        },
+        "name": "lantern_Model"
     }
 ]

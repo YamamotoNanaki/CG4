@@ -18,6 +18,7 @@ namespace IFE
 		float polygonSize_ = 1;
 		bool lightFlag_ = true;
 		bool toonFlag_ = false;
+		bool bllomFlag_ = false;
 
 	public:
 		void Initialize()override;

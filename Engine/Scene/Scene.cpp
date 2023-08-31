@@ -21,8 +21,8 @@ void IFE::Scene::Initialize()
 	tex_->Initialize();
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
-	light_->Initialize();
-	light_->DefaultLightSetting();
+	lightM_->Initialize();
+	lightM_->DefaultLightSetting();
 	sound_->Initialize();
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
@@ -42,7 +42,7 @@ void IFE::Scene::Update()
 		spriteM_->Update();
 		particleM->Update();
 		cameraM_->Update();
-		light_->Update();
+		lightM_->Update();
 	}
 	else
 	{
