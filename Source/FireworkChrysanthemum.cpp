@@ -7,6 +7,7 @@
 #include "Ease.h"
 #include "Rand.h"
 #include "LightManager.h"
+#include "Sound.h"
 
 using namespace IFE;
 
@@ -84,6 +85,7 @@ void IFE::FireworkChrysanthemum::StartFirework()
 	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, { 0.001f,0,0 });
 	num = LightManager::nextPNum_;
 	LightManager::nextPNum_++;
+	Sound::Instance()->SoundPlay("Firework", false);
 }
 
 void IFE::FireworkChrysanthemum::InitDefaultVelocity()

@@ -42,6 +42,10 @@ void IFE::Player::Initialize()
 		animator_->SetAnimation("Idle");
 		animator_->loop_ = true;
 	}
+	auto shot = Sound::Instance()->LoadWave("shot");
+	auto firework = Sound::Instance()->LoadWave("Firework");
+	Sound::Instance()->SetVolume(shot, 25);
+	Sound::Instance()->SetVolume(firework, 75);
 }
 
 void IFE::Player::Update()
@@ -210,6 +214,7 @@ void IFE::Player::Shoot()
 		animator_->loop_ = false;
 
 		transform_->eulerAngleDegrees_ = { 0,playerCamera_->transform_->eulerAngleDegrees_.y + 180,0 };
+		Sound::Instance()->SoundPlay("shot", false);
 	}
 }
 
