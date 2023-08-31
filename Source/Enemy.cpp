@@ -62,6 +62,10 @@ void IFE::Enemy::OnColliderHit(Collider* collider)
 		hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
 		action_ = (uint8_t)EnemyAction::Hit;
 	}
+	if (collider->GetObjectPtr()->GetComponent<Player>())
+	{
+		action_ = (uint8_t)EnemyAction::Attack;
+	}
 }
 
 void IFE::Enemy::SetPlayerTransform(Transform* transform)
@@ -127,19 +131,11 @@ void IFE::Enemy::Detection()
 
 void IFE::Enemy::Attack()
 {
-	objectPtr_->GetComponent<Collider>()->SetOffsetScale({ 3,3,3 });
 
-	if (!attackFlag_)
-	{
-		attackFlag_ = true;
-		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
-		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
-	}
-	//attackDirectionTimer_ += IFETime::sDeltaTime_;
-	//if (attackDirectionTimer_ > attackDirectionMaxTime_)
-	//{
+	auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+	e->GetComponent<FireworkChrysanthemum>()->StartFirework();
+
 	objectPtr_->Destroy();
-	//}
 }
 
 void IFE::Enemy::Death()
