@@ -51,11 +51,18 @@ void IFE::SpriteManager::Update()
 
 void IFE::SpriteManager::ForeDraw()
 {
+	Sprite* fade = nullptr;
 	Sprite::DrawBefore();
 	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
+		if (itr->spriteName_ == "fade")
+		{
+			fade = itr.get();
+			continue;
+		}
 		itr->Draw();
 	}
+	if (fade)fade->Draw();
 }
 
 void IFE::SpriteManager::BackDraw()
@@ -67,13 +74,24 @@ void IFE::SpriteManager::BackDraw()
 	}
 }
 
-void IFE::SpriteManager::AddInitialize(const std::string& spriteName, const std::string& textureName)
+Sprite* IFE::SpriteManager::AddInitialize(const std::string& spriteName, const std::string& textureName)
 {
 	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
 	ptr->SPRITEInitialize();
 	ptr->spriteName_ = spriteName;
 	ptr->SetTexture(textureName);
 	foregroundList_.push_back(std::move(ptr));
+	return foregroundList_.back().get();
+}
+
+Sprite* IFE::SpriteManager::AddInitializePushFront(const std::string& spriteName, const std::string& textureName)
+{
+	std::unique_ptr<Sprite> ptr = make_unique<Sprite>();
+	ptr->SPRITEInitialize();
+	ptr->spriteName_ = spriteName;
+	ptr->SetTexture(textureName);
+	foregroundList_.push_front(std::move(ptr));
+	return foregroundList_.front().get();
 }
 
 Sprite* IFE::SpriteManager::Add(const std::string& spriteName)
@@ -322,12 +340,14 @@ void IFE::SpriteManager::OutputScene()
 	uint32_t i = 0;
 	for (unique_ptr<Sprite>& itr : backgroundList_)
 	{
-		itr->OutputScene(j[i]);
+		itr->OutputScene(j["back"][i]);
 		i++;
 	}
+	i = 0;
 	for (unique_ptr<Sprite>& itr : foregroundList_)
 	{
-		itr->OutputScene(j[i]);
+		if (itr->spriteName_.find("line") != std::string::npos)continue;
+		itr->OutputScene(j["fore"][i]);
 		i++;
 	}
 	jm->Output("SpriteManager");
@@ -354,7 +374,13 @@ void IFE::SpriteManager::LoadingScene()
 	JsonManager* jm = JsonManager::Instance();
 	jm->Input("SpriteManager");
 	nlohmann::json& js = jm->GetJsonData();
-	for (auto& j : js)
+	for (auto& j : js["back"])
+	{
+		auto spr = AddBackGround(j["name"]);
+		spr->Initialize(j["texture"]);
+		spr->LoadingScene(j);
+	}
+	for (auto& j : js["fore"])
 	{
 		auto spr = Add(j["name"]);
 		spr->Initialize(j["texture"]);

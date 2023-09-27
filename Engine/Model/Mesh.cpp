@@ -65,7 +65,7 @@ std::vector<Vertex> IFE::Mesh::GetVertexArray()
 	return vt_.GetVertex();
 }
 
-void IFE::Mesh::SetMaterial(MaterialiParams mat)
+void IFE::Mesh::SetMaterial(MaterialParams mat)
 {
 	if (!material_)
 	{
@@ -74,6 +74,11 @@ void IFE::Mesh::SetMaterial(MaterialiParams mat)
 	}
 
 	material_->SetMaterial(mat);
+}
+
+MaterialParams IFE::Mesh::GetMaterial()
+{
+	return material_->GetMaterial();
 }
 
 #ifdef NDEBUG

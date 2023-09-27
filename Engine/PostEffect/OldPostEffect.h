@@ -10,6 +10,7 @@ namespace IFE
 	{
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Resource>texBuff[3];
+		Microsoft::WRL::ComPtr<ID3D12Resource>depthTex;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapSRV;
 		Microsoft::WRL::ComPtr<ID3D12Resource>depthBuff;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapRTV;
@@ -40,6 +41,15 @@ namespace IFE
 		void SetRGBShift(float shift);
 		//void SetGrayscale(bool gray);
 		//void SetSepia(float sepia);
+		void SetVBInit();
+		void SetVBGame();
+
+#ifdef NDEBUG
+#else
+		void DebugGUI();
+		void OutputScene();
+#endif
+		void LoadingScene();
 
 	private:
 		void CreateGraphicsPipelineState();

@@ -24,7 +24,8 @@ namespace IFE
 		void Update();
 		void ForeDraw();
 		void BackDraw();
-		void AddInitialize(const std::string& spriteName, const std::string& textureName);
+		Sprite* AddInitialize(const std::string& spriteName, const std::string& textureName);
+		Sprite* AddInitializePushFront(const std::string& spriteName, const std::string& textureName);
 		Sprite* Add(const std::string& spriteName);
 		Sprite* AddBackGround(const std::string& spriteName);
 		Sprite* GetSpritePtr(const std::string& spriteName);
@@ -42,7 +43,7 @@ namespace IFE
 #endif
 		void LoadingScene();
 
-	private:
+	public:
 		std::string GetNewName(const std::string& spriteName);
 	};
 }

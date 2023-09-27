@@ -21,6 +21,7 @@ cbuffer Material : register(b2)
     float4 color : packoffset(c0); //êF(RGBA)
     float3 ambient : packoffset(c1);
     float3 diffuse : packoffset(c2);
+    float bloom : packoffset(c2.w);
     float3 specular : packoffset(c3);
     float alpha : packoffset(c3.w);
 };
@@ -76,6 +77,14 @@ cbuffer LightBuff : register(b3)
     PLight pLights[PLIGHT_NUM];
     SLight sLights[SLIGHT_NUM];
     CShadow cShadows[CSHADOW_NUM];
+}
+
+cbuffer Fog : register(b4)
+{
+    float4 m_FogColor;
+    float m_Near;
+    float m_Far;
+    bool fogFlag;
 }
 
 struct VSOutput

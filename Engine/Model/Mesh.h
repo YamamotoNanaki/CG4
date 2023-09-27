@@ -32,7 +32,8 @@ namespace IFE
 		IndexBuffer* GetIB();
 		std::vector<uint32_t> GetIndexArray();
 		std::vector<Vertex> GetVertexArray();
-		void SetMaterial(MaterialiParams mat);
+		void SetMaterial(MaterialParams mat);
+		MaterialParams GetMaterial();
 
 #ifdef NDEBUG
 #else

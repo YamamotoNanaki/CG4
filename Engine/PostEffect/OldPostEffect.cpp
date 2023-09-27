@@ -1,7 +1,7 @@
 #include "OldPostEffect.h"
 #include "WindowsAPI.h"
 #include "GraphicsAPI.h"
-//#include "Input.h"
+#include "JsonManager.h"
 #include <cassert>
 #include <d3dx12.h>
 #include <d3dcompiler.h>
@@ -66,15 +66,7 @@ void OldPostEffect::Initialize()
 
 	Sprite::Initialize();
 
-	Vertex2D vertices[4] = {
-		{{-1,-1,0},{0,1}},
-		{{-1,+1,0},{0,0}},
-		{{+1,-1,0},{1,1}},
-		{{+1,+1,0},{1,0}},
-	};
-
-	vb_.SetVerticle(vertices, _countof(vertices));
-	vb_.Initialize();
+	SetVBInit();
 
 	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, w, h,
@@ -163,10 +155,11 @@ void OldPostEffect::Initialize()
 	CreateGraphicsPipelineState();
 
 	constMapPostEffect = buffer_.GetCBMapObject();
+	assert(SUCCEEDED(result));
+
 	constMapPostEffect->NFocusWidth = 0.03f;
 	constMapPostEffect->FFocusWidth = 0.04f;
 	constMapPostEffect->FocusDepth = 0.08f;
-	assert(SUCCEEDED(result));
 }
 
 void OldPostEffect::DrawBefore()
@@ -225,6 +218,77 @@ void OldPostEffect::DrawAfter()
 void IFE::OldPostEffect::SetRGBShift(float shift)
 {
 	constMapPostEffect->sigma = shift;
+}
+
+void IFE::OldPostEffect::SetVBInit()
+{
+	Vertex2D vertices[4] = {
+		{{-1,-1,0},{0,1}},
+		{{-1,+1,0},{0,0}},
+		{{1,-1,0},{1,1}},
+		{{1,+1,0},{1,0}},
+	};
+
+	vb_.SetVerticle(vertices, _countof(vertices));
+	vb_.Initialize();
+}
+
+void IFE::OldPostEffect::SetVBGame()
+{
+	Vertex2D vertices[4] = {
+		{{-1,-1,0},{0,1}},
+		{{-1,+1,0},{0,0}},
+		{{0,-1,0},{1,1}},
+		{{0,+1,0},{1,0}},
+	};
+
+	vb_.SetVerticle(vertices, _countof(vertices));
+	vb_.Initialize();
+}
+
+#ifdef NDEBUG
+#else
+#include "ImguiManager.h"
+void IFE::OldPostEffect::DebugGUI()
+{
+	auto im = ImguiManager::Instance();
+	im->NewGUI("PostEffect");
+
+	im->DragFloatGUI(&constMapPostEffect->NFocusWidth, "NFocus", 0.0005f, 0, 0.1f);
+	im->DragFloatGUI(&constMapPostEffect->FFocusWidth, "FFocus", 0.0005f, 0, 0.1f);
+	im->DragFloatGUI(&constMapPostEffect->FocusDepth, "FocusDepth", 0.0005f, 0, 0.1f);
+
+	im->EndGUI();
+}
+
+void IFE::OldPostEffect::OutputScene()
+{
+	auto jm = JsonManager::Instance();
+
+	jm->JsonReset();
+	auto& json = jm->GetJsonData();
+
+	json["NFocus"] = constMapPostEffect->NFocusWidth;
+	json["FFocus"] = constMapPostEffect->FFocusWidth;
+	json["FocusDepth"] = constMapPostEffect->FocusDepth;
+
+	jm->Output("PostEffectManager");
+}
+
+#endif
+void IFE::OldPostEffect::LoadingScene()
+{
+	auto jm = JsonManager::Instance();
+	jm->Input("PostEffectManager");
+	if (jm->IsError())
+	{
+		return;
+	}
+	auto json = jm->GetJsonData();
+
+	constMapPostEffect->NFocusWidth = json["NFocus"];
+	constMapPostEffect->FFocusWidth = json["FFocus"];
+	constMapPostEffect->FocusDepth = json["FocusDepth"];
 }
 
 //void IFE::OldPostEffect::SetGrayscale(bool gray)

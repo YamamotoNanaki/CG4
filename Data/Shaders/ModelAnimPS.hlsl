@@ -93,8 +93,20 @@ PSOutput main(GSOutput input) : SV_TARGET
         }
     }
 
+    //ÉtÉHÉO
+    float f = 1;
+    if (fogFlag)
+    {
+        float d = distance(input.worldpos.xyz, cameraPos);
+
+        f = (m_Far - d) / (m_Far - m_Near);
+        f = clamp(f, 0.0f, 1.0f);
+    }
+
     PSOutput o;
     o.target0 = shadecolor * texcolor * color;
+
+    o.target0 = o.target0 * f + (1.0f - f) * m_FogColor;
     float4 col = float4(0, 0, 0, 0);
     col = o.target0;
     if (bllomFlag)

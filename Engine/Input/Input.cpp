@@ -87,48 +87,28 @@ void IFE::Input::Update()
 	{
 		sPadConnected_ = false;
 	}
+	POINT p;
+	GetCursorPos(&p);
+	ScreenToClient(*WindowsAPI::Instance()->GetHWnd(), &p);
+	sMousePoint_ = { (float)p.x,(float)p.y };
 }
 
-bool IFE::Input::KeyTriggere(const KeyCode& keyCode)
-{
-	return sInputInstance_->key_[keyCode] && !sInputInstance_->oldkey_[keyCode];
-}
-
-bool IFE::Input::KeyDown(const KeyCode& keyCode)
-{
-	return sInputInstance_->key_[keyCode];
-}
-
-bool IFE::Input::KeyRelease(const KeyCode& keyCode)
-{
-	return !sInputInstance_->key_[keyCode] && sInputInstance_->oldkey_[keyCode];
-}
-
-bool Input::MousePush(const MouseCode& m)
+bool Input::GetMousePush(const Mouse& m)
 {
 	if (sInputInstance_->mouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
 }
 
-bool Input::MouseTriggere(const MouseCode& m)
+bool Input::GetMouseTrigger(const Mouse& m)
 {
 	if (sInputInstance_->mouse_.rgbButtons[(BYTE)m] && !sInputInstance_->oldmouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
 }
 
-bool Input::MouseRelease(const MouseCode& m)
+bool Input::GetMouseRelease(const Mouse& m)
 {
 	if (!sInputInstance_->mouse_.rgbButtons[(BYTE)m] && sInputInstance_->oldmouse_.rgbButtons[(BYTE)m]) { return true; }
 	return false;
-}
-
-Mouse Input::GetMouse3D()
-{
-	Mouse m{};
-	m.x = sInputInstance_->mouse_.lX;
-	m.y = sInputInstance_->mouse_.lY;
-	m.z = sInputInstance_->mouse_.lZ;
-	return m;
 }
 
 Float2 Input::GetLAnalog(int32_t unresponsive_range)
@@ -210,4 +190,29 @@ void Input::PadVibrationStop()
 bool IFE::Input::GetPadConnected()
 {
 	return sPadConnected_;
+}
+
+bool IFE::Input::GetKeyTrigger(const Key& keyFlag)
+{
+	return  sInputInstance_->key_[(uint16_t)keyFlag] && !sInputInstance_->oldkey_[(uint16_t)keyFlag];
+}
+
+bool IFE::Input::GetKeyDown(const Key& keyFlag)
+{
+	return sInputInstance_->key_[(uint16_t)keyFlag];
+}
+
+bool IFE::Input::GetKeyRelease(const Key& keyFlag)
+{
+	return  !sInputInstance_->key_[(uint16_t)keyFlag] && sInputInstance_->oldkey_[(uint16_t)keyFlag];
+}
+
+Float2 IFE::Input::GetMousePoint()
+{
+	return sMousePoint_;
+}
+
+int32_t IFE::Input::GetMouseWheel()
+{
+	return sInputInstance_->mouse_.lZ;
 }

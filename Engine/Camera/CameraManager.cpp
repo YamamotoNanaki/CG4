@@ -39,6 +39,11 @@ void IFE::CameraManager::Update()
 	sActivCamera_->CameraUpdate();
 }
 
+void IFE::CameraManager::Draw()
+{
+	sActivCamera_->Draw();
+}
+
 void IFE::CameraManager::Reset()
 {
 	sActivCamera_ = nullptr;
@@ -186,5 +191,9 @@ void IFE::CameraManager::LoadingScene()
 		camera = Add(j["name"]);
 		camera->LoadingScene(j);
 		camera->Initialize();
+	}
+	if (cameraList_.size() == 0)
+	{
+		Initialize();
 	}
 }

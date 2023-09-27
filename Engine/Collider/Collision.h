@@ -19,5 +19,10 @@ namespace IFE
 		//static bool CheckCircleXYAABB(const Primitive& Circle, const Primitive& box);
 	private:
 		static void ClosestPtPoint2Triangle(const Vector3& point, const Triangle& triangle, Vector3* closest);
+
+		//2d
+	public:
+
+		static bool BoxCollision2D(IFE::Float2 pos1, float r1, IFE::Float2 pos2, float r2);
 	};
 }

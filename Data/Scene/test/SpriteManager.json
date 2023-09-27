@@ -1,139 +1,141 @@
-[
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                0.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                1400.0,
-                630.0
+{
+    "fore": [
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1400.0,
+                    630.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                2.0,
-                1.0
-            ]
+            "name": "kougeki",
+            "texture": "kougeki.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "kougeki",
-        "texture": "kougeki.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                1400.0,
-                750.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    1400.0,
+                    750.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                2.0,
-                1.0
-            ]
+            "name": "idou",
+            "texture": "idou.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "idou",
-        "texture": "idou.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                1230.0,
-                630.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    1230.0,
+                    630.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.0,
-                1.0
-            ]
+            "name": "ButtonR",
+            "texture": "ButtonR.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "ButtonR",
-        "texture": "ButtonR.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                1230.0,
-                750.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    1230.0,
+                    750.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.0,
-                1.0
-            ]
+            "name": "AnalogL",
+            "texture": "AnalogL.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "AnalogL",
-        "texture": "AnalogL.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                0.29411765933036804
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                800.0,
-                450.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.29411765933036804
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    450.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.25,
+                    0.25
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                0.25,
-                0.25
-            ]
-        },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "Reticle",
-        "texture": "Reticle.png"
-    }
-]
+            "name": "Reticle",
+            "texture": "Reticle.png"
+        }
+    ]
+}

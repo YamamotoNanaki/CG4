@@ -44,9 +44,17 @@ namespace IFE
 		Float3 ambient;
 		float pad1;
 		Float3 diffuse;
-		float pad2;
+		float bloom;
 		Float3 specular;
 		float alpha;
+	};
+	struct ConstBufferFog
+	{
+		Float4 color;
+		float fogNear = 650.0f; //フォグの開始位置
+		float fogFar = 700.0f; //フォグの終了位置
+		uint32_t fogFlag = 0;
+		float pad;
 	};
 	struct ConstBufferPostEffect
 	{

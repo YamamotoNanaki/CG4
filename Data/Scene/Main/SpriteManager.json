@@ -1,205 +1,207 @@
-[
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                1400.0,
-                630.0
+{
+    "fore": [
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1400.0,
+                    630.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                2.0,
-                1.0
-            ]
+            "name": "kougeki",
+            "texture": "kougeki.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "kougeki",
-        "texture": "kougeki.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                1400.0,
-                750.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1400.0,
+                    750.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                2.0,
-                1.0
-            ]
+            "name": "idou",
+            "texture": "idou.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "idou",
-        "texture": "idou.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                1230.0,
-                630.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1230.0,
+                    630.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.0,
-                1.0
-            ]
+            "name": "ButtonR",
+            "texture": "ButtonR.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "ButtonR",
-        "texture": "ButtonR.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                1230.0,
-                750.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1230.0,
+                    750.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.0,
-                1.0
-            ]
+            "name": "AnalogL",
+            "texture": "AnalogL.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "AnalogL",
-        "texture": "AnalogL.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                315.0,
-                800.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    315.0,
+                    800.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    7.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                7.0,
-                1.0
-            ]
+            "name": "hp",
+            "texture": "HP.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "hp",
-        "texture": "HP.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "HPbar": null,
-        "Transform2D": {
-            "position": [
-                800.0,
-                800.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "HPbar": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    800.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.600000023841858,
+                    0.699999988079071
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "HPbar"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.600000023841858,
-                0.699999988079071
-            ]
+            "name": "hpbar",
+            "texture": "HPbar.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "HPbar"
-        ],
-        "name": "hpbar",
-        "texture": "HPbar.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "CommonGameUI": null,
-        "Transform2D": {
-            "position": [
-                800.0,
-                450.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    450.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.25,
+                    0.25
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                0.25,
-                0.25
-            ]
-        },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "CommonGameUI"
-        ],
-        "name": "Reticle",
-        "texture": "Reticle.png"
-    }
-]
+            "name": "Reticle",
+            "texture": "Reticle.png"
+        }
+    ]
+}

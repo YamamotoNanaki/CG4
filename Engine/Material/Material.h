@@ -9,7 +9,7 @@
 
 namespace IFE
 {
-	struct MaterialiParams
+	struct MaterialParams
 	{
 		Float3 ambient = { 0.3f,0.3f,0.3f };
 		Float3 diffuse = { 0.3f,0.3f,0.3f };
@@ -17,6 +17,7 @@ namespace IFE
 		Float4 color = { 1,1,1,1 };
 		float alpha = 1.0f;
 		Texture* tex = nullptr;
+		bool bloom = false;
 	};
 	class Material : public Component
 	{
@@ -29,6 +30,7 @@ namespace IFE
 	public:
 		Float4 color_ = { 1,1,1,1 };
 		float alpha_ = 1.0f;
+		bool bloom_ = false;
 		Texture* tex_ = nullptr;
 
 		std::unique_ptr<ConstBuffer<ConstBufferMaterial>> materialBuffer_;
@@ -45,7 +47,8 @@ namespace IFE
 		Float4 GetColor255();
 		void SetColor255(const Float4& color);
 		void Copy(Component* component);
-		void SetMaterial(MaterialiParams mat);
+		void SetMaterial(MaterialParams mat);
+		MaterialParams GetMaterial();
 #ifdef NDEBUG
 #else
 		void DebugGUI();

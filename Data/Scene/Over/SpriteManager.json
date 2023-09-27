@@ -1,87 +1,89 @@
-[
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "EnemyCountUI": null,
-        "Transform2D": {
-            "position": [
-                1000.0,
-                640.0
+{
+    "fore": [
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "EnemyCountUI": null,
+            "Transform2D": {
+                "position": [
+                    1000.0,
+                    640.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    1.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "EnemyCountUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.5,
-                1.5
-            ]
+            "name": "EnemyNum",
+            "texture": "number0.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "EnemyCountUI"
-        ],
-        "name": "EnemyNum",
-        "texture": "number0.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "OverUI": null,
-        "Transform2D": {
-            "position": [
-                800.0,
-                325.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "OverUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    325.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    15.0,
+                    3.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "OverUI"
             ],
-            "rotation": 0.0,
-            "scale": [
-                15.0,
-                3.0
-            ]
+            "name": "gameover",
+            "texture": "gameover.png"
         },
-        "component": [
-            "Transform2D",
-            "ColorBuffer",
-            "OverUI"
-        ],
-        "name": "gameover",
-        "texture": "gameover.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                650.0,
-                640.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    650.0,
+                    640.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    15.0,
+                    1.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                15.0,
-                1.5
-            ]
-        },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "kill",
-        "texture": "kill.png"
-    }
-]
+            "name": "kill",
+            "texture": "kill.png"
+        }
+    ]
+}

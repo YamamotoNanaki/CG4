@@ -17,6 +17,8 @@ void IFE::Scene::Initialize()
 	gp_->CreateBasicGraphicsPipeLine();
 	gp_->CreateAnimGraphicsPipeLine();
 	gp_->CreateBasicParticleGraphicsPipeLine();
+	gp_->CreateTransparentParticleGraphicsPipeLine();
+	gp_->CreateSubParticleGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
@@ -84,6 +86,8 @@ void IFE::Scene::Initialize()
 	gp_->CreateBasicGraphicsPipeLine();
 	gp_->CreateAnimGraphicsPipeLine();
 	gp_->CreateBasicParticleGraphicsPipeLine();
+	gp_->CreateSubParticleGraphicsPipeLine();
+	gp_->CreateTransparentParticleGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
@@ -194,6 +198,7 @@ void IFE::Scene::SceneChange()
 void IFE::Scene::SceneInit()
 {
 	nowScene_ = JsonManager::Instance()->SceneInit();
+	if (nowScene_ == "")nowScene_ = "test";
 	JsonManager::Instance()->SetSceneName(nowScene_);
 	tex_->TexReset();
 	objM_->Reset();
@@ -210,6 +215,12 @@ void IFE::Scene::SceneInit()
 	objM_->Initialize();
 	spriteM_->Initialize();
 	particleM->Initialize();
+	oldPostEffect->LoadingScene();
+
+	if (nowScene_ == "game")
+	{
+		oldPostEffect->SetVBGame();
+	}
 }
 
 void IFE::Scene::SceneTransitionIn()
@@ -289,6 +300,10 @@ void IFE::Scene::LoadDraw()
 
 void IFE::Scene::LoadingScene()
 {
+	if (nextScene_ != "game")
+	{
+		oldPostEffect->SetVBInit();
+	}
 	JsonManager::Instance()->SetSceneName(nextScene_);
 	objM_->Reset();
 	spriteM_->Reset();
@@ -301,6 +316,11 @@ void IFE::Scene::LoadingScene()
 	spriteM_->Initialize();
 	particleM->Initialize();
 	cameraM_->LoadingScene();
+	oldPostEffect->LoadingScene();
+	if (nextScene_ == "game")
+	{
+		oldPostEffect->SetVBGame();
+	}
 	nowScene_ = nextScene_;
 	loadEnd_ = true;
 }
@@ -323,6 +343,7 @@ void IFE::Scene::OutputScene()
 	spriteM_->OutputScene();
 	particleM->OutputScene();
 	cameraM_->OutputScene();
+	oldPostEffect->OutputScene();
 }
 #include "imgui.h"
 void IFE::Scene::DebugGUI()
@@ -418,6 +439,7 @@ void IFE::Scene::DebugGUI()
 	cameraM_->DebugGUI();
 	particleM->DebugGUI();
 	lightM_->DebugGUI();
+	oldPostEffect->DebugGUI();
 }
 
 bool IFE::Scene::SceneCheck(const std::string& sceneName)

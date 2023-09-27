@@ -39,8 +39,8 @@ void IFE::JsonManager::Input(const std::string& filename)
 	readingFile.open(name, std::ios::in);
 	if (!readingFile) {
 		readingFile.close();
-		error_ = true;
 		JsonReset();
+		error_ = true;
 		return;
 	}
 	readingFile >> json_;

@@ -20,7 +20,8 @@ cbuffer Material : register(b2)
 {
     float4 color : packoffset(c0); //êF(RGBA)
 	float3 ambient :packoffset(c1);
-	float3 diffuse : packoffset(c2);
+    float3 diffuse : packoffset(c2);
+    float bloom : packoffset(c2.w);
 	float3 specular : packoffset(c3);
 	float alpha : packoffset(c3.w);
 };
@@ -78,9 +79,17 @@ cbuffer LightBuff : register(b3)
 	CShadow cShadows[CSHADOW_NUM];
 }
 
+cbuffer Fog : register(b4)
+{
+    float4 m_FogColor;
+    float m_Near;
+    float m_Far;
+    bool fogFlag;
+}
+
 static const int MAX_BONES = 128;
 
-cbuffer skinning : register(b4)
+cbuffer skinning : register(b5)
 {
     Matrix matSkinning[MAX_BONES];
 }

@@ -1,6 +1,6 @@
 cbuffer cbuff0 : register(b0)
 {
-    float sigma;
+    float shift;
     float _NFocusWidth;
     float _FFocusWidth;
     float _FocusDepth;

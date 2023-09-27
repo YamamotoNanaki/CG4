@@ -1,58 +1,60 @@
-[
-    {
-        "ColorBuffer": {
-            "color": [
-                0.6117647290229797,
-                0.09019608050584793,
-                0.0313725508749485,
-                1.0
-            ]
-        },
-        "TitleUI": null,
-        "Transform2D": {
-            "position": [
-                800.0,
-                325.0
+{
+    "fore": [
+        {
+            "ColorBuffer": {
+                "color": [
+                    0.6117647290229797,
+                    0.09019608050584793,
+                    0.0313725508749485,
+                    1.0
+                ]
+            },
+            "TitleUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    325.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    21.5,
+                    3.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "TitleUI",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                21.5,
-                3.0
-            ]
+            "name": "title",
+            "texture": "title.png"
         },
-        "component": [
-            "Transform2D",
-            "TitleUI",
-            "ColorBuffer"
-        ],
-        "name": "title",
-        "texture": "title.png"
-    },
-    {
-        "ColorBuffer": {
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "Transform2D": {
-            "position": [
-                800.0,
-                700.0
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    700.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
             ],
-            "rotation": 0.0,
-            "scale": [
-                1.0,
-                1.0
-            ]
-        },
-        "component": [
-            "Transform2D",
-            "ColorBuffer"
-        ],
-        "name": "ButtonA",
-        "texture": "ButtonA.png"
-    }
-]
+            "name": "ButtonA",
+            "texture": "ButtonA.png"
+        }
+    ]
+}

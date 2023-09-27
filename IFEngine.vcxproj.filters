@@ -384,6 +384,12 @@
     <ClCompile Include="Engine\PostEffect\OldPostEffect.cpp">
       <Filter>ソース ファイル\Engine\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Camera\Fog.cpp">
+      <Filter>ソース ファイル\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite\RectTexture.cpp">
+      <Filter>ソース ファイル\Engine\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -631,6 +637,12 @@
     </ClInclude>
     <ClInclude Include="Engine\PostEffect\OldPostEffect.h">
       <Filter>ヘッダー ファイル\Engine\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite\RectTexture.h">
+      <Filter>ヘッダー ファイル\Engine\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera\Fog.h">
+      <Filter>ヘッダー ファイル\Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@ void IFE::TitleUI::Update()
 	transform2D_->position2D_ = pos;
 
 	Input* input = Input::Instance();
-	if (input->KeyDown(Key_Space) || input->PadDown(PADCODE::ABXY))
+	if (input->GetKeyDown(Key::Space) || input->PadDown(PADCODE::ABXY))
 	{
 		Scene::Instance()->SetNextScene("Main");
 	}

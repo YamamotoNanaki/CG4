@@ -54,6 +54,7 @@ namespace IFE
 		void TextGUI(const std::string& text);
 		void InputTextGUI(const std::string&label,std::string& text);
 		void DragIntGUI(int32_t* i, const std::string& label, float speed = 1, int32_t min = 0, int32_t max = 0);
+		void DragInt2GUI(Int2* i, const std::string& label, float speed = 1, int32_t min = 0, int32_t max = 0);
 		void DragFloatGUI(float* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragFloat2GUI(Float2* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragFloat3GUI(Float3* f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);

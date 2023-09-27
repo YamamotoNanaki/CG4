@@ -39,7 +39,7 @@ void IFE::Animator::Draw()
 	{
 		constMapSkin_->bones[i] = model_->bones_[i].finalMatrix;
 	}
-	skinBuffer_->SetConstBuffView(5);
+	skinBuffer_->SetConstBuffView(6);
 }
 
 IFE::Animator::~Animator()

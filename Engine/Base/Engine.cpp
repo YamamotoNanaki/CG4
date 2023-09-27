@@ -32,7 +32,7 @@ void IFE::Engine::Run()
 		scene->Draw();
 		gapi_->DrawAfter();
 
-		if (window_->Message() || Input::KeyDown(Key_Esc))
+		if (window_->Message() || Input::GetKeyDown(Key::Esc))
 		{
 #ifdef _DEBUG
 			scene->OutputScene();

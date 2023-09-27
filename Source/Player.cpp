@@ -100,8 +100,8 @@ void IFE::Player::Move()
 	pos_ = transform_->position_;
 	oldPos_ = pos_;
 	Input* input = Input::Instance();
-	float x = ((float)input->KeyDown(Key_Rigth) - (float)input->KeyDown(Key_Left));
-	float z = ((float)input->KeyDown(Key_Up) - (float)input->KeyDown(Key_Down));
+	float x = ((float)input->GetKeyDown(Key::RIGHT) - (float)input->GetKeyDown(Key::LEFT));
+	float z = ((float)input->GetKeyDown(Key::UP) - (float)input->GetKeyDown(Key::DOWN));
 	if (input->GetPadConnected())
 	{
 		x = input->GetLXAnalog(4000);
@@ -187,7 +187,7 @@ void IFE::Player::Shoot()
 		}
 		else
 		{
-			if (!input->KeyDown(Key_Space))return;
+			if (!input->GetKeyDown(Key::Space))return;
 		}
 		Float3 pos = { pos_.x - moveVec_.x * 2,pos_.y + transform_->scale_.y / 2,pos_.z - moveVec_.y * 2 };
 		auto bullet = ObjectManager::Instance()->Instantiate("Bullet", pos);
@@ -238,7 +238,7 @@ void IFE::Player::Gravity()
 	{
 		static Input* input = Input::Instance();
 		gravity_ = 0;
-		if (sMoveFlag_ && (input->KeyTriggere(Key_Z) || input->PadTriggere(PADCODE::ABXY)))
+		if (sMoveFlag_ && (input->GetKeyTrigger(Key::Z) || input->PadTriggere(PADCODE::ABXY)))
 		{
 			gravity_ = -1;
 		}

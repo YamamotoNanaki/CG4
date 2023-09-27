@@ -10,6 +10,7 @@
 #include "ComponentHelp.h"
 #include "CollideManager.h"
 #include "LightManager.h"
+#include "CameraManager.h"
 
 using namespace IFE;
 using namespace std;
@@ -74,6 +75,7 @@ void IFE::ObjectManager::Draw()
 			itr->gp_->SetDrawBlendMode();
 			num = itr->gp_->pipelineNum_;
 			LightManager::Instance()->Draw(3);
+			CameraManager::Instance()->Draw();
 		}
 		itr->Draw();
 	}
@@ -106,13 +108,14 @@ void IFE::ObjectManager::Draw()
 //	}
 //}
 
-void IFE::ObjectManager::AddInitialize(const std::string& objectName, Component* model)
+Object3D* IFE::ObjectManager::AddInitialize(const std::string& objectName, Component* model)
 {
 	std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
 	ptr->OBJInitialize();
 	ptr->SetObjectName(objectName);
 	ptr->SetModel(model);
 	objectList_.push_back(std::move(ptr));
+	return objectList_.back().get();
 }
 
 Object3D* IFE::ObjectManager::Add(const std::string& objectName)

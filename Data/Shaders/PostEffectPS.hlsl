@@ -2,7 +2,7 @@
 
 Texture2D<float4> tex0 : register(t0); // 0番スロットに設定されたテクスチャ
 Texture2D<float4> tex1 : register(t1); // 1番スロットに設定されたテクスチャ
-Texture2D<float4> tex2 : register(t2); // 1番スロットに設定されたテクスチャ
+Texture2D<float4> tex2 : register(t2); // 2番スロットに設定されたテクスチャ
 SamplerState smp : register(s0); // 0番スロットに設定されたサンプラー
 
 float Gaussian(float2 drawuv, float2 pickuv, float sigma)
@@ -95,22 +95,21 @@ float4 GaussianDepthBlur(float2 uv, Texture2D<float4> tex, float focusWidth, flo
 
 float4 main(VSOutput input) : SV_TARGET
 {
-    //float s = shift;
-    float4 texcolor;
-    float depth = tex2.Sample(smp, input.uv).r;
-    float inFocus = 1 - smoothstep(0, _NFocusWidth, abs(depth - _FocusDepth));
-    float outFocus = smoothstep(_NFocusWidth, _FFocusWidth, abs(depth - _FocusDepth));
-    float middleFocus = 1 - inFocus - outFocus;
-    float4 inFocusColor;
-    float4 middleFocusColor;
-    float4 outFocusColor;
+    float4 texcolor = tex0.Sample(smp, input.uv);
+    //float depth = tex2.Sample(smp, input.uv).r;
+    //float inFocus = 1 - smoothstep(0, _NFocusWidth, abs(depth - _FocusDepth));
+    //float outFocus = smoothstep(_NFocusWidth, _FFocusWidth, abs(depth - _FocusDepth));
+    //float middleFocus = 1 - inFocus - outFocus;
+    //float4 inFocusColor;
+    //float4 middleFocusColor;
+    //float4 outFocusColor;
 
-    inFocusColor = tex0.Sample(smp, input.uv);
-    middleFocusColor = GaussianDepthBlur(input.uv, tex0, _NFocusWidth, _FocusDepth, 0.001);
-    outFocusColor = GaussianDepthBlur(input.uv, tex0, _FFocusWidth, _FocusDepth);
+    //inFocusColor = tex0.Sample(smp, input.uv);
+    //middleFocusColor = GaussianDepthBlur(input.uv, tex0, _NFocusWidth, _FocusDepth, 0.001);
+    //outFocusColor = GaussianDepthBlur(input.uv, tex0, _FFocusWidth, _FocusDepth);
 
-    texcolor = inFocus * inFocusColor + middleFocus * middleFocusColor + outFocus * outFocusColor;
-    texcolor = GaussianBlurShift(input.uv, tex0, sigma);
+    //texcolor = inFocus * inFocusColor + middleFocus * middleFocusColor + outFocus * outFocusColor;
+    texcolor = GaussianBlur(input.uv, tex0, shift);
     texcolor += GaussianBlur(input.uv, tex1);
 
     return texcolor;

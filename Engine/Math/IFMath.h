@@ -8,18 +8,26 @@
 #include "Vector3.h"
 #include "Matrix.h"
 #include "Quaternion.h"
+#include <stdint.h>
 
 namespace IFE
 {
-	Float4 SetFloat4ToFloat3(const Float3 &f, float z = 0);
-	Float4 SetFloat4ToFoat2(const Float2 &f, float z = 0, float w = 0);
-	Float3 SetFloat3ToFloat2(const Float2 &f, float z = 0);
+	struct Int2
+	{
+		int32_t x;
+		int32_t y;
+		int32_t operator=(const int32_t& i);
+	};
+
+	Float4 SetFloat4ToFloat3(const Float3& f, float z = 0);
+	Float4 SetFloat4ToFoat2(const Float2& f, float z = 0, float w = 0);
+	Float3 SetFloat3ToFloat2(const Float2& f, float z = 0);
 	Float4 SetFloat4ToVector3(const Vector3& v, float w = 0);
 	Float3 SetFloat3(const Vector3& v);
 	Float2 SetFloat3ToVector2(const Vector2& v);
-	Vector3 SetVector3(const Float3 &f);
-	Vector3 SetVector3ToFloat2(const Float2 &f, float z = 0);
-	Vector2 SetVector2(const Float2 &f);
+	Vector3 SetVector3(const Float3& f);
+	Vector3 SetVector3ToFloat2(const Float2& f, float z = 0);
+	Vector2 SetVector2(const Float2& f);
 
 
 	// —ëƒxƒNƒgƒ‹‚ð•Ô‚·
@@ -53,7 +61,7 @@ namespace IFE
 
 	Vector3 VectorNegate(const Vector3& m);
 
-	Vector3 VectorLerp(const Vector3& v0,const Vector3& v1,float t);
+	Vector3 VectorLerp(const Vector3& v0, const Vector3& v1, float t);
 
 	Matrix MatrixPerspectiveFovLH(float FovAngleY, float AspectRatio, float NearZ, float FarZ);
 	bool NearEqual(float S1, float S2, float epsilon);

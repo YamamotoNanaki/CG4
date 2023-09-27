@@ -7,6 +7,8 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 #include "ColorBuffer.h"
+#include "RectTexture.h"
+#include "Fog.h"
 #include "Collider.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -89,6 +91,10 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<CommonGameUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TransformCamera>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<RectTexture>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Fog>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

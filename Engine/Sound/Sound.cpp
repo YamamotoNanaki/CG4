@@ -169,7 +169,7 @@ void IFE::Sound::SoundPlay(std::string soundName, bool roop)
 {
 	uint16_t soundNum = GetSoundNum(soundName);
 	if (soundNum == uint16_t(-1))return;
-	StopSound(soundNum);
+	//StopSound(soundNum);
 	HRESULT result;
 	result = xAudio_.Get()->CreateSourceVoice(&soundDatas_[soundNum].pSourceVoice, &soundDatas_[soundNum].wfex);
 	assert(SUCCEEDED(result));

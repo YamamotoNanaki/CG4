@@ -58,7 +58,7 @@ void IFE::StartCamera::Update()
 		}
 		else
 		{
-			if (input->KeyDown(Key_Space))
+			if (input->GetKeyDown(Key::Space))
 			{
 				turnFlag_ = true;
 				saveAngle_ = transformCamera_->eulerAngleDegrees_.y;

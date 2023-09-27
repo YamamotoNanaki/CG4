@@ -3,6 +3,7 @@
 #include "WindowsAPI.h"
 #include "ComponentHelp.h"
 #include "Transform.h"
+#include "Fog.h"
 
 using namespace IFE;
 using namespace std;
@@ -15,6 +16,7 @@ Camera::Camera()
 void IFE::Camera::CameraInitialize()
 {
 	AddComponent<TransformCamera>();
+	AddComponent<Fog>();
 	ComponentManager::Initialize();
 	transform_ = GetComponent<TransformCamera>();
 }
@@ -85,6 +87,7 @@ void IFE::Camera::DebugUpdate()
 {
 	projection_.Update();
 	transform_->Update();
+	GetComponent<Fog>()->Update();
 }
 
 void IFE::Camera::ComponentGUI()

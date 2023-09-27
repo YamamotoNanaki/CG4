@@ -36,12 +36,13 @@ void IFE::Material::Draw()
 	constMapMaterial_->ambient = ambient_;
 	constMapMaterial_->diffuse = diffuse_;
 	constMapMaterial_->specular = specular_;
+	constMapMaterial_->bloom = bloom_;
 	materialBuffer_->SetConstBuffView(2);
 	if (tex_ == nullptr)
 	{
 		tex_ = TextureManager::Instance()->GetTexture("white.png");
 	}
-	tex_->SetTexture(4);
+	tex_->SetTexture(5);
 }
 
 void IFE::Material::SetTexture(Texture* texture)
@@ -79,9 +80,10 @@ void IFE::Material::Copy(Component* component)
 	specular_ = m->specular_;
 	color_ = m->color_;
 	tex_ = m->tex_;
+	bloom_ = m->bloom_;
 }
 
-void IFE::Material::SetMaterial(MaterialiParams mat)
+void IFE::Material::SetMaterial(MaterialParams mat)
 {
 	ambient_ = mat.ambient;
 	diffuse_ = mat.diffuse;
@@ -89,6 +91,20 @@ void IFE::Material::SetMaterial(MaterialiParams mat)
 	color_ = mat.color;
 	alpha_ = mat.alpha;
 	tex_ = mat.tex;
+	bloom_ = mat.bloom;
+}
+
+MaterialParams IFE::Material::GetMaterial()
+{
+	MaterialParams m;
+	m.ambient = ambient_;
+	m.diffuse = diffuse_;
+	m.specular = specular_;
+	m.color = color_;
+	m.alpha = alpha_;
+	m.tex = tex_;
+	m.bloom = bloom_;
+	return m;
 }
 
 #ifdef NDEBUG
@@ -97,21 +113,22 @@ void IFE::Material::DebugGUI()
 {
 	ImguiManager* im = ImguiManager::Instance();
 	std::function<void(std::string)> guiFunc2 = [&](std::string textureName)
-	{
-		tex_ = TextureManager::Instance()->GetTexture(textureName);
-	};
+		{
+			tex_ = TextureManager::Instance()->GetTexture(textureName);
+		};
 	std::function<void(void)> guiFunc = [&]()
-	{
-		im->ColorEdit4GUI(&color_, "color");
-		im->DragFloat3GUI(&ambient_, "ambient");
-		im->DragFloat3GUI(&diffuse_, "diffuse");
-		im->DragFloat3GUI(&specular_, "specular");
-		im->ChangeTextureGUI(guiFunc2);
-	};
+		{
+			im->CheckBoxGUI(&bloom_, "bllom");
+			im->ColorEdit4GUI(&color_, "color");
+			im->DragFloat3GUI(&ambient_, "ambient");
+			im->DragFloat3GUI(&diffuse_, "diffuse");
+			im->DragFloat3GUI(&specular_, "specular");
+			im->ChangeTextureGUI(guiFunc2);
+		};
 	std::function<void(void)> deleteFunc = [&]()
-	{
-		componentDeleteFlag_ = true;
-	};
+		{
+			componentDeleteFlag_ = true;
+		};
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
 }
 
@@ -123,6 +140,7 @@ void IFE::Material::OutputComponent(nlohmann::json& j)
 	jm->OutputFloat3(j["diffuse"], diffuse_);
 	jm->OutputFloat3(j["specular"], specular_);
 	j["terxtureName"] = tex_->texName_;
+	j["bloom"] = bloom_;
 }
 #endif
 
@@ -136,4 +154,5 @@ void IFE::Material::LoadingComponent(nlohmann::json& json)
 	SetTexture(TextureManager::Instance()->GetTexture(json["terxtureName"]));
 	materialBuffer_ = make_unique<ConstBuffer<ConstBufferMaterial>>();
 	constMapMaterial_ = materialBuffer_->GetCBMapObject();
+	bloom_ = json["bloom"];
 }

@@ -41,7 +41,7 @@ void IFE::ModelLoader::ParseNodeRecursive(const aiScene* scene, aiNode* node, No
 
 Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 {
-	MaterialiParams mat;
+	MaterialParams mat;
 	if (objType_)
 	{
 		std::vector<Vertex> vertices;

@@ -246,3 +246,8 @@ Float3 IFE::operator+(const Float3& f, const Vector2& v)
 {
 	return Float3(f.x + v.x, f.y + v.y, f.z);
 }
+
+int32_t IFE::Int2::operator=(const int32_t& i)
+{
+	return i;
+}

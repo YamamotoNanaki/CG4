@@ -524,7 +524,9 @@ void IFE::TransformCamera::UpdateMatrix()
 			matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
 		}
 		cameraPtr_->GetView()->SetMatrixView(matWorld_);
+		cameraPtr_->GetView()->eye_ = position_;
 	}
+	cameraPtr_->GetProjection()->Inisialize(45, projectionSize_.x, projectionSize_.y);
 }
 
 void IFE::TransformCamera::Copy(Component* component)
@@ -637,6 +639,7 @@ void IFE::TransformCamera::DebugGUI()
 		rotation_ = EulerToQuaternion(eulerAngleDegrees_);
 		im->DragFloat3GUI(&eye_, "eye");
 		im->DragFloat3GUI(&target_, "target");
+		im->DragFloat2GUI(&projectionSize_, "projectionSize");
 	};
 	std::function<void(void)> deleteFunc = [&]()
 	{
@@ -648,14 +651,14 @@ void IFE::TransformCamera::OutputComponent(nlohmann::json& j)
 {
 	JsonManager* jm = JsonManager::Instance();
 	jm->OutputFloat3(j["rotation"], eulerAngleDegrees_);
-	//jm->OutputFloat4(j["rotation"], rotation_.GetFloat4());
 	jm->OutputFloat3(j["position"], position_);
+	jm->OutputFloat2(j["projectionSize"], projectionSize_);
 }
 #endif
 void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
 {
 	JsonManager* j = JsonManager::Instance();
-	//rotation_.SetFloat4(j->InputFloat4(json["rotation"]));
 	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
 	position_ = j->InputFloat3(json["position"]);
+	projectionSize_ = j->InputFloat2(json["projectionSize"]);
 }

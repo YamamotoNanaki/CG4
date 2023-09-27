@@ -1,11 +1,26 @@
 [
     {
+        "Fog": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "fogFar": 700.0,
+            "fogFlag": false,
+            "fogNear": 650.0
+        },
         "StartCamera": null,
         "TransformCamera": {
             "position": [
                 0.0,
                 5.25,
                 -103.75
+            ],
+            "projectionSize": [
+                1600.0,
+                900.0
             ],
             "rotation": [
                 1.0,
@@ -14,12 +29,24 @@
             ]
         },
         "component": [
+            "Fog",
             "TransformCamera",
             "StartCamera"
         ],
         "name": "initCamera"
     },
     {
+        "Fog": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "fogFar": 700.0,
+            "fogFlag": false,
+            "fogNear": 650.0
+        },
         "PlayerCamera": {
             "maxDistance": 40.0,
             "maxTime": 0.800000011920929,
@@ -31,6 +58,10 @@
                 7.5,
                 -105.0
             ],
+            "projectionSize": [
+                1600.0,
+                900.0
+            ],
             "rotation": [
                 11.0,
                 360.0,
@@ -38,6 +69,7 @@
             ]
         },
         "component": [
+            "Fog",
             "TransformCamera",
             "PlayerCamera"
         ],

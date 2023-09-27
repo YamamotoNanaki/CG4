@@ -24,6 +24,7 @@
     <ClCompile Include="Engine\Base\WindowsAPI.cpp" />
     <ClCompile Include="Engine\Camera\Camera.cpp" />
     <ClCompile Include="Engine\Camera\CameraManager.cpp" />
+    <ClCompile Include="Engine\Camera\Fog.cpp" />
     <ClCompile Include="Engine\Camera\Projection.cpp" />
     <ClCompile Include="Engine\Camera\View.cpp" />
     <ClCompile Include="Engine\Collider\CollideManager.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Sound\Sound.cpp" />
     <ClCompile Include="Engine\Sprite\ColorBuffer.cpp" />
+    <ClCompile Include="Engine\Sprite\RectTexture.cpp" />
     <ClCompile Include="Engine\Sprite\Sprite.cpp" />
     <ClCompile Include="Engine\Sprite\SpriteManager.cpp" />
     <ClCompile Include="Engine\Texture\Texture.cpp" />
@@ -102,6 +104,7 @@
     <ClInclude Include="Engine\Base\WindowsAPI.h" />
     <ClInclude Include="Engine\Camera\Camera.h" />
     <ClInclude Include="Engine\Camera\CameraManager.h" />
+    <ClInclude Include="Engine\Camera\Fog.h" />
     <ClInclude Include="Engine\Camera\Projection.h" />
     <ClInclude Include="Engine\Camera\View.h" />
     <ClInclude Include="Engine\Collider\CollideManager.h" />
@@ -147,6 +150,7 @@
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Engine\Sound\Sound.h" />
     <ClInclude Include="Engine\Sprite\ColorBuffer.h" />
+    <ClInclude Include="Engine\Sprite\RectTexture.h" />
     <ClInclude Include="Engine\Sprite\Sprite.h" />
     <ClInclude Include="Engine\Sprite\SpriteManager.h" />
     <ClInclude Include="Engine\Texture\Texture.h" />

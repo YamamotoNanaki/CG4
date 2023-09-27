@@ -101,6 +101,7 @@ namespace IFE
 	inline void VertexBuffer<T>::Transfer(T vertices[], size_t vertexCount)
 	{
 		T* vertMap = nullptr;
+		if (!vertBuff_)return;
 #ifdef _DEBUG
 		HRESULT result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
 		assert(SUCCEEDED(result));

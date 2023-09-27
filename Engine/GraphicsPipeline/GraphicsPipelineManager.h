@@ -32,6 +32,8 @@ namespace IFE
 		GraphicsPipeline* CreateAnimGraphicsPipeLine();
 		GraphicsPipeline* CreateBasic2DGraphicsPipeLine();
 		GraphicsPipeline* CreateBasicParticleGraphicsPipeLine();
+		GraphicsPipeline* CreateTransparentParticleGraphicsPipeLine();
+		GraphicsPipeline* CreateSubParticleGraphicsPipeLine();
 		bool CreateGraphicsPipeline(const std::string& pipelineName, const D3D12_ROOT_SIGNATURE_DESC& rootSignatureDesc,
 			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc, uint8_t pipelineNum);
 		GraphicsPipeline* GetGraphicsPipeline(const std::string& name);

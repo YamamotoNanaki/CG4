@@ -104,11 +104,22 @@ PSOutput main(GSOutput input) : SV_TARGET
         }
     }
 
+    //ÉtÉHÉO
+    float f = 1;
+    if (fogFlag)
+    {
+        float d = distance(input.worldpos.xyz, cameraPos);
+
+        f = (m_Far - d) / (m_Far - m_Near);
+        f = clamp(f, 0.0f, 1.0f);
+    }
+
     PSOutput o;
     o.target0 = shadecolor * texcolor * color;
+    o.target0 = o.target0 * f + m_FogColor * (1.0f - f);
     float4 col = float4(0, 0, 0, 0);
     col = o.target0;
-    if (bllomFlag)
+    if (bloom)
     {
         //float grayScale = col.r * 0.299 + col.g * 0.587 * col.b * 0.114;
         //float extract = smoothstep(0.1, 0.3, grayScale);
@@ -117,13 +128,10 @@ PSOutput main(GSOutput input) : SV_TARGET
     }
     else
     {
-        o.target1 = float4(0, 0, 0, 0);
+        o.target1 = float4(0, 0, 0, 1);
     }
-    col = float4(0, 0, 0, 0);
     col.r = input.svpos.z / input.svpos.w;
     col.w = 1;
     o.target2 = col;
-    return o;
-
     return o;
 }

@@ -160,6 +160,7 @@ namespace IFE
 		Matrix matTrans_;
 		Float3 position_ = { 0,0,0 };
 		Quaternion rotation_;
+		Float2 projectionSize_;
 
 		TransformCamera* parent_ = nullptr;
 

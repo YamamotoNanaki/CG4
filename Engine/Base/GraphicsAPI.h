@@ -37,7 +37,7 @@ namespace IFE
 		D3D12_RECT scissorrect_{};
 
 		// 3．画面クリア        R  G  B   A
-		float clearColor_[4] = { 0.1f ,0.25f ,0.5f ,1.0f };
+		float clearColor_[4] = { 0 ,0 ,0 ,1.0f };
 
 		//FPS関連
 	private:

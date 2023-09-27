@@ -231,6 +231,11 @@ void IFE::Collision::ClosestPtPoint2Triangle(const Vector3& point, const Triangl
 	*closest = triangle.p0 + p0_p1 * v + p0_p2 * w;
 }
 
+bool IFE::Collision::BoxCollision2D(IFE::Float2 pos1, float r1, IFE::Float2 pos2, float r2)
+{
+	return (pos1.x - r1) < (pos2.x + r2) && (pos1.x + r1) > (pos2.x - r2) && (pos1.y - r1) < (pos2.y + r2) && (pos1.y + r1) > (pos2.y - r2);
+}
+
 //bool IF::Collision::CheckSphereTriangle(const Sphere& sphere, const Triangle& triangle, Vector3* inter)
 //{
 //	Vector3 p;

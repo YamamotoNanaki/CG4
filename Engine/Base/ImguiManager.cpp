@@ -584,6 +584,14 @@ void IFE::ImguiManager::DragFloat2GUI(Float2* f, const std::string& label, float
 	f->Set(a[0], a[1]);
 }
 
+void IFE::ImguiManager::DragInt2GUI(Int2* i, const std::string& label, float speed, int32_t min, int32_t max)
+{
+	int32_t a[2] = { i->x,i->y };
+	ImGui::DragInt2(label.c_str(), a, speed, min, max);
+	i->x = a[0];
+	i->y = a[1];
+}
+
 void IFE::ImguiManager::DragFloat3GUI(Float3* f, const std::string& label, float speed, float min, float max)
 {
 	float a[3] = { f->x,f->y,f->z };

@@ -28,6 +28,7 @@ void IFE::Object3D::OBJInitialize()
 	Material* m = GetComponent<Material>();
 	m->SetDefaultParameter();
 	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dNormal");
+	transform_ = GetComponent<Transform>();
 }
 
 void IFE::Object3D::Initialize()
