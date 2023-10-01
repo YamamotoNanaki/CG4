@@ -69,5 +69,13 @@
             "smooth": true
         },
         "name": "Bush1_Model"
+    },
+    {
+        "Rock1_Model": {
+            "fileName": "Rock1",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Rock1_Model"
     }
 ]

@@ -14,6 +14,7 @@ namespace IFE
 		float timer_ = 0;
 		inline static float sMaxTime_ = 0;
 		Vector3 frontVec_;
+		float shakeTimer_ = 0;
 	public:
 		inline static float sMinDistance_ = 30;
 		inline static Player* sPlayerPtr_ = nullptr;

@@ -304,3 +304,8 @@ void IFE::Player::LoadingComponent(nlohmann::json& json)
 	speed_ = json["speed"];
 	nextBulletTime_ = json["nextBulletTime"];
 }
+
+bool IFE::Player::GetInvincible()
+{
+	return invincible_;
+}

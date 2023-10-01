@@ -35,6 +35,7 @@ namespace IFE
 		void Initialize()override;
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
+		bool GetInvincible();
 
 #ifdef NDEBUG
 #else
@@ -42,6 +43,7 @@ namespace IFE
 		void OutputComponent(nlohmann::json& json)override;
 #endif
 		void LoadingComponent(nlohmann::json& json)override;
+
 
 	private:
 		void Move();

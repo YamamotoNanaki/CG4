@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "Ease.h"
 #include "IFETime.h"
+#include "Rand.h"
 
 void IFE::PlayerCamera::Initialize()
 {
@@ -34,11 +35,35 @@ void IFE::PlayerCamera::Update()
 		transformCamera_->eulerAngleDegrees_.y += padX;
 	}
 
+	Float3 shake;
+	if (sPlayerPtr_->GetInvincible())
+	{
+		shakeTimer_ += IFETime::sDeltaTime_;
+		if (sPlayerPtr_->hp_ <= 0)
+		{
+			float f = Lerp(2, 0, 2, min(shakeTimer_, 2));
+			shake.x = IFERand::GetRandF(-f, f);
+			shake.y = IFERand::GetRandF(-f, f);
+			shake.z = IFERand::GetRandF(-f, f);
+		}
+		else
+		{
+			float f = Lerp(0.25f, 0, 0.5f, min(shakeTimer_, 0.5f));
+			shake.x = IFERand::GetRandF(-f, f);
+			shake.y = IFERand::GetRandF(-f, f);
+			shake.z = IFERand::GetRandF(-f, f);
+		}
+	}
+	else
+	{
+		shakeTimer_ = 0;
+	}
+
 	float rotaX = ConvertToRadians(transformCamera_->eulerAngleDegrees_.y);
 	Vector3 cameraF;
 	cameraF.Set({ sinf(rotaX),0,cosf(rotaX) }, { 0,0,0 });
 	cameraF.Normalize();
-	transformCamera_->position_ = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, 0) + Float3(cameraF * distance_);
+	transformCamera_->position_ = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, 0) + Float3(cameraF * distance_) + shake;
 
 	float rotaY = transformCamera_->eulerAngleDegrees_.x;
 	if (rotaY > 180)
