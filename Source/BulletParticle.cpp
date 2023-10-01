@@ -5,6 +5,7 @@
 #include "Rand.h"
 #include "Object3D.h"
 #include "Transform.h"
+#include "LightManager.h"
 
 void IFE::BulletParticle::Update()
 {
@@ -28,10 +29,23 @@ void IFE::BulletParticle::Update()
 	p2->GetComponent<ColorBuffer>()->SetColor({ 1.f, 1.f, 1.f, 1.f });
 	p2->transform_->scale_ = { 0.15f,0.15f,0.15f };
 	emitterPtr_->deleteFlag_ = bullet_->GetDeleteFlag();
+	LightManager::Instance()->SetPointLightPos(num, *bulletPos_);
+	LightManager::Instance()->SetPointLightColor(num, { 1.f,0.5f,0.25f });
+	LightManager::Instance()->SetPointLightAtten(num, { 0.0001f,0.001f,0.0001f });
 }
 
 void IFE::BulletParticle::GetBullet(Object3D* bullet)
 {
 	bullet_ = bullet;
 	bulletPos_ = &bullet->GetComponent<Transform>()->position_;
+	LightManager::Instance()->SetPointLightActive(LightManager::nextPNum_, true);
+	LightManager::Instance()->SetPointLightPos(LightManager::nextPNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, { 0.001f,0,0 });
+	num = LightManager::nextPNum_;
+	LightManager::nextPNum_++;
+}
+
+IFE::BulletParticle::~BulletParticle()
+{
+	LightManager::Instance()->SetPointLightActive(num, false);
 }

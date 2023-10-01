@@ -8,9 +8,11 @@ namespace IFE
 	{
 		Float3* bulletPos_;
 		Object3D* bullet_;
+		uint8_t num = 0;
 
 	public:
 		void Update()override;
 		void GetBullet(Object3D* bullet);
+		~BulletParticle();
 	};
 }
