@@ -26,6 +26,10 @@ void IFE::Enemy::Initialize()
 	{
 		objectPtr_->GetComponent<TransferGeometryBuffer>()->bllomFlag_ = true;
 	}
+	if (objectPtr_->GetComponent<Material>())
+	{
+		objectPtr_->GetComponent<Material>()->bloom_ = true;
+	}
 }
 
 void IFE::Enemy::Update()
