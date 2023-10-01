@@ -14,8 +14,31 @@ void IFE::HPbar::Initialize()
 
 void IFE::HPbar::Update()
 {
-	if (playerPtr_->hp_ <= 0)spritePtr_->Destroy();
-	transform2D_->scale2D_ = Float2(scale_.x * playerPtr_->hp_, scale_.y);
+	oldHp_ = hp_;
+	hp_ = playerPtr_->hp_;
+	if (!anim_, oldHp_ != hp_)
+	{
+		oldX = scale_.x * oldHp_;
+		newX = scale_.x * hp_;
+		anim_ = true;
+		timer_ = 0;
+	}
+
+	if (anim_)
+	{
+		if (IFETime::sTimeScale_ != 0)timer_ += IFETime::sDeltaTime_ / IFETime::sTimeScale_;
+		float x = EaseOutBounce(oldX, newX, timerMax_, min(timer_, timerMax_));
+		if (timer_ > timerMax_)
+		{
+			anim_ = false;
+		}
+		transform2D_->scale2D_ = Float2(x, scale_.y);
+	}
+	else
+	{
+		if (playerPtr_->hp_ <= 0)spritePtr_->Destroy();
+		transform2D_->scale2D_ = Float2(scale_.x * hp_, scale_.y);
+	}
 
 	if (!Player::sMoveFlag_)
 	{
