@@ -55,6 +55,7 @@
             "TransferGeometryBuffer",
             "Material"
         ],
+        "drawFlag": true,
         "model": "skydome_Model",
         "name": "sky",
         "prefab": false
@@ -130,6 +131,7 @@
             "Material",
             "Animator"
         ],
+        "drawFlag": true,
         "model": "girl_Model",
         "name": "Player",
         "prefab": false
@@ -198,6 +200,7 @@
             "Material",
             "Collider"
         ],
+        "drawFlag": true,
         "model": "ground_Model",
         "name": "ground",
         "prefab": false
@@ -266,6 +269,7 @@
             "Material",
             "Collider"
         ],
+        "drawFlag": true,
         "model": "cube_Model",
         "name": "cube",
         "prefab": false
@@ -336,6 +340,7 @@
             "Goal",
             "Collider"
         ],
+        "drawFlag": true,
         "model": "cube_Model",
         "name": "goal",
         "prefab": false
@@ -406,6 +411,7 @@
             "TransferGeometryBuffer",
             "Material"
         ],
+        "drawFlag": true,
         "model": "sphere_Model",
         "name": "Bullet",
         "prefab": true

@@ -55,6 +55,7 @@
             "TransferGeometryBuffer",
             "Material"
         ],
+        "drawFlag": true,
         "model": "skydome_Model",
         "name": "skydome",
         "prefab": false

@@ -149,7 +149,6 @@ void IFE::Player::Move()
 		}
 		animator_->loop_ = true;
 	}
-	pos_.z = max(-90, min(pos_.z, 212));
 }
 
 void IFE::Player::Rota()

@@ -12,6 +12,7 @@ void IFE::Transform::Initialize()
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferDataTransform>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
+	UpdateMatrix();
 }
 
 void IFE::Transform::Update()

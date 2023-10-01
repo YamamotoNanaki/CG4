@@ -1,0 +1,176 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Bush1_Icosphere",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Leaves",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.5211250185966492,
+                    0.6392819881439209,
+                    0.18157300353050232,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.690034806728363
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Tree",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.19696100056171417,
+                    0.06255000084638596,
+                    0.009828999638557434,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.690034806728363
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Bush1_Icosphere",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1
+                    },
+                    "indices" : 2,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 3,
+                        "NORMAL" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 109,
+            "max" : [
+                0.5923280119895935,
+                0.5303090214729309,
+                -0.47861000895500183
+            ],
+            "min" : [
+                -0.4819200038909912,
+                -0.5437759757041931,
+                -1.4739179611206055
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 109,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5123,
+            "count" : 129,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 83,
+            "max" : [
+                0.08692999929189682,
+                0.10037799924612045,
+                0.01723399944603443
+            ],
+            "min" : [
+                -0.16327300667762756,
+                -0.10037799924612045,
+                -0.5046380162239075
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 83,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 129,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 1308,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1308,
+            "byteOffset" : 1308
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 258,
+            "byteOffset" : 2616
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 996,
+            "byteOffset" : 2876
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 996,
+            "byteOffset" : 3872
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 258,
+            "byteOffset" : 4868
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 5128,
+            "uri" : "Bush1.bin"
+        }
+    ]
+}
