@@ -73,6 +73,8 @@ void IFE::Player::Update()
 
 	if (invincible_)
 	{
+		IFETime::sTimeScale_ = InQuad(0.25f,1, timeScaleTimer);
+		timeScaleTimer.SafeUpdate();
 		invincibleTimer_ += IFETime::sDeltaTime_;
 		//if (int32_t(invincibleTimer_ * 10) % 6 < 3)objectPtr_->GetComponent<Material>()->color_ = { 0.6f,0.6f,0.6f,1 };
 		//else objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
@@ -170,6 +172,16 @@ void IFE::Player::EnemyCollide()
 
 		animator_->SetAnimation("HitRecieve_2");
 		animator_->loop_ = false;
+		if (hp_ <= 0)
+		{
+			IFETime::sTimeScale_ = 0.15f;
+			timeScaleTimer.Set(30);
+		}
+		else
+		{
+			IFETime::sTimeScale_ = 0.25f;
+			timeScaleTimer.Set(15);
+		}
 	}
 }
 
@@ -219,6 +231,8 @@ void IFE::Player::Shoot()
 
 void IFE::Player::Death()
 {
+	IFETime::sTimeScale_ = InQuad(0.25f, 1, timeScaleTimer);
+	timeScaleTimer.SafeUpdate();
 	deathTimer_ += IFETime::sDeltaTime_;
 
 	animator_->SetAnimation("Death");

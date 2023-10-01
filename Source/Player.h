@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include "ParticleManager.h"
 #include "Animator.h"
+#include "IFETime.h"
 
 namespace IFE
 {
@@ -24,6 +25,7 @@ namespace IFE
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
 		Animator* animator_;
+		FrameCountTime timeScaleTimer;
 	public:
 		Float3 oldPos_;
 		Float3 pos_;
