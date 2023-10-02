@@ -105,8 +105,29 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 	MultiByteToWideChar(CP_ACP, 0, file.c_str(), -1, szFile, _countof(szFile));
 
 
-	HRESULT result = LoadFromWICFile(
-		szFile, WIC_FLAGS_NONE, &metadata, scratchImg);
+	size_t pos1;
+	string fileExt;
+
+	pos1 = filename.rfind('.');
+
+	if (pos1 != wstring::npos)
+	{
+		fileExt = filename.substr(pos1 + 1, filename.size() - pos1 - 1);
+	}
+	else
+	{
+		fileExt = "";
+	}
+
+	HRESULT result;
+	if (fileExt == "dds")
+	{
+		result = LoadFromDDSFile(szFile, DDS_FLAGS_NONE, &metadata, scratchImg);
+	}
+	else
+	{
+		result = LoadFromWICFile(szFile, WIC_FLAGS_NONE, &metadata, scratchImg);
+	}
 
 	assert(SUCCEEDED(result));
 
