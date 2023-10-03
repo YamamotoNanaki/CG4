@@ -26,6 +26,7 @@
 #include "StartCamera.h"
 #include "CommonGameUI.h"
 #include "Animator.h"
+#include "Boss.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -95,6 +96,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<RectTexture>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Fog>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Boss>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;
