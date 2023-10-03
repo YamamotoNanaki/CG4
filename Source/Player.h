@@ -25,7 +25,7 @@ namespace IFE
 		float deathTimer_ = 0;
 		float maxDeathTime_ = 3;
 		Animator* animator_;
-		FrameCountTime timeScaleTimer;
+		float timeScaleTimer;
 	public:
 		Float3 oldPos_;
 		Float3 pos_;

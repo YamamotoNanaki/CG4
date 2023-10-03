@@ -18,6 +18,7 @@ namespace IFE
 		static float sDeltaTime_;
 		static float sTime_;
 		inline static float sTimeScale_ = 1.0f;
+		inline static float sNoScaleDeltaTime_ = 1.0f;
 
 	public:
 		static void Initialize();

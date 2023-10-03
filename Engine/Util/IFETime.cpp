@@ -35,8 +35,9 @@ void IFE::IFETime::Update()
 	milliseconds dt = duration_cast<milliseconds>(sNowTime_ - sFrontTime_);
 
 	sTime_ = (float)t.count() / 1000.f;
-	sDeltaTime_ = (float)dt.count() / 1000.f;
-	sDeltaTime_ *= sTimeScale_;
+	sNoScaleDeltaTime_ = (float)dt.count() / 1000.f;
+	sTimeScale_ = max(0.f, sTimeScale_);
+	sDeltaTime_ = sNoScaleDeltaTime_ * sTimeScale_;
 }
 
 void FrameCountTime::Set(int32_t e)
