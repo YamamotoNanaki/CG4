@@ -61,7 +61,7 @@ void IFE::Boss::Stanby()
 	{
 		actionTimer_ = 0;
 		bulletNum_ = 0;
-		action_ = (uint8_t)BossAction::Attack1;
+		action_ = (uint8_t)BossAction::Stanby;
 	}
 }
 
@@ -83,7 +83,8 @@ void IFE::Boss::Attack1()
 		auto emitter = pm_->Instantiate("Bullet");
 		if (emitter)
 		{
-			emitter->GetComponent<BulletParticle>()->GetBullet(bullet);
+			emitter->GetComponent<BulletParticle>()->SetBullet(bullet);
+			emitter->GetComponent<BulletParticle>()->SetColor(ParticleColorSetting::Blue);
 			emitter->isActive_ = true;
 		}
 

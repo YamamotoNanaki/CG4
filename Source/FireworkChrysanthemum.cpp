@@ -15,7 +15,7 @@ void IFE::FireworkChrysanthemum::Update()
 {
 	if (emitterPtr_->particles_.size() == 0)
 	{
-		LightManager::Instance()->SetPointLightActive(num, false);
+		LightManager::Instance()->SetPointLightActive(pointLightNum_, false);
 		emitterPtr_->deleteFlag_ = true;
 		return;
 	}
@@ -40,20 +40,40 @@ void IFE::FireworkChrysanthemum::Update()
 	float r = 0.5f;
 	float g = 0.2f;
 	float b = 0.1f;
-	if (t < 1)
+
+	switch (colorSetting_)
 	{
-		r = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
-		g = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
-		b = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
+	case (uint8_t)ParticleColorSetting::Blue:
+		if (t < 1)
+		{
+			b = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
+			g = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
+			r = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
+		}
+		else
+		{
+			r = 0.1f;
+			g = 0.2f;
+			b = 0.5f;
+		}
+		break;
+	default:
+		if (t < 1)
+		{
+			r = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
+			g = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
+			b = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
+			break;
+		}
 	}
 	float a = OutQuad(1.f, 0, maxt - 0.25f, min(t, maxt - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
 	speed_ = OutQuad(sStartSpeed_, 0, maxt, t);
-	LightManager::Instance()->SetPointLightPos(num, transformParticle_->position_);
-	LightManager::Instance()->SetPointLightColor(num, { baseColor_.x,baseColor_.y,baseColor_.z });
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 	float atten = InQuart(0, 1, maxt, t);
 	float attenX = InQuart(0.001f, 1, maxt, t);
-	LightManager::Instance()->SetPointLightAtten(num, { attenX,atten,atten });
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::StartFirework()
@@ -61,7 +81,7 @@ void IFE::FireworkChrysanthemum::StartFirework()
 	emitterPtr_->isActive_ = true;
 	velocitys_.resize(particleMaxNum_);
 	colors_.resize(particleMaxNum_);
-	//emitterPtr_->particles_.resize(particleMaxNum_);
+
 	for (uint32_t i = 0; i < particleMaxNum_; i++)
 	{
 		Vector3 velocity = sDefaultVelocity_[i];
@@ -83,9 +103,14 @@ void IFE::FireworkChrysanthemum::StartFirework()
 	LightManager::Instance()->SetPointLightActive(LightManager::nextPNum_, true);
 	LightManager::Instance()->SetPointLightPos(LightManager::nextPNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, { 0.001f,0,0 });
-	num = LightManager::nextPNum_;
+	pointLightNum_ = LightManager::nextPNum_;
 	LightManager::nextPNum_++;
 	Sound::Instance()->SoundPlay("Firework", false);
+}
+
+void IFE::FireworkChrysanthemum::SetColor(uint8_t colorSetting)
+{
+	colorSetting_ = colorSetting;
 }
 
 void IFE::FireworkChrysanthemum::InitDefaultVelocity()
@@ -113,7 +138,7 @@ void IFE::FireworkChrysanthemum::InitDefaultVelocity()
 
 IFE::FireworkChrysanthemum::~FireworkChrysanthemum()
 {
-	LightManager::Instance()->SetPointLightActive(num, false);
+	LightManager::Instance()->SetPointLightActive(pointLightNum_, false);
 }
 
 

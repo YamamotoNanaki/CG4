@@ -282,7 +282,7 @@
             "attribute": 0,
             "colliderType": 0,
             "groundJudge": false,
-            "notPushBack": false,
+            "notPushBack": true,
             "pushBack": false
         },
         "Material": {
@@ -291,11 +291,11 @@
                 1.0,
                 1.0
             ],
-            "bloom": false,
+            "bloom": true,
             "color": [
                 1.0,
-                1.0,
-                1.0,
+                0.7843137383460999,
+                0.3921568691730499,
                 1.0
             ],
             "diffuse": [
@@ -352,7 +352,7 @@
             "attribute": 0,
             "colliderType": 0,
             "groundJudge": false,
-            "notPushBack": false,
+            "notPushBack": true,
             "pushBack": false
         },
         "EnemyBullet": null,
@@ -362,10 +362,10 @@
                 1.0,
                 1.0
             ],
-            "bloom": false,
+            "bloom": true,
             "color": [
-                1.0,
-                1.0,
+                0.3921568691730499,
+                0.7843137383460999,
                 1.0,
                 1.0
             ],

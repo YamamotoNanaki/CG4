@@ -96,6 +96,10 @@ void IFE::Player::OnColliderHit(Collider* collider)
 	{
 		EnemyCollide();
 	}
+	if (collider->GetObjectPtr()->GetComponent<Bullet>())
+	{
+		transform_->position_ = pos_;
+	}
 	return;
 }
 
@@ -209,7 +213,7 @@ void IFE::Player::Shoot()
 		auto emitter = pm_->Instantiate("Bullet");
 		if (emitter)
 		{
-			emitter->GetComponent<BulletParticle>()->GetBullet(bullet);
+			emitter->GetComponent<BulletParticle>()->SetBullet(bullet);
 			emitter->isActive_ = true;
 		}
 		timer = 0;
@@ -224,7 +228,7 @@ void IFE::Player::Shoot()
 		}
 		animator_->loop_ = false;
 
-		transform_->eulerAngleDegrees_ = { 0,playerCamera_->transform_->eulerAngleDegrees_.y + 180,0 };
+		transform_->eulerAngleDegrees_ = { 0,playerCamera_->transform_->eulerAngleDegrees_.y - 180,0 };
 		Sound::Instance()->SoundPlay("shot", false);
 	}
 }

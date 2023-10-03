@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ParticleSetting.h"
 #include <vector>
 
 namespace IFE
@@ -15,10 +16,12 @@ namespace IFE
 		float speed_ = 5;
 		float gravity_ = 0;
 		Float4 baseColor_ = { 1,1,1,1 };
-		uint8_t num = 0;
+		uint8_t pointLightNum_ = 0;
+		uint8_t colorSetting_ = (uint8_t)ParticleColorSetting::Red;
 	public:
 		void Update()override;
 		void StartFirework();
+		void SetColor(uint8_t colorSetting);
 		static void InitDefaultVelocity();
 		~FireworkChrysanthemum();
 

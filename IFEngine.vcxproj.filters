@@ -656,6 +656,9 @@
     <ClInclude Include="Source\EnemyBullet.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ParticleSetting.h">
+      <Filter>ヘッダー ファイル\Source\Emitter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Particle.hlsli">

@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Boss.h"
 #include "FireworkChrysanthemum.h"
+#include "BulletParticle.h"
 
 void IFE::EnemyBullet::Update()
 {
@@ -16,13 +17,11 @@ void IFE::EnemyBullet::Update()
 
 void IFE::EnemyBullet::OnColliderHit(Collider* collider)
 {
-	if (collider->GetObjectPtr()->GetComponent<Player>())
+	if (!collider->GetObjectPtr()->GetComponent<Enemy>() && !collider->GetObjectPtr()->GetComponent<Boss>())
 	{
 		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
 		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
-	}
-	if (!collider->GetObjectPtr()->GetComponent<Enemy>() && !collider->GetObjectPtr()->GetComponent<Boss>())
-	{
+		e->GetComponent<FireworkChrysanthemum>()->SetColor(bulletEmitter_->GetComponent<BulletParticle>()->GetColor());
 		objectPtr_->Destroy();
 	}
 }
@@ -30,6 +29,11 @@ void IFE::EnemyBullet::OnColliderHit(Collider* collider)
 void IFE::EnemyBullet::SetMoveVector(const Vector3& moveVec)
 {
 	moveVec_ = moveVec;
+}
+
+void IFE::EnemyBullet::SetBulletEmitter(Emitter* emitter)
+{
+	bulletEmitter_ = emitter;
 }
 
 IFE::Vector3 IFE::EnemyBullet::GetMoveVector()

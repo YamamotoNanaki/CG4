@@ -15,13 +15,10 @@ void IFE::Bullet::Update()
 
 void IFE::Bullet::OnColliderHit(Collider* collider)
 {
-	if (collider->GetObjectPtr()->GetComponent<Enemy>())
+	if (!collider->GetObjectPtr()->GetComponent<Player>())
 	{
 		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
 		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
-	}
-	if (!collider->GetObjectPtr()->GetComponent<Player>())
-	{
 		objectPtr_->Destroy();
 	}
 }

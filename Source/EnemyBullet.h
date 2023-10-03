@@ -10,11 +10,12 @@ namespace IFE
 		Vector3 moveVec_;
 		float lifeTimer_ = 0;
 		float timerMax_ = 5;
-		inline static Emitter* sChrysanthemum_ = nullptr;
+		Emitter* bulletEmitter_;
 	public:
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 		void SetMoveVector(const Vector3& moveVec);
+		void SetBulletEmitter(Emitter* emitter);
 		Vector3 GetMoveVector();
 
 	private:

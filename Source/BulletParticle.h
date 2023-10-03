@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ParticleSetting.h"
 
 namespace IFE
 {
@@ -8,11 +9,14 @@ namespace IFE
 	{
 		Float3* bulletPos_;
 		Object3D* bullet_;
-		uint8_t num = 0;
+		uint8_t pointLightNum_ = 0;
+		uint8_t colorSetting_ = (uint8_t)ParticleColorSetting::Red;
 
 	public:
 		void Update()override;
-		void GetBullet(Object3D* bullet);
+		void SetBullet(Object3D* bullet);
+		void SetColor(ParticleColorSetting colorSetting);
+		uint8_t GetColor();
 		~BulletParticle();
 	};
 }
