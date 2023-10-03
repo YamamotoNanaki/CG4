@@ -393,6 +393,9 @@
     <ClCompile Include="Source\Boss.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Source\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -648,6 +651,9 @@
       <Filter>ヘッダー ファイル\Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Source\Boss.h">
+      <Filter>ヘッダー ファイル\Source\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyBullet.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
   </ItemGroup>

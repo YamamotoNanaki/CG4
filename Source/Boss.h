@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ParticleManager.h"
 
 namespace IFE
 {
@@ -12,9 +13,12 @@ namespace IFE
 	private:
 		float gravity_ = 0;
 		Float3 pos_;
+		const Float3* playerPos_;
 		uint8_t action_ = uint8_t(BossAction::Start);
 		float actionTimer_ = 0;
 		uint32_t hp_ = 0;
+		uint8_t bulletNum_ = 0;
+		inline static ParticleManager* pm_ = nullptr;
 	public:
 		void Initialize()override;
 		void Update()override;

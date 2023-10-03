@@ -4,12 +4,18 @@
 #include "Transform.h"
 #include "IFETime.h"
 #include "Player.h"
+#include "EnemyBullet.h"
+#include "ObjectManager.h"
+#include "BulletParticle.h"
+#include "Emitter.h"
 
 using namespace IFE;
 
 void IFE::Boss::Initialize()
 {
 	if (transform_)pos_ = transform_->position_;
+	pm_ = ParticleManager::Instance();
+	playerPos_ = &ObjectManager::Instance()->GetObjectPtr("Player")->transform_->position_;
 }
 
 void IFE::Boss::Update()
@@ -54,12 +60,39 @@ void IFE::Boss::Stanby()
 	if (actionTimer_ > 3)
 	{
 		actionTimer_ = 0;
+		bulletNum_ = 0;
 		action_ = (uint8_t)BossAction::Attack1;
 	}
 }
 
 void IFE::Boss::Attack1()
 {
+	actionTimer_ += IFETime::sDeltaTime_;
+	if (actionTimer_ > 1)
+	{
+		actionTimer_ = 0;
+		bulletNum_++;
+		Float3 pos = { pos_.x,pos_.y + transform_->scale_.y,pos_.z};
+		auto bullet = ObjectManager::Instance()->Instantiate("EnemyBullet", pos);
+		if (bullet == nullptr)return;
+		Vector3 vec;
+		vec = *playerPos_ - pos;
+		vec.Normalize();
+
+		bullet->GetComponent<EnemyBullet>()->SetMoveVector(vec);
+		auto emitter = pm_->Instantiate("Bullet");
+		if (emitter)
+		{
+			emitter->GetComponent<BulletParticle>()->GetBullet(bullet);
+			emitter->isActive_ = true;
+		}
+
+		//Sound::Instance()->SoundPlay("shot", false);
+	}
+	if (bulletNum_ >= 10)
+	{
+		action_ = (uint8_t)BossAction::Stanby;
+	}
 }
 
 void IFE::Boss::Attack2()

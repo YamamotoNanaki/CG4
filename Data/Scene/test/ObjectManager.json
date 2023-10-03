@@ -346,5 +346,76 @@
         "model": "sphere_Model",
         "name": "Bullet",
         "prefab": true
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "EnemyBullet": null,
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": false,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "specular": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                5.0,
+                0.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "Collider",
+            "EnemyBullet",
+            "TransferGeometryBuffer",
+            "Material"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "EnemyBullet",
+        "prefab": true
     }
 ]
