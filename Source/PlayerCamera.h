@@ -15,6 +15,15 @@ namespace IFE
 		inline static float sMaxTime_ = 0;
 		Vector3 frontVec_;
 		float shakeTimer_ = 0;
+		float moveTimerX_ = 0;
+		float moveTimerY_ = 0;
+		float moveMaxTime_ = 0.3f;
+		float moveMaxTimeY_ = 0.3f;
+		bool cameraMoveX_ = false;
+		bool cameraMoveY_ = false;
+		float oldPadX_ = 0;
+		float oldPadY_ = 0;
+
 	public:
 		inline static float sMinDistance_ = 30;
 		inline static Player* sPlayerPtr_ = nullptr;

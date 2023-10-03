@@ -28,11 +28,30 @@ void IFE::PlayerCamera::Update()
 	timer_ = min(max(0, timer_), sMaxTime_);
 
 	distance_ = InOutQuad(sMinDistance_, sMaxDistance_, sMaxTime_, timer_);
-	float padX = sInput_->GetRXAnalog(4000) * 5 * IFETime::sDeltaTime_ * 80;
-	float padY = sInput_->GetRYAnalog(4000) / 2 * IFETime::sDeltaTime_ * 80;
+	float padX = sInput_->GetRXAnalog(4000) * 5 * IFETime::sDeltaTime_ * 40;
+	//float padX = ((int32_t)sInput_->PadDown(PADCODE::RIGHT) - (int32_t)sInput_->PadDown(PADCODE::LEFT)) * 5 * IFETime::sDeltaTime_ * 40;
+	float padY = sInput_->GetRYAnalog(4000) * IFETime::sDeltaTime_ * 40;
 	if (fabsf(padX) > 0.01)
 	{
-		transformCamera_->eulerAngleDegrees_.y += padX;
+		cameraMoveX_ = true;
+		transformCamera_->eulerAngleDegrees_.y += Lerp(0, padX, moveMaxTime_, moveTimerX_);
+		moveTimerX_ += IFETime::sDeltaTime_;
+		moveTimerX_ = min(moveMaxTime_, moveTimerX_);
+	}
+	else if (cameraMoveX_)
+	{
+		static float LX = 0;
+		if (oldPadX_ != 0)
+		{
+			LX = oldPadX_;
+		}
+		transformCamera_->eulerAngleDegrees_.y += Lerp(0, LX, moveMaxTime_, moveTimerX_);
+		moveTimerX_ -= IFETime::sDeltaTime_ * 2;
+		if (moveTimerX_ <= 0)
+		{
+			moveTimerX_ = 0;
+			cameraMoveX_ = false;
+		}
 	}
 
 	Float3 shake;
@@ -70,9 +89,33 @@ void IFE::PlayerCamera::Update()
 	{
 		rotaY -= 360;
 	}
-	rotaY -= padY;
+	if (fabsf(padY) > 0.01)
+	{
+		cameraMoveY_ = true;
+		rotaY -= Lerp(0, padY, moveMaxTimeY_, moveTimerY_);
+		moveTimerY_ += IFETime::sDeltaTime_;
+		moveTimerY_ = min(moveMaxTimeY_, moveTimerY_);
+	}
+	else if (cameraMoveY_)
+	{
+		static float LY = 0;
+		if (oldPadX_ != 0)
+		{
+			LY = oldPadY_;
+		}
+		rotaY -= Lerp(0, LY, moveMaxTimeY_, moveTimerY_);
+		moveTimerY_ -= IFETime::sDeltaTime_ * 2;
+		if (moveTimerY_ <= 0)
+		{
+			moveTimerY_ = 0;
+			cameraMoveY_ = false;
+		}
+	}
 	rotaY = min(max(-5, rotaY), 5);
 	transformCamera_->eulerAngleDegrees_.x = rotaY;
+
+	oldPadX_ = padX;
+	oldPadY_ = padY;
 }
 
 #ifdef NDEBUG
