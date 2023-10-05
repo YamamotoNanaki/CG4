@@ -3,6 +3,7 @@
 #include "ParticleSetting.h"
 #include <vector>
 
+
 namespace IFE
 {
 	class FireworkChrysanthemum : public Component

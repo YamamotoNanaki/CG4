@@ -3,6 +3,7 @@
 #include <memory>
 #include "GraphicsPipeline.h"
 
+
 namespace IFE
 {
 	enum class SHADER_COMPILE_SETTINGS

@@ -1,6 +1,7 @@
 #pragma once
 #include "CollisionPrimitive.h"
 
+
 namespace IFE
 {
 	class Collision

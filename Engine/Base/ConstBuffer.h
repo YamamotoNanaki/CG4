@@ -4,13 +4,14 @@
 #include <cassert>
 #include "GraphicsAPI.h"
 
+
 namespace IFE
 {
 	template<class T>
 	class ConstBuffer
 	{
 	private:
-		//’è”ƒoƒbƒtƒ@
+		//å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		Microsoft::WRL::ComPtr<ID3D12Resource> cbuffResource_;
 		T* mapObj_ = nullptr;
 
@@ -29,10 +30,10 @@ namespace IFE
 	template<class T>
 	inline ConstBuffer<T>::ConstBuffer()
 	{
-		//’è”ƒoƒbƒtƒ@‚Ìƒq[ƒvİ’è
+		//å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ãƒ’ãƒ¼ãƒ—è¨­å®š
 		D3D12_HEAP_PROPERTIES heapProp{};
 		heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;
-		//’è”ƒoƒbƒtƒ@‚ÌƒŠƒ\[ƒXİ’è
+		//å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 		D3D12_RESOURCE_DESC resdesc{};
 		resdesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resdesc.Width = (sizeof(T) + 0xff) & ~0xff;

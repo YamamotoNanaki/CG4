@@ -12,6 +12,7 @@
 #include "Component.h"
 #include "Material.h"
 
+
 namespace IFE
 {
 	class Mesh : public Component

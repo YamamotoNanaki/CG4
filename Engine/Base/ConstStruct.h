@@ -2,6 +2,7 @@
 #include "IFMath.h"
 #include <cstdint>
 
+
 namespace IFE
 {
 	static const int32_t MAX_BONES = 128;
@@ -40,7 +41,7 @@ namespace IFE
 	};
 	struct ConstBufferMaterial
 	{
-		Float4 color;	//F(RGBA)
+		Float4 color;	//è‰²(RGBA)
 		Float3 ambient;
 		float pad1;
 		Float3 diffuse;
@@ -51,14 +52,14 @@ namespace IFE
 	struct ConstBufferFog
 	{
 		Float4 color;
-		float fogNear = 650.0f; //ƒtƒHƒO‚ÌŠJnˆÊ’u
-		float fogFar = 700.0f; //ƒtƒHƒO‚ÌI—¹ˆÊ’u
+		float fogNear = 650.0f; //ãƒ•ã‚©ã‚°ã®é–‹å§‹ä½ç½®
+		float fogFar = 700.0f; //ãƒ•ã‚©ã‚°ã®çµ‚äº†ä½ç½®
 		uint32_t fogFlag = 0;
 		float pad;
 	};
 	struct ConstBufferPostEffect
 	{
-		//0~0.005‚­‚ç‚¢‚Å
+		//0~0.005ãã‚‰ã„ã§
 		float sigma;
 		float NFocusWidth = 0.05f;
 		float FFocusWidth = 0.07f;
@@ -70,9 +71,9 @@ namespace IFE
 	};
 	struct Vertex
 	{
-		Float3 pos;			//XYZÀ•W
-		Float3 normal;		//–@üƒxƒNƒgƒ‹
-		Float2 uv;			//UVÀ•W
+		Float3 pos;			//XYZåº§æ¨™
+		Float3 normal;		//æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+		Float2 uv;			//UVåº§æ¨™
 	};
 	struct Vertex2D
 	{
@@ -81,15 +82,15 @@ namespace IFE
 	};
 	struct VertexPos
 	{
-		Float3 pos;			//XYZÀ•W
+		Float3 pos;			//XYZåº§æ¨™
 	};
 
 	const uint32_t MAX_BONE_INDICES = 4;
 	struct VertexBone
 	{
-		Float3 pos{};			//XYZÀ•W
-		Float3 normal{};		//–@üƒxƒNƒgƒ‹
-		Float2 uv{};			//UVÀ•W
+		Float3 pos{};			//XYZåº§æ¨™
+		Float3 normal{};		//æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+		Float2 uv{};			//UVåº§æ¨™
 		uint32_t boneIndex[MAX_BONE_INDICES]{};
 		float boneWeight[MAX_BONE_INDICES]{};
 	};

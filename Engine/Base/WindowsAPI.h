@@ -2,14 +2,15 @@
 #include <Windows.h>
 #include <cstdint>
 
+
 namespace IFE
 {
 	class WindowsAPI final
 	{
 	private:
-		WNDCLASSEX wnd_{}; // ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚Ìİ’è
+		WNDCLASSEX wnd_{}; // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®è¨­å®š
 		HWND hwnd_;
-		MSG msg_{}; // ƒƒbƒZ[ƒW
+		MSG msg_{}; // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 		WindowsAPI() {}
 		WindowsAPI(const WindowsAPI&) {}
 		WindowsAPI& operator=(const WindowsAPI&) {}
@@ -27,7 +28,7 @@ namespace IFE
 		HINSTANCE* GetHInstance();
 		HWND* GetHWnd();
 
-		//ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 		static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	};
 }

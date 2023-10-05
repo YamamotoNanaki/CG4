@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Sound.h"
 
+
 void IFE::ClearUI::Initialize()
 {
 	if (transform2D_)initPos_ = transform2D_->position2D_;

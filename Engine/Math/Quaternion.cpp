@@ -2,6 +2,7 @@
 #include "IFMath.h"
 #include <cmath>
 
+
 using namespace IFE;
 
 Quaternion IFE::quaternion(float x, float y, float z, float w)
@@ -269,14 +270,14 @@ Quaternion IFE::EulerToQuaternion(const Float3& euler)
 {
 	Quaternion ret;
 
-	//Z²‰ñ“]s—ñ‚ğéŒ¾
+	//Zè»¸å›è»¢è¡Œåˆ—ã‚’å®£è¨€
 	Quaternion matRotZ = MakeAxisAngle({ 0,0,1 }, euler.z);
-	//X²‰ñ“]s—ñ‚ğéŒ¾
+	//Xè»¸å›è»¢è¡Œåˆ—ã‚’å®£è¨€
 	Quaternion matRotX = MakeAxisAngle({ 1,0,0 }, euler.x);
-	//Y²‰ñ“]s—ñ‚ğéŒ¾
+	//Yè»¸å›è»¢è¡Œåˆ—ã‚’å®£è¨€
 	Quaternion matRotY = MakeAxisAngle({ 0,1,0 }, euler.y);
 
-	//‡¬—p‰ñ“]s—ñ‚ğéŒ¾‚µAZXY‚Ì‡‚É‡¬
+	//åˆæˆç”¨å›è»¢è¡Œåˆ—ã‚’å®£è¨€ã—ã€ZXYã®é †ã«åˆæˆ
 	ret = Multiply(Multiply(matRotY, matRotX), matRotZ);
 
 	return ret;

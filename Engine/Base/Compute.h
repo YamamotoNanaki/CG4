@@ -7,6 +7,7 @@
 #include <wrl.h>
 #include <vector>
 
+
 namespace IFE
 {
 	template <class T>
@@ -56,10 +57,10 @@ namespace IFE
 		CreateComputePipeline(defaultDirectory_ + shaderName);
 		CreateUAVDescriptorHeap();
 
-		//ƒRƒ}ƒ“ƒhƒAƒƒP[ƒ^ì¬
+		//ã‚³ãƒãƒ³ãƒ‰ã‚¢ãƒ­ã‚±ãƒ¼ã‚¿ä½œæˆ
 		result = GraphicsAPI::GetDevice()->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COMPUTE, IID_PPV_ARGS(&cmdAlloc_));
 		assert(SUCCEEDED(result));
-		//ƒRƒ}ƒ“ƒhƒŠƒXƒgì¬
+		//ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆä½œæˆ
 		result = GraphicsAPI::GetDevice()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_COMPUTE, cmdAlloc_.Get(), pipeline_.Get(), IID_PPV_ARGS(cmdList_.GetAddressOf()));
 		assert(SUCCEEDED(result));
 
@@ -89,17 +90,17 @@ namespace IFE
 		copy(data_.begin(), data_.end(), cbuff);
 		inBuffer->Unmap(0, nullptr);
 
-		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ƒ‹[ƒgƒVƒOƒlƒ`ƒƒƒZƒbƒg
+		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã‚»ãƒƒãƒˆ
 		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get()};
-		cmdList_->SetDescriptorHeaps(1, descHeaps);//ƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv‚ÌƒZƒbƒg
+		cmdList_->SetDescriptorHeaps(1, descHeaps);//ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ã®ã‚»ãƒƒãƒˆ
 
-		//ƒ‹[ƒgƒpƒ‰ƒ[ƒ^‚ÌƒZƒbƒg
+		//ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã‚»ãƒƒãƒˆ
 		cmdList_->SetComputeRootDescriptorTable(0,
 			descriptorHeap_->GetGPUDescriptorHandleForHeapStart()
 		);
-		cmdList_->Dispatch(2, 2, 2);//ƒfƒBƒXƒpƒbƒ`
+		cmdList_->Dispatch(2, 2, 2);//ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒ
 
-		//ƒoƒŠƒA
+		//ãƒãƒªã‚¢
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Transition.pResource = uavBuffer.Get();
 		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
@@ -134,9 +135,9 @@ namespace IFE
 		std::copy_n(mappedRes, data_.size(), data_.data());
 		cpyBuffer->Unmap(0, nullptr);
 
-		auto result = cmdAlloc_->Reset(); // ƒLƒ…[‚ğƒNƒŠƒA
+		auto result = cmdAlloc_->Reset(); // ã‚­ãƒ¥ãƒ¼ã‚’ã‚¯ãƒªã‚¢
 		assert(SUCCEEDED(result));
-		result = cmdList_->Reset(cmdAlloc_.Get(), nullptr);  // Ä‚ÑƒRƒ}ƒ“ƒhƒŠƒXƒg‚ğ’™‚ß‚é€”õ
+		result = cmdList_->Reset(cmdAlloc_.Get(), nullptr);  // å†ã³ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‚’è²¯ã‚ã‚‹æº–å‚™
 		assert(SUCCEEDED(result));
 	}
 
@@ -148,10 +149,10 @@ namespace IFE
 		heapProp.Type = D3D12_HEAP_TYPE_DEFAULT;
 		D3D12_RESOURCE_DESC resDesc = {};
 
-		//ŒvZŒ‹‰Ê‚ğ‘‚«‚Şæ‚Ìƒoƒbƒtƒ@‚ğì¬
+		//è¨ˆç®—çµæœã‚’æ›¸ãè¾¼ã‚€å…ˆã®ãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
 		resDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(data_[0]) * data_.size();//ŒvZŒ‹‰Ê‘‚«‚İæ‚ÌƒTƒCƒY‚ğŒvZ
+		resDesc.Width = sizeof(data_[0]) * data_.size();//è¨ˆç®—çµæœæ›¸ãè¾¼ã¿å…ˆã®ã‚µã‚¤ã‚ºã‚’è¨ˆç®—
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -171,10 +172,10 @@ namespace IFE
 		CD3DX12_HEAP_PROPERTIES heapProp(D3D12_HEAP_TYPE_UPLOAD);// = {};
 		D3D12_RESOURCE_DESC resDesc = {};
 
-		//“ü—Íƒoƒbƒtƒ@ì¬
+		//å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(data_[0]) * data_.size();//“ü—ÍƒTƒCƒY‚ğŒvZ
+		resDesc.Width = sizeof(data_[0]) * data_.size();//å…¥åŠ›ã‚µã‚¤ã‚ºã‚’è¨ˆç®—
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -196,7 +197,7 @@ namespace IFE
 		D3D12_RESOURCE_DESC resDesc = {};
 		resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 		resDesc.Format = DXGI_FORMAT_UNKNOWN;
-		resDesc.Width = sizeof(data_[0]) * data_.size();//ƒRƒs[æ‚ÌƒTƒCƒY‚ğŒvZ(UAV‚Æ“¯‚¶)
+		resDesc.Width = sizeof(data_[0]) * data_.size();//ã‚³ãƒ”ãƒ¼å…ˆã®ã‚µã‚¤ã‚ºã‚’è¨ˆç®—(UAVã¨åŒã˜)
 		resDesc.DepthOrArraySize = 1;
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 		resDesc.Height = 1;
@@ -217,13 +218,13 @@ namespace IFE
 		HRESULT result = S_OK;
 		Microsoft::WRL::ComPtr<ID3DBlob> errBlob = nullptr;
 		D3D12_DESCRIPTOR_RANGE range[2] = {};
-		range[0].NumDescriptors = 1;//1‚Â
+		range[0].NumDescriptors = 1;//1ã¤
 		range[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;//u
 		range[0].BaseShaderRegister = 0;//u0
 		range[0].OffsetInDescriptorsFromTableStart = 0;
 		range[0].RegisterSpace = 0;
 
-		range[1].NumDescriptors = 1;//1‚Â
+		range[1].NumDescriptors = 1;//1ã¤
 		range[1].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;//t
 		range[1].BaseShaderRegister = 0;//t0
 		range[1].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
@@ -285,9 +286,9 @@ namespace IFE
 	{
 		D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
 		uavDesc.Format = DXGI_FORMAT_UNKNOWN;
-		uavDesc.ViewDimension = D3D12_UAV_DIMENSION_BUFFER;//ƒoƒbƒtƒ@‚Æ‚µ‚Ä
-		uavDesc.Buffer.NumElements = (UINT)data_.size();//—v‘f‚Ì‘”
-		uavDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1ŒÂ“–‚½‚è‚Ì‘å‚«‚³
+		uavDesc.ViewDimension = D3D12_UAV_DIMENSION_BUFFER;//ãƒãƒƒãƒ•ã‚¡ã¨ã—ã¦
+		uavDesc.Buffer.NumElements = (UINT)data_.size();//è¦ç´ ã®ç·æ•°
+		uavDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1å€‹å½“ãŸã‚Šã®å¤§ãã•
 		uavDesc.Buffer.FirstElement = 0;
 		uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_NONE;
 		GraphicsAPI::GetDevice()->CreateUnorderedAccessView(res, nullptr, &uavDesc, descriptorHeap_->GetCPUDescriptorHandleForHeapStart());
@@ -298,9 +299,9 @@ namespace IFE
 	{
 		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.Format = DXGI_FORMAT_UNKNOWN;
-		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_BUFFER;//ƒoƒbƒtƒ@‚Æ‚µ‚Ä
-		srvDesc.Buffer.NumElements = (UINT)data_.size();//—v‘f‚Ì‘”
-		srvDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1ŒÂ“–‚½‚è‚Ì‘å‚«‚³
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_BUFFER;//ãƒãƒƒãƒ•ã‚¡ã¨ã—ã¦
+		srvDesc.Buffer.NumElements = (UINT)data_.size();//è¦ç´ ã®ç·æ•°
+		srvDesc.Buffer.StructureByteStride = sizeof(data_[0]);//1å€‹å½“ãŸã‚Šã®å¤§ãã•
 		srvDesc.Buffer.FirstElement = 0;
 		srvDesc.Buffer.Flags = D3D12_BUFFER_SRV_FLAG_NONE;
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;

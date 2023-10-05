@@ -10,6 +10,7 @@
 using namespace IFE;
 using namespace std;
 
+
 void IFE::ModelLoader::ParseNodeRecursive(const aiScene* scene, aiNode* node, Node* targetParent)
 {
 	unique_ptr<Node> node_ = make_unique<Node>();
@@ -156,7 +157,7 @@ Mesh* IFE::ModelLoader::ProcessMesh(const aiScene* scene, aiMesh* mesh)
 			mat.tex = TextureManager::Instance()->LoadTexture(f);
 		}
 
-		//É{Å[Éì
+		//„Éú„Éº„É≥
 		std::vector<std::list<Weight>>lists(vertices.size());
 		if (bones_.size() == 0)
 		{

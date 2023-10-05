@@ -10,6 +10,7 @@
 #include "ModelStruct.h"
 #include "AddModelSettings.h"
 
+
 namespace IFE
 {
 	struct Triangle;

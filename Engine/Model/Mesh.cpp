@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include <cassert>
 
+
 using namespace std;
 using namespace IFE;
 
@@ -16,7 +17,7 @@ void IFE::Mesh::Initialize()
 void IFE::Mesh::Draw()
 {
 	static ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//’¸“_ƒoƒbƒtƒ@‚ÌÝ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	if (vb_.GetSize() > 0)
 	{
 		commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
@@ -29,10 +30,10 @@ void IFE::Mesh::Draw()
 	{
 		material_->Draw();
 	}
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌÝ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	commandList->IASetIndexBuffer(ib_.GetIBView());
 
-	//•`‰æƒRƒ}ƒ“ƒh
+	//æç”»ã‚³ãƒžãƒ³ãƒ‰
 	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
 }
 

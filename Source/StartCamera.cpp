@@ -6,6 +6,7 @@
 #include "IFETime.h"
 #include "Ease.h"
 
+
 void IFE::StartCamera::Initialize()
 {
 	sTimer_ = 0;

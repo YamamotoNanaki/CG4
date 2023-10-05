@@ -8,6 +8,7 @@
 #include <vector>
 #include <memory>
 
+
 struct aiScene;
 struct aiNode;
 struct aiMesh;

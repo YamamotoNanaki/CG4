@@ -9,6 +9,7 @@
 using namespace IFE;
 using namespace std;
 
+
 ModelManager* IFE::ModelManager::Instance()
 {
 	static ModelManager inst;

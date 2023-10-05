@@ -2,6 +2,7 @@
 #include "Debug.h"
 #include <cassert>
 
+
 #pragma comment(lib,"xaudio2.lib")
 
 using namespace IFE;
@@ -9,9 +10,9 @@ using namespace IFE;
 void IFE::Sound::Initialize()
 {
 	HRESULT result = XAudio2Create(&xAudio_, 0, XAUDIO2_DEFAULT_PROCESSOR);
-	assert(SUCCEEDED(result) && "�T�E���h�̏������Ɏ��s���܂���");
+	assert(SUCCEEDED(result) && "サウンドの初期化に失敗しました");
 	result = xAudio_->CreateMasteringVoice(&masterVoice_);
-	assert(SUCCEEDED(result) && "�T�E���h�̏������Ɏ��s���܂���");
+	assert(SUCCEEDED(result) && "サウンドの初期化に失敗しました");
 }
 
 uint16_t IFE::Sound::LoadWave(const std::string& filename)
@@ -34,23 +35,23 @@ uint16_t IFE::Sound::LoadWave(const std::string& filename)
 		}
 	}
 
-	if (num == -1)assert(0 && "SoundData�̋󂫂�����܂���");
+	if (num == -1)assert(0 && "SoundDataの空きがありません");
 
 	std::ifstream file;
 
 	file.open(name, std::ios_base::binary);
-	assert(file.is_open() && "�t�@�C�����J���܂���");
+	assert(file.is_open() && "ファイルが開けません");
 
 	RiffHeader riff;
 	file.read((char*)&riff, sizeof(riff));
-	if (strncmp(riff.chunk.id, "RIFF", 4) != 0)assert(0 && "�t�@�C����RIFF�ł͂���܂���");
-	if (strncmp(riff.type, "WAVE", 4) != 0)assert(0 && "�t�H�[�}�b�g��WAVE�ł͂���܂���");
+	if (strncmp(riff.chunk.id, "RIFF", 4) != 0)assert(0 && "ファイルがRIFFではありません");
+	if (strncmp(riff.type, "WAVE", 4) != 0)assert(0 && "フォーマットがWAVEではありません");
 
 	FormatChunk format;
 
 	file.read((char*)&format, sizeof(ChunkHeader));
-	if (strncmp(format.chank.id, "fmt ", 4) != 0)assert(0 && "�`�����N�̊m�F�Ɏ��s���܂���");
-	assert(format.chank.size <= sizeof(format.fmt) && "40byte�͑Ή����Ă܂���");
+	if (strncmp(format.chank.id, "fmt ", 4) != 0)assert(0 && "チャンクの確認に失敗しました");
+	assert(format.chank.size <= sizeof(format.fmt) && "40byteは対応してません");
 	file.read((char*)&format.fmt, format.chank.size);
 
 	ChunkHeader data;
@@ -60,7 +61,7 @@ uint16_t IFE::Sound::LoadWave(const std::string& filename)
 		file.seekg(data.size, std::ios_base::cur);
 		file.read((char*)&data, sizeof(data));
 	}
-	if (strncmp(data.id, "data ", 4) != 0)assert(0 && "�f�[�^�̊m�F�Ɏ��s���܂���");
+	if (strncmp(data.id, "data ", 4) != 0)assert(0 && "データの確認に失敗しました");
 
 	std::vector<char> pBuffer(data.size);
 	std::vector<BYTE> byteBuff(data.size);

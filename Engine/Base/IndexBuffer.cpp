@@ -1,6 +1,7 @@
 #include "IndexBuffer.h"
 #include "GraphicsAPI.h"
 
+
 using namespace IFE;
 
 void IFE::IndexBuffer::SetIndex(const std::vector<uint32_t>& _indices)
@@ -18,26 +19,26 @@ void IFE::IndexBuffer::SetIndex(uint32_t _indices[], size_t indexCount)
 
 void IFE::IndexBuffer::Initialize()
 {
-	// ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‘S‘Ì‚ÌƒTƒCƒY
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®ã‚µã‚¤ã‚º
 	uint32_t sizeIB = static_cast<uint32_t>(sizeof(uint32_t) * indices_.size());
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ìİ’è
-	D3D12_HEAP_PROPERTIES heapProp{};   // ƒq[ƒvİ’è
-	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPU‚Ö‚Ì“]‘——p
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
+	D3D12_HEAP_PROPERTIES heapProp{};   // ãƒ’ãƒ¼ãƒ—è¨­å®š
+	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPUã¸ã®è»¢é€ç”¨
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìİ’è
-	D3D12_RESOURCE_DESC resDesc{};  // ƒŠƒ\[ƒXİ’è
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
+	D3D12_RESOURCE_DESC resDesc{};  // ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = sizeIB;//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì¶¬
+	resDesc.Width = sizeIB;//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
 	resDesc.Height = 1;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 	HRESULT result = GraphicsAPI::Instance()->GetDevice()->CreateCommittedResource(
-		&heapProp,				//ƒq[ƒvİ’è
+		&heapProp,				//ãƒ’ãƒ¼ãƒ—è¨­å®š
 		D3D12_HEAP_FLAG_NONE,
-		&resDesc,				//ƒŠƒ\[ƒXİ’è
+		&resDesc,				//ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
 		IID_PPV_ARGS(&indexBuff_));
@@ -45,13 +46,13 @@ void IFE::IndexBuffer::Initialize()
 	uint32_t* indexMap = nullptr;
 	result = indexBuff_->Map(0, nullptr, (void**)&indexMap);
 
-	//‘SƒCƒ“ƒfƒbƒNƒX‚É‘Î‚µ‚Ä
+	//å…¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å¯¾ã—ã¦
 	for (int32_t i = 0; i < indices_.size(); i++)
 	{
-		indexMap[i] = indices_[i];	//ƒCƒ“ƒfƒbƒNƒX‚ğƒRƒs[
+		indexMap[i] = indices_[i];	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ã‚³ãƒ”ãƒ¼
 	}
 
-	//‚Â‚È‚ª‚è‚ğ‰ğœ
+	//ã¤ãªãŒã‚Šã‚’è§£é™¤
 	indexBuff_->Unmap(0, nullptr);
 
 	ibView_.BufferLocation = indexBuff_->GetGPUVirtualAddress();

@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Scene.h"
 
+
 void IFE::Goal::Update()
 {
 	if (goal_/* && (Input::KeyDown(Key_Space) || Input::PadDown(PADCODE::ABXY))*/)

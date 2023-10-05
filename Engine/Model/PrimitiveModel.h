@@ -5,6 +5,7 @@
 #include "ConstStruct.h"
 #include "AddModelSettings.h"
 
+
 namespace IFE
 {
 	class PrimitiveModel : public Component

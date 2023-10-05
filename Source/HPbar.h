@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Player.h"
 
+
 namespace IFE
 {
 	class HPbar : public Component

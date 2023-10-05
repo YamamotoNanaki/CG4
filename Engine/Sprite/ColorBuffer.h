@@ -4,6 +4,7 @@
 #include "ConstBuffer.h"
 #include <memory>
 
+
 namespace IFE
 {
 	class ColorBuffer : public Component

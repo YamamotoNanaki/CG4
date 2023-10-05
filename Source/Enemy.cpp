@@ -11,6 +11,7 @@
 #include "Ease.h"
 #include "Player.h"
 
+
 using namespace IFE;
 
 Transform* Enemy::playerTransform_ = nullptr;

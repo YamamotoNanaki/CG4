@@ -9,6 +9,7 @@
 #include "ColorBuffer.h"
 #include "GraphicsPipelineManager.h"
 
+
 using namespace IFE;
 using namespace Microsoft::WRL;
 using namespace std;
@@ -115,9 +116,9 @@ void IFE::Sprite::Draw()
 
 	ComponentManager::Draw();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//’¸“_ƒoƒbƒtƒ@‚Ìİ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
-	//•`‰æƒRƒ}ƒ“ƒh
+	//æç”»ã‚³ãƒãƒ³ãƒ‰
 	tex_->SetTexture(2);
 	commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
 }
@@ -133,7 +134,7 @@ void Sprite::SetTextureRect(const Float2& b, const Float2& s)
 	this->texBase_ = b;
 	this->texSize_ = s;
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ìƒf[ƒ^“]‘—
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¸ã®ãƒ‡ãƒ¼ã‚¿è»¢é€
 	TransferVertex();
 }
 
@@ -267,10 +268,10 @@ void Sprite::TransferVertex()
 		tex_top = texBase_.y / resDesc.Height;
 		tex_bottom = (texBase_.y + texSize_.y) / resDesc.Height;
 
-		vertices[LB].uv = { tex_left,	tex_bottom }; // ¶‰º
-		vertices[LT].uv = { tex_left,	tex_top }; // ¶ã
-		vertices[RB].uv = { tex_right,	tex_bottom }; // ‰E‰º
-		vertices[RT].uv = { tex_right,	tex_top }; // ‰Eã
+		vertices[LB].uv = { tex_left,	tex_bottom }; // å·¦ä¸‹
+		vertices[LT].uv = { tex_left,	tex_top }; // å·¦ä¸Š
+		vertices[RB].uv = { tex_right,	tex_bottom }; // å³ä¸‹
+		vertices[RT].uv = { tex_right,	tex_top }; // å³ä¸Š
 	}
 
 	vb_.Transfer(vertices, _countof(vertices));

@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 
+
 namespace IFE
 {
 	struct Matrix
@@ -33,27 +34,27 @@ namespace IFE
 		void SetW(Vector3 v, float w = 1);
 
 		Matrix Inverse();
-		//À•W•ÏŠ·iƒxƒNƒgƒ‹‚Æs—ñ‚ÌŠ|‚¯Z‚ğ‚·‚éj
+		//åº§æ¨™å¤‰æ›ï¼ˆãƒ™ã‚¯ãƒˆãƒ«ã¨è¡Œåˆ—ã®æ›ã‘ç®—ã‚’ã™ã‚‹ï¼‰
 		static Vector3 Transform(const Vector3 v, const Matrix& m);
 	};
 
-	// ’PˆÊs—ñ‚ğ‹‚ß‚é
+	// å˜ä½è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
 	Matrix MatrixIdentity();
-	// ‹ts—ñ‚ğ‹‚ß‚é
+	// é€†è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
 	Matrix MatrixInverse(const Matrix& m);
-	// “]’us—ñ‚ğ‹‚ß‚é
+	// è»¢ç½®è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
 	Matrix MatrixTranspose(const Matrix& m);
 
-	// Šg‘åk¬s—ñ‚Ìì¬
+	// æ‹¡å¤§ç¸®å°è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixScaling(float sx, float sy, float sz);
 
-	// ‰ñ“]s—ñ‚Ìì¬
+	// å›è»¢è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixRotationX(float angle);
 	Matrix MatrixRotationY(float angle);
 	Matrix MatrixRotationZ(float angle);
 	Matrix MatrixRotation(float x, float y, float z, float angle);
 
-	// •½sˆÚ“®s—ñ‚Ìì¬
+	// å¹³è¡Œç§»å‹•è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixTranslation(float tx, float ty, float tz);
 
 	Matrix MatrixOrthoGraphicProjection(float left, float right, float top, float bottom, float near, float far);

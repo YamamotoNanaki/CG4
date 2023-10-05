@@ -4,6 +4,7 @@
 #include <d3d12.h>
 #include "CollisionPrimitive.h"
 
+
 namespace IFE
 {
 	class CollideManager

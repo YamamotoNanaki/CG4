@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include "JsonManager.h"
 
+
 namespace IFE
 {
 	class Object3D;

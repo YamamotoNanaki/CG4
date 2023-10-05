@@ -7,6 +7,7 @@
 #include "Ease.h"
 #include "WindowsAPI.h"
 
+
 using namespace IFE;
 
 #ifdef NDEBUG
@@ -230,7 +231,7 @@ void IFE::Scene::SceneTransitionIn()
 		transitionTimer_ += IFETime::sDeltaTime_;
 		if (transitionTimer_ < maxTransitionTime_)
 		{
-			//‘JˆÚ‚Ì‰‰o
+			//é·ç§»ã®æ¼”å‡º
 
 			//float alpha = InOutQuad(0, 1, maxTransitionTime_, transitionTimer_);
 			float y = EaseOutBounce(-(float)WindowsAPI::Instance()->winHeight_ / 2, (float)WindowsAPI::Instance()->winHeight_ / 2, maxTransitionTime_, transitionTimer_);
@@ -263,7 +264,7 @@ void IFE::Scene::SceneTransitionOut()
 		transitionTimer_ += IFETime::sDeltaTime_;
 		if (transitionTimer_ < maxTransitionTime_)
 		{
-			//‘JˆÚ‚Ì‰‰o
+			//é·ç§»ã®æ¼”å‡º
 
 			//float alpha = InOutQuad(1, 0, maxTransitionTime_, transitionTimer_);
 			auto* fade = spriteM_->GetSpritePtr("fade");

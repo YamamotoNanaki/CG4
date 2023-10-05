@@ -4,6 +4,7 @@
 #include "ConstStruct.h"
 #include "ConstBuffer.h"
 
+
 namespace IFE
 {
 	class OldPostEffect : public Sprite
@@ -35,9 +36,9 @@ namespace IFE
 		void DrawBefore();
 		void DrawAfter();
 		/// <summary>
-		/// RGBƒVƒtƒg‚ğ‚µ‚Ü‚·
+		/// RGBã‚·ãƒ•ãƒˆã‚’ã—ã¾ã™
 		/// </summary>
-		/// <param name="shift">0~0.005ˆÈ“à‚ª‚¿‚å‚¤‚Ç—Ç‚¢‚Æv‚¢‚Ü‚·</param>
+		/// <param name="shift">0~0.005ä»¥å†…ãŒã¡ã‚‡ã†ã©è‰¯ã„ã¨æ€ã„ã¾ã™</param>
 		void SetRGBShift(float shift);
 		//void SetGrayscale(bool gray);
 		//void SetSepia(float sepia);

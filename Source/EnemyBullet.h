@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+
 namespace IFE
 {
 	class EnemyBullet : public Component

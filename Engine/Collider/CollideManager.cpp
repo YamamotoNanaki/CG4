@@ -4,6 +4,7 @@
 #include "Object3D.h"
 #include "Transform.h"
 
+
 using namespace IFE;
 using namespace std;
 
@@ -53,7 +54,7 @@ void IFE::CollideManager::CollidersUpdate()
 			Collider* colA = *itA;
 			Collider* colB = *itB;
 
-			//‚Æ‚à‚É‹…
+			//ã¨ã‚‚ã«çƒ
 			if (colA->GetColliderType() == ColliderType::SPHERE && colB->GetColliderType() == ColliderType::SPHERE)
 			{
 				Sphere SphereA(colA->GetColliderPosition(), Vector3(colA->GetColliderScale()).Length());
@@ -127,12 +128,12 @@ bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, RaycastHit
 	float distance = maxDistance;
 	Vector3 inter;
 
-	// ‘S‚Ä‚ÌƒRƒ‰ƒCƒ_[‚Æ‘“–‚èƒ`ƒFƒbƒN
+	// å…¨ã¦ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¨ç·å½“ã‚Šãƒã‚§ãƒƒã‚¯
 	it = colliders_.begin();
 	for (; it != colliders_.end(); ++it) {
 		Collider* colA = *it;
 
-		// ‘®«‚ª‡‚í‚È‚¯‚ê‚ÎƒXƒLƒbƒv
+		// å±žæ€§ãŒåˆã‚ãªã‘ã‚Œã°ã‚¹ã‚­ãƒƒãƒ—
 		if (!(colA->attribute_ & attribute)) {
 			continue;
 		}
@@ -177,7 +178,7 @@ bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, RaycastHit
 
 void IFE::CollideManager::PushBack(Collider* colA, Collider* colB, const Vector3& reject)
 {
-	// ’n–Ê”»’è‚µ‚«‚¢’l
+	// åœ°é¢åˆ¤å®šã—ãã„å€¤
 	static const float threshold = cosf(ConvertToRadians(30.0f));
 	static const Vector3 up = { 0,1,0 };
 	if (colA->GetNoPushBackFlag() || colB->GetNoPushBackFlag())

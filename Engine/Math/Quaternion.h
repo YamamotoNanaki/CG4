@@ -3,6 +3,7 @@
 #include "Float4.h"
 #include "Matrix.h"
 
+
 namespace IFE
 {
 	struct Quaternion
@@ -41,9 +42,9 @@ namespace IFE
 	Quaternion quaternion(const Matrix& m);
 	Vector3 GetAxis(const Quaternion& q);
 	/// <summary>
-	/// Šp“x‹‚ß‚é
+	/// è§’åº¦æ±‚ã‚ã‚‹
 	/// </summary>
-	/// <param name="q">ƒNƒIƒ^ƒjƒIƒ“</param>
+	/// <param name="q">ã‚¯ã‚ªã‚¿ãƒ‹ã‚ªãƒ³</param>
 	/// <returns>rad</returns>
 	float GetRadian(const Quaternion& q);
 

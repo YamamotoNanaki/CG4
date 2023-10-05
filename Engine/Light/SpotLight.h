@@ -1,6 +1,7 @@
 #pragma once
 #include "IFMath.h"
 
+
 namespace IFE
 {
 	class SLight

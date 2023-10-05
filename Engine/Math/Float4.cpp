@@ -1,6 +1,7 @@
 #include "Float4.h"
 #include <assert.h>
 
+
 using namespace IFE;
 
 Float4::Float4(float x, float y, float z, float w) :x(x), y(y), z(z), w(w) {}
@@ -57,10 +58,10 @@ Float4& Float4::operator*=(const Float4& f)
 
 Float4& Float4::operator/=(const Float4& f)
 {
-	assert(f.x == 0 && "�돜�Z");
-	assert(f.y == 0 && "�돜�Z");
-	assert(f.z == 0 && "�돜�Z");
-	assert(f.w == 0 && "�돜�Z");
+	assert(f.x == 0 && "零除算");
+	assert(f.y == 0 && "零除算");
+	assert(f.z == 0 && "零除算");
+	assert(f.w == 0 && "零除算");
 	x /= f.x;
 	y /= f.y;
 	z /= f.z;
@@ -79,7 +80,7 @@ Float4& Float4::operator*=(float f)
 
 Float4& Float4::operator/=(float f)
 {
-	assert(f == 0 && "�돜�Z");
+	assert(f == 0 && "零除算");
 	x /= f;
 	y /= f;
 	z /= f;

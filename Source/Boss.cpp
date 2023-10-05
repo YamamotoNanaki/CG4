@@ -9,6 +9,7 @@
 #include "BulletParticle.h"
 #include "Emitter.h"
 
+
 using namespace IFE;
 
 void IFE::Boss::Initialize()

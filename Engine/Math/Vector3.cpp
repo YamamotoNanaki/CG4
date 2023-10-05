@@ -3,6 +3,7 @@
 
 using namespace IFE;
 
+
 Vector3::Vector3()
 {
 	x = 0;

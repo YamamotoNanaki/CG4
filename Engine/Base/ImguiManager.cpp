@@ -2,7 +2,6 @@
 #else
 #include "ImguiManager.h"
 #include "ObjectManager.h"
-
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
@@ -689,7 +688,7 @@ void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::str
 			std::string num = "[" + std::to_string(i) + "]";
 			ImGui::DragFloat(num.c_str(), &f[i], speed, min, max);
 			ImGui::SameLine();
-			if (ImGui::Button("Å™"))
+			if (ImGui::Button("‚Üë"))
 			{
 				if (i != 0)
 				{
@@ -699,7 +698,7 @@ void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::str
 				}
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å´"))
+			if (ImGui::Button("‚Üì"))
 			{
 				if (i != f.size() - 1)
 				{
@@ -710,7 +709,7 @@ void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::str
 
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å~"))
+			if (ImGui::Button("√ó"))
 			{
 				f.erase(f.begin() + i);
 			}
@@ -735,7 +734,7 @@ void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::s
 			std::string num = "[" + std::to_string(i) + "]";
 			DragFloat2GUI(&f[i], num, speed, min, max);
 			ImGui::SameLine();
-			if (ImGui::Button("Å™"))
+			if (ImGui::Button("‚Üë"))
 			{
 				if (i != 0)
 				{
@@ -745,7 +744,7 @@ void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::s
 				}
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å´"))
+			if (ImGui::Button("‚Üì"))
 			{
 				if (i != f.size() - 1)
 				{
@@ -756,7 +755,7 @@ void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::s
 
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å~"))
+			if (ImGui::Button("√ó"))
 			{
 				f.erase(f.begin() + i);
 			}
@@ -830,7 +829,7 @@ void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::s
 			std::string num = "[" + std::to_string(i) + "]";
 			DragFloat4GUI(&f[i], num, speed, min, max);
 			ImGui::SameLine();
-			if (ImGui::Button("Å™"))
+			if (ImGui::Button("‚Üë"))
 			{
 				if (i != 0)
 				{
@@ -840,7 +839,7 @@ void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::s
 				}
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å´"))
+			if (ImGui::Button("‚Üì"))
 			{
 				if (i != f.size() - 1)
 				{
@@ -851,7 +850,7 @@ void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::s
 
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Å~"))
+			if (ImGui::Button("√ó"))
 			{
 				f.erase(f.begin() + i);
 			}

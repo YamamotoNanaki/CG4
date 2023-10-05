@@ -6,6 +6,7 @@
 #include "Particle.h"
 #include "Collider.h"
 
+
 void IFE::ComponentManager::Initialize()
 {
 	for (auto& itr : componentList_)

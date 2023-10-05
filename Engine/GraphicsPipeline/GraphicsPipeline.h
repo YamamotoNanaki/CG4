@@ -5,6 +5,7 @@
 #include <array>
 #include <vector>
 
+
 namespace IFE
 {
 	class GraphicsPipeline

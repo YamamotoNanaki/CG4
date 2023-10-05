@@ -5,6 +5,7 @@
 #include <cstdint>
 #include "Float2.h"
 
+
 namespace IFE
 {
 	enum class Key;
@@ -39,37 +40,37 @@ namespace IFE
 		static void Initalize();
 
 		/// <summary>
-		/// ÉLÅ[É{Å[ÉhèÓïÒÇÃÉAÉbÉvÉfÅ[Ég
+		/// „Ç≠„Éº„Éú„Éº„ÉâÊÉÖÂ†±„ÅÆ„Ç¢„ÉÉ„Éó„Éá„Éº„Éà
 		/// </summary>
 		/// <param name="result"></param>
 		static void Update();
 
-		//ÉLÅ[É{Å[ÉhÇÃîªíË
+		//„Ç≠„Éº„Éú„Éº„Éâ„ÅÆÂà§ÂÆö
 		/// <summary>
-		/// ÉgÉäÉKÅ[îªíË
+		/// „Éà„É™„Ç¨„ÉºÂà§ÂÆö
 		/// </summary>
-		/// <param name="keyCode">îªíËÇéÊÇËÇΩÇ¢ÉLÅ[ÇÃÉ}ÉNÉç</param>
+		/// <param name="keyCode">Âà§ÂÆö„ÇíÂèñ„Çä„Åü„ÅÑ„Ç≠„Éº„ÅÆ„Éû„ÇØ„É≠</param>
 		/// <returns></returns>
 		static bool GetKeyTrigger(const Key& keyFlag);
 		/// <summary>
-		/// ì¸óÕîªíË
+		/// ÂÖ•ÂäõÂà§ÂÆö
 		/// </summary>
-		/// <param name="keyCode">îªíËÇéÊÇËÇΩÇ¢ÉLÅ[ÇÃÉ}ÉNÉç</param>
+		/// <param name="keyCode">Âà§ÂÆö„ÇíÂèñ„Çä„Åü„ÅÑ„Ç≠„Éº„ÅÆ„Éû„ÇØ„É≠</param>
 		/// <returns></returns>
 		static bool GetKeyDown(const Key& keyFlag);
 		/// <summary>
-		/// ÉäÉäÅ[ÉXîªíË
+		/// „É™„É™„Éº„ÇπÂà§ÂÆö
 		/// </summary>
-		/// <param name="keyCode">îªíËÇéÊÇËÇΩÇ¢ÉLÅ[ÇÃÉ}ÉNÉç</param>
+		/// <param name="keyCode">Âà§ÂÆö„ÇíÂèñ„Çä„Åü„ÅÑ„Ç≠„Éº„ÅÆ„Éû„ÇØ„É≠</param>
 		/// <returns></returns>
 		static bool GetKeyRelease(const Key& keyFlag);
-		//É}ÉEÉXÇÃîªíË
+		//„Éû„Ç¶„Çπ„ÅÆÂà§ÂÆö
 		static bool GetMousePush(const Mouse& mouse);
 		static bool GetMouseTrigger(const Mouse& mouse);
 		static bool GetMouseRelease(const Mouse& mouse);
 		static Float2 GetMousePoint();
 		static int32_t GetMouseWheel();
-		//ÉRÉìÉgÉçÅ[ÉâÅ[ÇÃîªíË
+		//„Ç≥„É≥„Éà„É≠„Éº„É©„Éº„ÅÆÂà§ÂÆö
 		static Float2 GetLAnalog(std::int32_t unresponsive_range = 1000);
 		static Float2 GetRAnalog(std::int32_t unresponsive_range = 1000);
 		static float GetLXAnalog(std::int32_t unresponsive_range = 1000);
@@ -91,116 +92,116 @@ namespace IFE
 
 	enum class Key
 	{
-		BACK = DIK_BACK,	// BackSpaceÉLÅ[	D_DIK_BACK							
-		TAB = DIK_TAB,	// TabÉLÅ[			D_DIK_TAB							
-		RETURN = DIK_RETURN,	// EnterÉLÅ[		D_DIK_RETURN						
-		Enter = DIK_RETURN,	// EnterÉLÅ[		D_DIK_RETURN						
-		LSHIFT = DIK_LSHIFT,	// ç∂ShiftÉLÅ[		D_DIK_LSHIFT						
-		RSHIFT = DIK_RSHIFT,	// âEShiftÉLÅ[		D_DIK_RSHIFT						
-		LCONTROL = DIK_LCONTROL,	// ç∂CtrlÉLÅ[		D_DIK_LCONTROL						
-		RCONTROL = DIK_RCONTROL,	// âECtrlÉLÅ[		D_DIK_RCONTROL						
-		Esc = DIK_ESCAPE,	// EscÉLÅ[			D_DIK_ESCAPE						
-		Space = DIK_SPACE,	// ÉXÉyÅ[ÉXÉLÅ[		D_DIK_SPACE							
-		PGUP = DIK_PGUP,	// PageUpÉLÅ[		D_DIK_PGUP							
-		PGDN = DIK_PGDN,	// PageDownÉLÅ[		D_DIK_PGDN							
-		END = DIK_END,	// EndÉLÅ[			D_DIK_END							
-		HOME = DIK_HOME,	// HomeÉLÅ[			D_DIK_HOME							
-		LEFT = DIK_LEFT,	// ç∂ÉLÅ[			D_DIK_LEFT							
-		UP = DIK_UP,	// è„ÉLÅ[			D_DIK_UP							
-		RIGHT = DIK_RIGHT,	// âEÉLÅ[			D_DIK_RIGHT							
-		DOWN = DIK_DOWN,	// â∫ÉLÅ[			D_DIK_DOWN							
-		INSERT = DIK_INSERT,	// InsertÉLÅ[		D_DIK_INSERT						
-		DELETE_Key = DIK_DELETE,	// DeleteÉLÅ[		D_DIK_DELETE						
-		MINUS = DIK_MINUS,	// Å|ÉLÅ[			D_DIK_MINUS							
-		YEN = DIK_YEN,	// ÅèÉLÅ[			D_DIK_YEN							
-		PREVTRACK = DIK_PREVTRACK,	// ÅOÉLÅ[			D_DIK_PREVTRACK						
-		PERIOD = DIK_PERIOD,	// ÅDÉLÅ[			D_DIK_PERIOD						
-		SLASH = DIK_SLASH,	// Å^ÉLÅ[			D_DIK_SLASH							
-		LALT = DIK_LALT,	// ç∂AltÉLÅ[		D_DIK_LALT							
-		RALT = DIK_RALT,	// âEAltÉLÅ[		D_DIK_RALT							
-		SCROLL = DIK_SCROLL,	// ScrollLockÉLÅ[	D_DIK_SCROLL						
-		SEMICOLON = DIK_SEMICOLON,	// ÅGÉLÅ[			D_DIK_SEMICOLON						
-		COLON = DIK_COLON,	// ÅFÉLÅ[			D_DIK_COLON							
-		LBRACKET = DIK_LBRACKET,	// ÅmÉLÅ[			D_DIK_LBRACKET						
-		RBRACKET = DIK_RBRACKET,	// ÅnÉLÅ[			D_DIK_RBRACKET						
-		AT = DIK_AT,	// ÅóÉLÅ[			D_DIK_AT							
-		BACKSLASH = DIK_BACKSLASH,	// Å_ÉLÅ[			D_DIK_BACKSLASH						
-		COMMA = DIK_COMMA,	// ÅCÉLÅ[			D_DIK_COMMA							
-		KANJI = DIK_KANJI,	// äøéöÉLÅ[			D_DIK_KANJI							
-		CONVERT = DIK_CONVERT,	// ïœä∑ÉLÅ[			D_DIK_CONVERT						
-		NOCONVERT = DIK_NOCONVERT,	// ñ≥ïœä∑ÉLÅ[		D_DIK_NOCONVERT						
-		KANA = DIK_KANA,	// ÉJÉiÉLÅ[			D_DIK_KANA							
-		APPS = DIK_APPS,	// ÉAÉvÉäÉPÅ[ÉVÉáÉìÉÅÉjÉÖÅ[ÉLÅ[		D_DIK_APPS			
-		CAPSLOCK = DIK_CAPSLOCK,	// CaspLockÉLÅ[		D_DIK_CAPSLOCK						
-		SYSRQ = DIK_SYSRQ,	// PrintScreenÉLÅ[	D_DIK_SYSRQ							
-		PAUSE = DIK_PAUSE,	// PauseBreakÉLÅ[	D_DIK_PAUSE							
-		LWIN = DIK_LWIN,	// ç∂WinÉLÅ[		D_DIK_LWIN							
-		RWIN = DIK_RWIN,	// âEWinÉLÅ[		D_DIK_RWIN							
-		NUMLOCK = DIK_NUMLOCK,	// ÉeÉìÉLÅ[NumLockÉLÅ[		D_DIK_NUMLOCK				
-		NUMPAD0 = DIK_NUMPAD0,	// ÉeÉìÉLÅ[ÇO				D_DIK_NUMPAD0				
-		NUMPAD1 = DIK_NUMPAD1,	// ÉeÉìÉLÅ[ÇP				D_DIK_NUMPAD1				
-		NUMPAD2 = DIK_NUMPAD2,	// ÉeÉìÉLÅ[ÇQ				D_DIK_NUMPAD2				
-		NUMPAD3 = DIK_NUMPAD3,	// ÉeÉìÉLÅ[ÇR				D_DIK_NUMPAD3				
-		NUMPAD4 = DIK_NUMPAD4,	// ÉeÉìÉLÅ[ÇS				D_DIK_NUMPAD4				
-		NUMPAD5 = DIK_NUMPAD5,	// ÉeÉìÉLÅ[ÇT				D_DIK_NUMPAD5				
-		NUMPAD6 = DIK_NUMPAD6,	// ÉeÉìÉLÅ[ÇU				D_DIK_NUMPAD6				
-		NUMPAD7 = DIK_NUMPAD7,	// ÉeÉìÉLÅ[ÇV				D_DIK_NUMPAD7				
-		NUMPAD8 = DIK_NUMPAD8,	// ÉeÉìÉLÅ[ÇW				D_DIK_NUMPAD8				
-		NUMPAD9 = DIK_NUMPAD9,	// ÉeÉìÉLÅ[ÇX				D_DIK_NUMPAD9				
-		MULTIPLY = DIK_MULTIPLY,	// ÉeÉìÉLÅ[ÅñÉLÅ[			D_DIK_MULTIPLY				
-		ADD = DIK_ADD,	// ÉeÉìÉLÅ[Å{ÉLÅ[			D_DIK_ADD					
-		SUBTRACT = DIK_SUBTRACT,	// ÉeÉìÉLÅ[Å|ÉLÅ[			D_DIK_SUBTRACT				
-		DECIMAL = DIK_DECIMAL,	// ÉeÉìÉLÅ[ÅDÉLÅ[			D_DIK_DECIMAL				
-		DIVIDE = DIK_DIVIDE,	// ÉeÉìÉLÅ[Å^ÉLÅ[			D_DIK_DIVIDE				
-		NUMENTER = DIK_NUMPADENTER,	// ÉeÉìÉLÅ[ÇÃÉGÉìÉ^Å[ÉLÅ[	D_DIK_NUMPADENTER			
-		F1 = DIK_F1,	// ÇeÇPÉLÅ[			D_DIK_F1							
-		F2 = DIK_F2,	// ÇeÇQÉLÅ[			D_DIK_F2							
-		F3 = DIK_F3,	// ÇeÇRÉLÅ[			D_DIK_F3							
-		F4 = DIK_F4,	// ÇeÇSÉLÅ[			D_DIK_F4							
-		F5 = DIK_F5,	// ÇeÇTÉLÅ[			D_DIK_F5							
-		F6 = DIK_F6,	// ÇeÇUÉLÅ[			D_DIK_F6							
-		F7 = DIK_F7,	// ÇeÇVÉLÅ[			D_DIK_F7							
-		F8 = DIK_F8,	// ÇeÇWÉLÅ[			D_DIK_F8							
-		F9 = DIK_F9,	// ÇeÇXÉLÅ[			D_DIK_F9							
-		F10 = DIK_F10,	// ÇeÇPÇOÉLÅ[		D_DIK_F10							
-		F11 = DIK_F11,	// ÇeÇPÇPÉLÅ[		D_DIK_F11							
-		F12 = DIK_F12,	// ÇeÇPÇQÉLÅ[		D_DIK_F12							
-		A = DIK_A,	// Ç`ÉLÅ[			D_DIK_A								
-		B = DIK_B,	// ÇaÉLÅ[			D_DIK_B								
-		C = DIK_C,	// ÇbÉLÅ[			D_DIK_C								
-		D = DIK_D,	// ÇcÉLÅ[			D_DIK_D								
-		E = DIK_E,	// ÇdÉLÅ[			D_DIK_E								
-		F = DIK_F,	// ÇeÉLÅ[			D_DIK_F								
-		G = DIK_G,	// ÇfÉLÅ[			D_DIK_G								
-		H = DIK_H,	// ÇgÉLÅ[			D_DIK_H								
-		I = DIK_I,	// ÇhÉLÅ[			D_DIK_I								
-		J = DIK_J,	// ÇiÉLÅ[			D_DIK_J								
-		K = DIK_K,	// ÇjÉLÅ[			D_DIK_K								
-		L = DIK_L,	// ÇkÉLÅ[			D_DIK_L								
-		M = DIK_M,	// ÇlÉLÅ[			D_DIK_M								
-		N = DIK_N,	// ÇmÉLÅ[			D_DIK_N								
-		O = DIK_O,	// ÇnÉLÅ[			D_DIK_O								
-		P = DIK_P,	// ÇoÉLÅ[			D_DIK_P								
-		Q = DIK_Q,	// ÇpÉLÅ[			D_DIK_Q								
-		R = DIK_R,	// ÇqÉLÅ[			D_DIK_R								
-		S = DIK_S,	// ÇrÉLÅ[			D_DIK_S								
-		T = DIK_T,	// ÇsÉLÅ[			D_DIK_T								
-		U = DIK_U,	// ÇtÉLÅ[			D_DIK_U								
-		V = DIK_V,	// ÇuÉLÅ[			D_DIK_V								
-		W = DIK_W,	// ÇvÉLÅ[			D_DIK_W								
-		X = DIK_X,	// ÇwÉLÅ[			D_DIK_X								
-		Y = DIK_Y,	// ÇxÉLÅ[			D_DIK_Y								
-		Z = DIK_Z,	// ÇyÉLÅ[			D_DIK_Z								
-		Key0 = DIK_0,	// ÇOÉLÅ[			D_DIK_0								
-		Key1 = DIK_1,	// ÇPÉLÅ[			D_DIK_1								
-		Key2 = DIK_2,	// ÇQÉLÅ[			D_DIK_2								
-		Key3 = DIK_3,	// ÇRÉLÅ[			D_DIK_3								
-		Key4 = DIK_4,	// ÇSÉLÅ[			D_DIK_4								
-		Key5 = DIK_5,	// ÇTÉLÅ[			D_DIK_5								
-		Key6 = DIK_6,	// ÇUÉLÅ[			D_DIK_6								
-		Key7 = DIK_7,	// ÇVÉLÅ[			D_DIK_7								
-		Key8 = DIK_8,	// ÇWÉLÅ[			D_DIK_8								
-		Key9 = DIK_9,	// ÇXÉLÅ[			D_DIK_9
+		BACK = DIK_BACK,	// BackSpace„Ç≠„Éº	D_DIK_BACK							
+		TAB = DIK_TAB,	// Tab„Ç≠„Éº			D_DIK_TAB							
+		RETURN = DIK_RETURN,	// Enter„Ç≠„Éº		D_DIK_RETURN						
+		Enter = DIK_RETURN,	// Enter„Ç≠„Éº		D_DIK_RETURN						
+		LSHIFT = DIK_LSHIFT,	// Â∑¶Shift„Ç≠„Éº		D_DIK_LSHIFT						
+		RSHIFT = DIK_RSHIFT,	// Âè≥Shift„Ç≠„Éº		D_DIK_RSHIFT						
+		LCONTROL = DIK_LCONTROL,	// Â∑¶Ctrl„Ç≠„Éº		D_DIK_LCONTROL						
+		RCONTROL = DIK_RCONTROL,	// Âè≥Ctrl„Ç≠„Éº		D_DIK_RCONTROL						
+		Esc = DIK_ESCAPE,	// Esc„Ç≠„Éº			D_DIK_ESCAPE						
+		Space = DIK_SPACE,	// „Çπ„Éö„Éº„Çπ„Ç≠„Éº		D_DIK_SPACE							
+		PGUP = DIK_PGUP,	// PageUp„Ç≠„Éº		D_DIK_PGUP							
+		PGDN = DIK_PGDN,	// PageDown„Ç≠„Éº		D_DIK_PGDN							
+		END = DIK_END,	// End„Ç≠„Éº			D_DIK_END							
+		HOME = DIK_HOME,	// Home„Ç≠„Éº			D_DIK_HOME							
+		LEFT = DIK_LEFT,	// Â∑¶„Ç≠„Éº			D_DIK_LEFT							
+		UP = DIK_UP,	// ‰∏ä„Ç≠„Éº			D_DIK_UP							
+		RIGHT = DIK_RIGHT,	// Âè≥„Ç≠„Éº			D_DIK_RIGHT							
+		DOWN = DIK_DOWN,	// ‰∏ã„Ç≠„Éº			D_DIK_DOWN							
+		INSERT = DIK_INSERT,	// Insert„Ç≠„Éº		D_DIK_INSERT						
+		DELETE_Key = DIK_DELETE,	// Delete„Ç≠„Éº		D_DIK_DELETE						
+		MINUS = DIK_MINUS,	// Ôºç„Ç≠„Éº			D_DIK_MINUS							
+		YEN = DIK_YEN,	// Ôø•„Ç≠„Éº			D_DIK_YEN							
+		PREVTRACK = DIK_PREVTRACK,	// Ôºæ„Ç≠„Éº			D_DIK_PREVTRACK						
+		PERIOD = DIK_PERIOD,	// Ôºé„Ç≠„Éº			D_DIK_PERIOD						
+		SLASH = DIK_SLASH,	// Ôºè„Ç≠„Éº			D_DIK_SLASH							
+		LALT = DIK_LALT,	// Â∑¶Alt„Ç≠„Éº		D_DIK_LALT							
+		RALT = DIK_RALT,	// Âè≥Alt„Ç≠„Éº		D_DIK_RALT							
+		SCROLL = DIK_SCROLL,	// ScrollLock„Ç≠„Éº	D_DIK_SCROLL						
+		SEMICOLON = DIK_SEMICOLON,	// Ôºõ„Ç≠„Éº			D_DIK_SEMICOLON						
+		COLON = DIK_COLON,	// Ôºö„Ç≠„Éº			D_DIK_COLON							
+		LBRACKET = DIK_LBRACKET,	// Ôºª„Ç≠„Éº			D_DIK_LBRACKET						
+		RBRACKET = DIK_RBRACKET,	// ÔºΩ„Ç≠„Éº			D_DIK_RBRACKET						
+		AT = DIK_AT,	// Ôº†„Ç≠„Éº			D_DIK_AT							
+		BACKSLASH = DIK_BACKSLASH,	// Ôºº„Ç≠„Éº			D_DIK_BACKSLASH						
+		COMMA = DIK_COMMA,	// Ôºå„Ç≠„Éº			D_DIK_COMMA							
+		KANJI = DIK_KANJI,	// Êº¢Â≠ó„Ç≠„Éº			D_DIK_KANJI							
+		CONVERT = DIK_CONVERT,	// Â§âÊèõ„Ç≠„Éº			D_DIK_CONVERT						
+		NOCONVERT = DIK_NOCONVERT,	// ÁÑ°Â§âÊèõ„Ç≠„Éº		D_DIK_NOCONVERT						
+		KANA = DIK_KANA,	// „Ç´„Éä„Ç≠„Éº			D_DIK_KANA							
+		APPS = DIK_APPS,	// „Ç¢„Éó„É™„Ç±„Éº„Ç∑„Éß„É≥„É°„Éã„É•„Éº„Ç≠„Éº		D_DIK_APPS			
+		CAPSLOCK = DIK_CAPSLOCK,	// CaspLock„Ç≠„Éº		D_DIK_CAPSLOCK						
+		SYSRQ = DIK_SYSRQ,	// PrintScreen„Ç≠„Éº	D_DIK_SYSRQ							
+		PAUSE = DIK_PAUSE,	// PauseBreak„Ç≠„Éº	D_DIK_PAUSE							
+		LWIN = DIK_LWIN,	// Â∑¶Win„Ç≠„Éº		D_DIK_LWIN							
+		RWIN = DIK_RWIN,	// Âè≥Win„Ç≠„Éº		D_DIK_RWIN							
+		NUMLOCK = DIK_NUMLOCK,	// „ÉÜ„É≥„Ç≠„ÉºNumLock„Ç≠„Éº		D_DIK_NUMLOCK				
+		NUMPAD0 = DIK_NUMPAD0,	// „ÉÜ„É≥„Ç≠„ÉºÔºê				D_DIK_NUMPAD0				
+		NUMPAD1 = DIK_NUMPAD1,	// „ÉÜ„É≥„Ç≠„ÉºÔºë				D_DIK_NUMPAD1				
+		NUMPAD2 = DIK_NUMPAD2,	// „ÉÜ„É≥„Ç≠„ÉºÔºí				D_DIK_NUMPAD2				
+		NUMPAD3 = DIK_NUMPAD3,	// „ÉÜ„É≥„Ç≠„ÉºÔºì				D_DIK_NUMPAD3				
+		NUMPAD4 = DIK_NUMPAD4,	// „ÉÜ„É≥„Ç≠„ÉºÔºî				D_DIK_NUMPAD4				
+		NUMPAD5 = DIK_NUMPAD5,	// „ÉÜ„É≥„Ç≠„ÉºÔºï				D_DIK_NUMPAD5				
+		NUMPAD6 = DIK_NUMPAD6,	// „ÉÜ„É≥„Ç≠„ÉºÔºñ				D_DIK_NUMPAD6				
+		NUMPAD7 = DIK_NUMPAD7,	// „ÉÜ„É≥„Ç≠„ÉºÔºó				D_DIK_NUMPAD7				
+		NUMPAD8 = DIK_NUMPAD8,	// „ÉÜ„É≥„Ç≠„ÉºÔºò				D_DIK_NUMPAD8				
+		NUMPAD9 = DIK_NUMPAD9,	// „ÉÜ„É≥„Ç≠„ÉºÔºô				D_DIK_NUMPAD9				
+		MULTIPLY = DIK_MULTIPLY,	// „ÉÜ„É≥„Ç≠„ÉºÔºä„Ç≠„Éº			D_DIK_MULTIPLY				
+		ADD = DIK_ADD,	// „ÉÜ„É≥„Ç≠„ÉºÔºã„Ç≠„Éº			D_DIK_ADD					
+		SUBTRACT = DIK_SUBTRACT,	// „ÉÜ„É≥„Ç≠„ÉºÔºç„Ç≠„Éº			D_DIK_SUBTRACT				
+		DECIMAL = DIK_DECIMAL,	// „ÉÜ„É≥„Ç≠„ÉºÔºé„Ç≠„Éº			D_DIK_DECIMAL				
+		DIVIDE = DIK_DIVIDE,	// „ÉÜ„É≥„Ç≠„ÉºÔºè„Ç≠„Éº			D_DIK_DIVIDE				
+		NUMENTER = DIK_NUMPADENTER,	// „ÉÜ„É≥„Ç≠„Éº„ÅÆ„Ç®„É≥„Çø„Éº„Ç≠„Éº	D_DIK_NUMPADENTER			
+		F1 = DIK_F1,	// Ôº¶Ôºë„Ç≠„Éº			D_DIK_F1							
+		F2 = DIK_F2,	// Ôº¶Ôºí„Ç≠„Éº			D_DIK_F2							
+		F3 = DIK_F3,	// Ôº¶Ôºì„Ç≠„Éº			D_DIK_F3							
+		F4 = DIK_F4,	// Ôº¶Ôºî„Ç≠„Éº			D_DIK_F4							
+		F5 = DIK_F5,	// Ôº¶Ôºï„Ç≠„Éº			D_DIK_F5							
+		F6 = DIK_F6,	// Ôº¶Ôºñ„Ç≠„Éº			D_DIK_F6							
+		F7 = DIK_F7,	// Ôº¶Ôºó„Ç≠„Éº			D_DIK_F7							
+		F8 = DIK_F8,	// Ôº¶Ôºò„Ç≠„Éº			D_DIK_F8							
+		F9 = DIK_F9,	// Ôº¶Ôºô„Ç≠„Éº			D_DIK_F9							
+		F10 = DIK_F10,	// Ôº¶ÔºëÔºê„Ç≠„Éº		D_DIK_F10							
+		F11 = DIK_F11,	// Ôº¶ÔºëÔºë„Ç≠„Éº		D_DIK_F11							
+		F12 = DIK_F12,	// Ôº¶ÔºëÔºí„Ç≠„Éº		D_DIK_F12							
+		A = DIK_A,	// Ôº°„Ç≠„Éº			D_DIK_A								
+		B = DIK_B,	// Ôº¢„Ç≠„Éº			D_DIK_B								
+		C = DIK_C,	// Ôº£„Ç≠„Éº			D_DIK_C								
+		D = DIK_D,	// Ôº§„Ç≠„Éº			D_DIK_D								
+		E = DIK_E,	// Ôº•„Ç≠„Éº			D_DIK_E								
+		F = DIK_F,	// Ôº¶„Ç≠„Éº			D_DIK_F								
+		G = DIK_G,	// Ôºß„Ç≠„Éº			D_DIK_G								
+		H = DIK_H,	// Ôº®„Ç≠„Éº			D_DIK_H								
+		I = DIK_I,	// Ôº©„Ç≠„Éº			D_DIK_I								
+		J = DIK_J,	// Ôº™„Ç≠„Éº			D_DIK_J								
+		K = DIK_K,	// Ôº´„Ç≠„Éº			D_DIK_K								
+		L = DIK_L,	// Ôº¨„Ç≠„Éº			D_DIK_L								
+		M = DIK_M,	// Ôº≠„Ç≠„Éº			D_DIK_M								
+		N = DIK_N,	// ÔºÆ„Ç≠„Éº			D_DIK_N								
+		O = DIK_O,	// ÔºØ„Ç≠„Éº			D_DIK_O								
+		P = DIK_P,	// Ôº∞„Ç≠„Éº			D_DIK_P								
+		Q = DIK_Q,	// Ôº±„Ç≠„Éº			D_DIK_Q								
+		R = DIK_R,	// Ôº≤„Ç≠„Éº			D_DIK_R								
+		S = DIK_S,	// Ôº≥„Ç≠„Éº			D_DIK_S								
+		T = DIK_T,	// Ôº¥„Ç≠„Éº			D_DIK_T								
+		U = DIK_U,	// Ôºµ„Ç≠„Éº			D_DIK_U								
+		V = DIK_V,	// Ôº∂„Ç≠„Éº			D_DIK_V								
+		W = DIK_W,	// Ôº∑„Ç≠„Éº			D_DIK_W								
+		X = DIK_X,	// Ôº∏„Ç≠„Éº			D_DIK_X								
+		Y = DIK_Y,	// Ôºπ„Ç≠„Éº			D_DIK_Y								
+		Z = DIK_Z,	// Ôº∫„Ç≠„Éº			D_DIK_Z								
+		Key0 = DIK_0,	// Ôºê„Ç≠„Éº			D_DIK_0								
+		Key1 = DIK_1,	// Ôºë„Ç≠„Éº			D_DIK_1								
+		Key2 = DIK_2,	// Ôºí„Ç≠„Éº			D_DIK_2								
+		Key3 = DIK_3,	// Ôºì„Ç≠„Éº			D_DIK_3								
+		Key4 = DIK_4,	// Ôºî„Ç≠„Éº			D_DIK_4								
+		Key5 = DIK_5,	// Ôºï„Ç≠„Éº			D_DIK_5								
+		Key6 = DIK_6,	// Ôºñ„Ç≠„Éº			D_DIK_6								
+		Key7 = DIK_7,	// Ôºó„Ç≠„Éº			D_DIK_7								
+		Key8 = DIK_8,	// Ôºò„Ç≠„Éº			D_DIK_8								
+		Key9 = DIK_9,	// Ôºô„Ç≠„Éº			D_DIK_9
 	};
 
 

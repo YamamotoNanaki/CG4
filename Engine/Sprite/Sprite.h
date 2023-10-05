@@ -8,6 +8,7 @@
 #include "ConstStruct.h"
 #include <string>
 
+
 namespace IFE
 {
 	class Transform2D;
@@ -18,12 +19,12 @@ namespace IFE
 		static GraphicsPipeline* gp_;
 
 	protected:
-		//oldPostEffect用 仮にprotected
+		//oldPostEffect逕ｨ 莉ｮ縺ｫprotected
 		VertexBuffer<Vertex2D> vb_;
 
 	public:
 		Float2 size_ = { 100,100 };
-		//ワールド変換行列
+		//繝ｯ繝ｼ繝ｫ繝牙､画鋤陦悟��
 		Float2 texBase_ = { 0,0 };
 		Float2 texSize_ = { 100,100 };
 		Float2 anchorpoint_ = { 0.5,0.5 };

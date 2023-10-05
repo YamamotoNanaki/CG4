@@ -6,6 +6,7 @@
 #include "Quaternion.h"
 #include <memory>
 
+
 namespace IFE
 {
 	enum class BillboardFlag
@@ -50,12 +51,12 @@ namespace IFE
 		void MovePushBack(Vector3 move);
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		Vector3 GetWorldPosition();
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğ‘ã“ü‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ä»£å…¥ã™ã‚‹
 		/// </summary>
 		void SetWorldPosition(const Vector3& worldPos);
 
@@ -129,12 +130,12 @@ namespace IFE
 		Float3 GetLossyScale();
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		Vector3 GetWorldPosition();
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğ‘ã“ü‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ä»£å…¥ã™ã‚‹
 		/// </summary>
 		void SetWorldPosition(const Vector3& worldPos);
 
@@ -182,12 +183,12 @@ namespace IFE
 		void MovePushBack(Vector3 move);
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		Vector3 GetWorldPosition();
 
 		/// <summary>
-		///ƒ[ƒ‹ƒhÀ•W‚ğ‘ã“ü‚·‚é
+		///ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ä»£å…¥ã™ã‚‹
 		/// </summary>
 		void SetWorldPosition(const Vector3& worldPos);
 

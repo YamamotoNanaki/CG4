@@ -3,6 +3,7 @@
 #include <wrl.h>
 #include <d3d12.h>
 
+
 namespace IFE
 {
 	class IndexBuffer

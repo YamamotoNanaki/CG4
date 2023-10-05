@@ -6,6 +6,7 @@
 #include <cassert>
 #include "GraphicsAPI.h"
 
+
 namespace IFE
 {
 	template <class T>
@@ -54,44 +55,44 @@ namespace IFE
 	inline void VertexBuffer<T>::Initialize()
 	{
 		if (vertices_.size() == 0)return;
-		// ’¸“_ƒf[ƒ^‘S‘Ì‚ÌƒTƒCƒY = ’¸“_ƒf[ƒ^ˆê‚Â•ª‚ÌƒTƒCƒY * ’¸“_ƒf[ƒ^‚Ì—v‘f”
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®ã‚µã‚¤ã‚º = é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ä¸€ã¤åˆ†ã®ã‚µã‚¤ã‚º * é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®è¦ç´ æ•°
 		uint32_t sizeVB = static_cast<uint32_t>(sizeof(vertices_[0]) * vertices_.size());
 
-		// ’¸“_ƒoƒbƒtƒ@‚Ìİ’è
-		D3D12_HEAP_PROPERTIES heapProp{};   // ƒq[ƒvİ’è
-		heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPU‚Ö‚Ì“]‘——p
+		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
+		D3D12_HEAP_PROPERTIES heapProp{};   // ãƒ’ãƒ¼ãƒ—è¨­å®š
+		heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPUã¸ã®è»¢é€ç”¨
 
-		D3D12_RESOURCE_DESC resDesc{};  // ƒŠƒ\[ƒXİ’è
+		D3D12_RESOURCE_DESC resDesc{};  // ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-		resDesc.Width = sizeVB; // ’¸“_ƒf[ƒ^‘S‘Ì‚ÌƒTƒCƒY
+		resDesc.Width = sizeVB; // é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®ã‚µã‚¤ã‚º
 		resDesc.Height = 1;
 		resDesc.DepthOrArraySize = 1;
 		resDesc.MipLevels = 1;
 		resDesc.SampleDesc.Count = 1;
 		resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-		// ’¸“_ƒoƒbƒtƒ@‚Ì¶¬
+		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
 		ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
 		HRESULT result = device->CreateCommittedResource(
-			&heapProp, // ƒq[ƒvİ’è
-			D3D12_HEAP_FLAG_NONE, &resDesc, // ƒŠƒ\[ƒXİ’è
+			&heapProp, // ãƒ’ãƒ¼ãƒ—è¨­å®š
+			D3D12_HEAP_FLAG_NONE, &resDesc, // ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&vertBuff_));
 		assert(SUCCEEDED(result));
-		// GPUã‚Ìƒoƒbƒtƒ@‚É‘Î‰‚µ‚½‰¼‘zƒƒ‚ƒŠ‚ğæ“¾
+		// GPUä¸Šã®ãƒãƒƒãƒ•ã‚¡ã«å¯¾å¿œã—ãŸä»®æƒ³ãƒ¡ãƒ¢ãƒªã‚’å–å¾—
 		T* vertMap = nullptr;
 		result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
 		assert(SUCCEEDED(result));
 
-		// ‘S’¸“_‚É‘Î‚µ‚Ä
+		// å…¨é ‚ç‚¹ã«å¯¾ã—ã¦
 		for (int32_t i = 0; i < vertices_.size(); i++)
 		{
-			vertMap[i] = vertices_[i];   // À•W‚ğƒRƒs[
+			vertMap[i] = vertices_[i];   // åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
 		}
 
-		// ƒ}ƒbƒv‚ğ‰ğœ
+		// ãƒãƒƒãƒ—ã‚’è§£é™¤
 		vertBuff_->Unmap(0, nullptr);
 
-		// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[‚Ìì¬
+		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 
 		vbView_.BufferLocation = vertBuff_->GetGPUVirtualAddress();
 		vbView_.SizeInBytes = sizeVB;
@@ -109,13 +110,13 @@ namespace IFE
 		vertBuff_->Map(0, nullptr, (void**)&vertMap);
 #endif
 
-		// ‘S’¸“_‚É‘Î‚µ‚Ä
+		// å…¨é ‚ç‚¹ã«å¯¾ã—ã¦
 		for (int32_t i = 0; i < vertexCount; i++)
 		{
-			vertMap[i] = vertices[i];   // À•W‚ğƒRƒs[
+			vertMap[i] = vertices[i];   // åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
 		}
 
-		// ƒ}ƒbƒv‚ğ‰ğœ
+		// ãƒãƒƒãƒ—ã‚’è§£é™¤
 		vertBuff_->Unmap(0, nullptr);
 		Reset();
 		SetVerticle(vertices, vertexCount);
@@ -131,13 +132,13 @@ namespace IFE
 		vertBuff_->Map(0, nullptr, (void**)&vertMap);
 #endif
 
-		// ‘S’¸“_‚É‘Î‚µ‚Ä
+		// å…¨é ‚ç‚¹ã«å¯¾ã—ã¦
 		for (int32_t i = 0; i < vertices.size(); i++)
 		{
-			vertMap[i] = vertices[i];   // À•W‚ğƒRƒs[
+			vertMap[i] = vertices[i];   // åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
 		}
 
-		// ƒ}ƒbƒv‚ğ‰ğœ
+		// ãƒãƒƒãƒ—ã‚’è§£é™¤
 		vertBuff_->Unmap(0, nullptr);
 		vertices_ = std::move(vertices);
 	}

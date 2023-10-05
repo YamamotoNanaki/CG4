@@ -4,6 +4,7 @@
 #include "IFMath.h"
 #include "Quaternion.h"
 
+
 namespace IFE
 {
 	class Mesh;

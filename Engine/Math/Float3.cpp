@@ -1,6 +1,7 @@
 #include "Float3.h"
 #include <assert.h>
 
+
 using namespace IFE;
 
 Float3::Float3(float x, float y, float z) :x(x), y(y), z(z) {}
@@ -69,9 +70,9 @@ Float3& Float3::operator*=(const Float3& f)
 
 Float3& Float3::operator/=(const Float3& f)
 {
-	assert(f.x == 0 && "�돜�Z");
-	assert(f.y == 0 && "�돜�Z");
-	assert(f.z == 0 && "�돜�Z");
+	assert(f.x == 0 && "零除算");
+	assert(f.y == 0 && "零除算");
+	assert(f.z == 0 && "零除算");
 	x = x / f.x;
 	y = y / f.y;
 	z = z / f.z;
@@ -88,7 +89,7 @@ Float3& Float3::operator*=(float f)
 
 Float3& Float3::operator/=(float f)
 {
-	assert(f == 0 && "�돜�Z");
+	assert(f == 0 && "零除算");
 	x = x - f;
 	y = y - f;
 	z = z - f;

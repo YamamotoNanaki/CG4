@@ -3,6 +3,7 @@
 #include "ConstBuffer.h"
 #include "ConstStruct.h"
 
+
 namespace IFE
 {
 	class Fog : public Component
@@ -13,9 +14,9 @@ namespace IFE
 		ConstBufferFog* constMapFog_ = nullptr;
 	public:
 		Float4 color_ = { 1,1,1,1 };
-		float fogNear_ = 650.0f; //フォグの開始位置
-		float fogFar_ = 700.0f; //フォグの終了位置
-		bool fogFlag_ = false; //フォグの終了位置
+		float fogNear_ = 650.0f; //繝輔か繧ｰ縺ｮ髢句ｧ倶ｽ咲ｽｮ
+		float fogFar_ = 700.0f; //繝輔か繧ｰ縺ｮ邨ゆｺ�菴咲ｽｮ
+		bool fogFlag_ = false; //繝輔か繧ｰ縺ｮ邨ゆｺ�菴咲ｽｮ
 
 	public:
 		void Initialize()override;

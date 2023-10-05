@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "Camera.h"
 
+
 void IFE::Component::SetTransform()
 {
 	if (objectPtr_ != nullptr)transform_ = objectPtr_->GetComponent<Transform>();

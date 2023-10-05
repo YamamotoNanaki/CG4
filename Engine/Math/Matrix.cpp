@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cfloat>
 
+
 using namespace IFE;
 
 IFE::Matrix::Matrix()
@@ -321,10 +322,10 @@ Matrix IFE::operator*(const Matrix& m1, const Matrix& m2)
 	return a;
 }
 
-//À•W•ÏŠ·iƒxƒNƒgƒ‹‚Æs—ñ‚ÌŠ|‚¯Z‚ğ‚·‚éj
+//åº§æ¨™å¤‰æ›ï¼ˆãƒ™ã‚¯ãƒˆãƒ«ã¨è¡Œåˆ—ã®æ›ã‘ç®—ã‚’ã™ã‚‹ï¼‰
 Vector3 Matrix::Transform(const Vector3 v, const Matrix& m)
 {
-	float w = v.x * m.m[0][3] + v.y * m.m[1][3] + v.z * m.m[2][3] + m.m[3][3];//“n‚³‚ê‚Ä‚ém‚ª‘S•”ianan‚É‚È‚Á‚Ä‚éBm‚ğ¶¬AXV‚µ‚Ä‚¢‚éêŠ‚ğ’²‚×‚Ä‚İ‚é‚Æ—Ç‚¢‚©‚àHbyƒAƒx
+	float w = v.x * m.m[0][3] + v.y * m.m[1][3] + v.z * m.m[2][3] + m.m[3][3];//æ¸¡ã•ã‚Œã¦ã‚‹mãŒå…¨éƒ¨iananã«ãªã£ã¦ã‚‹ã€‚mã‚’ç”Ÿæˆã€æ›´æ–°ã—ã¦ã„ã‚‹å ´æ‰€ã‚’èª¿ã¹ã¦ã¿ã‚‹ã¨è‰¯ã„ã‹ã‚‚ï¼Ÿbyã‚¢ãƒ™
 
 	Vector3 result
 	{

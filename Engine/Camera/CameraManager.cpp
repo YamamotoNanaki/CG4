@@ -2,6 +2,7 @@
 #include "Debug.h"
 
 using namespace IFE;
+
 Camera* CameraManager::sActivCamera_ = nullptr;
 
 IFE::CameraManager::~CameraManager()

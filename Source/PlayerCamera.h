@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Input.h"
 
+
 namespace IFE
 {
 	class PlayerCamera :public Component

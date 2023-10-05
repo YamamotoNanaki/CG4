@@ -8,6 +8,7 @@
 #include <string>
 //#include "PostEffect.h"
 
+
 namespace IFE
 {
 	class TransformParticle;

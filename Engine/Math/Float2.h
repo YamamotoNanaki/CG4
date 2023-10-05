@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace IFE
 {
 	struct Float2

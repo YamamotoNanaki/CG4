@@ -1,6 +1,7 @@
 #include "Fog.h"
 #include "JsonManager.h"
 
+
 void IFE::Fog::Initialize()
 {
 	fogBuffer_ = std::make_unique<ConstBuffer<ConstBufferFog>>();

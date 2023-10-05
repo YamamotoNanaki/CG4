@@ -12,6 +12,7 @@
 #include "ParticleManager.h"
 #include "OldPostEffect.h"
 
+
 namespace IFE
 {
 	class Scene final

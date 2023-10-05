@@ -6,6 +6,7 @@
 using namespace IFE;
 using namespace std;
 
+
 void IFE::LightManager::Initialize()
 {
 	constBuff_ = make_unique<ConstBuffer<ConstBufferData>>();

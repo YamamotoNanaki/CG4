@@ -2,6 +2,7 @@
 #include <Component.h>
 #include "JsonManager.h"
 
+
 namespace IFE
 {
 	enum class EnemyAction
@@ -13,18 +14,18 @@ namespace IFE
 	public:
 		inline static uint32_t sDeathEnemyNum_ = 0;
 	private:
-		//1•b‚Éi‚ŞƒXƒs[ƒh
+		//1ç§’ã«é€²ã‚€ã‚¹ãƒ”ãƒ¼ãƒ‰
 		float speed_ = 1;
-		//Œ»İ‚ÌƒAƒNƒVƒ‡ƒ“
+		//ç¾åœ¨ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 		uint8_t action_;
-		//ƒvƒŒƒCƒ„[‚ğŒ©‚Â‚¯‚½‚©‚Ç‚¤‚©
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¦‹ã¤ã‘ãŸã‹ã©ã†ã‹
 		bool isFoundPlayer_ = false;
 
-		//„‰ñ’n“_
+		//å·¡å›åœ°ç‚¹
 		std::vector<Float3>patrolPoint_;
 		uint8_t nowPoint_ = 0;
 
-		//“G‚ÌHP
+		//æ•µã®HP
 		uint8_t hp_ = 2;
 		bool attackFlag_ = false;
 		float hitTimer_ = 0;
@@ -32,15 +33,15 @@ namespace IFE
 		Float3 hitAfterPos_;
 		Float3 hitPos_;
 
-		//ƒvƒŒƒCƒ„[‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€QÆ—p
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å‚ç…§ç”¨
 		static Transform* playerTransform_;
-		//€–S‰‰o—p‚ÌŠÔ
+		//æ­»äº¡æ¼”å‡ºç”¨ã®æ™‚é–“
 		float deathDirectionTimer_;
 		float deathDirectionMaxTime_ = 0.5;
-		//UŒ‚‰‰o—p‚ÌŠÔ
+		//æ”»æ’ƒæ¼”å‡ºç”¨ã®æ™‚é–“
 		float attackDirectionTimer_;
 		float attackDirectionMaxTime_ = 0.5;
-		//”­Œ©‹——£
+		//ç™ºè¦‹è·é›¢
 		inline const static float sDetectionDistance_ = 80;
 
 	public:
@@ -48,23 +49,23 @@ namespace IFE
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;
 
-		//ƒvƒŒƒCƒ„[‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€QÆ—p
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å‚ç…§ç”¨
 		static void SetPlayerTransform(Transform* transform);
 
 	private:
 		void Move();
-		//’â~‚Ü‚½‚Í‘Ò‹@
-		//‘Ò‹@‚à\ƒ`ƒ‡ƒ“‚ğ“®‚©‚µÀ•WˆÚ“®‚Í‚µ‚È‚¢
+		//åœæ­¢ã¾ãŸã¯å¾…æ©Ÿ
+		//å¾…æ©Ÿã‚‚â€•ãƒãƒ§ãƒ³ã‚’å‹•ã‹ã—åº§æ¨™ç§»å‹•ã¯ã—ãªã„
 		void Stanby();
-		//„‰ñ
+		//å·¡å›
 		void Patrol();
-		//ƒvƒŒƒCƒ„[”­Œ©
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç™ºè¦‹æ™‚
 		void Detection();
-		//ƒvƒŒƒCƒ„[UŒ‚
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ”»æ’ƒæ™‚
 		void Attack();
-		//€–S
+		//æ­»äº¡æ™‚
 		void Death();
-		//UŒ‚‚ğó‚¯‚½
+		//æ”»æ’ƒã‚’å—ã‘ãŸæ™‚
 		void Hit();
 		static void (Enemy::* ActtionTable[])();
 

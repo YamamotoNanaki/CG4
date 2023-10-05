@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Sprite.h"
 
+
 void IFE::EnemyCountUI::Initialize()
 {
 	for (uint16_t i = 0; i < 10; i++)

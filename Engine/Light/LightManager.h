@@ -8,6 +8,7 @@
 #include "CircleShadow.h"
 #include "ConstBuffer.h"
 
+
 namespace IFE
 {
 	class LightManager

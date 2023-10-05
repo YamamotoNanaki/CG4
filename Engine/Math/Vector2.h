@@ -1,6 +1,7 @@
 #pragma once
 #include "Float2.h"
 
+
 namespace IFE
 {
 	struct Vector2 :public Float2

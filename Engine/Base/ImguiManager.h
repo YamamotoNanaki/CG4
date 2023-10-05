@@ -6,6 +6,7 @@
 #include <memory>
 #include "IFMath.h"
 
+
 #ifdef NDEBUG
 #else
 namespace IFE

@@ -11,6 +11,7 @@
 #include "Emitter.h"
 #include "IFETime.h"
 
+
 namespace IFE
 {
 	class TransformParticle;

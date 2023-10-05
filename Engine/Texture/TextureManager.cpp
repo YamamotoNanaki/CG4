@@ -6,15 +6,16 @@
 #include "ImguiManager.h"
 #include <d3dx12.h>
 
+
 using namespace IFE;
 using namespace DirectX;
 using namespace std;
 
 TextureManager::TextureManager()
 {
-	descRangeSRV_.NumDescriptors = 1;															//ƒeƒNƒXƒ`ƒƒˆê‚Â
-	descRangeSRV_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;									//í•Ê‚ÍƒeƒNƒXƒ`ƒƒ
-	descRangeSRV_.BaseShaderRegister = 0;														//0”ÔƒXƒƒbƒg‚©‚ç
+	descRangeSRV_.NumDescriptors = 1;															//ãƒ†ã‚¯ã‚¹ãƒãƒ£ä¸€ã¤
+	descRangeSRV_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;									//ç¨®åˆ¥ã¯ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	descRangeSRV_.BaseShaderRegister = 0;														//0ç•ªã‚¹ãƒ­ãƒƒãƒˆã‹ã‚‰
 	descRangeSRV_.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 }
 
@@ -65,9 +66,9 @@ Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 
 Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t number)
 {
-	assert(textureSize_ < sTEX_MAX_ && "ƒq[ƒvƒTƒCƒY‚ª‘«‚è‚Ü‚¹‚ñ");
+	assert(textureSize_ < sTEX_MAX_ && "ãƒ’ãƒ¼ãƒ—ã‚µã‚¤ã‚ºãŒè¶³ã‚Šã¾ã›ã‚“");
 
-	//WICƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
+	//WICãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
 	TexMetadata metadata{};
 	ScratchImage scratchImg{};
 
@@ -228,8 +229,8 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 	BarrierDesc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 	BarrierDesc.Transition.pResource = newtex.texbuff_.Get();
 	BarrierDesc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-	BarrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;//‚±‚±d—v
-	BarrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;//‚±‚±d—v
+	BarrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;//ã“ã“é‡è¦
+	BarrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;//ã“ã“é‡è¦
 
 	cmdList->ResourceBarrier(1, &BarrierDesc);
 	result = cmdList->Close();
@@ -247,9 +248,9 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 		CloseHandle(event);
 	}
 	ID3D12CommandAllocator* commandAllocator = GraphicsAPI::Instance()->GetCommandAllocator();
-	result = commandAllocator->Reset(); // ƒLƒ…[‚ğƒNƒŠƒA
+	result = commandAllocator->Reset(); // ã‚­ãƒ¥ãƒ¼ã‚’ã‚¯ãƒªã‚¢
 	assert(SUCCEEDED(result));
-	result = cmdList->Reset(commandAllocator, nullptr);  // Ä‚ÑƒRƒ}ƒ“ƒhƒŠƒXƒg‚ğ’™‚ß‚é€”õ
+	result = cmdList->Reset(commandAllocator, nullptr);  // å†ã³ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‚’è²¯ã‚ã‚‹æº–å‚™
 	assert(SUCCEEDED(result));
 	//}
 	auto descriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -261,17 +262,17 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 
 	D3D12_RESOURCE_DESC resDesc2 = tex_[num].texbuff_->GetDesc();
 
-	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};			//İ’è\‘¢‘Ì
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};			//è¨­å®šæ§‹é€ ä½“
 	//srvDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;	//RGBA
-	srvDesc.Format = resDesc2.Format;					//‰æ‘œ“Ç‚İ‚İ
+	srvDesc.Format = resDesc2.Format;					//ç”»åƒèª­ã¿è¾¼ã¿
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;		//2dƒeƒNƒXƒ`ƒƒ
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;		//2dãƒ†ã‚¯ã‚¹ãƒãƒ£
 	srvDesc.Texture2D.MipLevels = resDesc2.MipLevels;
 
-	//ƒq[ƒv‚Ì‚Q”Ô–Ú‚ÉƒVƒF[ƒ_[ƒŠƒ\[ƒXƒrƒ…[ì¬
+	//ãƒ’ãƒ¼ãƒ—ã®ï¼’ç•ªç›®ã«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼ä½œæˆ
 	device->CreateShaderResourceView(
-		tex_[num].texbuff_.Get(),		//ƒrƒ…[‚ÆŠÖ˜A•t‚¯‚éƒoƒbƒtƒ@
-		&srvDesc,		//ƒeƒNƒXƒ`ƒƒİ’èî•ñ
+		tex_[num].texbuff_.Get(),		//ãƒ“ãƒ¥ãƒ¼ã¨é–¢é€£ä»˜ã‘ã‚‹ãƒãƒƒãƒ•ã‚¡
+		&srvDesc,		//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®šæƒ…å ±
 		tex_[num].CPUHandle_);
 
 	textureSize_++;

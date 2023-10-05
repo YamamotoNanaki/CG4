@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include <array>
 
+
 namespace IFE
 {
 	class TextureManager
@@ -22,7 +23,7 @@ namespace IFE
 		void TexReset() {};
 
 
-		//ÉQÉbÉ^Å[
+		//„Ç≤„ÉÉ„Çø„Éº
 	public:
 		D3D12_DESCRIPTOR_RANGE& GetDescRangeSRV();
 		ID3D12DescriptorHeap* GetDescriptorHeap();

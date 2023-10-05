@@ -1,6 +1,7 @@
 #include "RectTexture.h"
 #include "Sprite.h"
 
+
 IFE::RectTexture::~RectTexture()
 {
 	spritePtr_->SetTextureRect({ 0,0 }, initSize_);

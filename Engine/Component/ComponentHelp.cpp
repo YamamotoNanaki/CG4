@@ -30,21 +30,22 @@
 #include "EnemyBullet.h"
 #include <typeinfo>
 
+
 using namespace IFE;
 using namespace std;
 
 template <class T>
 static Component* GetPtr(const string& s);
 
-/*«‚ğƒRƒsƒy
-tmp = std::move(GetT<ƒNƒ‰ƒX–¼>(str));
+/*â†“ã‚’ã‚³ãƒ”ãƒš
+tmp = std::move(GetT<ã‚¯ãƒ©ã‚¹å>(str));
 if (tmp != nullptr)return tmp;
 */
 
 Component* IFE::StringToComponent(const std::string& str)
 {
 	Component* tmp = nullptr;
-	//«‚ÉƒRƒsƒy
+	//â†“ã«ã‚³ãƒ”ãƒš
 
 	tmp = std::move(GetPtr<Transform>(str));
 	if (tmp != nullptr)return tmp;

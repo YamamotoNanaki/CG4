@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 
+
 namespace IFE
 {
 	class IFETime
@@ -39,7 +40,7 @@ namespace IFE
 		void SetIf(int32_t end, bool flag);
 		void Update();
 		void SafeDownUpdate();
-		void SafeUpdate();//�^�C�}�[��end�̐��l�𒴂��ăJ�E���g����Ȃ��悤�ɂȂ��Ă��܂��B
+		void SafeUpdate();//タイマーがendの数値を超えてカウントされないようになっています。
 		int32_t NowTime()const;
 		bool IsEnd()const;
 		int32_t GetEndTime()const;

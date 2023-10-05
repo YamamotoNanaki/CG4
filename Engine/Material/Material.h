@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 
+
 namespace IFE
 {
 	struct MaterialParams

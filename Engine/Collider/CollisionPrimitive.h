@@ -2,6 +2,7 @@
 #include "IFMath.h"
 #include <vector>
 
+
 namespace IFE
 {
 	struct Sphere
@@ -42,11 +43,11 @@ namespace IFE
 	class Collider;
 	struct RaycastHit
 	{
-		//衝突したコライダー
+		//陦晉ｪ√＠縺溘さ繝ｩ繧､繝繝ｼ
 		Collider* collider = nullptr;
-		// 衝突点
+		// 陦晉ｪ∫せ
 		Vector3 inter;
-		// 衝突点までの距離
+		// 陦晉ｪ∫せ縺ｾ縺ｧ縺ｮ霍晞屬
 		float distance = 0.0f;
 	};
 }

@@ -6,62 +6,63 @@
 using namespace std;
 using namespace IFE;
 
+
 void IFE::PrimitiveModel::CreateCube(bool smoothing)
 {
 	const float size = 1.f;
 
 	Vertex vertices[] = {
 		// x   y   z        u    v
-		//‘O
-		{{-size, -size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{-size, +size, -size},{},{0.0f, 0.0f}},	//¶ã
-		{{+size, -size, -size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, +size, -size},{},{1.0f, 0.0f}},	//‰Eã
-		//Œã
-		{{+size, -size, +size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, +size, +size},{},{1.0f, 0.0f}},	//‰Eã
-		{{-size, -size, +size},{},{0.0f, 1.0f}},	//¶‰º
-		{{-size, +size, +size},{},{0.0f, 0.0f}},	//¶ã
-		//¶
-		{{-size, -size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{-size, -size, +size},{},{0.0f, 0.0f}},	//¶ã
-		{{-size, +size, -size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{-size, +size, +size},{},{1.0f, 0.0f}},	//‰Eã
-		//‰E
-		{{+size, +size, -size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, +size, +size},{},{1.0f, 0.0f}},	//‰Eã
-		{{+size, -size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{+size, -size, +size},{},{0.0f, 0.0f}},	//¶ã
-		//‰º
-		{{-size, +size, +size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, +size, +size},{},{1.0f, 0.0f}},	//‰Eã
-		{{-size, +size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{+size, +size, -size},{},{0.0f, 0.0f}},	//¶ã
-		//ã
-		{{-size, -size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{+size, -size, -size},{},{0.0f, 0.0f}},	//¶ã
-		{{-size, -size, +size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, -size, +size},{},{1.0f, 0.0f}},	//‰Eã
+		//å‰
+		{{-size, -size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{-size, +size, -size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		{{+size, -size, -size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, +size, -size},{},{1.0f, 0.0f}},	//å³ä¸Š
+		//å¾Œ
+		{{+size, -size, +size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, +size, +size},{},{1.0f, 0.0f}},	//å³ä¸Š
+		{{-size, -size, +size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{-size, +size, +size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		//å·¦
+		{{-size, -size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{-size, -size, +size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		{{-size, +size, -size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{-size, +size, +size},{},{1.0f, 0.0f}},	//å³ä¸Š
+		//å³
+		{{+size, +size, -size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, +size, +size},{},{1.0f, 0.0f}},	//å³ä¸Š
+		{{+size, -size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{+size, -size, +size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		//ä¸‹
+		{{-size, +size, +size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, +size, +size},{},{1.0f, 0.0f}},	//å³ä¸Š
+		{{-size, +size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{+size, +size, -size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		//ä¸Š
+		{{-size, -size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{+size, -size, -size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		{{-size, -size, +size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, -size, +size},{},{1.0f, 0.0f}},	//å³ä¸Š
 	};
 
-	//ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿
 	uint32_t indices[] = {
-		//‘O
+		//å‰
 		0,1,2,
 		2,1,3,
-		//Œã
+		//å¾Œ
 		4,5,6,
 		6,5,7,
-		//¶
+		//å·¦
 		8,9,10,
 		10,9,11,
-		//‰E
+		//å³
 		12,13,14,
 		14,13,15,
-		//‰º
+		//ä¸‹
 		16,17,18,
 		18,17,19,
-		//ã
+		//ä¸Š
 		20,21,22,
 		22,21,23
 	};
@@ -84,16 +85,16 @@ void IFE::PrimitiveModel::CreatePolygonSquare(bool smoothing)
 
 	Vertex vertices[] = {
 		// x   y   z        u    v
-		//‘O
-		{{-size, -size, -size},{},{0.0f, 1.0f}},	//¶‰º
-		{{-size, +size, -size},{},{0.0f, 0.0f}},	//¶ã
-		{{+size, -size, -size},{},{1.0f, 1.0f}},	//‰E‰º
-		{{+size, +size, -size},{},{1.0f, 0.0f}}		//‰Eã
+		//å‰
+		{{-size, -size, -size},{},{0.0f, 1.0f}},	//å·¦ä¸‹
+		{{-size, +size, -size},{},{0.0f, 0.0f}},	//å·¦ä¸Š
+		{{+size, -size, -size},{},{1.0f, 1.0f}},	//å³ä¸‹
+		{{+size, +size, -size},{},{1.0f, 0.0f}}		//å³ä¸Š
 	};
 
-	//ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿
 	uint32_t indices[] = {
-		//‘O
+		//å‰
 		0,1,2,
 		2,1,3
 	};
@@ -113,15 +114,15 @@ void IFE::PrimitiveModel::CreateTriangle(bool smoothing)
 {
 	Vertex vertices[] = {
 		// x   y   z        u    v
-		//‘O
-		{{-1, -1, 0},{},{0.0f, 0.0f}},	//¶‰º
-		{{0, 1, 0},{},{0.0f, 0.0f}},	//ã
-		{{+1, -1, 0},{},{0.0f, 0.0f}},	//‰E‰º
+		//å‰
+		{{-1, -1, 0},{},{0.0f, 0.0f}},	//å·¦ä¸‹
+		{{0, 1, 0},{},{0.0f, 0.0f}},	//ä¸Š
+		{{+1, -1, 0},{},{0.0f, 0.0f}},	//å³ä¸‹
 	};
 
-	//ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿
 	uint32_t indices[] = {
-		//‘O
+		//å‰
 		0,1,2
 	};
 
@@ -258,11 +259,11 @@ void IFE::PrimitiveModel::CreateSphere(bool smoothing)
 void IFE::PrimitiveModel::Draw()
 {
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//’¸“_ƒoƒbƒtƒ@‚ÌÝ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌÝ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	commandList->IASetIndexBuffer(ib_.GetIBView());
-	//•`‰æƒRƒ}ƒ“ƒh
+	//æç”»ã‚³ãƒžãƒ³ãƒ‰
 	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
 }
 

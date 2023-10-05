@@ -3,15 +3,16 @@
 #include "IFETime.h"
 #include "Float3.h"
 
+
 namespace IFE
 {
 	/// <summary>
-	/// ’¼üˆÚ“®
+	/// ç›´ç·šç§»å‹•
 	/// </summary>
-	/// <param name="startPos">‰Šú’n“_</param>
-	/// <param name="endPos">I—¹’n“_</param>
-	/// <param name="maxTime">Å‘åŠÔ</param>
-	/// <param name="time">Œ»İ‚ÌŠÔ</param>
+	/// <param name="startPos">åˆæœŸåœ°ç‚¹</param>
+	/// <param name="endPos">çµ‚äº†åœ°ç‚¹</param>
+	/// <param name="maxTime">æœ€å¤§æ™‚é–“</param>
+	/// <param name="time">ç¾åœ¨ã®æ™‚é–“</param>
 	/// <returns></returns>
 	float Lerp(float startPos, float endPos, float maxTime, float time);
 

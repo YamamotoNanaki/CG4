@@ -5,6 +5,7 @@
 #include "FBXModel.h"
 #include "JsonManager.h"
 
+
 using namespace IFE;
 
 void IFE::Collider::Initialize()

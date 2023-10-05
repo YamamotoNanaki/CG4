@@ -1,5 +1,6 @@
 #include "Ease.h"
 
+
 using namespace IFE;
 
 float IFE::Lerp(float startPos, float endPos, float maxTime, float time) {

@@ -2,6 +2,7 @@
 #include "Emitter.h"
 #include "Transform.h"
 
+
 void IFE::TestParticle::Update()
 {
 	for (auto& itr : emitterPtr_->particles_)

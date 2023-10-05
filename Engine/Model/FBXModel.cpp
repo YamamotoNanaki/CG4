@@ -7,6 +7,7 @@
 #include "CollisionPrimitive.h"
 #include <cassert>
 
+
 using namespace IFE;
 using namespace std;
 
@@ -32,7 +33,7 @@ void IFE::FBXModel::Draw()
 	}
 }
 
-//ƒAƒjƒ[ƒVƒ‡ƒ“
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 static const NodeAnim* FindNodeAnim(const Animation* pAnimation, const string& NodeName)
 {
 	for (uint32_t i = 0; i < pAnimation->channels.size(); i++)
@@ -160,24 +161,24 @@ void FBXModel::ReadNodeHeirarchy(float AnimationTime, Node* pNode, uint8_t animN
 	const NodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
 
 	if (pNodeAnim) {
-		// ƒXƒP[ƒŠƒ“ƒO‚ğ•âŠÔ‚µAƒXƒP[ƒŠƒ“ƒO•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’è£œé–“ã—ã€ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Vector3 Scaling;
 		CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
 		Matrix ScalingM;
 		ScalingM = MatrixScaling(Scaling.x, Scaling.y, Scaling.z);
 
-		// ‰ñ“]‚ğ•âŠÔ‚µA‰ñ“]•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// å›è»¢ã‚’è£œé–“ã—ã€å›è»¢å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Quaternion RotationQ;
 		CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		Matrix RotationM = RotateMatrix(RotationQ);
 
-		// ˆÚ“®‚ğ•âŠÔ‚µAˆÚ“®•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// ç§»å‹•ã‚’è£œé–“ã—ã€ç§»å‹•å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Vector3 Translation;
 		CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		Matrix TranslationM;
 		TranslationM = MatrixTranslation(Translation.x, Translation.y, Translation.z);
 
-		// ‚±‚ê‚çã‹L‚Ì•ÏŠ·‚ğ‡¬‚·‚é
+		// ã“ã‚Œã‚‰ä¸Šè¨˜ã®å¤‰æ›ã‚’åˆæˆã™ã‚‹
 		NodeTransformation = ScalingM * RotationM * TranslationM;
 	}
 

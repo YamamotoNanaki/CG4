@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "IFMath.h"
 
+
 namespace IFE
 {
 	class ParticleManager

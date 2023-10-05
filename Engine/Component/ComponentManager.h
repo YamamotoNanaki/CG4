@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include <memory>
 
+
 namespace IFE
 {
 	class ComponentManager

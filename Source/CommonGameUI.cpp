@@ -5,6 +5,7 @@
 #include "StartCamera.h"
 #include "Ease.h"
 
+
 void IFE::CommonGameUI::Update()
 {
 	if (!Player::sMoveFlag_)

@@ -4,6 +4,7 @@
 #include "ConstStruct.h"
 #include "ConstBuffer.h"
 
+
 namespace IFE
 {
 	class Animator : public Component

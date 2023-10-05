@@ -6,6 +6,7 @@
 using namespace std;
 using namespace IFE;
 
+
 void IFE::Material::Initialize()
 {
 	materialBuffer_ = make_unique<ConstBuffer<ConstBufferMaterial>>();

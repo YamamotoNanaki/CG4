@@ -1,6 +1,7 @@
 #include "View.h"
 #include <cassert>
 
+
 using namespace IFE;
 
 Matrix View::sMatBillBoard_ = MatrixIdentity();
@@ -22,20 +23,20 @@ void View::Initialze(const Float3& e, const Float3& t, const Float3& u)
 
 void View::Update()
 {
-	//‹“_À•WA’‹“_À•WAã•ûŒü
+	//è¦–ç‚¹åº§æ¨™ã€æ³¨è¦–ç‚¹åº§æ¨™ã€ä¸Šæ–¹å‘
 	Vector3 eyePosition = SetVector3(eye_);
 	Vector3 targetPosition = SetVector3(target_);
 	Vector3 upVector = SetVector3(up_);
 
-	//ƒJƒƒ‰Z²
+	//ã‚«ãƒ¡ãƒ©Zè»¸
 	Vector3 cameraAxisZ = VectorSubtract(targetPosition, eyePosition);
-	//ƒ[ƒƒxƒNƒgƒ‹‚ğœŠO
+	//ã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ã‚’é™¤å¤–
 	assert(!Vector3Equal(cameraAxisZ, { 0,0,0 }));
 	assert(!Vector3Equal(upVector, { 0,0,0 }));
-	//ƒxƒNƒgƒ‹³‹K‰»
+	//ãƒ™ã‚¯ãƒˆãƒ«æ­£è¦åŒ–
 	cameraAxisZ = Vector3Normalize(cameraAxisZ);
 
-	//ƒJƒƒ‰X²Y²
+	//ã‚«ãƒ¡ãƒ©Xè»¸Yè»¸
 	Vector3 cameraAxisX;
 	cameraAxisX = Vector3Cross(upVector, cameraAxisZ);
 	cameraAxisX = Vector3Normalize(cameraAxisX);
@@ -43,17 +44,17 @@ void View::Update()
 	cameraAxisY = Vector3Cross(cameraAxisZ, cameraAxisX);
 	cameraAxisY = Vector3Normalize(cameraAxisY);
 
-	//‰ñ“]s—ñ‚Ìì¬
+	//å›è»¢è¡Œåˆ—ã®ä½œæˆ
 	Matrix matCameraRot;
 	matCameraRot.SetX(cameraAxisX);
 	matCameraRot.SetY(cameraAxisY);
 	matCameraRot.SetZ(cameraAxisZ);
 	matCameraRot.SetW(0, 0, 0, 1);
 
-	//‹ts—ñ‚ğ‘ã“ü
+	//é€†è¡Œåˆ—ã‚’ä»£å…¥
 	matView_ = MatrixTranspose(matCameraRot);
 
-	//ƒJƒƒ‰‚ÌˆÊ’u‚©‚çŒ´“_‚Ö‚ÌƒxƒNƒgƒ‹‚ğ¶¬
+	//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‹ã‚‰åŸç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ç”Ÿæˆ
 	Vector3 reverseEyePosition = VectorNegate(eyePosition);
 	matView_.m[3][0] = Vector3Dot(cameraAxisX, reverseEyePosition);
 	matView_.m[3][1] = Vector3Dot(cameraAxisY, reverseEyePosition);
@@ -65,7 +66,7 @@ void View::Update()
 	sMatBillBoard_.SetZ(cameraAxisZ);
 	sMatBillBoard_.SetW(0, 0, 0, 1);
 
-	//Y²ƒrƒ‹ƒ{[ƒh
+	//Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰
 	Vector3 yBillAxisX, yBillAxisY, yBillAxisZ;
 
 	yBillAxisX = cameraAxisX;

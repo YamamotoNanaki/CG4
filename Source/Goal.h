@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Collider.h"
 
+
 namespace IFE
 {
     class Goal : public Component

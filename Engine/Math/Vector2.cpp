@@ -3,6 +3,7 @@
 
 using namespace IFE;
 
+
 Vector2 Vector2::zero = { 0,0 };
 
 Vector2::Vector2()

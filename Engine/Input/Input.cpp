@@ -9,6 +9,7 @@ using namespace IFE;
 #pragma comment(lib,"dinput8.lib")
 #pragma comment(lib,"dxguid.lib")
 
+
 Input* Input::sInputInstance_ = nullptr;
 bool Input::sPadConnected_ = false;
 
@@ -26,32 +27,32 @@ void IFE::Input::Initalize()
 	HRESULT result = DirectInput8Create(
 		*WindowsAPI::Instance()->GetHInstance(), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&sInputInstance_->directInput_, nullptr);
 	assert(SUCCEEDED(result));
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ì¶¬
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ç”Ÿæˆ
 	result = sInputInstance_->directInput_->CreateDevice(GUID_SysKeyboard, &sInputInstance_->keyboard_, NULL);
 	assert(SUCCEEDED(result));
 
-	//“ü—Íƒf[ƒ^Œ`®‚ÌƒZƒbƒg
-	result = sInputInstance_->keyboard_->SetDataFormat(&c_dfDIKeyboard);//•W€Œ`®
+	//å…¥åŠ›ãƒ‡ãƒ¼ã‚¿å½¢å¼ã®ã‚»ãƒƒãƒˆ
+	result = sInputInstance_->keyboard_->SetDataFormat(&c_dfDIKeyboard);//æ¨™æº–å½¢å¼
 	assert(SUCCEEDED(result));
 
-	//”r‘¼§ŒäƒŒƒxƒ‹‚ÌƒZƒbƒg
+	//æ’ä»–åˆ¶å¾¡ãƒ¬ãƒ™ãƒ«ã®ã‚»ãƒƒãƒˆ
 	result = sInputInstance_->keyboard_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	assert(SUCCEEDED(result));
 
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚Ì¶¬
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®ç”Ÿæˆ
 	result = sInputInstance_->directInput_->CreateDevice(GUID_SysMouse, &sInputInstance_->devMouse_, NULL);
 	assert(SUCCEEDED(result));
 
-	// “ü—Íƒf[ƒ^Œ`®‚ÌƒZƒbƒg
-	result = sInputInstance_->devMouse_->SetDataFormat(&c_dfDIMouse2); // •W€Œ`®
+	// å…¥åŠ›ãƒ‡ãƒ¼ã‚¿å½¢å¼ã®ã‚»ãƒƒãƒˆ
+	result = sInputInstance_->devMouse_->SetDataFormat(&c_dfDIMouse2); // æ¨™æº–å½¢å¼
 	assert(SUCCEEDED(result));
-	// ”r‘¼§ŒäƒŒƒxƒ‹‚ÌƒZƒbƒg
+	// æ’ä»–åˆ¶å¾¡ãƒ¬ãƒ™ãƒ«ã®ã‚»ãƒƒãƒˆ
 	result = sInputInstance_->devMouse_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	assert(SUCCEEDED(result));
 
-	//ƒRƒ“ƒgƒ[ƒ‰ƒfƒoƒCƒX‚Ì¶¬
+	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ‡ãƒã‚¤ã‚¹ã®ç”Ÿæˆ
 	XInputGetState(
 		0,       // DWORD         dwUserIndex
 		&sInputInstance_->pad_); // XINPUT_STATE* pState
@@ -67,11 +68,11 @@ void IFE::Input::Update()
 	sInputInstance_->keyboard_->Acquire();
 	result = sInputInstance_->keyboard_->GetDeviceState(sizeof(sInputInstance_->key_), sInputInstance_->key_);
 
-	// ‘O‰ñ‚Ì“ü—Í‚ğ•Û‘¶
+	// å‰å›ã®å…¥åŠ›ã‚’ä¿å­˜
 	sInputInstance_->oldmouse_ = sInputInstance_->mouse_;
-	// ƒ}ƒEƒX
-	result = sInputInstance_->devMouse_->Acquire();	// ƒ}ƒEƒX“®ìŠJn
-	// ƒ}ƒEƒX‚Ì“ü—Í
+	// ãƒã‚¦ã‚¹
+	result = sInputInstance_->devMouse_->Acquire();	// ãƒã‚¦ã‚¹å‹•ä½œé–‹å§‹
+	// ãƒã‚¦ã‚¹ã®å…¥åŠ›
 	result = sInputInstance_->devMouse_->GetDeviceState(sizeof(sInputInstance_->mouse_), &sInputInstance_->mouse_);
 
 	sInputInstance_->oldpad_ = sInputInstance_->pad_;

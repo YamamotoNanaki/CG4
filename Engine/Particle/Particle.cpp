@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include <cassert>
 
+
 using namespace IFE;
 using namespace std;
 
@@ -69,9 +70,9 @@ void Particle::Draw()
 {
 	ComponentManager::Draw();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//’¸“_ƒoƒbƒtƒ@‚ÌÝ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
-	//•`‰æƒRƒ}ƒ“ƒh
+	//æç”»ã‚³ãƒžãƒ³ãƒ‰
 	commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
 }
 

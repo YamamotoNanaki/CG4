@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ParticleManager.h"
 
+
 namespace IFE
 {
 	enum class BossAction

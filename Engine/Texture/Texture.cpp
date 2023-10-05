@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "GraphicsAPI.h"
 
+
 using namespace IFE;
 
 void IFE::Texture::SetTexture(uint32_t rootParameterIndex)

@@ -7,6 +7,7 @@
 #include <wrl.h>
 #include <string>
 
+
 namespace IFE
 {
 	struct Texture

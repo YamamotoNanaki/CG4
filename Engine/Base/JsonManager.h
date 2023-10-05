@@ -3,6 +3,7 @@
 #include "IFMath.h"
 #include "nlohmann/json.hpp"
 
+
 namespace IFE
 {
 	class JsonManager

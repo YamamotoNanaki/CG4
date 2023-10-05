@@ -4,6 +4,7 @@
 #include "ConstStruct.h"
 #include <memory>
 
+
 namespace IFE
 {
 	class TransferGeometryBuffer : public Component

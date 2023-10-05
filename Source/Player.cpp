@@ -20,6 +20,7 @@
 #include "StartCamera.h"
 #include <cmath>
 
+
 using namespace IFE;
 
 void IFE::Player::Initialize()

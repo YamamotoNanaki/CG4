@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ParticleSetting.h"
 
+
 namespace IFE
 {
 	class Object3D;

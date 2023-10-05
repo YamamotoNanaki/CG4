@@ -4,6 +4,7 @@
 #include "FBXModel.h"
 #include "Collision.h"
 
+
 void IFE::Triangle::ComputeNormal()
 {
 	Vector3 p0_p1 = p1 - p0;
@@ -25,7 +26,7 @@ IFE::MeshCollider::MeshCollider(FBXModel* model, Matrix* matWorld)
 
 bool IFE::MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3* inter, Vector3* reject)
 {
-	// ƒIƒuƒWƒFƒNƒg‚Ìƒ[ƒJƒ‹À•WŒn‚Å‚Ì‹…‚ğ“¾‚éi”¼Œa‚ÍXƒXƒP[ƒ‹‚ğQÆ)
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ç³»ã§ã®çƒã‚’å¾—ã‚‹ï¼ˆåŠå¾„ã¯Xã‚¹ã‚±ãƒ¼ãƒ«ã‚’å‚ç…§)
 	Sphere localSphere(Vector3Transform(sphere.center, invMatWorld), Vector3Length({ invMatWorld.m[0][0],invMatWorld.m[0][1],invMatWorld.m[0][2] }));
 
 	std::vector<Triangle>::const_iterator it = triangles.cbegin();

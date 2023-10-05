@@ -5,6 +5,7 @@
 #include "Animator.h"
 #include "IFETime.h"
 
+
 namespace IFE
 {
 	class Camera;

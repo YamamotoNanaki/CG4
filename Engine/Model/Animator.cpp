@@ -3,6 +3,7 @@
 #include "Object3D.h"
 #include "GraphicsPipelineManager.h"
 
+
 void IFE::Animator::Initialize()
 {
 	skinBuffer_ = std::make_unique<ConstBuffer<ConstBufferDataSkin>>();

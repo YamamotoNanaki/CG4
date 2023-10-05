@@ -4,6 +4,7 @@
 #include "CameraManager.h"
 #include "Object3D.h"
 
+
 using namespace IFE;
 using namespace std;
 
@@ -42,22 +43,22 @@ void IFE::Transform::Draw()
 
 void IFE::Transform::UpdateMatrix()
 {
-	//////Šgk//////
-	//ƒXƒP[ƒŠƒ“ƒO”{—¦‚ðs—ñ‚ÉÝ’è‚·‚é
+	//////æ‹¡ç¸®//////
+	//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å€çŽ‡ã‚’è¡Œåˆ—ã«è¨­å®šã™ã‚‹
 	matScale_ =
 	{ scale_.x,0,0,0,
 	0,scale_.y,0,0,
 	0,0,scale_.z,0,
 	0,0,0,1 };
 
-	//////‰ñ“]//////
+	//////å›žè»¢//////
 
 	Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
 	rotation_ = EulerToQuaternion(eulerRadians);
 	matRot_ = RotateMatrix(rotation_);
 
-	//////•½sˆÚ“®//////
-	//ˆÚ“®—Ê‚ðs—ñ‚ÉÝ’è‚·‚é
+	//////å¹³è¡Œç§»å‹•//////
+	//ç§»å‹•é‡ã‚’è¡Œåˆ—ã«è¨­å®šã™ã‚‹
 	matTrans_ =
 	{ 1,0,0,0,
 	0,1,0,0,
@@ -65,13 +66,13 @@ void IFE::Transform::UpdateMatrix()
 	position_.x,position_.y,position_.z,1 };
 
 
-	//’PˆÊs—ñ‚ð‘ã“ü
+	//å˜ä½è¡Œåˆ—ã‚’ä»£å…¥
 	matWorld_ = MatrixIdentity();
-	//ƒXƒP[ƒŠƒ“ƒOs—ñ‚ðŠ|‚¯‚é
+	//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matScale_;
-	//‡¬—p‰ñ“]s—ñ‚ðŠ|‚¯‚é
+	//åˆæˆç”¨å›žè»¢è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matRot_;
-	//•½sˆÚ“®s—ñ‚ðŠ|‚¯‚é
+	//å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matTrans_;
 
 	if (parent_ == nullptr && objectPtr_->parent_ != nullptr)
@@ -81,10 +82,10 @@ void IFE::Transform::UpdateMatrix()
 	if (parent_ != nullptr)
 	{
 		parent_->UpdateMatrix();
-		matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ðŠ|‚¯ŽZ‚·‚é
-		matScale_ *= parent_->matScale_;//e‚ÌƒXƒP[ƒŠƒ“ƒOs—ñ‚àŠ|‚¯ŽZ‚·‚é
-		matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
-		matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
+		matWorld_ *= parent_->matWorld_;//è¦ªã®è¡Œåˆ—ã‚’æŽ›ã‘ç®—ã™ã‚‹
+		matScale_ *= parent_->matScale_;//è¦ªã®ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
+		matRot_ *= parent_->matRot_;//è¦ªã®å›žè»¢è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
+		matTrans_ *= parent_->matTrans_;//è¦ªã®å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
 	}
 	Matrix ls = matScale_ * matRot_;
 	lossyScale_ = { ls.m[0][0],ls.m[1][1],ls.m[2][2] };
@@ -252,7 +253,7 @@ void IFE::Transform2D::UpdateMatrix()
 	matWorld_ *= MatrixRotationZ(r);
 	matWorld_ *= MatrixTranslation(position2D_.x, position2D_.y, 0);
 
-	//’è”ƒoƒbƒtƒ@‚Ö‚Ìƒf[ƒ^“]‘—
+	//å®šæ•°ãƒãƒƒãƒ•ã‚¡ã¸ã®ãƒ‡ãƒ¼ã‚¿è»¢é€
 	constMapTransform_->mat = matWorld_ * matPro_;
 }
 
@@ -329,22 +330,22 @@ void IFE::TransformParticle::Draw()
 
 void IFE::TransformParticle::UpdateMatrix()
 {
-	//////Šgk//////
-	//ƒXƒP[ƒŠƒ“ƒO”{—¦‚ðs—ñ‚ÉÝ’è‚·‚é
+	//////æ‹¡ç¸®//////
+	//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å€çŽ‡ã‚’è¡Œåˆ—ã«è¨­å®šã™ã‚‹
 	matScale_ =
 	{ scale_.x,0,0,0,
 	0,scale_.y,0,0,
 	0,0,scale_.z,0,
 	0,0,0,1 };
 
-	//////‰ñ“]//////
+	//////å›žè»¢//////
 
 	Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
 	rotation_ = EulerToQuaternion(eulerRadians);
 	matRot_ = RotateMatrix(rotation_);
 
-	//////•½sˆÚ“®//////
-	//ˆÚ“®—Ê‚ðs—ñ‚ÉÝ’è‚·‚é
+	//////å¹³è¡Œç§»å‹•//////
+	//ç§»å‹•é‡ã‚’è¡Œåˆ—ã«è¨­å®šã™ã‚‹
 	matTrans_ =
 	{ 1,0,0,0,
 	0,1,0,0,
@@ -352,13 +353,13 @@ void IFE::TransformParticle::UpdateMatrix()
 	position_.x,position_.y,position_.z,1 };
 
 
-	//’PˆÊs—ñ‚ð‘ã“ü
+	//å˜ä½è¡Œåˆ—ã‚’ä»£å…¥
 	matWorld_ = MatrixIdentity();
-	//ƒXƒP[ƒŠƒ“ƒOs—ñ‚ðŠ|‚¯‚é
+	//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matScale_;
-	//‡¬—p‰ñ“]s—ñ‚ðŠ|‚¯‚é
+	//åˆæˆç”¨å›žè»¢è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matRot_;
-	//•½sˆÚ“®s—ñ‚ðŠ|‚¯‚é
+	//å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 	matWorld_ *= matTrans_;
 
 	//if (parent == nullptr && objectPtr->parent != nullptr)
@@ -368,10 +369,10 @@ void IFE::TransformParticle::UpdateMatrix()
 	if (parent_ != nullptr)
 	{
 		parent_->UpdateMatrix();
-		matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ðŠ|‚¯ŽZ‚·‚é
-		matScale_ *= parent_->matScale_;//e‚ÌƒXƒP[ƒŠƒ“ƒOs—ñ‚àŠ|‚¯ŽZ‚·‚é
-		matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
-		matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
+		matWorld_ *= parent_->matWorld_;//è¦ªã®è¡Œåˆ—ã‚’æŽ›ã‘ç®—ã™ã‚‹
+		matScale_ *= parent_->matScale_;//è¦ªã®ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
+		matRot_ *= parent_->matRot_;//è¦ªã®å›žè»¢è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
+		matTrans_ *= parent_->matTrans_;//è¦ªã®å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
 	}
 	Matrix ls = matScale_ * matRot_;
 	lossyScale_ = { ls.m[0][0],ls.m[1][1],ls.m[2][2] };
@@ -496,13 +497,13 @@ void IFE::TransformCamera::UpdateMatrix()
 	}
 	else
 	{
-		//////‰ñ“]//////
+		//////å›žè»¢//////
 		Float3 eulerRadians = ConvertToRadians(eulerAngleDegrees_);
 		rotation_ = EulerToQuaternion(eulerRadians);
 		matRot_ = RotateMatrix(rotation_);
 
-		//////•½sˆÚ“®//////
-		//ˆÚ“®—Ê‚ðs—ñ‚ÉÝ’è‚·‚é
+		//////å¹³è¡Œç§»å‹•//////
+		//ç§»å‹•é‡ã‚’è¡Œåˆ—ã«è¨­å®šã™ã‚‹
 		matTrans_ =
 		{ 1,0,0,0,
 		0,1,0,0,
@@ -510,19 +511,19 @@ void IFE::TransformCamera::UpdateMatrix()
 		position_.x,position_.y,position_.z,1 };
 
 
-		//’PˆÊs—ñ‚ð‘ã“ü
+		//å˜ä½è¡Œåˆ—ã‚’ä»£å…¥
 		matWorld_ = MatrixIdentity();
-		//‡¬—p‰ñ“]s—ñ‚ðŠ|‚¯‚é
+		//åˆæˆç”¨å›žè»¢è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 		matWorld_ *= matRot_;
-		//•½sˆÚ“®s—ñ‚ðŠ|‚¯‚é
+		//å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚’æŽ›ã‘ã‚‹
 		matWorld_ *= matTrans_;
 
 		if (parent_ != nullptr)
 		{
 			parent_->UpdateMatrix();
-			matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ðŠ|‚¯ŽZ‚·‚é
-			matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯ŽZ‚·‚é
-			matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯ŽZ‚·‚é
+			matWorld_ *= parent_->matWorld_;//è¦ªã®è¡Œåˆ—ã‚’æŽ›ã‘ç®—ã™ã‚‹
+			matRot_ *= parent_->matRot_;//è¦ªã®å›žè»¢è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
+			matTrans_ *= parent_->matTrans_;//è¦ªã®å¹³è¡Œç§»å‹•è¡Œåˆ—ã‚‚æŽ›ã‘ç®—ã™ã‚‹
 		}
 		cameraPtr_->GetView()->SetMatrixView(matWorld_);
 		cameraPtr_->GetView()->eye_ = position_;

@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cstdint>
 
+
 using namespace IFE;
 
 Float4 IFE::SetFloat4ToFloat3(const Float3& f, float w)

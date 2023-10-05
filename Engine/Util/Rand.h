@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 
+
 namespace IFE
 {
 	struct IFERand
@@ -9,11 +10,11 @@ namespace IFE
 		static int32_t GetRand();
 		static int32_t GetRand(int32_t min, int32_t max);
 		/// <summary>
-		/// フロート型のランダム関数
+		/// 繝輔Ο繝ｼ繝亥梛縺ｮ繝ｩ繝ｳ繝繝髢｢謨ｰ
 		/// </summary>
-		/// <param name="min">最小値</param>
-		/// <param name="max">最大値</param>
-		/// <returns>小数点1桁のfloat型乱数</returns>
+		/// <param name="min">譛蟆丞､</param>
+		/// <param name="max">譛螟ｧ蛟､</param>
+		/// <returns>蟆乗焚轤ｹ1譯√�ｮfloat蝙倶ｹｱ謨ｰ</returns>
 		static float GetRandF(float min, float max, int32_t resolution = 10000);
 	};
 }

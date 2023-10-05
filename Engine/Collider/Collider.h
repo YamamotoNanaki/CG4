@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "CollisionPrimitive.h"
 
+
 namespace IFE
 {
 	enum class ColliderType

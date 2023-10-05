@@ -4,6 +4,7 @@
 #include "IFETime.h"
 #include "Rand.h"
 
+
 void IFE::PlayerCamera::Initialize()
 {
 	transformCamera_->position_ = sPlayerPtr_->transform_->position_ + Float3(0, 7.5, -distance_);

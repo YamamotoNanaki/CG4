@@ -1,6 +1,7 @@
 #include "Float2.h"
 #include <assert.h>
 
+
 using namespace IFE;
 
 Float2::Float2(float x, float y) :x(x), y(y) {}
@@ -49,8 +50,8 @@ Float2& Float2::operator*=(const Float2& f)
 
 Float2& Float2::operator/=(const Float2& f)
 {
-	assert(f.x == 0 && "�돜�Z");
-	assert(f.y == 0 && "�돜�Z");
+	assert(f.x == 0 && "零除算");
+	assert(f.y == 0 && "零除算");
 	x /= f.x;
 	y /= f.y;
 	return *this;

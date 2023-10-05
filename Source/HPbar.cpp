@@ -6,6 +6,7 @@
 #include "Ease.h"
 #include "ColorBuffer.h"
 
+
 void IFE::HPbar::Initialize()
 {
 	playerPtr_ = ObjectManager::Instance()->GetObjectPtr("Player")->GetComponent<Player>();

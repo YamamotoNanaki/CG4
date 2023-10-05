@@ -6,6 +6,7 @@
 #include <chrono>
 #include "IFMath.h"
 
+
 namespace IFE
 {
 	class GraphicsAPI final
@@ -21,10 +22,10 @@ namespace IFE
 		ComPtr < ID3D12GraphicsCommandList> commandList_ = nullptr;
 		ComPtr < ID3D12CommandQueue> commandQueue_ = nullptr;
 		ComPtr < ID3D12DescriptorHeap> rtvHeaps_ = nullptr;
-		// — •\‚Ì2‚Â•ª‚É‚Â‚¢‚Ä
+		// è£è¡¨ã®2ã¤åˆ†ã«ã¤ã„ã¦
 		vector< ComPtr<ID3D12Resource>> backBuffers_ = vector<ComPtr<ID3D12Resource>>(2);
 		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
-		// ƒtƒFƒ“ƒX‚Ì¶¬
+		// ãƒ•ã‚§ãƒ³ã‚¹ã®ç”Ÿæˆ
 		ComPtr<ID3D12Fence> fence_ = nullptr;
 		uint64_t fenceVal_ = 0;
 		vector<D3D12_VIEWPORT> viewport_{};
@@ -36,10 +37,10 @@ namespace IFE
 		D3D12_RESOURCE_BARRIER barrierDesc_{};
 		D3D12_RECT scissorrect_{};
 
-		// 3D‰æ–ÊƒNƒŠƒA        R  G  B   A
+		// 3ï¼ç”»é¢ã‚¯ãƒªã‚¢        R  G  B   A
 		float clearColor_[4] = { 0 ,0 ,0 ,1.0f };
 
-		//FPSŠÖ˜A
+		//FPSé–¢é€£
 	private:
 		void InitializeFixFps();
 		void UpdateFixFps();
@@ -55,7 +56,7 @@ namespace IFE
 		uint32_t SetNewViewPort(float width, float height, float topX, float topY, float minDepth = 0.0f, float maxDepth = 1.0f);
 		void SetScissorrect(float left, float right, float top, float bottom);
 
-		//ƒQƒbƒ^[
+		//ã‚²ãƒƒã‚¿ãƒ¼
 	public:
 		static ID3D12Device* GetDevice();
 		ID3D12GraphicsCommandList* GetCmdList();

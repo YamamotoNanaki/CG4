@@ -10,6 +10,7 @@
 #include "Quaternion.h"
 #include <stdint.h>
 
+
 namespace IFE
 {
 	struct Int2
@@ -30,33 +31,33 @@ namespace IFE
 	Vector2 SetVector2(const Float2& f);
 
 
-	// —ëƒxƒNƒgƒ‹‚ğ•Ô‚·
+	// é›¶ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¿”ã™
 	const Vector3 Vector3Zero();
-	// 2ƒxƒNƒgƒ‹‚ªˆê’v‚µ‚Ä‚¢‚é‚©’²‚×‚é
+	// 2ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€è‡´ã—ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
 	bool Vector3Equal(const Vector3& v1, const Vector3& v2);
-	// ’·‚³‚ğ‹‚ß‚é
+	// é•·ã•ã‚’æ±‚ã‚ã‚‹
 	float Vector3Length(const Vector3& v);
-	// ³‹K‰»‚·‚é
+	// æ­£è¦åŒ–ã™ã‚‹
 	//Vector3& Vector3Normalize(Vector3& v);
 	Vector3 Vector3Normalize(const Vector3& v);
-	// “àÏ‚ğ‹‚ß‚é
+	// å†…ç©ã‚’æ±‚ã‚ã‚‹
 	float Vector3Dot(const Vector3& v1, const Vector3& v2);
-	// ŠOÏ‚ğ‹‚ß‚é
+	// å¤–ç©ã‚’æ±‚ã‚ã‚‹
 	Vector3 Vector3Cross(const Vector3& v1, const Vector3& v2);
 
-	// ƒrƒ…[s—ñ‚Ìì¬
+	// ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixLookAtLH(const Vector3& eye, const Vector3& target, const Vector3& up);
-	// •Às“Š‰es—ñ‚Ìì¬
+	// ä¸¦è¡ŒæŠ•å½±è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixOrthographic(
 		float viewLeft, float viewRight, float viewBottom, float viewTop, float nearZ, float farZ);
-	// “§‹“Š‰es—ñ‚Ìì¬
+	// é€è¦–æŠ•å½±è¡Œåˆ—ã®ä½œæˆ
 	Matrix MatrixPerspective(float fovAngleY, float aspectRatio, float nearZ, float farZ);
 
-	// À•W•ÏŠ·iwœZ‚È‚µj
+	// åº§æ¨™å¤‰æ›ï¼ˆwé™¤ç®—ãªã—ï¼‰
 	Vector3 Vector3Transform(const Vector3& v, const Matrix& m);
-	// À•W•ÏŠ·iwœZ‚ ‚èj
+	// åº§æ¨™å¤‰æ›ï¼ˆwé™¤ç®—ã‚ã‚Šï¼‰
 	Vector3 Vector3TransformCoord(const Vector3& v, const Matrix& m);
-	// ƒxƒNƒgƒ‹•ÏŠ·
+	// ãƒ™ã‚¯ãƒˆãƒ«å¤‰æ›
 	Vector3 Vector3TransformNormal(const Vector3& v, const Matrix& m);
 
 	Vector3 VectorNegate(const Vector3& m);

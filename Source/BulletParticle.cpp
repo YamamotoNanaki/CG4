@@ -8,6 +8,7 @@
 #include "LightManager.h"
 #include "EnemyBullet.h"
 
+
 void IFE::BulletParticle::Update()
 {
 	switch (colorSetting_)
