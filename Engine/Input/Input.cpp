@@ -1,7 +1,10 @@
 #include "Input.h"
 #include "WindowsAPI.h"
 #include "Debug.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 using namespace IFE;
 

@@ -1,8 +1,11 @@
 #pragma once
 #include "Object3D.h"
 #include "IFMath.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

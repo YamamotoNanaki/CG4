@@ -1,7 +1,10 @@
 #pragma once
 #include "Component.h"
 #include "ParticleSetting.h"
+#include "Warning.h"
+WarningDisabled
 #include <vector>
+WarningDisabledPop
 
 
 namespace IFE

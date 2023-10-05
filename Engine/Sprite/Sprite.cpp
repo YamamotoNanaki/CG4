@@ -1,6 +1,9 @@
 #include "Sprite.h"
 //#include "SpriteManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 #include "TextureManager.h"
 #include "Debug.h"
 #include "imgui.h"

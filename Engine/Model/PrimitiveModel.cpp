@@ -1,7 +1,10 @@
 #include "PrimitiveModel.h"
 #include "ImguiManager.h"
 #include "JsonManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <unordered_map>
+WarningDisabledPop
 
 using namespace std;
 using namespace IFE;

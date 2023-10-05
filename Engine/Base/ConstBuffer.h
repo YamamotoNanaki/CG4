@@ -1,7 +1,10 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <d3d12.h>
 #include <wrl.h>
 #include <cassert>
+WarningDisabledPop
 #include "GraphicsAPI.h"
 
 

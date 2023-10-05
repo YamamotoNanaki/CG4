@@ -4,8 +4,11 @@
 #include "ConstBuffer.h"
 #include "ConstStruct.h"
 #include "Component.h"
+#include "Warning.h"
+WarningDisabled
 #include <string>
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

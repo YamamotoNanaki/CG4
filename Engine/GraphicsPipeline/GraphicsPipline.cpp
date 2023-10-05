@@ -1,10 +1,7 @@
 #include "GraphicsPipeline.h"
-#include <d3dcompiler.h>
 #include "Debug.h"
-#include "StringUtil.h"
 #include "GraphicsAPI.h"
 #include "TextureManager.h"
-#include <cassert>
 
 
 using namespace std;

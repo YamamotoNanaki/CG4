@@ -6,7 +6,10 @@
 #include "Texture.h"
 #include "GraphicsPipeline.h"
 #include "ConstStruct.h"
+#include "Warning.h"
+WarningDisabled
 #include <string>
+WarningDisabledPop
 
 
 namespace IFE

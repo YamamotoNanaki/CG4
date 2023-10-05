@@ -4,7 +4,10 @@
 #include "JsonManager.h"
 #include "Debug.h"
 #include "ImguiManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <d3dx12.h>
+WarningDisabledPop
 
 
 using namespace IFE;

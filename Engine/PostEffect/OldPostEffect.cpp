@@ -2,9 +2,12 @@
 #include "WindowsAPI.h"
 #include "GraphicsAPI.h"
 #include "JsonManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
 #include <d3dx12.h>
 #include <d3dcompiler.h>
+WarningDisabledPop
 
 
 #pragma comment(lib,"d3dcompiler.lib")

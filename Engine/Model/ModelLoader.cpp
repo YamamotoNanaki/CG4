@@ -1,11 +1,14 @@
 #include "ModelLoader.h"
 #include "FBXModel.h"
 #include "TextureManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <assimp/IOStream.hpp>
 #include <assimp/IOSystem.hpp>
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h>     // Post processing flags
+WarningDisabledPop
 
 using namespace IFE;
 using namespace std;

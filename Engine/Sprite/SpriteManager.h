@@ -2,8 +2,11 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "IFMath.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

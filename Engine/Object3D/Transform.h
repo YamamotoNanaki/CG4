@@ -4,7 +4,10 @@
 #include "ConstStruct.h"
 #include "Camera.h"
 #include "Quaternion.h"
+#include "Warning.h"
+WarningDisabled
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

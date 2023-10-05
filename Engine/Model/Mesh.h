@@ -1,11 +1,14 @@
 #pragma once
-#include "ConstStruct.h"
-#include "Texture.h"
+#include "Warning.h"
+WarningDisabled
 #include <wrl.h>
 #include <string>
 #include <vector>
 #include <d3d12.h>
 #include <memory>
+WarningDisabledPop
+#include "ConstStruct.h"
+#include "Texture.h"
 #include "ConstStruct.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"

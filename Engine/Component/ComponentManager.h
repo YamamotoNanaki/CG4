@@ -1,11 +1,14 @@
 #pragma once
 #include "Component.h"
 #include "Debug.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <vector>
 #include <string>
 #include <typeinfo>
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

@@ -1,8 +1,11 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <dinput.h>
 #include <wrl.h>
 #include <Xinput.h>
 #include <cstdint>
+WarningDisabledPop
 #include "Float2.h"
 
 

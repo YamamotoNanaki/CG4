@@ -1,5 +1,8 @@
 #include "Float3.h"
+#include "Warning.h"
+WarningDisabled
 #include <assert.h>
+WarningDisabledPop
 
 
 using namespace IFE;

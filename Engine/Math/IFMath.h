@@ -1,6 +1,10 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <stdint.h>
+WarningDisabledPop
 #include "Float2.h"
 #include "Float3.h"
 #include "Float4.h"
@@ -8,7 +12,6 @@
 #include "Vector3.h"
 #include "Matrix.h"
 #include "Quaternion.h"
-#include <stdint.h>
 
 
 namespace IFE

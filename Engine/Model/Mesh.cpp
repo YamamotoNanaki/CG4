@@ -1,7 +1,10 @@
 #include "Mesh.h"
 #include "GraphicsAPI.h"
 #include "TextureManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 
 using namespace std;

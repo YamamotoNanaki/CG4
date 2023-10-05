@@ -5,7 +5,10 @@
 #include "ImguiManager.h"
 #include "JsonManager.h"
 #include "CollisionPrimitive.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 
 using namespace IFE;

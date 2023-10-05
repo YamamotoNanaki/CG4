@@ -1,7 +1,10 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <string>
-#include "IFMath.h"
 #include "nlohmann/json.hpp"
+WarningDisabledPop
+#include "IFMath.h"
 
 
 namespace IFE

@@ -2,9 +2,12 @@
 #include "Component.h"
 #include "ModelLoader.h"
 #include "AddModelSettings.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
 #include <string>
+WarningDisabledPop
 
 
 namespace IFE

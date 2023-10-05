@@ -1,6 +1,9 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
+WarningDisabledPop
 #include "GraphicsPipeline.h"
 
 

@@ -1,6 +1,9 @@
 #pragma once
 #include "Texture.h"
+#include "Warning.h"
+WarningDisabled
 #include <array>
+WarningDisabledPop
 
 
 namespace IFE

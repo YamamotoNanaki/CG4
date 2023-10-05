@@ -1,10 +1,13 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <xaudio2.h>
 #include <fstream>
 #include <wrl.h>
 #include <array>
 #include <string>
 #include <vector>
+WarningDisabledPop
 
 
 namespace IFE

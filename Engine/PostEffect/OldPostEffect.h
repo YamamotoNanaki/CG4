@@ -1,5 +1,8 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <wrl.h>
+WarningDisabledPop
 #include "Sprite.h"
 #include "ConstStruct.h"
 #include "ConstBuffer.h"

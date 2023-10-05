@@ -1,6 +1,9 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <d3dx12.h>
 #include <memory>
+WarningDisabledPop
 #include "IFMath.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"

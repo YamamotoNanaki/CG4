@@ -1,7 +1,10 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <vector>
 #include <wrl.h>
 #include <d3d12.h>
+WarningDisabledPop
 
 
 namespace IFE

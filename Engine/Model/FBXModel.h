@@ -1,8 +1,11 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <d3d12.h>
 #include <vector>
 #include <memory>
 #include <string>
+WarningDisabledPop
 #include "ConstStruct.h"
 #include "IFMath.h"
 #include "IndexBuffer.h"

@@ -1,6 +1,9 @@
 #include "Sound.h"
 #include "Debug.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 
 #pragma comment(lib,"xaudio2.lib")

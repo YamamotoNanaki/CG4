@@ -659,6 +659,9 @@
     <ClInclude Include="Source\ParticleSetting.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Base\Warning.h">
+      <Filter>ヘッダー ファイル\Engine\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Particle.hlsli">

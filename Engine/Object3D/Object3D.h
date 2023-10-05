@@ -4,7 +4,10 @@
 #include "Component.h"
 #include "JsonManager.h"
 #include "GraphicsPipeline.h"
+#include "Warning.h"
+WarningDisabled
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

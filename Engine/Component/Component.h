@@ -1,7 +1,10 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <string>
 #include <typeinfo>
+WarningDisabledPop
 #include "JsonManager.h"
 
 

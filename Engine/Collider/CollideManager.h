@@ -1,8 +1,11 @@
 #pragma once
 #include "Collider.h"
+#include "CollisionPrimitive.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <d3d12.h>
-#include "CollisionPrimitive.h"
+WarningDisabledPop
 
 
 namespace IFE

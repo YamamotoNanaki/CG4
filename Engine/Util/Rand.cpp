@@ -1,7 +1,10 @@
 #include "Rand.h"
+#include "Warning.h"
+#include "Ease.h"
+WarningDisabled
 #include <stdlib.h>
 #include <time.h>
-#include "Ease.h"
+WarningDisabledPop
 
 
 using namespace IFE;

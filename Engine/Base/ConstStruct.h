@@ -1,6 +1,9 @@
 #pragma once
 #include "IFMath.h"
+#include "Warning.h"
+WarningDisabled
 #include <cstdint>
+WarningDisabledPop
 
 
 namespace IFE

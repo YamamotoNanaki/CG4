@@ -1,11 +1,14 @@
 #pragma once
 #include "GraphicsAPI.h"
 #include "GraphicsPipelineManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <d3d12.h>
 #include <d3dcompiler.h>
 #include <cassert>
 #include <wrl.h>
 #include <vector>
+WarningDisabledPop
 
 
 namespace IFE

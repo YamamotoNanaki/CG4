@@ -3,7 +3,10 @@
 #include "Ease.h"
 #include "GraphicsAPI.h"
 #include "Transform.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 
 using namespace IFE;

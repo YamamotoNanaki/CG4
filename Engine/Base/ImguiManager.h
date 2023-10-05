@@ -1,9 +1,12 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <string>
 #include <vector>
 #include <array>
 #include <functional>
 #include <memory>
+WarningDisabledPop
 #include "IFMath.h"
 
 

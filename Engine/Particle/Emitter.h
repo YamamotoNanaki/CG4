@@ -2,10 +2,13 @@
 #include "Particle.h"
 #include "Texture.h"
 #include "GraphicsPipeline.h"
+#include "Warning.h"
+WarningDisabled
 #include <nlohmann/json.hpp>
 #include <memory>
 #include <list>
 #include <string>
+WarningDisabledPop
 //#include "PostEffect.h"
 
 

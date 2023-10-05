@@ -1,6 +1,9 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <vector>
 #include <string>
+WarningDisabledPop
 #include "IFMath.h"
 #include "Quaternion.h"
 

@@ -1,7 +1,10 @@
 #pragma once
 #include "Camera.h"
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

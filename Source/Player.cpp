@@ -18,7 +18,10 @@
 #include "Scene.h"
 #include "PlayerCamera.h"
 #include "StartCamera.h"
+#include "Warning.h"
+WarningDisabled
 #include <cmath>
+WarningDisabledPop
 
 
 using namespace IFE;

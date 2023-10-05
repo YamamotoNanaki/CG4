@@ -1,6 +1,9 @@
 #include "JsonManager.h"
+#include "Warning.h"
+WarningDisabled
 #include <iostream>
 #include <fstream>
+WarningDisabledPop
 
 
 using namespace IFE;

@@ -1,6 +1,9 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <Windows.h>
 #include <cstdint>
+WarningDisabledPop
 
 
 namespace IFE

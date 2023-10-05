@@ -1,5 +1,8 @@
 #include "WindowsAPI.h"
+#include "Warning.h"
+WarningDisabled
 #include "imgui_impl_win32.h"
+WarningDisabledPop
 
 #pragma comment(lib,"winmm.lib")
 

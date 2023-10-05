@@ -1,6 +1,9 @@
 #include "IFMath.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
 #include <cstdint>
+WarningDisabledPop
 
 
 using namespace IFE;

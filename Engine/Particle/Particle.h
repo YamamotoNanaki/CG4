@@ -1,8 +1,11 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <d3d12.h>
 #include <wrl.h>
 #include <vector>
 #include <memory>
+WarningDisabledPop
 #include "ConstStruct.h"
 #include "IFMath.h"
 #include "ComponentManager.h"

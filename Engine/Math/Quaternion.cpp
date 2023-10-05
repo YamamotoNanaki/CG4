@@ -1,6 +1,9 @@
 #include "Quaternion.h"
 #include "IFMath.h"
+#include "Warning.h"
+WarningDisabled
 #include <cmath>
+WarningDisabledPop
 
 
 using namespace IFE;

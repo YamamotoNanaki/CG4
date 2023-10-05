@@ -4,9 +4,12 @@
 #include "Matrix.h"
 #include "Quaternion.h"
 #include "ModelStruct.h"
+#include "Warning.h"
+WarningDisabled
 #include <string>
 #include <vector>
 #include <memory>
+WarningDisabledPop
 
 
 struct aiScene;

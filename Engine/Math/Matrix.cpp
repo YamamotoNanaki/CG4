@@ -1,8 +1,11 @@
 #include "Matrix.h"
+#include "Warning.h"
+WarningDisabled
 #include <cmath>
 #include <cfloat>
 #include <cassert>
 #include <cfloat>
+WarningDisabledPop
 
 
 using namespace IFE;

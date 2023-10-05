@@ -1,13 +1,16 @@
 #ifdef NDEBUG
 #else
-#include "ImguiManager.h"
-#include "ObjectManager.h"
+#include "Warning.h"
+WarningDisabled
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
 #include <Windows.h>
 #include <dxgi1_6.h>
 #include <d3dx12.h>
+WarningDisabledPop
+#include "ImguiManager.h"
+#include "ObjectManager.h"
 #include "GraphicsAPI.h"
 #include "WindowsAPI.h"
 #include "TextureManager.h"

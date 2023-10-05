@@ -1,6 +1,9 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <list>
 #include <memory>
+WarningDisabledPop
 #include "Emitter.h"
 #include "Texture.h"
 #include "IFMath.h"

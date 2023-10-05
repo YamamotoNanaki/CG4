@@ -1,7 +1,10 @@
-#include <cassert>
 #include "LightManager.h"
 #include "GraphicsAPI.h"
 #include "Debug.h"
+#include "Warning.h"
+WarningDisabled
+#include <cassert>
+WarningDisabledPop
 
 using namespace IFE;
 using namespace std;

@@ -1,9 +1,12 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <d3d12.h>
 #include <dxgi1_6.h>
 #include <vector>
 #include <wrl.h>
 #include <chrono>
+WarningDisabledPop
 #include "IFMath.h"
 
 

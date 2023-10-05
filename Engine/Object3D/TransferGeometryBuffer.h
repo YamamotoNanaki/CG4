@@ -2,7 +2,10 @@
 #include "Component.h"
 #include "ConstBuffer.h"
 #include "ConstStruct.h"
+#include "Warning.h"
+WarningDisabled
 #include <memory>
+WarningDisabledPop
 
 
 namespace IFE

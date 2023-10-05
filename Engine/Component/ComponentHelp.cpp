@@ -28,7 +28,10 @@
 #include "Animator.h"
 #include "Boss.h"
 #include "EnemyBullet.h"
+#include "Warning.h"
+WarningDisabled
 #include <typeinfo>
+WarningDisabledPop
 
 
 using namespace IFE;

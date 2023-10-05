@@ -1,5 +1,8 @@
 #include "View.h"
+#include "Warning.h"
+WarningDisabled
 #include <cassert>
+WarningDisabledPop
 
 
 using namespace IFE;

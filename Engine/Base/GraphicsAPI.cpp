@@ -1,9 +1,12 @@
 #include "GraphicsAPI.h"
-#include <cassert>
-#include <thread>
+#include "Warning.h"
 #include "Debug.h"
 #include "IFETime.h"
 #include "WindowsAPI.h"
+WarningDisabled
+#include <cassert>
+#include <thread>
+WarningDisabledPop
 
 
 #pragma comment(lib,"d3d12.lib")

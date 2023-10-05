@@ -1,10 +1,13 @@
 #include "GraphicsPipelineManager.h"
-#include <d3dcompiler.h>
 #include "Debug.h"
 #include "StringUtil.h"
 #include "GraphicsAPI.h"
 #include "TextureManager.h"
+#include "Warning.h"
+WarningDisabled
+#include <d3dcompiler.h>
 #include <cassert>
+WarningDisabledPop
 
 
 #pragma comment(lib,"d3dcompiler.lib")

@@ -1,7 +1,10 @@
 #include "StringUtil.h"
 #include "Debug.h"
+#include "Warning.h"
+WarningDisabled
 #include <windows.h>
 #include <vector>
+WarningDisabledPop
 
 
 std::wstring StringToWString(const std::string& oString)

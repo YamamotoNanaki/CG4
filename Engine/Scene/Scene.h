@@ -1,5 +1,8 @@
 #pragma once
+#include "Warning.h"
+WarningDisabled
 #include <future>
+WarningDisabledPop
 #include "ObjectManager.h"
 #include "GraphicsPipelineManager.h"
 #include "TextureManager.h"
