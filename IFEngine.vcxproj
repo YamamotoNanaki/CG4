@@ -74,23 +74,23 @@
     <ClCompile Include="Engine\Util\Rand.cpp" />
     <ClCompile Include="Engine\Util\StringUtil.cpp" />
     <ClCompile Include="Engine\Util\Util.cpp" />
-    <ClCompile Include="Source\Boss.cpp" />
-    <ClCompile Include="Source\Bullet.cpp" />
-    <ClCompile Include="Source\BulletParticle.cpp" />
-    <ClCompile Include="Source\ClearUI.cpp" />
-    <ClCompile Include="Source\CommonGameUI.cpp" />
-    <ClCompile Include="Source\Enemy.cpp" />
-    <ClCompile Include="Source\EnemyBullet.cpp" />
-    <ClCompile Include="Source\EnemyCountUI.cpp" />
-    <ClCompile Include="Source\FireworkChrysanthemum.cpp" />
-    <ClCompile Include="Source\Goal.cpp" />
-    <ClCompile Include="Source\HPbar.cpp" />
-    <ClCompile Include="Source\OverUI.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\PlayerCamera.cpp" />
-    <ClCompile Include="Source\StartCamera.cpp" />
-    <ClCompile Include="Source\TestParticle.cpp" />
-    <ClCompile Include="Source\TitleUI.cpp" />
+    <ClCompile Include="Source\Character\Boss.cpp" />
+    <ClCompile Include="Source\Character\Bullet.cpp" />
+    <ClCompile Include="Source\Emitter\BulletParticle.cpp" />
+    <ClCompile Include="Source\UI\ClearUI.cpp" />
+    <ClCompile Include="Source\UI\CommonGameUI.cpp" />
+    <ClCompile Include="Source\Character\Enemy.cpp" />
+    <ClCompile Include="Source\Character\EnemyBullet.cpp" />
+    <ClCompile Include="Source\UI\EnemyCountUI.cpp" />
+    <ClCompile Include="Source\Emitter\FireworkChrysanthemum.cpp" />
+    <ClCompile Include="Source\Area\Goal.cpp" />
+    <ClCompile Include="Source\UI\HPbar.cpp" />
+    <ClCompile Include="Source\UI\OverUI.cpp" />
+    <ClCompile Include="Source\Character\Player.cpp" />
+    <ClCompile Include="Source\Camera\PlayerCamera.cpp" />
+    <ClCompile Include="Source\Camera\StartCamera.cpp" />
+    <ClCompile Include="Source\Emitter\TestParticle.cpp" />
+    <ClCompile Include="Source\UI\TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Compute.h" />
@@ -163,24 +163,24 @@
     <ClInclude Include="Engine\Util\Rand.h" />
     <ClInclude Include="Engine\Util\StringUtil.h" />
     <ClInclude Include="Engine\Util\Util.h" />
-    <ClInclude Include="Source\Boss.h" />
-    <ClInclude Include="Source\Bullet.h" />
-    <ClInclude Include="Source\BulletParticle.h" />
-    <ClInclude Include="Source\ClearUI.h" />
-    <ClInclude Include="Source\CommonGameUI.h" />
-    <ClInclude Include="Source\Enemy.h" />
-    <ClInclude Include="Source\EnemyBullet.h" />
-    <ClInclude Include="Source\EnemyCountUI.h" />
-    <ClInclude Include="Source\FireworkChrysanthemum.h" />
-    <ClInclude Include="Source\Goal.h" />
-    <ClInclude Include="Source\HPbar.h" />
-    <ClInclude Include="Source\OverUI.h" />
-    <ClInclude Include="Source\ParticleSetting.h" />
-    <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\PlayerCamera.h" />
-    <ClInclude Include="Source\StartCamera.h" />
-    <ClInclude Include="Source\TestParticle.h" />
-    <ClInclude Include="Source\TitleUI.h" />
+    <ClInclude Include="Source\Character\Boss.h" />
+    <ClInclude Include="Source\Character\Bullet.h" />
+    <ClInclude Include="Source\Emitter\BulletParticle.h" />
+    <ClInclude Include="Source\UI\ClearUI.h" />
+    <ClInclude Include="Source\UI\CommonGameUI.h" />
+    <ClInclude Include="Source\Character\Enemy.h" />
+    <ClInclude Include="Source\Character\EnemyBullet.h" />
+    <ClInclude Include="Source\UI\EnemyCountUI.h" />
+    <ClInclude Include="Source\Emitter\FireworkChrysanthemum.h" />
+    <ClInclude Include="Source\Area\Goal.h" />
+    <ClInclude Include="Source\UI\HPbar.h" />
+    <ClInclude Include="Source\UI\OverUI.h" />
+    <ClInclude Include="Source\Emitter\ParticleSetting.h" />
+    <ClInclude Include="Source\Character\Player.h" />
+    <ClInclude Include="Source\Camera\PlayerCamera.h" />
+    <ClInclude Include="Source\Camera\StartCamera.h" />
+    <ClInclude Include="Source\Emitter\TestParticle.h" />
+    <ClInclude Include="Source\UI\TitleUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Model.hlsli" />
@@ -388,7 +388,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Emitter;$(ProjectDir)Source\Camera;$(ProjectDir)Source\UI;$(ProjectDir)Source\Character;$(ProjectDir)Source\Area;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -412,7 +412,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Emitter;$(ProjectDir)Source\Camera;$(ProjectDir)Source\UI;$(ProjectDir)Source\Character;$(ProjectDir)Source\Area;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -439,7 +439,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>DEVELOP;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Emitter;$(ProjectDir)Source\Camera;$(ProjectDir)Source\UI;$(ProjectDir)Source\Character;$(ProjectDir)Source\Area;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\imgui;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

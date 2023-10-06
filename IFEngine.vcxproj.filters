@@ -321,16 +321,16 @@
     <ClCompile Include="Engine\Collider\CollideManager.cpp">
       <Filter>ソース ファイル\Engine\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
+    <ClCompile Include="Source\Character\Player.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet.cpp">
+    <ClCompile Include="Source\Character\Bullet.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
+    <ClCompile Include="Source\Character\Enemy.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TitleUI.cpp">
+    <ClCompile Include="Source\UI\TitleUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Particle\ParticleManager.cpp">
@@ -342,40 +342,40 @@
     <ClCompile Include="Engine\Particle\Emitter.cpp">
       <Filter>ソース ファイル\Engine\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TestParticle.cpp">
+    <ClCompile Include="Source\Emitter\TestParticle.cpp">
       <Filter>ソース ファイル\Source\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BulletParticle.cpp">
+    <ClCompile Include="Source\Emitter\BulletParticle.cpp">
       <Filter>ソース ファイル\Source\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FireworkChrysanthemum.cpp">
+    <ClCompile Include="Source\Emitter\FireworkChrysanthemum.cpp">
       <Filter>ソース ファイル\Source\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Goal.cpp">
+    <ClCompile Include="Source\Area\Goal.cpp">
       <Filter>ソース ファイル\Source\Area</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EnemyCountUI.cpp">
+    <ClCompile Include="Source\UI\EnemyCountUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ClearUI.cpp">
+    <ClCompile Include="Source\UI\ClearUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OverUI.cpp">
+    <ClCompile Include="Source\UI\OverUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\HPbar.cpp">
+    <ClCompile Include="Source\UI\HPbar.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Scene.cpp">
       <Filter>ソース ファイル\Engine\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayerCamera.cpp">
+    <ClCompile Include="Source\Camera\PlayerCamera.cpp">
       <Filter>ソース ファイル\Source\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Source\StartCamera.cpp">
+    <ClCompile Include="Source\Camera\StartCamera.cpp">
       <Filter>ソース ファイル\Source\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CommonGameUI.cpp">
+    <ClCompile Include="Source\UI\CommonGameUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Model\Animator.cpp">
@@ -390,10 +390,10 @@
     <ClCompile Include="Engine\Sprite\RectTexture.cpp">
       <Filter>ソース ファイル\Engine\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Boss.cpp">
+    <ClCompile Include="Source\Character\Boss.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EnemyBullet.cpp">
+    <ClCompile Include="Source\Character\EnemyBullet.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
   </ItemGroup>
@@ -584,16 +584,16 @@
     <ClInclude Include="Engine\Base\Compute.h">
       <Filter>ヘッダー ファイル\Engine\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h">
+    <ClInclude Include="Source\Character\Player.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet.h">
+    <ClInclude Include="Source\Character\Bullet.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
+    <ClInclude Include="Source\Character\Enemy.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Source\TitleUI.h">
+    <ClInclude Include="Source\UI\TitleUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Particle\ParticleManager.h">
@@ -605,37 +605,37 @@
     <ClInclude Include="Engine\Particle\Emitter.h">
       <Filter>ヘッダー ファイル\Engine\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Source\TestParticle.h">
+    <ClInclude Include="Source\Emitter\TestParticle.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BulletParticle.h">
+    <ClInclude Include="Source\Emitter\BulletParticle.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FireworkChrysanthemum.h">
+    <ClInclude Include="Source\Emitter\FireworkChrysanthemum.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Goal.h">
+    <ClInclude Include="Source\Area\Goal.h">
       <Filter>ヘッダー ファイル\Source\Area</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EnemyCountUI.h">
+    <ClInclude Include="Source\UI\EnemyCountUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ClearUI.h">
+    <ClInclude Include="Source\UI\ClearUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OverUI.h">
+    <ClInclude Include="Source\UI\OverUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\HPbar.h">
+    <ClInclude Include="Source\UI\HPbar.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayerCamera.h">
+    <ClInclude Include="Source\Camera\PlayerCamera.h">
       <Filter>ヘッダー ファイル\Source\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\StartCamera.h">
+    <ClInclude Include="Source\Camera\StartCamera.h">
       <Filter>ヘッダー ファイル\Source\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CommonGameUI.h">
+    <ClInclude Include="Source\UI\CommonGameUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Model\Animator.h">
@@ -650,13 +650,13 @@
     <ClInclude Include="Engine\Camera\Fog.h">
       <Filter>ヘッダー ファイル\Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Boss.h">
+    <ClInclude Include="Source\Character\Boss.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EnemyBullet.h">
+    <ClInclude Include="Source\Character\EnemyBullet.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ParticleSetting.h">
+    <ClInclude Include="Source\Emitter\ParticleSetting.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Warning.h">
