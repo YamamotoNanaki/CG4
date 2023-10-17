@@ -2,6 +2,7 @@
 #include "LightManager.h"
 #include "GraphicsAPI.h"
 #include "Debug.h"
+#include "JsonManager.h"
 
 using namespace IFE;
 using namespace std;
@@ -315,4 +316,39 @@ void IFE::LightManager::DebugGUI()
 	}
 	imgui->EndGUI();
 }
+
+void IFE::LightManager::OutputScene()
+{
+	JsonManager* jm = JsonManager::Instance();
+	nlohmann::json& j = jm->GetJsonData();
+	uint32_t num = 0;
+	for (size_t i = 0; i < s_DLIGHT_NUM; i++)
+	{
+		j[num]["active"] = dLight_[i].IsActive();
+		jm->OutputFloat3(j[num]["dir"], dLight_[i].GetLightDir());
+		jm->OutputFloat3(j[num]["color"], dLight_[i].GetLightColor());
+		j[num]["type"] = "dir";
+		j[num]["num"] = i;
+		num++;
+	}
+	jm->Output("LightManager");
+}
 #endif
+
+void IFE::LightManager::LoadingScene()
+{
+	JsonManager* jm = JsonManager::Instance();
+	jm->Input("LightManager");
+	nlohmann::json js = jm->GetJsonData();
+	for (auto& j : js)
+	{
+		if (j["type"] == "dir")
+		{
+			auto dir = jm->InputFloat3(j["dir"]);
+			auto col = jm->InputFloat3(j["color"]);
+			dLight_[j["num"]].SetActive(j["active"]);
+			dLight_[j["num"]].SetLightDir(dir);
+			dLight_[j["num"]].SetLightColor(col);
+		}
+	}
+}

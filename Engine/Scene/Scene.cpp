@@ -212,6 +212,7 @@ void IFE::Scene::SceneInit()
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
 	cameraM_->LoadingScene();
+	lightM_->LoadingScene();
 	objM_->Initialize();
 	spriteM_->Initialize();
 	particleM->Initialize();
@@ -312,6 +313,7 @@ void IFE::Scene::LoadingScene()
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();
+	lightM_->LoadingScene();
 	objM_->Initialize();
 	spriteM_->Initialize();
 	particleM->Initialize();
@@ -344,6 +346,7 @@ void IFE::Scene::OutputScene()
 	particleM->OutputScene();
 	cameraM_->OutputScene();
 	oldPostEffect->OutputScene();
+	lightM_->OutputScene();
 }
 #include "imgui.h"
 void IFE::Scene::DebugGUI()

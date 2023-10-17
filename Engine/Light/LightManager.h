@@ -76,6 +76,8 @@ namespace IFE
 #ifdef NDEBUG
 #else
 		void DebugGUI();
+		void OutputScene();
 #endif
+		void LoadingScene();
 	};
 }
