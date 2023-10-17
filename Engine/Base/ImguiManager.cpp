@@ -16,6 +16,7 @@
 #include "ComponentManager.h"
 #include "Texture.h"
 #include "ComponentHelp.h"
+#include "Input.h"
 
 using namespace IFE;
 
@@ -54,6 +55,43 @@ void IFE::ImguiManager::StartNewFrame()
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+}
+
+void IFE::ImguiManager::Update()
+{
+	//ペーストの処理
+	if (copyObjects_.size() > 0 && (Input::GetKeyDown(Key::LCONTROL) || Input::GetKeyDown(Key::RCONTROL)) &&
+		Input::GetKeyTrigger(Key::V))
+	{
+		auto om = ObjectManager::Instance();
+		for (auto& itr : copyObjects_)
+		{
+			auto obj = om->Add(itr->GetObjectName());
+			itr->CopyValue(obj);
+		}
+	}
+
+	//オブジェクトのコピーの処理
+	if (!openObj_)return;
+	if ((Input::GetKeyDown(Key::LCONTROL) || Input::GetKeyDown(Key::RCONTROL)) &&
+		(Input::GetKeyDown(Key::LSHIFT) || Input::GetKeyDown(Key::RSHIFT)) && Input::GetKeyDown(Key::C))
+	{
+		for (auto& itr : copyObjects_)
+		{
+			if (itr->GetObjectName() == openObj_->GetObjectName())
+			{
+				openObj_ = nullptr;
+				return;
+			}
+		}
+		copyObjects_.push_back(openObj_);
+	}
+	else if ((Input::GetKeyDown(Key::LCONTROL) || Input::GetKeyDown(Key::RCONTROL)) && Input::GetKeyDown(Key::C))
+	{
+		copyObjects_.clear();
+		copyObjects_.push_back(openObj_);
+	}
+	openObj_ = nullptr;
 }
 
 void IFE::ImguiManager::Draw()
@@ -130,6 +168,7 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 	static bool cm = false;
 	if (objectName == sOpenComponentName_)
 	{
+		openObj_ = ObjectManager::Instance()->GetObjectPtr(objectName);
 		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
 		if (ImGui::BeginMenuBar())
 		{

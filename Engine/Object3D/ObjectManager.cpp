@@ -11,6 +11,7 @@
 #include "CollideManager.h"
 #include "LightManager.h"
 #include "CameraManager.h"
+#include <regex>
 
 using namespace IFE;
 using namespace std;
@@ -112,7 +113,7 @@ Object3D* IFE::ObjectManager::AddInitialize(const std::string& objectName, Compo
 {
 	std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
 	ptr->OBJInitialize();
-	ptr->SetObjectName(objectName);
+	ptr->SetObjectName(SetNameNumber(objectName));
 	ptr->SetModel(model);
 	objectList_.push_back(std::move(ptr));
 	return objectList_.back().get();
@@ -121,7 +122,7 @@ Object3D* IFE::ObjectManager::AddInitialize(const std::string& objectName, Compo
 Object3D* IFE::ObjectManager::Add(const std::string& objectName)
 {
 	std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
-	ptr->SetObjectName(objectName);
+	ptr->SetObjectName(SetNameNumber(objectName));
 	objectList_.push_back(std::move(ptr));
 	return objectList_.back().get();
 }
@@ -129,7 +130,7 @@ Object3D* IFE::ObjectManager::Add(const std::string& objectName)
 Object3D* IFE::ObjectManager::AddPrefab(const std::string& objectName)
 {
 	std::unique_ptr<Object3D> ptr = make_unique<Object3D>();
-	ptr->SetObjectName(objectName);
+	ptr->SetObjectName(SetNameNumber(objectName));
 	prefabList_.push_back(std::move(ptr));
 	return prefabList_.back().get();
 }
@@ -241,6 +242,19 @@ Object3D* IFE::ObjectManager::Instantiate(const std::string& objectName, const F
 	return objectList_.back().get();
 }
 
+std::string IFE::ObjectManager::SetNameNumber(std::string objectName)
+{
+	string objectN = std::regex_replace(objectName, regex("\\d"), "");
+	string name = objectN;
+	uint32_t num = 0;
+	while (SearchName(name))
+	{
+		num++;
+		name = objectN + to_string(num);
+	}
+	return name;
+}
+
 #ifdef NDEBUG
 #else
 #include "imgui.h"
@@ -263,9 +277,9 @@ void IFE::ObjectManager::DebugGUI()
 	if (add)
 	{
 		std::function<string(void)> func = []()
-		{
-			return ModelManager::Instance()->GetModelNameGUI();
-		};
+			{
+				return ModelManager::Instance()->GetModelNameGUI();
+			};
 		static string name;
 		static string model;
 		static bool pre = false;
@@ -274,39 +288,39 @@ void IFE::ObjectManager::DebugGUI()
 			im->CheckBoxGUI(&pre, "add new object");
 			static int32_t num = 0;
 			std::function<void(void)>prefunc = [&]()
-			{
-				static char n[256];
-				ImGui::InputText("Add Object Name", n, sizeof(n));
-				name = n;
-				int32_t i = 0;
-				for (unique_ptr<Object3D>& itr : prefabList_)
 				{
-					ImGui::RadioButton(itr->GetObjectName().c_str(), &num, i);
-					i++;
-				}
-				if (ImGui::Button("Add Object"))
-				{
-					string s;
-					int32_t j = 0;
+					static char n[256];
+					ImGui::InputText("Add Object Name", n, sizeof(n));
+					name = n;
+					int32_t i = 0;
 					for (unique_ptr<Object3D>& itr : prefabList_)
 					{
-						if (num == j)
+						ImGui::RadioButton(itr->GetObjectName().c_str(), &num, i);
+						i++;
+					}
+					if (ImGui::Button("Add Object"))
+					{
+						string s;
+						int32_t j = 0;
+						for (unique_ptr<Object3D>& itr : prefabList_)
 						{
-							s = itr->GetObjectName();
-							break;
+							if (num == j)
+							{
+								s = itr->GetObjectName();
+								break;
+							}
+							j++;
 						}
-						j++;
-					}
-					if (s != "")
-					{
+						if (s != "")
+						{
 
+						}
+						else
+						{
+							im->TextGUI("prefab not found");
+						}
 					}
-					else
-					{
-						im->TextGUI("prefab not found");
-					}
-				}
-			};
+				};
 			if (prefabList_.size() != 0)im->CollapsingHeaderGUI("Add from Prefab", prefunc);
 			else
 			{
@@ -436,24 +450,4 @@ void IFE::ObjectManager::LoadingScene()
 		obj->LoadingScene(j);
 		obj->Initialize();
 	}
-}
-
-std::string IFE::ObjectManager::GetNewName(const std::string& tag)
-{
-	int32_t i = 0;
-	string r;
-	while (true)
-	{
-		string s = tag + to_string(i);
-		if (SearchName(s))
-		{
-			i++;
-		}
-		else
-		{
-			r = s;
-			break;
-		}
-	}
-	return r;
 }

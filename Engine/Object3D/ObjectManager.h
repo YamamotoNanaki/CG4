@@ -37,6 +37,14 @@ namespace IFE
 		Object3D* Instantiate(const std::string& objectName, const std::string& newObjectName = "");
 		Object3D* Instantiate(const std::string& objectName, const Float3& position, const std::string& newObjectName = "");
 
+	private:
+		/// <summary>
+		/// 共通するオブジェクトの名前があった場合番号を自動的につける関数
+		/// </summary>
+		/// <returns></returns>
+		std::string SetNameNumber(std::string objectName);
+
+	public:
 #ifdef NDEBUG
 #else
 		void DebugGUI();
@@ -44,8 +52,5 @@ namespace IFE
 		void DebugUpdate();
 #endif
 		void LoadingScene();
-
-	private:
-		std::string GetNewName(const std::string& objectName);
 	};
 }

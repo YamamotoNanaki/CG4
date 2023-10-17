@@ -21,6 +21,8 @@ namespace IFE
 		ImguiManager(const ImguiManager&) {}
 		ImguiManager& operator=(const ImguiManager&) {}
 		~ImguiManager() {}
+		std::vector<Object3D*>copyObjects_;
+		Object3D* openObj_ = nullptr;
 	public:
 		inline static bool componentDeleteFlag_ = false;
 		inline static bool componentAddFlag_ = false;
@@ -28,6 +30,7 @@ namespace IFE
 		static ImguiManager* Instance();
 		void Initialize();
 		void StartNewFrame();
+		void Update();
 		void Draw();
 		void Demo();
 		void EndGUI();

@@ -111,6 +111,7 @@ void IFE::Scene::Update()
 	{
 		gui_.StartNewFrame();
 		DebugGUI();
+		gui_.Update();
 
 		if (debug_ && !stop_)
 		{
