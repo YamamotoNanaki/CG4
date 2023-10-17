@@ -277,6 +277,17 @@ void IFE::LightManager::DebugGUI()
 	{
 		static int32_t num = 0;
 		imgui->DragIntGUI(&num, "select number", 1.0f, 0, s_DLIGHT_NUM);
+		bool active = dLight_[num].IsActive();
+		Float3 dir = dLight_[num].GetLightDir();
+		Float3 color = dLight_[num].GetLightColor();
+
+		imgui->CheckBoxGUI(&active, "active");
+		imgui->DragFloat3GUI(&dir, "dir");
+		imgui->ColorEdit3GUI(&color, "color");
+
+		SetDirLightActive(num, active);
+		SetDirLightDir(num, dir);
+		SetDirLightColor(num, color);
 	}
 	if (imgui->CollapsingHeaderGUI("Point Light"))
 	{

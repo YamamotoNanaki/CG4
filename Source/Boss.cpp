@@ -57,11 +57,11 @@ void IFE::Boss::Start()
 void IFE::Boss::Stanby()
 {
 	actionTimer_ += IFETime::sDeltaTime_;
-	if (actionTimer_ > 3)
+	if (actionTimer_ > 5)
 	{
 		actionTimer_ = 0;
 		bulletNum_ = 0;
-		action_ = (uint8_t)BossAction::Stanby;
+		action_ = (uint8_t)BossAction::Attack1;
 	}
 }
 
@@ -90,7 +90,7 @@ void IFE::Boss::Attack1()
 
 		//Sound::Instance()->SoundPlay("shot", false);
 	}
-	if (bulletNum_ >= 10)
+	if (bulletNum_ >= 1)
 	{
 		action_ = (uint8_t)BossAction::Stanby;
 	}

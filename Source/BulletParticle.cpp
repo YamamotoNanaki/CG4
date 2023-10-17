@@ -73,6 +73,11 @@ void IFE::BulletParticle::SetColor(ParticleColorSetting colorSetting)
 	colorSetting_ = (uint8_t)colorSetting;
 }
 
+void IFE::BulletParticle::SetColor(uint8_t colorSetting)
+{
+	colorSetting_ = colorSetting;
+}
+
 uint8_t IFE::BulletParticle::GetColor()
 {
 	return colorSetting_;

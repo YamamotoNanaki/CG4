@@ -18,6 +18,7 @@
 #include "Scene.h"
 #include "PlayerCamera.h"
 #include "StartCamera.h"
+#include "Rand.h"
 #include <cmath>
 
 using namespace IFE;
@@ -214,7 +215,10 @@ void IFE::Player::Shoot()
 		if (emitter)
 		{
 			emitter->GetComponent<BulletParticle>()->SetBullet(bullet);
+			auto col = IFERand::GetRand(0, 1);
+			emitter->GetComponent<BulletParticle>()->SetColor((uint8_t)col);
 			emitter->isActive_ = true;
+			bullet->GetComponent<Bullet>()->SetBulletEmitter(emitter);
 		}
 		timer = 0;
 

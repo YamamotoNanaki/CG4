@@ -16,6 +16,7 @@ namespace IFE
 		void Update()override;
 		void SetBullet(Object3D* bullet);
 		void SetColor(ParticleColorSetting colorSetting);
+		void SetColor(uint8_t colorSetting);
 		uint8_t GetColor();
 		~BulletParticle();
 	};
