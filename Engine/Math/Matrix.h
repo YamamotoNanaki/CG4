@@ -6,6 +6,7 @@ namespace IFE
 	struct Matrix
 	{
 		float m[4][4];
+		float arrayMatrix[16];
 
 	public:
 		Matrix();
@@ -35,6 +36,8 @@ namespace IFE
 		Matrix Inverse();
 		//座標変換（ベクトルと行列の掛け算をする）
 		static Vector3 Transform(const Vector3 v, const Matrix& m);
+
+		float* GetArrayPtr();
 	};
 
 	// 単位行列を求める

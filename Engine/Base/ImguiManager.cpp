@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
-#include "ImGuizmo.h"
+//#include "ImGuizmo.h"
 #include <Windows.h>
 #include <dxgi1_6.h>
 #include <d3dx12.h>
@@ -18,6 +18,8 @@
 #include "Texture.h"
 #include "ComponentHelp.h"
 #include "Input.h"
+#include "CameraManager.h"
+#include "Transform.h"
 
 using namespace IFE;
 
@@ -56,7 +58,8 @@ void IFE::ImguiManager::StartNewFrame()
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGuizmo::BeginFrame();
+	//ImGuizmo::BeginFrame();
+	//ImGuizmo::Enable(true);
 }
 
 void IFE::ImguiManager::Update()
@@ -217,6 +220,12 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		//}
 		ComponentFunc();
 		ImGui::End();
+
+		//auto cameraPtr = CameraManager::Instance()->sActivCamera_;
+
+		//ImGuizmo::Manipulate(cameraPtr->GetView()->Get().GetArrayPtr(), cameraPtr->GetProjection()->Get().GetArrayPtr(),
+			//ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, openObj_->transform_->matWorld_.GetArrayPtr());
+
 	}
 }
 
