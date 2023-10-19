@@ -91,7 +91,7 @@ void IFE::Enemy::Move()
 void IFE::Enemy::Stanby()
 {
 	action_ = patrolPoint_.size() > 1 ? uint8_t(EnemyAction::Patrol) : action_;
-	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
+	//action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
 void IFE::Enemy::Patrol()
@@ -104,10 +104,9 @@ void IFE::Enemy::Patrol()
 
 	uint8_t nextPoint = nowPoint_ + 1 < patrolPoint_.size() ? nowPoint_ + 1 : 0;
 
-	Float3 nowPointPos = patrolPoint_[nowPoint_];
 	Float3 nextPointPos = patrolPoint_[nextPoint];
 
-	Vector3 vec = nextPointPos - nowPointPos;
+	Vector3 vec = nextPointPos - transform_->position_;
 	vec.Normalize();
 	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
 
@@ -116,7 +115,7 @@ void IFE::Enemy::Patrol()
 		nowPoint_ = nextPoint;
 	}
 
-	action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
+	//action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
 void IFE::Enemy::Detection()
