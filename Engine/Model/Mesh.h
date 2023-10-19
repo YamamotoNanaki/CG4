@@ -22,10 +22,12 @@ namespace IFE
 		VertexBuffer<Vertex>vt_;
 		IndexBuffer ib_;
 		std::unique_ptr<Material> material_;
+		uint32_t drawCount_ = 0;
 
 	public:
 		void Initialize()override;
 		void Draw()override;
+		void AllDraw();
 		void Update()override;
 		VertexBuffer<VertexBone>* GetVertexBone();
 		VertexBuffer<Vertex>* GetVertex();

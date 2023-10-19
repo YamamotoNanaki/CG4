@@ -10,10 +10,12 @@ namespace IFE
 	class PrimitiveModel : public Component
 	{
 		using Component::Component;
+	private:
 		VertexBuffer<Vertex> vb_;
 		IndexBuffer ib_;
 		AddModelSettings setting_;
 		bool smooth_;
+		uint32_t drawCount_ = 0;
 
 	public:
 		void CreateCube(bool smoothing = false);
@@ -22,6 +24,7 @@ namespace IFE
 		void CreateCircle(bool smoothing = false);
 		void CreateSphere(bool smoothing = false);
 		void Draw()override;
+		void AllDraw();
 		void Update()override;
 		void Initialize()override {}
 		void SetSmooth(bool smooth);

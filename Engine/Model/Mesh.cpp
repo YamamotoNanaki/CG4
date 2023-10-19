@@ -36,6 +36,10 @@ void IFE::Mesh::Draw()
 	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
 }
 
+void IFE::Mesh::AllDraw()
+{
+}
+
 void IFE::Mesh::Update()
 {
 }

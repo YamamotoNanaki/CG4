@@ -257,13 +257,20 @@ void IFE::PrimitiveModel::CreateSphere(bool smoothing)
 
 void IFE::PrimitiveModel::Draw()
 {
+	drawCount_++;
+}
+
+void IFE::PrimitiveModel::AllDraw()
+{
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	//頂点バッファの設定
 	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
 	//インデックスバッファの設定
 	commandList->IASetIndexBuffer(ib_.GetIBView());
 	//描画コマンド
-	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), 1, 0, 0, 0);
+	commandList->DrawIndexedInstanced((UINT)ib_.GetSize(), drawCount_, 0, 0, 0);
+
+	drawCount_ = 0;
 }
 
 void IFE::PrimitiveModel::Update()
