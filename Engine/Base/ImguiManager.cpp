@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
+#include "ImGuizmo.h"
 #include <Windows.h>
 #include <dxgi1_6.h>
 #include <d3dx12.h>
@@ -55,6 +56,7 @@ void IFE::ImguiManager::StartNewFrame()
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 }
 
 void IFE::ImguiManager::Update()
