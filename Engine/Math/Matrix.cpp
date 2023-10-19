@@ -340,15 +340,3 @@ Vector3 Matrix::Transform(const Vector3 v, const Matrix& m)
 	//}
 	return result;
 }
-
-float* IFE::Matrix::GetArrayPtr()
-{
-	for (size_t i = 0; i < 4; i++)
-	{
-		for (size_t j = 0; j < 4; j++)
-		{
-			arrayMatrix[i * 4 + j] = m[i][j];
-		}
-	}
-	return arrayMatrix;
-}
