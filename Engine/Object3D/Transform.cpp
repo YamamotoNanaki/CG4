@@ -202,6 +202,7 @@ void IFE::Transform::DebugGUI()
 		componentDeleteFlag_ = true;
 	};
 	im->ComponentGUI(guiFunc, deleteFunc, componentName_);
+	UpdateMatrix();
 }
 void IFE::Transform::OutputComponent(nlohmann::json& j)
 {

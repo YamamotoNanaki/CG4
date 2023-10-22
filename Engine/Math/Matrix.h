@@ -37,6 +37,9 @@ namespace IFE
 		static Vector3 Transform(const Vector3 v, const Matrix& m);
 	};
 
+	void GetArrayMatrix(const Matrix& matrix, float arrayPtr[]);
+	void SetArrayMatrix(Matrix& matrix, float arrayPtr[]);
+
 	// ’PˆÊs—ñ‚ğ‹‚ß‚é
 	Matrix MatrixIdentity();
 	// ‹ts—ñ‚ğ‹‚ß‚é
@@ -62,4 +65,5 @@ namespace IFE
 	Matrix operator-(const Matrix& m1, const Matrix& m2);
 	Matrix operator*(const Matrix& m1, const Matrix& m2);
 
+	Float3 GetScale(const Matrix& m);
 };
