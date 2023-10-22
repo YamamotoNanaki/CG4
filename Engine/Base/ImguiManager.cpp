@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
-//#include "ImGuizmo.h"
+#include "ImGuizmo.h"
 #include <Windows.h>
 #include <dxgi1_6.h>
 #include <d3dx12.h>
@@ -58,8 +58,8 @@ void IFE::ImguiManager::StartNewFrame()
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	//ImGuizmo::BeginFrame();
-	//ImGuizmo::Enable(true);
+	ImGuizmo::BeginFrame();
+	ImGuizmo::Enable(true);
 }
 
 void IFE::ImguiManager::Update()
@@ -101,6 +101,7 @@ void IFE::ImguiManager::Update()
 
 void IFE::ImguiManager::Draw()
 {
+	//ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	ID3D12DescriptorHeap* heaps[] = { TextureManager::Instance()->GetDescriptorHeap() };
@@ -218,14 +219,41 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		//		modelFunc();
 		//	}
 		//}
+		static int32_t guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+		ImGui::RadioButton("translate", &guizmoOperation, ImGuizmo::OPERATION::TRANSLATE);
+		ImGui::SameLine();
+		ImGui::RadioButton("scale", &guizmoOperation, ImGuizmo::OPERATION::SCALE);
+		static int32_t guizmoMode = ImGuizmo::MODE::WORLD;
+		ImGui::RadioButton("world", &guizmoMode, ImGuizmo::MODE::WORLD);
+		ImGui::SameLine();
+		ImGui::RadioButton("local", &guizmoMode, ImGuizmo::MODE::LOCAL);
 		ComponentFunc();
 		ImGui::End();
 
-		//auto cameraPtr = CameraManager::Instance()->sActivCamera_;
+		auto cameraPtr = CameraManager::Instance()->sActivCamera_;
 
-		//ImGuizmo::Manipulate(cameraPtr->GetView()->Get().GetArrayPtr(), cameraPtr->GetProjection()->Get().GetArrayPtr(),
-			//ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, openObj_->transform_->matWorld_.GetArrayPtr());
+		float v[16];
+		float p[16];
+		float w[16];
+		float oldw[16];
 
+		GetArrayMatrix(cameraPtr->GetView()->Get(), v);
+		GetArrayMatrix(cameraPtr->GetProjection()->Get(), p);
+		GetArrayMatrix(openObj_->transform_->matWorld_, w);
+
+		for (size_t i = 0; i < 16; i++)
+		{
+			oldw[i] = w[i];
+		}
+
+		ImGuizmo::SetRect(0, 0, (float)WindowsAPI::Instance()->winWidth_, (float)WindowsAPI::Instance()->winHeight_);
+		ImGuizmo::Manipulate(v, p, (ImGuizmo::OPERATION)guizmoOperation, (ImGuizmo::MODE)guizmoMode, w);
+
+		SetArrayMatrix(openObj_->transform_->matWorld_, w);
+
+		openObj_->transform_->position_ = { w[12],w[13],w[14] };
+		openObj_->transform_->scale_ = GetScale(openObj_->transform_->matWorld_);
+		//openObj_->transform_->position_ = { w[12],w[13],w[14] };
 	}
 }
 
