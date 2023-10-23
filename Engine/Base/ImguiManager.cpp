@@ -101,7 +101,6 @@ void IFE::ImguiManager::Update()
 
 void IFE::ImguiManager::Draw()
 {
-	//ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	ID3D12DescriptorHeap* heaps[] = { TextureManager::Instance()->GetDescriptorHeap() };
@@ -169,7 +168,7 @@ void IFE::ImguiManager::ObjectManagerGUI(bool* add, bool* fdelete, bool* prefab,
 	}
 }
 
-void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const  std::function<void(Component*)>& modelFunc*/)
+void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc, const  std::function<void(Component*)>& modelFunc)
 {
 	static bool cm = false;
 	if (objectName == sOpenComponentName_)
@@ -211,27 +210,41 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 				}
 			}
 		}
-		//if (cm)
-		//{
-		//	ModelManager::Instance()->GetModelNameGUI();
-		//	if (ImGui::Button("Change"))
-		//	{
-		//		modelFunc();
-		//	}
-		//}
+		if (cm)
+		{
+			if (ImGui::CollapsingHeader("Change Model"))
+			{
+				auto name = ModelManager::Instance()->GetModelNameGUI();
+				if (ImGui::Button("Change"))
+				{
+					auto m = ModelManager::Instance()->GetModel(name);
+					if (m)
+					{
+						modelFunc(m);
+					}
+				}
+			}
+		}
 		static int32_t guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-		ImGui::RadioButton("translate", &guizmoOperation, ImGuizmo::OPERATION::TRANSLATE);
-		ImGui::SameLine();
-		ImGui::RadioButton("scale", &guizmoOperation, ImGuizmo::OPERATION::SCALE);
 		static int32_t guizmoMode = ImGuizmo::MODE::WORLD;
-		ImGui::RadioButton("world", &guizmoMode, ImGuizmo::MODE::WORLD);
-		ImGui::SameLine();
-		ImGui::RadioButton("local", &guizmoMode, ImGuizmo::MODE::LOCAL);
+		static bool guizmoUseSnap = false;
+		static float snapNum[3] = { 1,1,1 };
+		if (ImGui::CollapsingHeader("Guizmo Settings"))
+		{
+			ImGui::RadioButton("translate", &guizmoOperation, ImGuizmo::OPERATION::TRANSLATE);
+			ImGui::SameLine();
+			ImGui::RadioButton("scale", &guizmoOperation, ImGuizmo::OPERATION::SCALE);
+			ImGui::RadioButton("world", &guizmoMode, ImGuizmo::MODE::WORLD);
+			ImGui::SameLine();
+			ImGui::RadioButton("local", &guizmoMode, ImGuizmo::MODE::LOCAL);
+			ImGui::Checkbox("use snap", &guizmoUseSnap);
+			if (guizmoUseSnap)ImGui::InputFloat3("snap num", snapNum);
+		}
 		ComponentFunc();
 		ImGui::End();
 
 		auto cameraPtr = CameraManager::Instance()->sActivCamera_;
-
+		if (!cameraPtr)return;
 		float v[16];
 		float p[16];
 		float w[16];
@@ -247,7 +260,7 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		}
 
 		ImGuizmo::SetRect(0, 0, (float)WindowsAPI::Instance()->winWidth_, (float)WindowsAPI::Instance()->winHeight_);
-		ImGuizmo::Manipulate(v, p, (ImGuizmo::OPERATION)guizmoOperation, (ImGuizmo::MODE)guizmoMode, w);
+		ImGuizmo::Manipulate(v, p, (ImGuizmo::OPERATION)guizmoOperation, (ImGuizmo::MODE)guizmoMode, w, nullptr, guizmoUseSnap ? snapNum : nullptr);
 
 		SetArrayMatrix(openObj_->transform_->matWorld_, w);
 

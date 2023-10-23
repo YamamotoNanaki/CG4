@@ -245,7 +245,7 @@ void IFE::LightManager::SetCircleShadowFactorAngle(int32_t index, const Float2& 
 
 void IFE::LightManager::Update()
 {
-	if (nextPNum_ >= s_PLIGHT_NUM)
+	if (nextPNum_ >= 50)
 	{
 		nextPNum_ = 0;
 	}

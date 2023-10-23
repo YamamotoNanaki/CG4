@@ -34,6 +34,7 @@ void IFE::Enemy::Initialize()
 
 void IFE::Enemy::Update()
 {
+	objectPtr_->DrawFlag_ = false;
 	Move();
 	if (hp_ == 2)
 	{

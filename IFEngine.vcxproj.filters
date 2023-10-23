@@ -166,6 +166,12 @@
     <Filter Include="ヘッダー ファイル\Engine\PostEffect">
       <UniqueIdentifier>{55643344-2e2f-4237-a664-2e2fb849b64a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Source\Object">
+      <UniqueIdentifier>{a2ad422e-8f19-486a-beb6-cf2c93fd9670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Source\Object">
+      <UniqueIdentifier>{8d15ca81-30ab-4cea-8dee-ae01730fa2d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -395,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="Source\EnemyBullet.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Lantern.cpp">
+      <Filter>ソース ファイル\Source\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -658,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="Source\ParticleSetting.h">
       <Filter>ヘッダー ファイル\Source\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lantern.h">
+      <Filter>ヘッダー ファイル\Source\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

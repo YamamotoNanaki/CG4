@@ -12,12 +12,12 @@ namespace IFE
 {
 	class LightManager
 	{
-	private:
-		static const int32_t s_LIGHT_MAX_ = 100;
-		static const int32_t s_PLIGHT_NUM = s_LIGHT_MAX_;
-		static const int32_t s_DLIGHT_NUM = 3;
-		static const int32_t s_SLIGHT_NUM = s_LIGHT_MAX_;
-		static const int32_t s_CSHADOW_NUM = s_LIGHT_MAX_;
+	public:
+		static const uint32_t s_LIGHT_MAX_ = 200;
+		static const uint32_t s_PLIGHT_NUM = s_LIGHT_MAX_;
+		static const uint32_t s_DLIGHT_NUM = 3;
+		static const uint32_t s_SLIGHT_NUM = 3;
+		static const uint32_t s_CSHADOW_NUM = 3;
 
 	public:
 		struct ConstBufferData

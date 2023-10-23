@@ -201,19 +201,23 @@ void IFE::Object3D::DebugGUI(bool fdelete, bool fmove, std::string* str)
 void IFE::Object3D::ComponentGUI()
 {
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
-	{
-		SetComponent(std::move(com));
-	};
+		{
+			SetComponent(std::move(com));
+		};
 	std::function<void(void)> es = [&]()
-	{
-		ImguiManager::Instance()->CheckBoxGUI(&DrawFlag_, "Draw Flag");
-	};
+		{
+			ImguiManager::Instance()->CheckBoxGUI(&DrawFlag_, "Draw Flag");
+		};
 	std::function<void(void)>f = [&]()
-	{
-		ImguiManager::Instance()->CollapsingHeaderGUI("Object Setting", es);
-		ComponentManager::DebugGUI();
-	};
-	ImguiManager::Instance()->ComponentGUI(objectName_, f, addFunc/*, modelFunc*/);
+		{
+			ImguiManager::Instance()->CollapsingHeaderGUI("Object Setting", es);
+			ComponentManager::DebugGUI();
+		};
+	std::function<void(Component*)>modelFunc = [&](Component* com)
+		{
+			model_ = com;
+		};
+	ImguiManager::Instance()->ComponentGUI(objectName_, f, addFunc, modelFunc);
 }
 
 void IFE::Object3D::OutputScene(nlohmann::json& j, bool flag)

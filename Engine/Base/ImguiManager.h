@@ -35,7 +35,7 @@ namespace IFE
 		void Demo();
 		void EndGUI();
 		void ObjectManagerGUI(bool* flagadd, bool* flagdelete, bool* prefab, bool* fmove);
-		void ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const std::function<void(Component*)>& modelFunc*/);
+		void ComponentGUI(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc, const std::function<void(Component*)>& modelFunc);
 		void ComponentGUI2D(const std::string& objectName, const std::function<void(void)>& ComponentFunc, const std::function<void(std::unique_ptr<Component>)>& addFunc/*, const std::function<void(std::string)>& texFunc*/);
 		bool ObjectGUI(const std::string& objectName, const  bool& flagdelete, const bool& move, bool* moveFlag, Object3D* obj);
 		bool SpriteGUI(const std::string& spriteName, const bool& flagdelete, const bool& m, bool* moveFlag);

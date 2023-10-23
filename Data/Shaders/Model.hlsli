@@ -26,8 +26,8 @@ cbuffer Material : register(b2)
     float alpha : packoffset(c3.w);
 };
 
-static const int LIGHT_MAX = 100;
-static const int DLIGHT_NUM = 3;
+static const int LIGHT_MAX = 3;
+static const int DLIGHT_NUM = LIGHT_MAX;
 
 struct DLight
 {
@@ -36,7 +36,7 @@ struct DLight
 	uint active;
 };
 
-static const int PLIGHT_NUM = LIGHT_MAX;
+static const int PLIGHT_NUM = 200;
 
 struct PLight
 {
