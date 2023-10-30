@@ -21,6 +21,8 @@
 - マテリアルの変更
 - テクスチャの変更
 - コライダーの追加
+- ポストエフェクトの調整
+- ライトの設置
 など
 
 ## 推奨環境
@@ -33,5 +35,7 @@
   - テクスチャの読み込みに使用
 - [Dear ImGui](https://github.com/ocornut/imgui)
   - エディタ画面のGUIに使用
+- [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo)
+  - エディタ画面の3dギズモに使用
 - [JSON for Modern C++](https://github.com/nlohmann/json)
   - シーンデータの書き込み及び読み込みに使用
