@@ -251,7 +251,6 @@ void IFE::Player::Death()
 	if (deathTimer_ > maxDeathTime_)
 	{
 		Scene::Instance()->SetNextScene("over");
-		//objectPtr_->Destroy();
 	}
 }
 
@@ -261,34 +260,11 @@ void IFE::Player::Gravity()
 	{
 		static Input* input = Input::Instance();
 		gravity_ = 0;
-		if (sMoveFlag_ && (input->GetKeyTrigger(Key::Z) || input->PadTriggere(PADCODE::ABXY)))
-		{
-			gravity_ = -1;
-		}
-		else return;
+		return;
 	}
 	gravity_ += 4.9f * IFETime::sDeltaTime_;
 	pos_.y -= gravity_;
 }
-
-//void IFE::Player::Start()
-//{
-//	Input* input = Input::Instance();
-//	if (input->GetPadConnected())
-//	{
-//		if (input->PadDown(PADCODE::ALL))
-//		{
-//			sMoveFlag_ = true;
-//		}
-//	}
-//	else
-//	{
-//		if (input->KeyDown(Key_Space))
-//		{
-//			sMoveFlag_ = true;
-//		}
-//	}
-//}
 
 
 #ifdef NDEBUG

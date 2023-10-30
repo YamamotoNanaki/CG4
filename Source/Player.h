@@ -47,7 +47,6 @@ namespace IFE
 
 	private:
 		void Move();
-		//void Start();
 		void Rota();
 		void EnemyCollide();
 		void Shoot();
