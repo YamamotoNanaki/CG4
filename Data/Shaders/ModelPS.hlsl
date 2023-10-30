@@ -29,6 +29,7 @@ PSOutput main(GSOutput input) : SV_TARGET
                 float3 dotlightnormal = dot(dLights[i].lightv, input.normal);
                 float3 reflect = normalize(-dLights[i].lightv + 2 * dotlightnormal * input.normal);
                 float3 diff = dotlightnormal * diffuse;
+                diff = diff <= 0 ? 0 : diff;
                 float3 spe = pow(saturate(dot(reflect, eyedir)), shininess) * specular;
 
                 shadecolor.rgb += (diff + spe) * dLights[i].lightcolor;
@@ -47,7 +48,9 @@ PSOutput main(GSOutput input) : SV_TARGET
                 float atten = 1.0f / (pLights[i].lightatten.x + pLights[i].lightatten.y * d + pLights[i].lightatten.z * d * d);
                 float3 dotlightnormal = dot(lightv, input.normal);
                 float3 reflect = normalize(-lightv + 2 * dotlightnormal * input.normal);
+                reflect = reflect <= 0 ? 0 : reflect;
                 float3 diff = dotlightnormal * diffuse;
+                diff = diff <= 0 ? 0 : diff;
                 float3 spe = pow(saturate(dot(reflect, eyedir)), shininess) * specular;
 
 			// ‘S‚Ä‰ÁŽZ‚·‚é
@@ -73,6 +76,7 @@ PSOutput main(GSOutput input) : SV_TARGET
                 float3 dotlightnormal = dot(lightv, input.normal);
                 float3 reflect = normalize(-lightv + 2 * dotlightnormal * input.normal);
                 float3 diff = dotlightnormal * diffuse;
+                diff = diff <= 0 ? 0 : diff;
                 float3 spe = pow(saturate(dot(reflect, eyedir)), shininess) * specular;
 
 			// ‘S‚Ä‰ÁŽZ‚·‚é
