@@ -12,8 +12,8 @@
             "CommonGameUI": null,
             "Transform2D": {
                 "position": [
-                    1440.0,
-                    630.0
+                    1485.0,
+                    667.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -41,13 +41,13 @@
             "CommonGameUI": null,
             "Transform2D": {
                 "position": [
-                    1440.0,
-                    750.0
+                    1250.0,
+                    780.0
                 ],
                 "rotation": 0.0,
                 "scale": [
-                    1.0,
-                    1.0
+                    0.75,
+                    0.75
                 ]
             },
             "component": [
@@ -86,6 +86,64 @@
             ],
             "name": "Reticle",
             "texture": "Reticle.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1380.0,
+                    760.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "controller",
+            "texture": "controller.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1500.0,
+                    795.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "AnalogR",
+            "texture": "AnalogR.png"
         }
     ]
 }

@@ -93,10 +93,6 @@ void IFE::Player::Update()
 
 void IFE::Player::OnColliderHit(Collider* collider)
 {
-	if (collider->GetObjectPtr()->GetComponent<Enemy>())
-	{
-		EnemyCollide();
-	}
 	if (collider->GetObjectPtr()->GetComponent<Bullet>())
 	{
 		transform_->position_ = pos_;

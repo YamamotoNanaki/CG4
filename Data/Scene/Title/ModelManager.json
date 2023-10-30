@@ -77,5 +77,13 @@
             "smooth": true
         },
         "name": "Rock1_Model"
+    },
+    {
+        "name": "torii_Model",
+        "torii_Model": {
+            "fileName": "torii",
+            "settings": 1,
+            "smooth": true
+        }
     }
 ]
