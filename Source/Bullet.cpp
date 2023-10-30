@@ -17,8 +17,9 @@ void IFE::Bullet::Update()
 
 void IFE::Bullet::OnColliderHit(Collider* collider)
 {
-	if (!collider->GetObjectPtr()->GetComponent<Player>())
+	if (!isHit_ && !collider->GetObjectPtr()->GetComponent<Player>() && collider->attribute_ != (uint16_t)IFE::Attribute::ALLIES)
 	{
+		isHit_ = true;
 		for (size_t i = 0; i < 3; i++)
 		{
 			auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
