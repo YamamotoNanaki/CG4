@@ -24,6 +24,18 @@ void IFE::BulletParticle::Update()
 		}
 		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 0.25f,0.5f,1.f });
 		break;
+	case (uint8_t)ParticleColorSetting::Green:
+		for (auto& p : emitterPtr_->particles_)
+		{
+			float g = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+			float b = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
+			float r = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
+			float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+			p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, g });
+			p->transform_->scale_ = { s,s,s };
+		}
+		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 0.25f,1.f,0.5f });
+		break;
 	default:
 		for (auto& p : emitterPtr_->particles_)
 		{
@@ -37,19 +49,7 @@ void IFE::BulletParticle::Update()
 		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 1.f,0.5f,0.25f });
 		break;
 	}
-	Float3 pos = *bulletPos_ + Float3(IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f));
-	auto p = emitterPtr_->AddParticle(pos);
-	p->AddComponent<ColorBuffer>();
-	p->GetComponent<ColorBuffer>()->SetColor({ 1.f, 1.f, 1.f, 1.f });
-	p->transform_->scale_ = { 0.15f,0.15f,0.15f };
-	pos = *bulletPos_ + Float3(IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f));
-	auto p2 = emitterPtr_->AddParticle(pos);
-	p2->AddComponent<ColorBuffer>();
-	p2->GetComponent<ColorBuffer>()->SetColor({ 1.f, 1.f, 1.f, 1.f });
-	p2->transform_->scale_ = { 0.15f,0.15f,0.15f };
-	emitterPtr_->deleteFlag_ = bullet_->GetDeleteFlag();
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, *bulletPos_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.0001f,0.001f,0.0001f });
+	AddBulletParticle();
 }
 
 void IFE::BulletParticle::SetBullet(Object3D* bullet)
@@ -87,3 +87,21 @@ IFE::BulletParticle::~BulletParticle()
 {
 	LightManager::Instance()->SetPointLightActive(pointLightNum_, false);
 }
+
+void IFE::BulletParticle::AddBulletParticle()
+{
+	Float3 pos = *bulletPos_ + Float3(IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f));
+	auto p = emitterPtr_->AddParticle(pos);
+	p->AddComponent<ColorBuffer>();
+	p->GetComponent<ColorBuffer>()->SetColor({ 1.f, 1.f, 1.f, 1.f });
+	p->transform_->scale_ = { 0.15f,0.15f,0.15f };
+	pos = *bulletPos_ + Float3(IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f), IFERand::GetRandF(-0.3f, 0.3f));
+	auto p2 = emitterPtr_->AddParticle(pos);
+	p2->AddComponent<ColorBuffer>();
+	p2->GetComponent<ColorBuffer>()->SetColor({ 1.f, 1.f, 1.f, 1.f });
+	p2->transform_->scale_ = { 0.15f,0.15f,0.15f };
+	emitterPtr_->deleteFlag_ = bullet_->GetDeleteFlag();
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, *bulletPos_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.0001f,0.001f,0.0001f });
+}
+

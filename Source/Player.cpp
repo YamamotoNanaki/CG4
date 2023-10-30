@@ -215,7 +215,7 @@ void IFE::Player::Shoot()
 		if (emitter)
 		{
 			emitter->GetComponent<BulletParticle>()->SetBullet(bullet);
-			auto col = IFERand::GetRand(0, 1);
+			auto col = IFERand::GetRand(0, 2);
 			emitter->GetComponent<BulletParticle>()->SetColor((uint8_t)col);
 			emitter->isActive_ = true;
 			bullet->GetComponent<Bullet>()->SetBulletEmitter(emitter);

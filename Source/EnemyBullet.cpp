@@ -19,10 +19,13 @@ void IFE::EnemyBullet::OnColliderHit(Collider* collider)
 {
 	if (!collider->GetObjectPtr()->GetComponent<Enemy>() && !collider->GetObjectPtr()->GetComponent<Boss>())
 	{
-		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
-		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
-		e->GetComponent<FireworkChrysanthemum>()->SetColor(bulletEmitter_->GetComponent<BulletParticle>()->GetColor());
-		objectPtr_->Destroy();
+		for (size_t i = 0; i < 3; i++)
+		{
+			auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+			e->GetComponent<FireworkChrysanthemum>()->StartFirework(i);
+			e->GetComponent<FireworkChrysanthemum>()->SetColor(bulletEmitter_->GetComponent<BulletParticle>()->GetColor());
+			objectPtr_->Destroy();
+		}
 	}
 }
 

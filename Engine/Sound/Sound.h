@@ -52,10 +52,10 @@ namespace IFE
 		void SoundUnLoad(uint16_t soundNum);
 		void AllUnLoad();
 		void SetVolume(uint16_t soundNum, std::int32_t volume);
-		void SoundPlay(uint16_t soundNum, bool roop = true);
+		void SoundPlay(uint16_t soundNum, bool roop = true, bool stop = false);
 		void StopSound(uint16_t soundNum);
 		void SetVolume(std::string soundName, std::int32_t volume);
-		void SoundPlay(std::string soundName, bool roop = true);
+		void SoundPlay(std::string soundName, bool roop = true, bool stop = false);
 		void StopSound(std::string soundName);
 		void AllStop();
 		static Sound* Instance();

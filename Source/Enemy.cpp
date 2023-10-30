@@ -136,10 +136,10 @@ void IFE::Enemy::Detection()
 void IFE::Enemy::Attack()
 {
 
-	auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
-	e->GetComponent<FireworkChrysanthemum>()->StartFirework();
+	//auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+	//e->GetComponent<FireworkChrysanthemum>()->StartFirework();
 
-	objectPtr_->Destroy();
+	//objectPtr_->Destroy();
 }
 
 void IFE::Enemy::Death()

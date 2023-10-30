@@ -19,5 +19,8 @@ namespace IFE
 		void SetColor(uint8_t colorSetting);
 		uint8_t GetColor();
 		~BulletParticle();
+
+	private:
+		void AddBulletParticle();
 	};
 }

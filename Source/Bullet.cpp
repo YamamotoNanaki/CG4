@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "FireworkChrysanthemum.h"
 #include "BulletParticle.h"
+#include "Sound.h"
 
 void IFE::Bullet::Update()
 {
@@ -18,9 +19,13 @@ void IFE::Bullet::OnColliderHit(Collider* collider)
 {
 	if (!collider->GetObjectPtr()->GetComponent<Player>())
 	{
-		auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
-		e->GetComponent<FireworkChrysanthemum>()->StartFirework();
-		e->GetComponent<FireworkChrysanthemum>()->SetColor(bulletEmitter_->GetComponent<BulletParticle>()->GetColor());
+		for (size_t i = 0; i < 3; i++)
+		{
+			auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+			e->GetComponent<FireworkChrysanthemum>()->StartFirework(i);
+			e->GetComponent<FireworkChrysanthemum>()->SetColor(bulletEmitter_->GetComponent<BulletParticle>()->GetColor());
+		}
+		Sound::Instance()->SoundPlay("Firework", false);
 		objectPtr_->Destroy();
 	}
 }
