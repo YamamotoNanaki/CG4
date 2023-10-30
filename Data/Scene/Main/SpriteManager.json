@@ -6,14 +6,13 @@
                     1.0,
                     1.0,
                     1.0,
-                    1.0
+                    0.0
                 ]
             },
-            "CommonGameUI": null,
             "Transform2D": {
                 "position": [
-                    1485.0,
-                    667.0
+                    1066.0,
+                    450.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -23,8 +22,7 @@
             },
             "component": [
                 "Transform2D",
-                "ColorBuffer",
-                "CommonGameUI"
+                "ColorBuffer"
             ],
             "name": "ButtonR",
             "texture": "ButtonR.png"
@@ -35,14 +33,14 @@
                     1.0,
                     1.0,
                     1.0,
-                    1.0
+                    0.0
                 ]
             },
             "CommonGameUI": null,
             "Transform2D": {
                 "position": [
-                    1250.0,
-                    780.0
+                    534.0,
+                    450.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -64,7 +62,7 @@
                     1.0,
                     1.0,
                     1.0,
-                    1.0
+                    0.0
                 ]
             },
             "CommonGameUI": null,
@@ -93,7 +91,7 @@
                     1.0,
                     1.0,
                     1.0,
-                    1.0
+                    0.0
                 ]
             },
             "CommonGameUI": null,
@@ -122,14 +120,14 @@
                     1.0,
                     1.0,
                     1.0,
-                    1.0
+                    0.0
                 ]
             },
             "CommonGameUI": null,
             "Transform2D": {
                 "position": [
-                    1500.0,
-                    795.0
+                    1066.0,
+                    450.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -144,6 +142,91 @@
             ],
             "name": "AnalogR",
             "texture": "AnalogR.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1066.0,
+                    345.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "kamera",
+            "texture": "kamera.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.0
+                ]
+            },
+            "Transform2D": {
+                "position": [
+                    1066.0,
+                    345.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer"
+            ],
+            "name": "kougeki",
+            "texture": "kougeki.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    534.0,
+                    345.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "idou",
+            "texture": "idou.png"
         }
     ]
 }

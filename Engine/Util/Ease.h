@@ -27,6 +27,7 @@ namespace IFE
 
 	float InOutQuad(float startPos, float endPos, float maxTime, float time);
 	IFE::Float3 InOutQuad(const IFE::Float3& startPos, const IFE::Float3& endPos, float maxTime, float time);
+	IFE::Float2 InOutQuad(const IFE::Float2& startPos, const IFE::Float2& endPos, float maxTime, float time);
 
 	float EaseInBack(float startPos, float endPos, float maxTime, float time);
 

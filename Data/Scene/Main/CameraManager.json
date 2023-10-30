@@ -14,16 +14,16 @@
         "StartCamera": null,
         "TransformCamera": {
             "position": [
-                -99.0,
-                321.25,
-                113.75
+                0.0,
+                562.75,
+                -268.5
             ],
             "projectionSize": [
                 1600.0,
                 900.0
             ],
             "rotation": [
-                71.0,
+                83.0,
                 360.0,
                 360.0
             ]

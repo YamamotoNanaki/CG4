@@ -11,6 +11,7 @@ void GameInit::Initialize()
 	SetInitMaterial("Bush1");
 	SetInitMaterial("Rock1");
 	SetInitMaterial("girl");
+	SetInitMaterial("torii");
 }
 
 void GameInit::SetInitMaterial(std::string modelName)

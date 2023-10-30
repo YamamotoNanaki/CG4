@@ -61,6 +61,11 @@ IFE::Float3 IFE::InOutQuad(const IFE::Float3& startPos, const IFE::Float3& endPo
 			 InOutQuad(startPos.y, endPos.y, maxTime, time),
 			 InOutQuad(startPos.z, endPos.z, maxTime, time) };
 }
+IFE::Float2 IFE::InOutQuad(const IFE::Float2& startPos, const IFE::Float2& endPos, float maxTime, float time)
+{
+	return { InOutQuad(startPos.x, endPos.x, maxTime, time),
+			 InOutQuad(startPos.y, endPos.y, maxTime, time)};
+}
 float IFE::OutInRelayQuad(float startPos, float endPos, float relayPos, float maxTime, float relayTime, float time) {
 	if (time < relayTime) {
 		return IFE::OutQuad(relayPos, startPos, relayTime, time);
