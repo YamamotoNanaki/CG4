@@ -68,7 +68,7 @@ void IFE::Enemy::Update()
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
 	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
-	if (bullet)
+	if (hp_ > 0 && bullet)
 	{
 		hp_--;
 		hitTimer_ = 0;
@@ -76,10 +76,6 @@ void IFE::Enemy::OnColliderHit(Collider* collider)
 		hitPos_ = transform_->position_;
 		hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
 		action_ = (uint8_t)EnemyAction::Hit;
-	}
-	if (collider->GetObjectPtr()->GetComponent<Player>())
-	{
-		action_ = (uint8_t)EnemyAction::Attack;
 	}
 }
 
