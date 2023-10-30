@@ -25,7 +25,7 @@ namespace IFE
 		uint8_t nowPoint_ = 0;
 
 		//敵のHP
-		uint8_t hp_ = 2;
+		uint8_t hp_ = 1;
 		bool attackFlag_ = false;
 		float hitTimer_ = 0;
 		inline static float sMaxHitTime_ = 0.5f;
@@ -36,12 +36,14 @@ namespace IFE
 		static Transform* playerTransform_;
 		//死亡演出用の時間
 		float deathDirectionTimer_;
-		float deathDirectionMaxTime_ = 0.5;
+		float deathDirectionMaxTime_ = 5;
 		//攻撃演出用の時間
 		float attackDirectionTimer_;
 		float attackDirectionMaxTime_ = 0.5;
 		//発見距離
 		inline const static float sDetectionDistance_ = 80;
+
+		bool visual_ = false;
 
 	public:
 		void Initialize()override;
@@ -50,7 +52,7 @@ namespace IFE
 
 		//プレイヤーのトランスフォーム参照用
 		static void SetPlayerTransform(Transform* transform);
-
+		uint8_t GetHP();
 	private:
 		void Move();
 		//停止または待機

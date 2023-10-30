@@ -30,6 +30,7 @@
 #include "EnemyBullet.h"
 #include "Lantern.h"
 #include "GameInit.h"
+#include "SpiritFire.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -75,6 +76,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<TestParticle>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Player>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<SpiritFire>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Animator>(str));
 	if (tmp != nullptr)return tmp;

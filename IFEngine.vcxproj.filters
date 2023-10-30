@@ -414,6 +414,9 @@
     <ClCompile Include="Source\GameInit.cpp">
       <Filter>ソース ファイル\Source\Other</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SpiritFire.cpp">
+      <Filter>ソース ファイル\Source\Emitter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -682,6 +685,9 @@
     </ClInclude>
     <ClInclude Include="Source\GameInit.h">
       <Filter>ヘッダー ファイル\Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpiritFire.h">
+      <Filter>ヘッダー ファイル\Source\Emitter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

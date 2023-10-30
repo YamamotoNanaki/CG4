@@ -199,6 +199,10 @@ void IFE::ParticleManager::OutputScene()
 	uint32_t i = 0;
 	for (auto& itr : emitterList_)
 	{
+		if (itr->emitterName_.find("(add)") != std::string::npos)
+		{
+			continue;
+		}
 		itr->OutputScene(j[i]);
 		i++;
 	}

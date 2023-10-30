@@ -10,6 +10,7 @@
 #include "FireworkChrysanthemum.h"
 #include "Ease.h"
 #include "Player.h"
+#include "SpiritFire.h"
 
 using namespace IFE;
 
@@ -29,6 +30,15 @@ void IFE::Enemy::Initialize()
 	if (objectPtr_->GetComponent<Material>())
 	{
 		objectPtr_->GetComponent<Material>()->bloom_ = true;
+	}
+	if (!visual_)
+	{
+		auto spirit = ParticleManager::Instance()->Instantiate("SpiritFire");
+		if (spirit)
+		{
+			spirit->GetComponent<SpiritFire>()->SetEnemy(objectPtr_);
+			visual_ = true;
+		}
 	}
 }
 
@@ -76,6 +86,11 @@ void IFE::Enemy::OnColliderHit(Collider* collider)
 void IFE::Enemy::SetPlayerTransform(Transform* transform)
 {
 	playerTransform_ = transform;
+}
+
+uint8_t IFE::Enemy::GetHP()
+{
+	return hp_;
 }
 
 void IFE::Enemy::Move()
@@ -145,12 +160,6 @@ void IFE::Enemy::Attack()
 void IFE::Enemy::Death()
 {
 	deathDirectionTimer_ += IFETime::sDeltaTime_;
-	auto tgb = objectPtr_->GetComponent<TransferGeometryBuffer>();
-	tgb->explosion_ = deathDirectionTimer_ * 150;
-	tgb->rotation_ = deathDirectionTimer_ * 25;
-	tgb->gravity_ = deathDirectionTimer_ * 35;
-	tgb->polygonSize_ = Lerp(5, 0, deathDirectionMaxTime_, deathDirectionTimer_);
-	objectPtr_->GetComponent<Material>()->color_.z = Lerp(1, 0, deathDirectionMaxTime_, deathDirectionTimer_);
 	if (deathDirectionTimer_ > deathDirectionMaxTime_)
 	{
 		sDeathEnemyNum_++;
