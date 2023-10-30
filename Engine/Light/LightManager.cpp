@@ -283,7 +283,7 @@ void IFE::LightManager::DebugGUI()
 		Float3 color = dLight_[num].GetLightColor();
 
 		imgui->CheckBoxGUI(&active, "active");
-		imgui->DragFloat3GUI(&dir, "dir");
+		imgui->DragFloat3GUI(&dir, "dir", 0.01f);
 		imgui->ColorEdit3GUI(&color, "color");
 
 		SetDirLightActive(num, active);

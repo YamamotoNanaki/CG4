@@ -172,6 +172,12 @@
     <Filter Include="ソース ファイル\Source\Object">
       <UniqueIdentifier>{8d15ca81-30ab-4cea-8dee-ae01730fa2d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Source\Other">
+      <UniqueIdentifier>{9064e8bd-7c76-45fb-923e-68886e286d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Source\Other">
+      <UniqueIdentifier>{d44ec7ea-4272-4f9e-bde4-6a13328b60c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -404,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="Source\Lantern.cpp">
       <Filter>ソース ファイル\Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameInit.cpp">
+      <Filter>ソース ファイル\Source\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -670,6 +679,9 @@
     </ClInclude>
     <ClInclude Include="Source\Lantern.h">
       <Filter>ヘッダー ファイル\Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameInit.h">
+      <Filter>ヘッダー ファイル\Source\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

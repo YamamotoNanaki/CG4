@@ -29,6 +29,7 @@
 #include "Boss.h"
 #include "EnemyBullet.h"
 #include "Lantern.h"
+#include "GameInit.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -104,6 +105,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<Boss>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Lantern>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<GameInit>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

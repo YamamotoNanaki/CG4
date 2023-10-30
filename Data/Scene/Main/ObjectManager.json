@@ -1,5 +1,11 @@
 [
     {
+        "GameInit": [
+            0.034313738346099854,
+            0.034313738346099854,
+            0.034313738346099854,
+            1.0
+        ],
         "Material": {
             "ambient": [
                 1.0,
@@ -53,7 +59,8 @@
         "component": [
             "Transform",
             "TransferGeometryBuffer",
-            "Material"
+            "Material",
+            "GameInit"
         ],
         "drawFlag": true,
         "model": "skydome_Model",

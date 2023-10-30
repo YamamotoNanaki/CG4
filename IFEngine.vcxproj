@@ -83,6 +83,7 @@
     <ClCompile Include="Source\EnemyBullet.cpp" />
     <ClCompile Include="Source\EnemyCountUI.cpp" />
     <ClCompile Include="Source\FireworkChrysanthemum.cpp" />
+    <ClCompile Include="Source\GameInit.cpp" />
     <ClCompile Include="Source\Goal.cpp" />
     <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\Lantern.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Source\EnemyBullet.h" />
     <ClInclude Include="Source\EnemyCountUI.h" />
     <ClInclude Include="Source\FireworkChrysanthemum.h" />
+    <ClInclude Include="Source\GameInit.h" />
     <ClInclude Include="Source\Goal.h" />
     <ClInclude Include="Source\HPbar.h" />
     <ClInclude Include="Source\Lantern.h" />
