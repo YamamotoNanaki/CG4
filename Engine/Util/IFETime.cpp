@@ -35,7 +35,7 @@ void IFE::IFETime::Update()
 	milliseconds dt = duration_cast<milliseconds>(sNowTime_ - sFrontTime_);
 
 	sTime_ = (float)t.count() / 1000.f;
-	sNoScaleDeltaTime_ = (float)dt.count() / 1000.f;
+	sNoScaleDeltaTime_ = min((float)dt.count() / 1000.f, 1.0f);
 	sTimeScale_ = max(0.f, sTimeScale_);
 	sDeltaTime_ = sNoScaleDeltaTime_ * sTimeScale_;
 }

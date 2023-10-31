@@ -46,8 +46,10 @@
             ]
         },
         "FireworkChrysanthemum": {
-            "sScale": 0.25,
-            "sStartSpeed": 30.0
+            "sScale": 0.10000000149011612,
+            "sStartSpeed": 15.0,
+            "sStartSpeed1": 25.0,
+            "sStartSpeed2": 30.0
         },
         "TransformParticle": {
             "position": [
@@ -74,6 +76,43 @@
         "isActive": false,
         "maxTime": 4.0,
         "name": "Chrysanthemum",
+        "texture": "particle.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "SpiritFire": null,
+        "TransformParticle": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "TransformParticle",
+            "ColorBuffer",
+            "SpiritFire"
+        ],
+        "isActive": false,
+        "maxTime": 5.0,
+        "name": "SpiritFire",
         "texture": "particle.png"
     }
 ]

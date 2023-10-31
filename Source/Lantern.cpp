@@ -18,8 +18,8 @@ void IFE::Lantern::Initialize()
 			useLightNum_ = lightNumOffset_ + lightNum_;
 			useLightFlag_ = true;
 			lightNum_++;
-			LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.025f,0.0025f });
-			LightManager::Instance()->SetPointLightColor(useLightNum_, { 1,0.55f,0 });
+			LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0015f,0.015f,0.0015f });
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.75f,0.35f,0 });
 			LightManager::Instance()->SetPointLightActive(useLightNum_, lightFlag_);
 			LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
 		}
