@@ -112,5 +112,8 @@ float4 main(VSOutput input) : SV_TARGET
     texcolor = GaussianBlur(input.uv, tex0, shift);
     texcolor += GaussianBlur(input.uv, tex1);
 
+    texcolor = pow(texcolor, 1.25);
+    
+    
     return texcolor;
 }

@@ -48,6 +48,7 @@ namespace IFE
 	public:
 		void Initialize();
 		void TransferConstBuffer();
+		void SetConstBufferPointLight(uint8_t index);
 		void DefaultLightSetting();
 		void SetAmbientColor(const Float3& color);
 		void SetDirLightActive(int32_t index, bool active);

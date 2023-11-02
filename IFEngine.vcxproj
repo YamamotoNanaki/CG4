@@ -90,6 +90,7 @@
     <ClCompile Include="Source\OverUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerCamera.cpp" />
+    <ClCompile Include="Source\PlayerLantern.cpp" />
     <ClCompile Include="Source\SpiritFire.cpp" />
     <ClCompile Include="Source\StartCamera.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\ParticleSetting.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerCamera.h" />
+    <ClInclude Include="Source\PlayerLantern.h" />
     <ClInclude Include="Source\SpiritFire.h" />
     <ClInclude Include="Source\StartCamera.h" />
     <ClInclude Include="Source\TestParticle.h" />

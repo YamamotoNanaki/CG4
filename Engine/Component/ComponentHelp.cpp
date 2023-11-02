@@ -33,6 +33,7 @@
 #include "SpiritFire.h"
 #include "TutorialMove.h"
 #include "TutorialAttack.h"
+#include "PlayerLantern.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -116,6 +117,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<TutorialMove>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TutorialAttack>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PlayerLantern>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

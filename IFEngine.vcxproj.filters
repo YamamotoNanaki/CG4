@@ -423,6 +423,9 @@
     <ClCompile Include="Source\TutorialAttack.cpp">
       <Filter>ソース ファイル\Source\Area</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayerLantern.cpp">
+      <Filter>ソース ファイル\Source\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -700,6 +703,9 @@
     </ClInclude>
     <ClInclude Include="Source\TutorialAttack.h">
       <Filter>ヘッダー ファイル\Source\Area</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerLantern.h">
+      <Filter>ヘッダー ファイル\Source\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

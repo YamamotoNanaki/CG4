@@ -125,9 +125,9 @@
                 360.0
             ],
             "scale": [
-                5.0,
-                5.0,
-                5.0
+                4.999999523162842,
+                4.999998569488525,
+                4.999999523162842
             ]
         },
         "component": [
@@ -15516,6 +15516,69 @@
         "drawFlag": false,
         "model": "cube_Model",
         "name": "tutorialMove1",
+        "prefab": false
+    },
+    {
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "PlayerLantern": null,
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                0.0,
+                0.50000000298023224,
+                0.20000000298023224
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                0.15000000596046448,
+                0.20000000298023224,
+                0.15000000596046448
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "PlayerLantern"
+        ],
+        "drawFlag": true,
+        "model": "lantern_Model",
+        "name": "player_lantern",
         "prefab": false
     },
     {

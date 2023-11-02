@@ -67,6 +67,22 @@ void IFE::LightManager::TransferConstBuffer()
 	}
 }
 
+void IFE::LightManager::SetConstBufferPointLight(uint8_t index)
+{
+	ConstBufferData* constMap = constBuff_->GetCBMapObject();
+	constMap->ambientColor = ambientColor_;
+	if (pLight_[index].IsActive()) {
+		constMap->pLights[index].active = 1;
+		constMap->pLights[index].lightPos = pLight_[index].GetLightPos();
+		constMap->pLights[index].lightColor = pLight_[index].GetLightColor();
+		constMap->pLights[index].lightAtten = pLight_[index].GetLightAtten();
+	}
+	else
+	{
+		constMap->pLights[index].active = 0;
+	}
+}
+
 void IFE::LightManager::DefaultLightSetting()
 {
 	dLight_[0].SetActive(true);

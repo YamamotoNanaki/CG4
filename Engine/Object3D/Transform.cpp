@@ -22,6 +22,10 @@ void IFE::Transform::Update()
 void IFE::Transform::Draw()
 {
 	UpdateMatrix();
+	if (parent_)
+	{
+		matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ğŠ|‚¯Z‚·‚é
+	}
 	camera_ = CameraManager::sActivCamera_;
 	constMapTransform_->world = matWorld_;
 	if (!camera_)
@@ -77,14 +81,6 @@ void IFE::Transform::UpdateMatrix()
 	if (parent_ == nullptr && objectPtr_->parent_ != nullptr)
 	{
 		parent_ = objectPtr_->parent_->GetComponent<Transform>();
-	}
-	if (parent_ != nullptr)
-	{
-		parent_->UpdateMatrix();
-		matWorld_ *= parent_->matWorld_;//e‚Ìs—ñ‚ğŠ|‚¯Z‚·‚é
-		matScale_ *= parent_->matScale_;//e‚ÌƒXƒP[ƒŠƒ“ƒOs—ñ‚àŠ|‚¯Z‚·‚é
-		matRot_ *= parent_->matRot_;//e‚Ì‰ñ“]s—ñ‚àŠ|‚¯Z‚·‚é
-		matTrans_ *= parent_->matTrans_;//e‚Ì•½sˆÚ“®s—ñ‚àŠ|‚¯Z‚·‚é
 	}
 	Matrix ls = matScale_ * matRot_;
 	lossyScale_ = { ls.m[0][0],ls.m[1][1],ls.m[2][2] };
@@ -142,7 +138,13 @@ void IFE::Transform::MovePushBack(Vector3 move)
 Vector3 Transform::GetWorldPosition()
 {
 	UpdateMatrix();
-	return Matrix::Transform({ 0,0,0 }, matWorld_);
+	Matrix rMat = matWorld_;
+	if (parent_)
+	{
+		parent_->UpdateMatrix();
+		rMat *= parent_->matWorld_;//e‚Ìs—ñ‚ğŠ|‚¯Z‚·‚é
+	}
+	return Matrix::Transform({ 0,0,0 }, rMat);
 }
 
 void Transform::SetWorldPosition(const Vector3& worldPos)
