@@ -20,6 +20,9 @@ namespace IFE
 		//プレイヤーを見つけたかどうか
 		bool isFoundPlayer_ = false;
 
+		//使用ライトナンバー
+		uint8_t useLightNum_ = (uint8_t)-1;
+
 		//巡回地点
 		std::vector<Float3>patrolPoint_;
 		uint8_t nowPoint_ = 0;

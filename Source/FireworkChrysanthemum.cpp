@@ -76,11 +76,11 @@ void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 		useSpeed_ = sStartSpeed2_;
 	}
 	speed_ = useSpeed_;
-	LightManager::Instance()->SetPointLightActive(LightManager::nextPNum_, true);
-	LightManager::Instance()->SetPointLightPos(LightManager::nextPNum_, transformParticle_->position_);
-	LightManager::Instance()->SetPointLightAtten(LightManager::nextPNum_, { 0.001f,0,0 });
-	pointLightNum_ = LightManager::nextPNum_;
-	LightManager::nextPNum_++;
+
+	pointLightNum_ = LightManager::GetPointLightNumber();
+	LightManager::Instance()->SetPointLightActive(pointLightNum_, true);
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.001f,0,0 });
 }
 
 void IFE::FireworkChrysanthemum::SetColor(const uint8_t& colorSetting)

@@ -122,6 +122,11 @@ void IFE::LightManager::SetPointLightActive(int32_t index, bool active)
 	dirty_ = true;
 }
 
+bool IFE::LightManager::GetPointLightIsActive(int32_t index)
+{
+	return pLight_[index].IsActive();
+}
+
 void IFE::LightManager::SetPointLightPos(int32_t index, const Float3& lightpos)
 {
 	assert(0 <= index && index < s_PLIGHT_NUM);
@@ -245,15 +250,37 @@ void IFE::LightManager::SetCircleShadowFactorAngle(int32_t index, const Float2& 
 
 void IFE::LightManager::Update()
 {
-	if (nextPNum_ >= 50)
-	{
-		nextPNum_ = 0;
-	}
 	if (dirty_)
 	{
 		TransferConstBuffer();
 		dirty_ = false;
 	}
+}
+
+uint8_t IFE::LightManager::GetPointLightNumber()
+{
+	uint8_t returnNum = (uint8_t)-1;
+	for (size_t i = 0; i < s_PLIGHT_NUM; i++)
+	{
+		if (!Instance()->pLight_[sNextPNum_].IsActive())
+		{
+			returnNum = sNextPNum_;
+			sNextPNum_++;
+		}
+		else
+		{
+			sNextPNum_++;
+		}
+		if (sNextPNum_ >= s_PLIGHT_NUM)
+		{
+			sNextPNum_ -= s_PLIGHT_NUM;
+		}
+		if (returnNum != uint8_t(-1))
+		{
+			break;
+		}
+	}
+	return returnNum;
 }
 
 void IFE::LightManager::Draw(uint32_t rootParameterIndex)

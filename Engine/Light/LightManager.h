@@ -29,7 +29,8 @@ namespace IFE
 			SLight::ConstSLightData sLights[s_SLIGHT_NUM];
 			CShadow::ConstCShadowData cShadows[s_CSHADOW_NUM];
 		};
-		inline static uint8_t nextPNum_ = 0;
+	private:
+		inline static uint8_t sNextPNum_ = 0;
 
 	private:
 		std::unique_ptr<ConstBuffer<ConstBufferData>>constBuff_;
@@ -53,6 +54,7 @@ namespace IFE
 		void SetDirLightDir(int32_t index, const Vector3& lightdir);
 		void SetDirLightColor(int32_t index, const Float3& lightcolor);
 		void SetPointLightActive(int32_t index, bool active);
+		bool GetPointLightIsActive(int32_t index);
 		void SetPointLightPos(int32_t index, const Float3& lightpos);
 		void SetPointLightColor(int32_t index, const Float3& lightcolor);
 		void SetPointLightAtten(int32_t index, const Float3& lightAtten);
@@ -69,6 +71,7 @@ namespace IFE
 		void SetCircleShadowAtten(int32_t index, const Float3& shadowAtten);
 		void SetCircleShadowFactorAngle(int32_t index, const Float2& shadowFactorAngle);
 		void Update();
+		static uint8_t GetPointLightNumber();
 		void Draw(uint32_t rootParameterIndex);
 		static LightManager* Instance();
 		static void Finalize();

@@ -11,6 +11,7 @@
 #include "Ease.h"
 #include "Player.h"
 #include "SpiritFire.h"
+#include "LightManager.h"
 
 using namespace IFE;
 
@@ -40,23 +41,23 @@ void IFE::Enemy::Initialize()
 			visual_ = true;
 		}
 	}
+	if (useLightNum_ == uint8_t(-1))
+	{
+		useLightNum_ = LightManager::GetPointLightNumber();
+		LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.015f,0.0025f });
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,1.05f,2.55f });
+		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
+		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
+	}
 }
 
 void IFE::Enemy::Update()
 {
 	objectPtr_->DrawFlag_ = false;
 	Move();
-	if (hp_ == 2)
+	LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
+	if (hp_ == 0)
 	{
-		//objectPtr_->GetComponent<Material>()->color_ = { 1,0,0,1 };
-	}
-	else if (hp_ == 1)
-	{
-		//objectPtr_->GetComponent<Material>()->color_ = { 0,1,0,1 };
-	}
-	else
-	{
-		//objectPtr_->GetComponent<Material>()->color_ = { 0,0,1,1 };
 		action_ = (uint8_t)EnemyAction::Death;
 	}
 	if (action_ == (uint8_t)EnemyAction::Attack)
@@ -156,9 +157,13 @@ void IFE::Enemy::Attack()
 void IFE::Enemy::Death()
 {
 	deathDirectionTimer_ += IFETime::sDeltaTime_;
+	float xz = OutQuad(0.0025f, 1, deathDirectionMaxTime_, deathDirectionTimer_);
+	float y = OutQuad(0.015f, 1, deathDirectionMaxTime_, deathDirectionTimer_);
+	LightManager::Instance()->SetPointLightAtten(useLightNum_, { xz,y,xz });
 	if (deathDirectionTimer_ > deathDirectionMaxTime_)
 	{
 		sDeathEnemyNum_++;
+		LightManager::Instance()->SetPointLightActive(useLightNum_, false);
 		objectPtr_->Destroy();
 	}
 }

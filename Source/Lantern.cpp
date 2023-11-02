@@ -13,11 +13,10 @@ void IFE::Lantern::Initialize()
 	}
 	if (!useLightFlag_)
 	{
-		if (lightNumOffset_ + lightNum_ < LightManager::Instance()->s_PLIGHT_NUM)
+		useLightNum_ = LightManager::GetPointLightNumber();
+		if (useLightNum_ != uint8_t(-1))
 		{
-			useLightNum_ = lightNumOffset_ + lightNum_;
 			useLightFlag_ = true;
-			lightNum_++;
 			LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0015f,0.015f,0.0015f });
 			LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.75f,0.35f,0 });
 			LightManager::Instance()->SetPointLightActive(useLightNum_, lightFlag_);
