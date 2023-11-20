@@ -1,4 +1,4 @@
-#include "OldPostEffect.h"
+#include "IPostEffect.h"
 #include "WindowsAPI.h"
 #include "GraphicsAPI.h"
 #include "JsonManager.h"
@@ -6,30 +6,10 @@
 #include <d3dx12.h>
 #include <d3dcompiler.h>
 
-#pragma comment(lib,"d3dcompiler.lib")
-
-using namespace IFE;
-using namespace Microsoft::WRL;
-
-const float OldPostEffect::clearColor[4] = { 0,0,0,0.0f };
-
-OldPostEffect::OldPostEffect() :Sprite() {}
-
-IFE::OldPostEffect::~OldPostEffect()
-{
-}
-
-void OldPostEffect::Draw(bool add)
+void IFE::IPostEffect::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
-	if (add)
-	{
-		cmdList->SetPipelineState(pipelineStateAdd.Get());
-	}
-	else
-	{
-		cmdList->SetPipelineState(pipelineState.Get());
-	}
+	cmdList->SetPipelineState(pipelineState.Get());
 	cmdList->SetGraphicsRootSignature(rootSignature.Get());
 	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
@@ -51,12 +31,12 @@ void OldPostEffect::Draw(bool add)
 	cmdList->DrawInstanced(4, 1, 0, 0);
 }
 
-void IFE::OldPostEffect::Update()
+void IFE::IPostEffect::Update()
 {
 	Sprite::Update();
 }
 
-void OldPostEffect::Initialize()
+void IFE::IPostEffect::Initialize()
 {
 	HRESULT result;
 
@@ -66,20 +46,11 @@ void OldPostEffect::Initialize()
 
 	Sprite::Initialize();
 
-	SetVBInit();
+	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
+		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, w, h,
+		1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 
-	D3D12_RESOURCE_DESC texresDesc{};
-	texresDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	texresDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-	texresDesc.Width = w;
-	texresDesc.Height = h;
-	texresDesc.DepthOrArraySize = 1;
-	texresDesc.MipLevels = 1;
-	texresDesc.SampleDesc.Count = 1;
-	texresDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
-
-	D3D12_HEAP_PROPERTIES c{};
-	c.Type = D3D12_HEAP_TYPE_DEFAULT;
+	D3D12_HEAP_PROPERTIES c = CD3DX12_HEAP_PROPERTIES(D3D12_CPU_PAGE_PROPERTY_WRITE_BACK, D3D12_MEMORY_POOL_L0);
 
 	D3D12_CLEAR_VALUE d = CD3DX12_CLEAR_VALUE(DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, clearColor);
 
@@ -90,6 +61,20 @@ void OldPostEffect::Initialize()
 			&d, IID_PPV_ARGS(&texBuff[i]));
 		assert(SUCCEEDED(result));
 	}
+
+	const uint32_t pixelCount = w * h;
+	const uint32_t rowPitch = sizeof(uint32_t) * w;
+	const uint32_t depthPitch = rowPitch * h;
+
+	uint32_t* img = new uint32_t[pixelCount];
+	for (uint32_t i = 0; i < pixelCount; i++)img[i] = 0xff0000ff;
+
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		result = texBuff[i]->WriteToSubresource(0, nullptr, img, rowPitch, depthPitch);
+		assert(SUCCEEDED(result));
+	}
+	delete[] img;
 
 	D3D12_DESCRIPTOR_HEAP_DESC srvDescHeapDesc = {};
 	srvDescHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
@@ -155,7 +140,7 @@ void OldPostEffect::Initialize()
 	constMapPostEffect->FocusDepth = 0.08f;
 }
 
-void OldPostEffect::DrawBefore()
+void IFE::IPostEffect::DrawBefore()
 {
 	ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
 	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
@@ -198,7 +183,7 @@ void OldPostEffect::DrawBefore()
 
 }
 
-void OldPostEffect::DrawAfter()
+void IFE::IPostEffect::DrawAfter()
 {
 	for (uint16_t i = 0; i < 3; i++)
 	{
@@ -208,100 +193,14 @@ void OldPostEffect::DrawAfter()
 	}
 }
 
-void IFE::OldPostEffect::SetRGBShift(float shift)
-{
-	constMapPostEffect->sigma = shift;
-}
-
-void IFE::OldPostEffect::SetVBInit()
-{
-	Vertex2D vertices[4] = {
-		{{-1,-1,0},{0,1}},
-		{{-1,+1,0},{0,0}},
-		{{1,-1,0},{1,1}},
-		{{1,+1,0},{1,0}},
-	};
-
-	vb_.SetVerticle(vertices, _countof(vertices));
-	vb_.Initialize();
-}
-
-void IFE::OldPostEffect::SetVBGame()
-{
-	Vertex2D vertices[4] = {
-		{{-1,-1,0},{0,1}},
-		{{-1,+1,0},{0,0}},
-		{{0,-1,0},{1,1}},
-		{{0,+1,0},{1,0}},
-	};
-
-	vb_.SetVerticle(vertices, _countof(vertices));
-	vb_.Initialize();
-}
-
-#ifdef NDEBUG
-#else
-#include "ImguiManager.h"
-void IFE::OldPostEffect::DebugGUI()
-{
-	auto im = ImguiManager::Instance();
-	im->NewGUI("PostEffect");
-
-	im->DragFloatGUI(&constMapPostEffect->NFocusWidth, "NFocus", 0.0005f, 0, 0.1f);
-	im->DragFloatGUI(&constMapPostEffect->FFocusWidth, "FFocus", 0.0005f, 0, 0.1f);
-	im->DragFloatGUI(&constMapPostEffect->FocusDepth, "FocusDepth", 0.0005f, 0, 0.1f);
-
-	im->EndGUI();
-}
-
-void IFE::OldPostEffect::OutputScene()
-{
-	auto jm = JsonManager::Instance();
-
-	jm->JsonReset();
-	auto& json = jm->GetJsonData();
-
-	json["NFocus"] = constMapPostEffect->NFocusWidth;
-	json["FFocus"] = constMapPostEffect->FFocusWidth;
-	json["FocusDepth"] = constMapPostEffect->FocusDepth;
-
-	jm->Output("PostEffectManager");
-}
-
-#endif
-void IFE::OldPostEffect::LoadingScene()
-{
-	auto jm = JsonManager::Instance();
-	jm->Input("PostEffectManager");
-	if (jm->IsError())
-	{
-		return;
-	}
-	auto json = jm->GetJsonData();
-
-	constMapPostEffect->NFocusWidth = json["NFocus"];
-	constMapPostEffect->FFocusWidth = json["FFocus"];
-	constMapPostEffect->FocusDepth = json["FocusDepth"];
-}
-
-//void IFE::OldPostEffect::SetGrayscale(bool gray)
-//{
-//	constMapPostEffect->gray = gray;
-//}
-
-//void IFE::OldPostEffect::SetSepia(float sepia)
-//{
-//	constMapPostEffect->sepia = sepia;
-//}
-
-void OldPostEffect::CreateGraphicsPipelineState()
+void IFE::IPostEffect::CreateGraphicsPipelineState()
 {
 	ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
 
 	HRESULT result = S_FALSE;
-	ComPtr<ID3DBlob>vsBlob;
-	ComPtr<ID3DBlob>psBlob;
-	ComPtr<ID3DBlob>errorBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob>vsBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob>psBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob>errorBlob;
 
 	result = D3DCompileFromFile(
 		L"Data/Shaders/PostEffectVS.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -419,7 +318,7 @@ void OldPostEffect::CreateGraphicsPipelineState()
 	// ルートシグネチャの設定
 	CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDesc;
 	rootSignatureDesc.Init_1_0(_countof(rootparams), rootparams, 1, &samplerDesc, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-	ComPtr<ID3DBlob> rootSigBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> rootSigBlob;
 	// バージョン自動判定のシリアライズ
 	result = D3DX12SerializeVersionedRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &errorBlob);
 	assert(SUCCEEDED(result));

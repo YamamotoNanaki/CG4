@@ -65,7 +65,7 @@ Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 	return nullptr;
 }
 
-[[nodiscard]] ID3D12Resource* UpLoadTextureData(
+[[nodiscard]] static ID3D12Resource* UpLoadTextureData(
 	ID3D12Resource* texture, const DirectX::ScratchImage& mipImages)
 {
 	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();

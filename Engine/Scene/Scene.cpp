@@ -218,11 +218,6 @@ void IFE::Scene::SceneInit()
 	spriteM_->Initialize();
 	particleM->Initialize();
 	oldPostEffect->LoadingScene();
-
-	if (nowScene_ == "game")
-	{
-		oldPostEffect->SetVBGame();
-	}
 }
 
 void IFE::Scene::SceneTransitionIn()
@@ -302,10 +297,6 @@ void IFE::Scene::LoadDraw()
 
 void IFE::Scene::LoadingScene()
 {
-	if (nextScene_ != "game")
-	{
-		oldPostEffect->SetVBInit();
-	}
 	JsonManager::Instance()->SetSceneName(nextScene_);
 	objM_->Reset();
 	spriteM_->Reset();
@@ -320,10 +311,6 @@ void IFE::Scene::LoadingScene()
 	particleM->Initialize();
 	cameraM_->LoadingScene();
 	oldPostEffect->LoadingScene();
-	if (nextScene_ == "game")
-	{
-		oldPostEffect->SetVBGame();
-	}
 	nowScene_ = nextScene_;
 	loadEnd_ = true;
 }
