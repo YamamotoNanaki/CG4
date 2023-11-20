@@ -52,6 +52,7 @@ namespace IFE
 		void DrawBefore();
 		void DrawSetViewport(int32_t viewportNum = 0);
 		void DrawAfter();
+		void ExecuteCommand();
 		uint32_t SetNewViewPort(float width, float height, float topX, float topY, float minDepth = 0.0f, float maxDepth = 1.0f);
 		void SetScissorrect(float left, float right, float top, float bottom);
 

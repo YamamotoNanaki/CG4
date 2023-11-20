@@ -322,7 +322,7 @@
     <ProjectReference Include="Engine\Assimp\contrib\zlib\zlibstatic.vcxproj">
       <Project>{dc03f165-7449-3851-81cc-da12d35fdb42}</Project>
     </ProjectReference>
-    <ProjectReference Include="Engine\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
+    <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
     <ProjectReference Include="External\ImGuizmo\ImGuizmo.vcxproj">
@@ -379,21 +379,21 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\Engine\DirectXTex;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\Engine\DirectXTex;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\Engine\DirectXTex;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

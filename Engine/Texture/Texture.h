@@ -1,11 +1,11 @@
 #pragma once
+#include <d3d12.h>
+#include <wrl.h>
+#include <string>
 #pragma warning(push)
 #pragma warning(disable:26812)
 #include <DirectXTex.h>
 #pragma warning(pop)
-#include <d3d12.h>
-#include <wrl.h>
-#include <string>
 
 namespace IFE
 {

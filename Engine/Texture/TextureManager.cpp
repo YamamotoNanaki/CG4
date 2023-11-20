@@ -4,7 +4,9 @@
 #include "JsonManager.h"
 #include "Debug.h"
 #include "ImguiManager.h"
+#include <d3d12.h>
 #include <d3dx12.h>
+#include <DirectXTex.h>
 
 using namespace IFE;
 using namespace DirectX;
@@ -61,6 +63,51 @@ Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 		if (tex_[i].name_ == filename)return &tex_[i];
 	}
 	return nullptr;
+}
+
+[[nodiscard]] ID3D12Resource* UpLoadTextureData(
+	ID3D12Resource* texture, const DirectX::ScratchImage& mipImages)
+{
+	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
+	ID3D12Device* device = GraphicsAPI::GetDevice();
+
+	std::vector<D3D12_SUBRESOURCE_DATA> subresources;
+	DirectX::PrepareUpload(
+		device, mipImages.GetImages(), mipImages.GetImageCount(), mipImages.GetMetadata(),
+		subresources);
+	uint64_t intermediateSize = GetRequiredIntermediateSize(texture, 0, UINT(subresources.size()));
+	ID3D12Resource* intermediateResource;
+	// 定数バッファのヒープ設定
+	D3D12_HEAP_PROPERTIES heapProp{};
+	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;
+	// 定数バッファのリソース設定
+	D3D12_RESOURCE_DESC resdesc{};
+	resdesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+	resdesc.Width = intermediateSize;
+	resdesc.Height = 1;
+	resdesc.DepthOrArraySize = 1;
+	resdesc.MipLevels = 1;
+	resdesc.SampleDesc.Count = 1;
+	resdesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+
+	HRESULT result = device->CreateCommittedResource(
+		&heapProp, D3D12_HEAP_FLAG_NONE, &resdesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
+		IID_PPV_ARGS(&intermediateResource));
+	assert(SUCCEEDED(result));
+	UpdateSubresources(
+		cmdList, texture, intermediateResource, 0, 0, UINT(subresources.size()),
+		subresources.data());
+	// Textureへの転送後は利用できるようD3D12_RESOURCE_STATE_COPY_DESTからD3D12_RESOURCE_STATE_GENERIC_READへ変更する
+	D3D12_RESOURCE_BARRIER barrier{};
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	barrier.Transition.pResource = texture;
+	barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
+	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
+	cmdList->ResourceBarrier(1, &barrier);
+
+	return intermediateResource;
 }
 
 Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t number)
@@ -127,131 +174,41 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 	else
 	{
 		result = LoadFromWICFile(szFile, WIC_FLAGS_NONE, &metadata, scratchImg);
+		metadata.format = MakeSRGB(metadata.format);
+		ScratchImage mipChain{};
+		// ミップマップ生成
+		result = GenerateMipMaps(
+			scratchImg.GetImages(), scratchImg.GetImageCount(), scratchImg.GetMetadata(),
+			TEX_FILTER_DEFAULT, 0, mipChain);
+		if (SUCCEEDED(result)) {
+			scratchImg = std::move(mipChain);
+			metadata = scratchImg.GetMetadata();
+		}
 	}
 
-	assert(SUCCEEDED(result));
+	// リソース設定
+	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
+		metadata.format, metadata.width, (UINT)metadata.height, (UINT16)metadata.arraySize,
+		(UINT16)metadata.mipLevels);
 
-	metadata.format = MakeSRGB(metadata.format);
-
+	// ヒーププロパティ
+	D3D12_HEAP_PROPERTIES heapProps{};
+	heapProps.Type = D3D12_HEAP_TYPE_DEFAULT;
 	ID3D12Device* device = GraphicsAPI::GetDevice();
 
-	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
-	ID3D12CommandQueue* cmdQueue = GraphicsAPI::Instance()->GetCommandQueue();
-	ID3D12Fence* fence = GraphicsAPI::Instance()->GetFence();
-	UINT64& fenceVal = GraphicsAPI::Instance()->GetFenceVal();
-
-	const Image* img = scratchImg.GetImage(0, 0, 0);
-
-	D3D12_HEAP_PROPERTIES uploadHeapProp{};
-	uploadHeapProp.Type = D3D12_HEAP_TYPE_UPLOAD;
-	uploadHeapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
-	uploadHeapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-	uploadHeapProp.CreationNodeMask = 0;
-	uploadHeapProp.VisibleNodeMask = 0;
-
-
-	D3D12_RESOURCE_DESC resDesc = {};
-	resDesc.Format = DXGI_FORMAT_UNKNOWN;
-	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = AlignmentedSize(img->rowPitch, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT) * img->height;
-	resDesc.Height = 1;
-	resDesc.DepthOrArraySize = 1;
-	resDesc.MipLevels = 1;
-	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-	resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
-	resDesc.SampleDesc.Count = 1;
-	resDesc.SampleDesc.Quality = 0;
-
-	ID3D12Resource* uploadbuff = nullptr;
+	// テクスチャ用バッファの生成
 	result = device->CreateCommittedResource(
-		&uploadHeapProp, D3D12_HEAP_FLAG_NONE, &resDesc,
-		D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&uploadbuff)
-	);
-
+		&heapProps, D3D12_HEAP_FLAG_NONE, &texresDesc,
+		D3D12_RESOURCE_STATE_COPY_DEST, // 転送用指定
+		nullptr, IID_PPV_ARGS(&newtex.texbuff_));
 	assert(SUCCEEDED(result));
 
-	D3D12_HEAP_PROPERTIES texHeapProp = {};
-	texHeapProp.Type = D3D12_HEAP_TYPE_DEFAULT;
-	texHeapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
-	texHeapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-	texHeapProp.CreationNodeMask = 0;
-	texHeapProp.VisibleNodeMask = 0;
+	ID3D12Resource* intermediateResource =
+		UpLoadTextureData(newtex.texbuff_.Get(), scratchImg);
+	GraphicsAPI::Instance()->ExecuteCommand();
 
-	resDesc.Format = metadata.format;
-	resDesc.Width = metadata.width;
-	resDesc.Height = (UINT)metadata.height;
-	resDesc.DepthOrArraySize = (UINT16)metadata.arraySize;
-	resDesc.MipLevels = (UINT16)metadata.mipLevels;
-	resDesc.Dimension = static_cast<D3D12_RESOURCE_DIMENSION>(metadata.dimension);
-	resDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+	intermediateResource->Release();
 
-	result = device->CreateCommittedResource(&texHeapProp, D3D12_HEAP_FLAG_NONE,
-		&resDesc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&newtex.texbuff_));
-
-
-	uint8_t* mapforImg = nullptr;
-	result = uploadbuff->Map(0, nullptr, (void**)&mapforImg);
-
-	assert(SUCCEEDED(result));
-
-	auto srcAddress = img->pixels;
-	auto rowPitch = AlignmentedSize(img->rowPitch, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
-
-	for (int32_t y = 0; y < img->height; ++y)
-	{
-		std::copy_n(srcAddress, rowPitch, mapforImg);
-		srcAddress += img->rowPitch;
-		mapforImg += rowPitch;
-	}
-
-	uploadbuff->Unmap(0, nullptr);
-
-	D3D12_TEXTURE_COPY_LOCATION src = {};
-	src.pResource = uploadbuff;
-	src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
-	src.PlacedFootprint.Offset = 0;
-	src.PlacedFootprint.Footprint.Width = (UINT)metadata.width;
-	src.PlacedFootprint.Footprint.Height = (UINT)metadata.height;
-	src.PlacedFootprint.Footprint.Depth = (UINT)metadata.depth;
-	src.PlacedFootprint.Footprint.RowPitch = (UINT)AlignmentedSize(img->rowPitch, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
-	src.PlacedFootprint.Footprint.Format = img->format;
-
-	D3D12_TEXTURE_COPY_LOCATION dst = {};
-	dst.pResource = newtex.texbuff_.Get();
-	dst.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
-	dst.SubresourceIndex = 0;
-
-	cmdList->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
-
-	D3D12_RESOURCE_BARRIER BarrierDesc = {};
-	BarrierDesc.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-	BarrierDesc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-	BarrierDesc.Transition.pResource = newtex.texbuff_.Get();
-	BarrierDesc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-	BarrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;//ここ重要
-	BarrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;//ここ重要
-
-	cmdList->ResourceBarrier(1, &BarrierDesc);
-	result = cmdList->Close();
-	assert(SUCCEEDED(result));
-
-	ID3D12CommandList* cmdLists[] = { cmdList };
-	cmdQueue->ExecuteCommandLists(1, cmdLists);
-	cmdQueue->Signal(fence, ++fenceVal);
-
-	if (fence->GetCompletedValue() != fenceVal)
-	{
-		auto event = CreateEvent(nullptr, false, false, nullptr);
-		fence->SetEventOnCompletion(fenceVal, event);
-		WaitForSingleObject(event, INFINITE);
-		CloseHandle(event);
-	}
-	ID3D12CommandAllocator* commandAllocator = GraphicsAPI::Instance()->GetCommandAllocator();
-	result = commandAllocator->Reset(); // キューをクリア
-	assert(SUCCEEDED(result));
-	result = cmdList->Reset(commandAllocator, nullptr);  // 再びコマンドリストを貯める準備
-	assert(SUCCEEDED(result));
-	//}
 	auto descriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	newtex.CPUHandle_ = CD3DX12_CPU_DESCRIPTOR_HANDLE(srvHeap_->GetCPUDescriptorHandleForHeapStart(), num, descriptorSize);
 	newtex.GPUHandle_ = CD3DX12_GPU_DESCRIPTOR_HANDLE(srvHeap_->GetGPUDescriptorHandleForHeapStart(), num, descriptorSize);
@@ -275,7 +232,6 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 		tex_[num].CPUHandle_);
 
 	textureSize_++;
-	uploadbuff->Release();
 	return &tex_[num];
 }
 

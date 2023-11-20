@@ -304,6 +304,31 @@ void GraphicsAPI::DrawAfter()
 	assert(SUCCEEDED(result));
 }
 
+void IFE::GraphicsAPI::ExecuteCommand()
+{
+	// 命令のクローズ
+	HRESULT result = commandList_->Close();
+	assert(SUCCEEDED(result));
+	// コマンドリストの実行
+	Microsoft::WRL::ComPtr<ID3D12CommandList> commandLists[] = { commandList_.Get() }; // コマンドリストの配列
+	commandQueue_->ExecuteCommandLists(1, commandLists->GetAddressOf());
+
+	// コマンドリストの実行完了を待つ
+	commandQueue_->Signal(fence_.Get(), ++fenceVal_);
+
+	if (fence_->GetCompletedValue() != fenceVal_)
+	{
+		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+		fence_->SetEventOnCompletion(fenceVal_, event);
+		WaitForSingleObject(event, INFINITE);
+		CloseHandle(event);
+	}
+	result = commandAllocator_->Reset(); // キューをクリア
+	assert(SUCCEEDED(result));
+	result = commandList_->Reset(commandAllocator_.Get(), nullptr);  // 再びコマンドリストを貯める準備
+	assert(SUCCEEDED(result));
+}
+
 uint32_t  IFE::GraphicsAPI::SetNewViewPort(float width, float height, float topX, float topY, float minDepth, float maxDepth)
 {
 	D3D12_VIEWPORT view{};
