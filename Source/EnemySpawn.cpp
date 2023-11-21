@@ -9,6 +9,7 @@ void EnemySpawn::Initialize()
 	enemys_.push_back(IFE::ObjectManager::Instance()->GetObjectPtr("enemy1")->GetComponent<IFE::Enemy>());
 	enemys_.push_back(IFE::ObjectManager::Instance()->GetObjectPtr("enemy2")->GetComponent<IFE::Enemy>());
 	enemys_.push_back(IFE::ObjectManager::Instance()->GetObjectPtr("enemy3")->GetComponent<IFE::Enemy>());
+	IFE::ObjectManager::Instance()->GetObjectPtr("enemy3")->GetComponent<IFE::Enemy>()->SetHP(2);
 	enemys_.push_back(IFE::ObjectManager::Instance()->GetObjectPtr("enemy4")->GetComponent<IFE::Enemy>());
 	enemys_.push_back(IFE::ObjectManager::Instance()->GetObjectPtr("enemy5")->GetComponent<IFE::Enemy>());
 }

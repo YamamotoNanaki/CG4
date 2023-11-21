@@ -13,5 +13,5 @@ void IFE::EnemyCountUI::Initialize()
 
 void IFE::EnemyCountUI::Update()
 {
-	spritePtr_->tex_ = numberTextures_[Enemy::sDeathEnemyNum_];
+	spritePtr_->tex_ = numberTextures_[Enemy::sScore_];
 }

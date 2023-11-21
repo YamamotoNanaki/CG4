@@ -227,6 +227,124 @@
             ],
             "name": "idou",
             "texture": "idou.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Score": null,
+            "Transform2D": {
+                "position": [
+                    1160.0,
+                    105.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    0.25
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI",
+                "Score"
+            ],
+            "name": "score",
+            "texture": "score.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1300.0,
+                    105.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum",
+            "texture": "number0.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1350.0,
+                    105.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum1",
+            "texture": "number0.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    1400.0,
+                    105.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum2",
+            "texture": "number0.png"
         }
     ]
 }

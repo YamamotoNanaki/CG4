@@ -435,6 +435,9 @@
     <ClCompile Include="Source\EnemySpawn.cpp">
       <Filter>ソース ファイル\Source\Area</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Score.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -724,6 +727,9 @@
     </ClInclude>
     <ClInclude Include="Source\EnemySpawn.h">
       <Filter>ヘッダー ファイル\Source\Area</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Score.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

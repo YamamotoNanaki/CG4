@@ -19,7 +19,7 @@ Transform* Enemy::playerTransform_ = nullptr;
 
 void IFE::Enemy::Initialize()
 {
-	sDeathEnemyNum_ = 0;
+	sScore_ = 0;
 	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
@@ -64,6 +64,7 @@ void IFE::Enemy::OnColliderHit(Collider* collider)
 	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
 	if (hp_ > 0 && bullet)
 	{
+		sScore_ += hp_;
 		hp_--;
 		hitTimer_ = 0;
 		Vector3 vec = bullet->GetMoveVector();
@@ -83,6 +84,11 @@ uint8_t IFE::Enemy::GetHP()
 	return hp_;
 }
 
+void IFE::Enemy::SetHP(uint8_t hp)
+{
+	hp_ = hp;
+}
+
 void IFE::Enemy::SetLight()
 {
 	if (useLightNum_ == uint8_t(-1))
@@ -90,6 +96,10 @@ void IFE::Enemy::SetLight()
 		useLightNum_ = LightManager::GetPointLightNumber();
 		LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.015f,0.0025f });
 		LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,1.05f,2.55f });
+		if (hp_ == 2)
+		{
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,2.55f,1.05f });
+		}
 		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
 		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
 	}
@@ -167,7 +177,6 @@ void IFE::Enemy::Death()
 	LightManager::Instance()->SetPointLightAtten(useLightNum_, { xz,y,xz });
 	if (deathDirectionTimer_ > deathDirectionMaxTime_)
 	{
-		sDeathEnemyNum_++;
 		LightManager::Instance()->SetPointLightActive(useLightNum_, false);
 		objectPtr_->Destroy();
 	}

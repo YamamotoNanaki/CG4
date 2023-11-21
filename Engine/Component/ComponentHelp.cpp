@@ -35,6 +35,7 @@
 #include "TutorialAttack.h"
 #include "PlayerLantern.h"
 #include "EnemySpawn.h"
+#include "Score.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -122,6 +123,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<PlayerLantern>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<EnemySpawn>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Score>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

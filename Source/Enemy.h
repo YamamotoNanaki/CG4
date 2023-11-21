@@ -11,7 +11,7 @@ namespace IFE
 	class Enemy : public Component
 	{
 	public:
-		inline static uint32_t sDeathEnemyNum_ = 0;
+		inline static uint32_t sScore_ = 0;
 	private:
 		//1秒に進むスピード
 		float speed_ = 1;
@@ -56,6 +56,7 @@ namespace IFE
 		//プレイヤーのトランスフォーム参照用
 		static void SetPlayerTransform(Transform* transform);
 		uint8_t GetHP();
+		void SetHP(uint8_t hp);
 		void SetLight();
 	private:
 		void Move();
