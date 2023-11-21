@@ -7,6 +7,8 @@
 #include "ColorBuffer.h"
 #include "Ease.h"
 #include "Transform.h"
+#include "ObjectManager.h"
+#include "Enemy.h"
 
 void TutorialAttack::Initialize()
 {

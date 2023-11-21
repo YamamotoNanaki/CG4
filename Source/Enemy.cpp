@@ -41,14 +41,7 @@ void IFE::Enemy::Initialize()
 			visual_ = true;
 		}
 	}
-	if (useLightNum_ == uint8_t(-1))
-	{
-		useLightNum_ = LightManager::GetPointLightNumber();
-		LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.015f,0.0025f });
-		LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,1.05f,2.55f });
-		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
-		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
-	}
+	objectPtr_->isActive_ = false;
 }
 
 void IFE::Enemy::Update()
@@ -88,6 +81,18 @@ void IFE::Enemy::SetPlayerTransform(Transform* transform)
 uint8_t IFE::Enemy::GetHP()
 {
 	return hp_;
+}
+
+void IFE::Enemy::SetLight()
+{
+	if (useLightNum_ == uint8_t(-1))
+	{
+		useLightNum_ = LightManager::GetPointLightNumber();
+		LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.015f,0.0025f });
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,1.05f,2.55f });
+		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
+		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
+	}
 }
 
 void IFE::Enemy::Move()

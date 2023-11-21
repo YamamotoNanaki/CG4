@@ -56,6 +56,7 @@ namespace IFE
 		//プレイヤーのトランスフォーム参照用
 		static void SetPlayerTransform(Transform* transform);
 		uint8_t GetHP();
+		void SetLight();
 	private:
 		void Move();
 		//停止または待機

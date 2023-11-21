@@ -106,7 +106,7 @@ Texture* IFE::TextureManager::GetTexture(const std::string& filename)
 	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
 	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
 	cmdList->ResourceBarrier(1, &barrier);
-
+	result;
 	return intermediateResource;
 }
 

@@ -432,6 +432,9 @@
     <ClCompile Include="Engine\PostEffect\IPostEffect.cpp">
       <Filter>ソース ファイル\Engine\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EnemySpawn.cpp">
+      <Filter>ソース ファイル\Source\Area</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -718,6 +721,9 @@
     </ClInclude>
     <ClInclude Include="Engine\PostEffect\IPostEffect.h">
       <Filter>ヘッダー ファイル\Engine\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemySpawn.h">
+      <Filter>ヘッダー ファイル\Source\Area</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15582,6 +15582,77 @@
         "prefab": false
     },
     {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": true,
+            "pushBack": false
+        },
+        "EnemySpawn": null,
+        "Material": {
+            "ambient": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "bloom": false,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "specular": [
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
+            ],
+            "terxtureName": "white.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                2.185304641723633,
+                0.0,
+                -95.78961181640625
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                30.0,
+                30.0,
+                30.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "EnemySpawn"
+        ],
+        "drawFlag": false,
+        "model": "cube_Model",
+        "name": "EnemySpawn",
+        "prefab": false
+    },
+    {
         "Bullet": null,
         "Collider": {
             "attribute": 0,

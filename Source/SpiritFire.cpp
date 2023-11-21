@@ -9,6 +9,7 @@
 
 void SpiritFire::Update()
 {
+	if (!enemy_->isActive_)return;
 	for (auto& p : emitterPtr_->particles_)
 	{
 		float b = IFE::OutQuad(0.6f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
