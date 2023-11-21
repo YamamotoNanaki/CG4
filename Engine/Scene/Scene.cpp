@@ -6,8 +6,13 @@
 #include "ColorBuffer.h"
 #include "Ease.h"
 #include "WindowsAPI.h"
+#include "StructuredBuffer.h"
 
 using namespace IFE;
+
+void Test()
+{
+}
 
 #ifdef NDEBUG
 void IFE::Scene::Initialize()
@@ -81,6 +86,7 @@ void IFE::Scene::Draw()
 #else
 void IFE::Scene::Initialize()
 {
+	Test();
 	Sprite::StaticInitialize();
 	Transform2D::StaticInitialize();
 	gp_->CreateBasicGraphicsPipeLine();
@@ -100,7 +106,6 @@ void IFE::Scene::Initialize()
 	oldPostEffect = std::make_unique<OldPostEffect>();
 	oldPostEffect->Initialize();
 	SceneInit();
-
 	particleM->Initialize();
 }
 
