@@ -13,6 +13,8 @@ namespace IFE
 		void Initialize(size_t classSize, size_t size);
 		template <class T>
 		void Map(std::vector<T> data);
+		void SetComputeRootDescriptorTable(uint32_t rootParameterIndex,ID3D12GraphicsCommandList* cmdList);
+		void SetGraphicsRootDescriptorTable(uint32_t rootParameterIndex);
 	private:
 	};
 	template<class T>

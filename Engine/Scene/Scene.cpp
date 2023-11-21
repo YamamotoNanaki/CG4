@@ -7,11 +7,13 @@
 #include "Ease.h"
 #include "WindowsAPI.h"
 #include "StructuredBuffer.h"
+#include "Compute.h"
 
 using namespace IFE;
 
 void Test()
 {
+
 }
 
 #ifdef NDEBUG

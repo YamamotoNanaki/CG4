@@ -12,8 +12,6 @@ namespace IFE
 	template <class T>
 	class Compute
 	{
-		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> cmdAlloc_ = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_ = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipeline_ = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_ = nullptr;
@@ -29,9 +27,12 @@ namespace IFE
 	public:
 		std::vector<T> data_;
 		std::string name_;
+		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> cmdAlloc_ = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_ = nullptr;
 
 	public:
 		void Initialize(const std::string& name, const std::vector<T>& data, const std::string& shaderName = "testCS.hlsl");
+		void SetRootSignature();
 		void Execute();
 
 	private:
@@ -82,21 +83,26 @@ namespace IFE
 	}
 
 	template<class T>
+	inline void Compute<T>::SetRootSignature()
+	{
+		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ルートシグネチャセット
+	}
+
+	template<class T>
 	inline void Compute<T>::Execute()
 	{
-		T* cbuff = nullptr;
-		inBuffer->Map(0, nullptr, (void**)&cbuff);
-		copy(data_.begin(), data_.end(), cbuff);
-		inBuffer->Unmap(0, nullptr);
+		//T* cbuff = nullptr;
+		//inBuffer->Map(0, nullptr, (void**)&cbuff);
+		//copy(data_.begin(), data_.end(), cbuff);
+		//inBuffer->Unmap(0, nullptr);
 
-		cmdList_->SetComputeRootSignature(rootSignature_.Get());//ルートシグネチャセット
-		ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get()};
-		cmdList_->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
+		//ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get()};
+		//cmdList_->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
 
-		//ルートパラメータのセット
-		cmdList_->SetComputeRootDescriptorTable(0,
-			descriptorHeap_->GetGPUDescriptorHandleForHeapStart()
-		);
+		////ルートパラメータのセット
+		//cmdList_->SetComputeRootDescriptorTable(0,
+		//	descriptorHeap_->GetGPUDescriptorHandleForHeapStart()
+		//);
 		cmdList_->Dispatch(2, 2, 2);//ディスパッチ
 
 		//バリア

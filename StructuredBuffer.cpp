@@ -46,3 +46,22 @@ void IFE::StructuredBuffer::Initialize(size_t classSize, size_t size)
 	handle.ptr += GraphicsAPI::GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	GraphicsAPI::GetDevice()->CreateShaderResourceView(inBuffer_.Get(), &srvDesc, handle);
 }
+
+void IFE::StructuredBuffer::SetComputeRootDescriptorTable(uint32_t rootParameterIndex, ID3D12GraphicsCommandList* cmdList)
+{
+	ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get() };
+	cmdList->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
+
+	//ルートパラメータのセット
+	cmdList->SetComputeRootDescriptorTable(rootParameterIndex, descriptorHeap_->GetGPUDescriptorHandleForHeapStart());
+}
+
+void IFE::StructuredBuffer::SetGraphicsRootDescriptorTable(uint32_t rootParameterIndex)
+{
+	ID3D12DescriptorHeap* descHeaps[] = { descriptorHeap_.Get() };
+	auto cmdList = GraphicsAPI::Instance()->GetCmdList();
+	cmdList->SetDescriptorHeaps(1, descHeaps);//ディスクリプタヒープのセット
+
+	//ルートパラメータのセット
+	cmdList->SetGraphicsRootDescriptorTable(rootParameterIndex, descriptorHeap_->GetGPUDescriptorHandleForHeapStart());
+}
