@@ -1,12 +1,16 @@
 #include "EnemySpawn.h"
 #include "ObjectManager.h"
+#include "SpriteManager.h"
 #include "Collider.h"
 #include "Player.h"
 #include "ImguiManager.h"
+#include "ColorBuffer.h"
+#include "Ease.h"
+#include "TextureManager.h"
+#include "Transform.h"
 
 void EnemySpawn::Initialize()
 {
-	size_t i = 0;
 	for (auto& itr : enemys_)
 	{
 		if (itr.name == "")
@@ -23,7 +27,20 @@ void EnemySpawn::Initialize()
 			continue;
 		}
 		itr.ptr->SetHP(itr.hp);
-		i++;
+	}
+	clook_ = IFE::SpriteManager::Instance()->GetSpritePtr("clook");
+	needle_ = IFE::SpriteManager::Instance()->GetSpritePtr("needle");
+	timeSprites_[0] = IFE::SpriteManager::Instance()->GetSpritePtr("time");
+	timeSprites_[1] = IFE::SpriteManager::Instance()->GetSpritePtr("time1");
+	if (clook_)clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+	if (needle_)needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+	if (timeSprites_[0])timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+	if (timeSprites_[1])timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+
+	for (uint16_t j = 0; j < 10; j++)
+	{
+		std::string s = "number" + std::to_string(j);
+		numberTextures_[j] = IFE::TextureManager::Instance()->GetTexture(s);
 	}
 }
 
@@ -33,7 +50,29 @@ void EnemySpawn::Update()
 	if (!end_ && once_)
 	{
 		timer_ += IFE::IFETime::sDeltaTime_;
-
+		if (timer_ < 1)
+		{
+			float a = IFE::InOutQuad(0, 1, 1, timer_);
+			clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+		}
+		else
+		{
+			clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,1 });
+			needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,1 });
+			timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,1 });
+			timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,1 });
+		}
+		if (timer_ > endTime_ / 2)
+		{
+			float gb = IFE::InOutQuad(1, 0.25f, endTime_ - endTime_ / 2, timer_ - endTime_ / 2);
+			clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,gb,gb,1 });
+			needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,gb,gb,1 });
+			timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,gb,gb,1 });
+			timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,gb,gb,1 });
+		}
 		size_t i = 0;
 		for (auto& itr : enemys_)
 		{
@@ -55,7 +94,42 @@ void EnemySpawn::Update()
 			}
 			i++;
 		}
-		if (timer_ > endTime_)end_ = true;
+
+		uint16_t temNum = 10;
+		uint16_t scoreTem = uint16_t(30 - timer_);
+		for (size_t j = 0; j < 2; j++)
+		{
+			uint8_t num = uint8_t(scoreTem / temNum);
+			timeSprites_[j]->tex_ = numberTextures_[num];
+			scoreTem -= num * temNum;
+			temNum /= 10;
+		}
+		if (timer_ > endTime_)
+		{
+			timer_ = 0;
+			end_ = true;
+		}
+
+		needle_->GetComponent<IFE::Transform2D>()->rotation2D_ = timer_ * 12;
+	}
+	if (end_)
+	{
+		if (timer_ < 0.5f)
+		{
+			timer_ += IFE::IFETime::sNoScaleDeltaTime_;
+			float a = IFE::InOutQuad(1, 0, 0.5f, timer_);
+			clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+			timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,a });
+		}
+		else
+		{
+			clook_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+			needle_->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+			timeSprites_[0]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+			timeSprites_[1]->GetComponent<IFE::ColorBuffer>()->SetColor({ 1,1,1,0 });
+		}
 	}
 }
 

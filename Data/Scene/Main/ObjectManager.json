@@ -15546,118 +15546,118 @@
         },
         "EnemySpawn": [
             {
-                "end": 30.0,
+                "end": 10.0,
                 "hp": 2,
                 "name": "enemy",
                 "start": 0.0
             },
             {
-                "end": 30.0,
+                "end": 7.0,
                 "hp": 1,
                 "name": "enemy1",
                 "start": 0.0
             },
             {
-                "end": 30.0,
+                "end": 7.0,
                 "hp": 2,
                 "name": "enemy2",
                 "start": 0.0
             },
             {
-                "end": 30.0,
+                "end": 10.0,
                 "hp": 1,
                 "name": "enemy3",
                 "start": 0.0
             },
             {
-                "end": 30.0,
+                "end": 15.0,
                 "hp": 1,
                 "name": "enemy4",
-                "start": 0.0
+                "start": 5.0
             },
             {
-                "end": 30.0,
+                "end": 15.0,
                 "hp": 3,
                 "name": "enemy5",
-                "start": 0.0
+                "start": 5.0
             },
             {
-                "end": 30.0,
+                "end": 17.0,
                 "hp": 1,
                 "name": "enemy6",
-                "start": 0.0
+                "start": 7.0
             },
             {
-                "end": 30.0,
+                "end": 18.0,
                 "hp": 1,
                 "name": "enemy7",
-                "start": 0.0
+                "start": 8.0
             },
             {
-                "end": 30.0,
+                "end": 20.0,
                 "hp": 2,
                 "name": "enemy8",
-                "start": 0.0
+                "start": 10.0
             },
             {
-                "end": 30.0,
+                "end": 20.0,
                 "hp": 5,
                 "name": "enemy9",
-                "start": 0.0
+                "start": 10.0
             },
             {
-                "end": 30.0,
+                "end": 22.0,
                 "hp": 3,
                 "name": "enemy10",
-                "start": 0.0
+                "start": 12.0
             },
             {
-                "end": 30.0,
+                "end": 24.0,
                 "hp": 3,
                 "name": "enemy11",
-                "start": 0.0
+                "start": 14.0
             },
             {
                 "end": 30.0,
                 "hp": 2,
                 "name": "enemy12",
-                "start": 0.0
+                "start": 17.0
             },
             {
                 "end": 30.0,
                 "hp": 1,
                 "name": "enemy13",
-                "start": 0.0
+                "start": 22.0
             },
             {
                 "end": 30.0,
                 "hp": 5,
                 "name": "enemy14",
-                "start": 0.0
+                "start": 20.0
             },
             {
                 "end": 30.0,
                 "hp": 3,
                 "name": "enemy15",
-                "start": 0.0
+                "start": 22.0
             },
             {
                 "end": 30.0,
                 "hp": 1,
                 "name": "enemy16",
-                "start": 0.0
+                "start": 18.0
             },
             {
                 "end": 30.0,
                 "hp": 3,
                 "name": "enemy17",
-                "start": 0.0
+                "start": 19.0
             },
             {
                 "end": 30.0,
                 "hp": 5,
                 "name": "enemy18",
-                "start": 0.0
+                "start": 20.0
             }
         ],
         "Material": {
