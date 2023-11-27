@@ -13,6 +13,7 @@ void IFE::ColorBuffer::Initialize()
 
 void IFE::ColorBuffer::Draw()
 {
+	if (particlePtr_)return;
 	constMapColor_->color = color_;
 	colorBuffer_->SetConstBuffView(0);
 }

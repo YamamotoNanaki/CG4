@@ -19,6 +19,9 @@ void IFE::Emitter::Initialize()
 	if (GetComponent<TransformParticle>() == nullptr)AddComponent<TransformParticle>();
 	transform_ = GetComponent<TransformParticle>();
 	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("ParticleNormal");
+
+	colorSB_.Initialize(sizeof(ConstBufferColor), 200);
+	transformSB_.Initialize(sizeof(ConstBufferBillboard), 200);
 }
 
 void IFE::Emitter::CopyValue(Emitter* ptr)
@@ -109,6 +112,15 @@ void IFE::Emitter::Draw()
 	{
 		itr->Draw();
 	}
+	colorSB_.Map(colorData_);
+	transformSB_.Map(transformData_);
+	colorSB_.SetGraphicsRootDescriptorTable(0);
+	transformSB_.SetGraphicsRootDescriptorTable(1);
+	//描画コマンド
+	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
+	//頂点バッファの設定
+	commandList->IASetVertexBuffers(0, 1, Particle::vb_.GetVBView());
+	commandList->DrawInstanced((UINT)Particle::vb_.GetSize(), 200, 0, 0);
 }
 
 IFE::Emitter::~Emitter()
@@ -132,23 +144,23 @@ void IFE::Emitter::ComponentGUI()
 {
 	ImguiManager* imgui = ImguiManager::Instance();
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
-	{
-		SetComponent(std::move(com));
-	};
+		{
+			SetComponent(std::move(com));
+		};
 	std::function<void(void)> es = [&]()
-	{
-		imgui->CheckBoxGUI(&isActive_, "active");
-		imgui->DragFloatGUI(&particleMaxTime_, "Particle Max Time", 0.1f);
-	};
+		{
+			imgui->CheckBoxGUI(&isActive_, "active");
+			imgui->DragFloatGUI(&particleMaxTime_, "Particle Max Time", 0.1f);
+		};
 	std::function<void(void)>f = [&]()
-	{
-		imgui->CollapsingHeaderGUI("Emitter Setting", es);
-		ComponentManager::DebugGUI();
-	};
+		{
+			imgui->CollapsingHeaderGUI("Emitter Setting", es);
+			ComponentManager::DebugGUI();
+		};
 	std::function<void(const std::string&)>texFunc = [&](const std::string& name)
-	{
-		tex_ = TextureManager::Instance()->GetTexture(name);
-	};
+		{
+			tex_ = TextureManager::Instance()->GetTexture(name);
+		};
 	imgui->ComponentGUI2D(emitterName_, f, addFunc);
 }
 

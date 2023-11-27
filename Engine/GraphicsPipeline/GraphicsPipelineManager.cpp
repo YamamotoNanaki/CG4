@@ -416,21 +416,22 @@ GraphicsPipeline* IFE::GraphicsPipelineManager::CreateBasicParticleGraphicsPipeL
 
 	vector<D3D12_ROOT_PARAMETER> rootParams;
 
-	for (size_t i = 0; i < 2; i++)
+	D3D12_DESCRIPTOR_RANGE range[3] = {};
+	for (size_t i = 0; i < 3; i++)
 	{
-		D3D12_ROOT_PARAMETER rootParamSeed;
-		//定数用
-		rootParamSeed.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;				//種類
-		rootParamSeed.Descriptor.ShaderRegister = (UINT)i;								//デスクリプタレンジ
-		rootParamSeed.Descriptor.RegisterSpace = 0;									//デスクリプタレンジ数
-		rootParamSeed.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;				//すべてのシェーダーから見える
-		rootParams.push_back(rootParamSeed);
+		range[i].BaseShaderRegister = UINT(i + 1);
+		range[i].NumDescriptors = 1;
+		range[i].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+		range[i].OffsetInDescriptorsFromTableStart = UINT(i);
+		if (i == _countof(range) - 1)
+		{
+			range[i].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+		}
 	}
-
 	D3D12_ROOT_PARAMETER rootParamSeed2;
 	rootParamSeed2.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;		//種類
-	rootParamSeed2.DescriptorTable.pDescriptorRanges = &TextureManager::Instance()->GetDescRangeSRV();				//デスクリプタレンジ
-	rootParamSeed2.DescriptorTable.NumDescriptorRanges = 1;							//デスクリプタレンジ数
+	rootParamSeed2.DescriptorTable.pDescriptorRanges = range;				//デスクリプタレンジ
+	rootParamSeed2.DescriptorTable.NumDescriptorRanges = _countof(range);							//デスクリプタレンジ数
 	rootParamSeed2.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;					//すべてのシェーダーから見える
 	rootParams.push_back(rootParamSeed2);
 

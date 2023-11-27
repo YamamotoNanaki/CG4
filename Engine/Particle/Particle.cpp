@@ -68,11 +68,6 @@ void IFE::Particle::SetEmitter(Emitter* emitter)
 void Particle::Draw()
 {
 	ComponentManager::Draw();
-	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//頂点バッファの設定
-	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
-	//描画コマンド
-	commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
 }
 
 Particle::~Particle()

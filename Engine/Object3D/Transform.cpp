@@ -321,6 +321,7 @@ void IFE::TransformParticle::Update()
 
 void IFE::TransformParticle::Draw()
 {
+	if (particlePtr_)return;
 	UpdateMatrix();
 	camera_ = CameraManager::sActivCamera_;
 	View* v = camera_->GetView();

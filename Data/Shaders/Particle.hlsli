@@ -1,23 +1,32 @@
-cbuffer cbuff0:register(b0)
+
+Texture2D<float4> tex : register(t0);
+
+struct ConstBufferColor
 {
 	float4 color;				//色(RGBA)
 };
 
-cbuffer ConstBufferDataTransform : register(b1)
+StructuredBuffer<ConstBufferColor> colorSB : register(t1);
+
+struct ConstBufferDataTransform
 {
 	matrix mat;					//3D変換行列
 	matrix matBillboard;		//ビルボード行列
 };
 
+StructuredBuffer<ConstBufferDataTransform> transformSB : register(t2);
+
 struct VSOutput
 {
 	float4 pos : POSITION;	//頂点座標
+    uint instanceID : TEXCOORD;//インスタンスid
 };
 
 struct GSOutput
 {
 	float4 svpos : SV_POSITION;	//頂点座標
-	float2 uv :TEXCOORD;		//uv値
+    float2 uv : TEXCOORD; //uv値
+    uint instanceID : TEXCOORD1; //インスタンスid
 };
 
 struct PSOutput

@@ -2,6 +2,7 @@
 #include "Particle.h"
 #include "Texture.h"
 #include "GraphicsPipeline.h"
+#include "StructuredBuffer.h"
 #include <nlohmann/json.hpp>
 #include <memory>
 #include <list>
@@ -25,6 +26,12 @@ namespace IFE
 		std::string emitterName_;
 		GraphicsPipeline* gp_;
 		float particleMaxTime_ = 1;
+
+	private:
+		StructuredBuffer colorSB_;
+		StructuredBuffer transformSB_;
+		std::vector<ConstBufferColor>colorData_;
+		std::vector<ConstBufferBillboard>transformData_;
 
 	public:
 		//PostEffect* postEffect = nullptr;
