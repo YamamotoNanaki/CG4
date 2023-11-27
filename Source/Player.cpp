@@ -32,7 +32,7 @@ void IFE::Player::Initialize()
 	pm_ = ParticleManager::Instance();
 	FireworkChrysanthemum::InitDefaultVelocity();
 	auto num = Sound::Instance()->LoadWave("main");
-	Sound::Instance()->SetVolume(num, 0);
+	Sound::Instance()->SetVolume(num, 25);
 	sMoveFlag_ = false;
 	PlayerCamera::sPlayerPtr_ = this;
 	StartCamera::sPlayerPtr_ = this;
