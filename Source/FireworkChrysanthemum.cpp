@@ -19,10 +19,10 @@ void IFE::FireworkChrysanthemum::Update()
 		return;
 	}
 	uint32_t i = 0;
-	float t = emitterPtr_->particles_.front()->timer_;
-	float maxt = emitterPtr_->particleMaxTime_;
-	float l = Lerp(1, 0, maxt - 0.5f, min(t, maxt - 0.5f)) * 0.8f;
-	float s = OutQuad(sScale_, 0, maxt, t);
+	timer_ = emitterPtr_->particles_.front()->timer_;
+	maxTime_ = emitterPtr_->particleMaxTime_;
+	float l = Lerp(1, 0, maxTime_ - 0.5f, min(timer_, maxTime_ - 0.5f)) * 0.8f;
+	float s = OutQuad(sScale_, 0, maxTime_, timer_);
 	float randA = IFERand::GetRandF(-l, l);
 	for (auto& itr : emitterPtr_->particles_)
 	{
@@ -37,7 +37,7 @@ void IFE::FireworkChrysanthemum::Update()
 	}
 	gravity_ += 0.1f * IFETime::sDeltaTime_;
 
-	ColorUpdate(t, maxt);
+	(this->*ColorTableFunc[colorSetting_])();
 }
 
 void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
@@ -116,61 +116,117 @@ IFE::FireworkChrysanthemum::~FireworkChrysanthemum()
 	LightManager::Instance()->SetPointLightActive(pointLightNum_, false);
 }
 
-void IFE::FireworkChrysanthemum::ColorUpdate(const float& t, const float& maxt)
+void IFE::FireworkChrysanthemum::BlueParticle()
 {
-	float r = 0.5f;
-	float g = 0.2f;
-	float b = 0.1f;
+	float r = sDefaultColor_.z;
+	float g = sDefaultColor_.y;
+	float b = sDefaultColor_.x;
 
-	switch (colorSetting_)
+	if (timer_ < 1)
 	{
-	case (uint8_t)ParticleColorSetting::Blue:
-		if (t < 1)
-		{
-			b = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
-			g = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
-			r = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
-		}
-		else
-		{
-			r = 0.1f;
-			g = 0.2f;
-			b = 0.5f;
-		}
-		break;
-	case (uint8_t)ParticleColorSetting::Green:
-		if (t < 1)
-		{
-			g = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
-			b = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
-			r = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
-		}
-		else
-		{
-			r = 0.1f;
-			g = 0.5f;
-			b = 0.2f;
-		}
-		break;
-	default:
-		if (t < 1)
-		{
-			r = OutQuad(1.f, 0.5f, 1.f, max(t - 0.25f, 0));
-			g = Lerp(1, 0.2f, 1.f * 3 / 4, min(t, 1.f * 2 / 3));
-			b = OutQuad(1, 0.1f, 1.f / 2, min(t, 1.f / 2));
-			break;
-		}
+		b = OutQuad(1.f, sDefaultColor_.x, 1.f, max(timer_ - 0.25f, 0));
+		g = Lerp(1, sDefaultColor_.y, 1.f * 3 / 4, min(timer_, 1.f * 2 / 3));
+		r = OutQuad(1, sDefaultColor_.z, 1.f / 2, min(timer_, 1.f / 2));
 	}
-	float a = OutQuad(1.f, 0, maxt - 0.25f, min(t, maxt - 0.25f));
+	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
-	speed_ = OutQuad(useSpeed_, 0, maxt, t);
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuart(0, 1, maxt, t);
-	float attenX = InQuart(0.001f, 1, maxt, t);
+	float atten = InQuart(0, 1, maxTime_, timer_);
+	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
+void IFE::FireworkChrysanthemum::GreenParticle()
+{
+	float r = sDefaultColor_.z;
+	float g = sDefaultColor_.x;
+	float b = sDefaultColor_.y;
+
+	if (timer_ < 1)
+	{
+		g = OutQuad(1.f, sDefaultColor_.x, 1.f, max(timer_ - 0.25f, 0));
+		b = Lerp(1, sDefaultColor_.y, 1.f * 3 / 4, min(timer_, 1.f * 2 / 3));
+		r = OutQuad(1, sDefaultColor_.z, 1.f / 2, min(timer_, 1.f / 2));
+	}
+	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
+	baseColor_ = Float4(r, g, b, a);
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
+	float atten = InQuart(0, 1, maxTime_, timer_);
+	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
+}
+
+void IFE::FireworkChrysanthemum::YellowParticle()
+{
+	float r = sDefaultColor_.x;
+	float b = sDefaultColor_.z;
+
+	if (timer_ < 1)
+	{
+		r = OutQuad(1.f, sDefaultColor_.x, 1.f, max(timer_ - 0.25f, 0));
+		b = OutQuad(1, sDefaultColor_.z, 1.f / 2, min(timer_, 1.f / 2));
+	}
+	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
+	baseColor_ = Float4(r, r, b, a);
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
+	float atten = InQuart(0, 1, maxTime_, timer_);
+	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
+}
+
+void IFE::FireworkChrysanthemum::RedParticle()
+{
+	float r = sDefaultColor_.x;
+	float g = sDefaultColor_.y;
+	float b = sDefaultColor_.z;
+
+	if (timer_ < 1)
+	{
+		r = OutQuad(1.f, sDefaultColor_.x, 1.f, max(timer_ - 0.25f, 0));
+		g = Lerp(1, sDefaultColor_.y, 1.f * 3 / 4, min(timer_, 1.f * 2 / 3));
+		b = OutQuad(1, sDefaultColor_.z, 1.f / 2, min(timer_, 1.f / 2));
+	}
+	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
+	baseColor_ = Float4(r, g, b, a);
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
+	float atten = InQuart(0, 1, maxTime_, timer_);
+	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
+}
+
+void IFE::FireworkChrysanthemum::PurpleParticle()
+{
+	float r = sDefaultColor_.x;
+	float g = sDefaultColor_.z;
+
+	if (timer_ < 1)
+	{
+		r = OutQuad(1.f, sDefaultColor_.x, 1.f, max(timer_ - 0.25f, 0));
+		g = OutQuad(1, sDefaultColor_.z, 1.f / 2, min(timer_, 1.f / 2));
+	}
+	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
+	baseColor_ = Float4(r, g, r, a);
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
+	float atten = InQuart(0, 1, maxTime_, timer_);
+	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
+}
+
+void (FireworkChrysanthemum::* FireworkChrysanthemum::ColorTableFunc[])() =
+{
+	&FireworkChrysanthemum::BlueParticle,&FireworkChrysanthemum::GreenParticle,&FireworkChrysanthemum::YellowParticle,&FireworkChrysanthemum::RedParticle,
+	&FireworkChrysanthemum::PurpleParticle,
+};
 
 #ifdef NDEBUG
 #else

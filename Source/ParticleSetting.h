@@ -2,6 +2,6 @@
 
 enum class ParticleColorSetting
 {
-	Red, Blue, Green
+	Blue, Green, Yellow, Red, Purple
 };
 

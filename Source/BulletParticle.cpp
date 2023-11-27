@@ -8,47 +8,11 @@
 #include "LightManager.h"
 #include "EnemyBullet.h"
 
+using namespace IFE;
+
 void IFE::BulletParticle::Update()
 {
-	switch (colorSetting_)
-	{
-	case (uint8_t)ParticleColorSetting::Blue:
-		for (auto& p : emitterPtr_->particles_)
-		{
-			float b = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
-			float g = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
-			float r = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
-			float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
-			p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, b });
-			p->transform_->scale_ = { s,s,s };
-		}
-		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 0.25f,0.5f,1.f });
-		break;
-	case (uint8_t)ParticleColorSetting::Green:
-		for (auto& p : emitterPtr_->particles_)
-		{
-			float g = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
-			float b = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
-			float r = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
-			float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
-			p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, g });
-			p->transform_->scale_ = { s,s,s };
-		}
-		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 0.25f,1.f,0.5f });
-		break;
-	default:
-		for (auto& p : emitterPtr_->particles_)
-		{
-			float r = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
-			float g = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
-			float b = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
-			float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
-			p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, r });
-			p->transform_->scale_ = { s,s,s };
-		}
-		LightManager::Instance()->SetPointLightColor(pointLightNum_, { 1.f,0.5f,0.25f });
-		break;
-	}
+	(this->*ColorTableFunc[colorSetting_])();
 	AddBulletParticle();
 }
 
@@ -104,3 +68,76 @@ void IFE::BulletParticle::AddBulletParticle()
 	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.0001f,0.001f,0.0001f });
 }
 
+void IFE::BulletParticle::BlueParticle()
+{
+	for (auto& p : emitterPtr_->particles_)
+	{
+		float b = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+		float g = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
+		float r = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
+		float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+		p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, b });
+		p->transform_->scale_ = { s,s,s };
+	}
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { sDefaultColor_.z,sDefaultColor_.y,sDefaultColor_.x });
+}
+
+void IFE::BulletParticle::GreenParticle()
+{
+	for (auto& p : emitterPtr_->particles_)
+	{
+		float g = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+		float b = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
+		float r = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
+		float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+		p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, g });
+		p->transform_->scale_ = { s,s,s };
+	}
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { sDefaultColor_.z,sDefaultColor_.x,sDefaultColor_.y });
+}
+
+void IFE::BulletParticle::YellowParticle()
+{
+	for (auto& p : emitterPtr_->particles_)
+	{
+		float r = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+		float b = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
+		float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+		p->GetComponent<ColorBuffer>()->SetColor({ r, r, b, r });
+		p->transform_->scale_ = { s,s,s };
+	}
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { sDefaultColor_.x,sDefaultColor_.x,sDefaultColor_.z });
+}
+
+void IFE::BulletParticle::RedParticle()
+{
+	for (auto& p : emitterPtr_->particles_)
+	{
+		float r = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+		float g = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
+		float b = OutQuad(1, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
+		float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+		p->GetComponent<ColorBuffer>()->SetColor({ r, g, b, r });
+		p->transform_->scale_ = { s,s,s };
+	}
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { sDefaultColor_.x,sDefaultColor_.y,sDefaultColor_.z });
+}
+
+void IFE::BulletParticle::PurpleParticle()
+{
+	for (auto& p : emitterPtr_->particles_)
+	{
+		float r = OutQuad(1.f, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
+		float g = Lerp(1, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
+		float s = OutQuad(0.15f, 0, emitterPtr_->particleMaxTime_, p->timer_);
+		p->GetComponent<ColorBuffer>()->SetColor({ r, g, r, r });
+		p->transform_->scale_ = { s,s,s };
+	}
+	LightManager::Instance()->SetPointLightColor(pointLightNum_, { sDefaultColor_.x,sDefaultColor_.y,sDefaultColor_.x });
+}
+
+void (BulletParticle::* BulletParticle::ColorTableFunc[])() =
+{
+	&BulletParticle::BlueParticle,&BulletParticle::GreenParticle,&BulletParticle::YellowParticle,&BulletParticle::RedParticle,
+	&BulletParticle::PurpleParticle,
+};

@@ -7,6 +7,7 @@ namespace IFE
 	class Object3D;
 	class BulletParticle : public Component
 	{
+		inline static IFE::Float3 sDefaultColor_ = { 1,0.5f,0.25f };
 		Float3* bulletPos_;
 		Object3D* bullet_;
 		uint8_t pointLightNum_ = 0;
@@ -22,5 +23,11 @@ namespace IFE
 
 	private:
 		void AddBulletParticle();
+		void BlueParticle();
+		void GreenParticle();
+		void YellowParticle();
+		void RedParticle();
+		void PurpleParticle();
+		static void (BulletParticle::* ColorTableFunc[])();
 	};
 }
