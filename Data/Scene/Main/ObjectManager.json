@@ -637,6 +637,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 0,
             "patrolPointSize": 0,
             "speed": 5.0
@@ -712,6 +719,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 0,
             "patrolPointSize": 0,
             "speed": 5.0
@@ -787,6 +801,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 1,
             "patrolPoint": [
                 [
@@ -874,6 +895,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 1,
             "patrolPoint": [
                 [
@@ -961,6 +989,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 0,
             "patrolPointSize": 0,
             "speed": 5.0
@@ -1036,6 +1071,13 @@
             "pushBack": true
         },
         "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
             "action": 1,
             "patrolPoint": [
                 [
@@ -15505,7 +15547,7 @@
         "EnemySpawn": [
             {
                 "end": 30.0,
-                "hp": 1,
+                "hp": 2,
                 "name": "enemy",
                 "start": 0.0
             },
@@ -15517,7 +15559,7 @@
             },
             {
                 "end": 30.0,
-                "hp": 1,
+                "hp": 2,
                 "name": "enemy2",
                 "start": 0.0
             },
@@ -15535,8 +15577,86 @@
             },
             {
                 "end": 30.0,
-                "hp": 1,
+                "hp": 3,
                 "name": "enemy5",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy6",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy7",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 2,
+                "name": "enemy8",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 5,
+                "name": "enemy9",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 3,
+                "name": "enemy10",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 3,
+                "name": "enemy11",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 2,
+                "name": "enemy12",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy13",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 5,
+                "name": "enemy14",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 3,
+                "name": "enemy15",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy16",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 3,
+                "name": "enemy17",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 5,
+                "name": "enemy18",
                 "start": 0.0
             }
         ],
@@ -15600,6 +15720,1258 @@
         "drawFlag": false,
         "model": "cube_Model",
         "name": "EnemySpawn",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    49.119659423828125,
+                    -0.75,
+                    -25.271713256835938
+                ],
+                [
+                    24.33818244934082,
+                    -0.75,
+                    -30.121335983276367
+                ],
+                [
+                    38.452850341796875,
+                    -0.75,
+                    4.522443771362305
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                49.119659423828125,
+                -0.75,
+                -25.271713256835938
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy6",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -25.0,
+                    -0.75,
+                    8.698230743408203
+                ],
+                [
+                    -43.964927673339844,
+                    -0.75,
+                    -8.291852951049805
+                ],
+                [
+                    -68.65284729003906,
+                    -0.75,
+                    18.380550384521484
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -25.0,
+                -0.75,
+                8.698230743408203
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy7",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -19.849868774414063,
+                    -0.75,
+                    -18.96983528137207
+                ],
+                [
+                    11.367938995361328,
+                    -0.75,
+                    -31.63396644592285
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -19.849868774414063,
+                -0.75,
+                -18.96983528137207
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy8",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -41.84679412841797,
+                    -0.75,
+                    30.591442108154297
+                ],
+                [
+                    -10.631692886352539,
+                    -0.75,
+                    63.52874755859375
+                ],
+                [
+                    7.018716812133789,
+                    -0.75,
+                    41.87729263305664
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -41.84679412841797,
+                -0.75,
+                30.591442108154297
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy9",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -29.159931182861328,
+                    -0.75,
+                    45.953086853027344
+                ],
+                [
+                    -61.97392272949219,
+                    -0.75,
+                    22.91942024230957
+                ],
+                [
+                    -34.77540969848633,
+                    -0.75,
+                    7.105232238769531
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -29.159931182861328,
+                -0.75,
+                45.953086853027344
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy10",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -11.486994743347168,
+                    -0.75,
+                    27.974163055419922
+                ],
+                [
+                    -22.258638381958008,
+                    -0.75,
+                    65.895751953125
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -11.486994743347168,
+                -0.75,
+                27.974163055419922
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy11",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -1.8192157745361328,
+                    -0.75,
+                    41.29972839355469
+                ],
+                [
+                    22.263769149780273,
+                    -0.75,
+                    1.48968505859375
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -1.8192157745361328,
+                -0.75,
+                41.29972839355469
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy12",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    31.04450225830078,
+                    -0.75,
+                    3.707408905029297
+                ],
+                [
+                    -25.611499786376953,
+                    -0.75,
+                    -17.39285659790039
+                ],
+                [
+                    -52.635894775390625,
+                    -0.75,
+                    -0.5056371688842773
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                31.04450225830078,
+                -0.75,
+                3.707408905029297
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy13",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    50.52421569824219,
+                    -0.75,
+                    62.525428771972656
+                ],
+                [
+                    20.819580078125,
+                    -0.75,
+                    21.949848175048828
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                50.52421569824219,
+                -0.75,
+                62.525428771972656
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy14",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    37.55950164794922,
+                    -0.75,
+                    34.7457275390625
+                ],
+                [
+                    -28.824878692626953,
+                    -0.75,
+                    54.092247009277344
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                37.55950164794922,
+                -0.75,
+                34.7457275390625
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy15",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    54.14714813232422,
+                    -0.75,
+                    -30.080158233642578
+                ],
+                [
+                    44.6152458190918,
+                    -0.75,
+                    -80.96649169921875
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                54.14714813232422,
+                -0.75,
+                -30.080158233642578
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy16",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    23.924955368041992,
+                    -0.75,
+                    -12.245140075683594
+                ],
+                [
+                    -27.59462547302246,
+                    -0.75,
+                    -36.209556579589844
+                ],
+                [
+                    -27.649782180786133,
+                    -0.75,
+                    -89.84906768798828
+                ]
+            ],
+            "patrolPointSize": 3,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                23.924955368041992,
+                -0.75,
+                -12.245140075683594
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy17",
+        "prefab": false
+    },
+    {
+        "Collider": {
+            "attribute": 0,
+            "colliderType": 0,
+            "groundJudge": false,
+            "notPushBack": false,
+            "pushBack": false
+        },
+        "Enemy": {
+            "HpSpeed": [
+                2.0,
+                2.5,
+                3.0999999046325684,
+                3.9000000953674316,
+                5.0
+            ],
+            "action": 1,
+            "patrolPoint": [
+                [
+                    -60.188072204589844,
+                    -0.75,
+                    -84.62773132324219
+                ],
+                [
+                    -40.04661560058594,
+                    -0.75,
+                    -59.4069709777832
+                ]
+            ],
+            "patrolPointSize": 2,
+            "speed": 1.0
+        },
+        "Material": {
+            "ambient": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "bloom": true,
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specular": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "terxtureName": "lantern.png"
+        },
+        "TransferGeometryBuffer": {
+            "explosion": 0.0,
+            "gravity": 0.0,
+            "lightFlag": true,
+            "polygonSize": 1.0,
+            "rotation": 0.0,
+            "toonFlag": false
+        },
+        "Transform": {
+            "position": [
+                -60.188072204589844,
+                -0.75,
+                -84.62773132324219
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ],
+            "scale": [
+                2.0,
+                2.0,
+                2.0
+            ]
+        },
+        "component": [
+            "Transform",
+            "TransferGeometryBuffer",
+            "Material",
+            "Collider",
+            "Enemy"
+        ],
+        "drawFlag": true,
+        "model": "sphere_Model",
+        "name": "enemy18",
         "prefab": false
     },
     {

@@ -8,11 +8,17 @@ namespace IFE
 	{
 		Stanby, Patrol, Detection, Attack, Death, Hit
 	};
+	enum class EnemyColor
+	{
+		Blue, Green, Yellow, Red, Purple
+	};
 	class Enemy : public Component
 	{
 	public:
 		inline static uint32_t sScore_ = 0;
 	private:
+		inline static IFE::Float3 sDefaultColor_ = { 2.55f,1.05f,0.25f };
+		inline static float sHpSpeed_[5];
 		//1秒に進むスピード
 		float speed_ = 1;
 		//現在のアクション

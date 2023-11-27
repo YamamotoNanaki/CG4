@@ -20,6 +20,10 @@ Transform* Enemy::playerTransform_ = nullptr;
 void IFE::Enemy::Initialize()
 {
 	sScore_ = 0;
+	if (patrolPoint_.size() > 0)
+	{
+		action_ = (uint8_t)EnemyAction::Patrol;
+	}
 	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
@@ -57,11 +61,33 @@ void IFE::Enemy::Update()
 	{
 		objectPtr_->GetComponent<Material>()->color_ = { 0,0,0,0 };
 	}
+
+	if (hp_ == 1)
+	{
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.z,sDefaultColor_.y,sDefaultColor_.x });
+	}
+	else if (hp_ == 2)
+	{
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.z,sDefaultColor_.x,sDefaultColor_.y });
+	}
+	else if (hp_ == 3)
+	{
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.x,sDefaultColor_.z });
+	}
+	else if (hp_ == 4)
+	{
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.y,sDefaultColor_.z });
+	}
+	else if (hp_ == 5)
+	{
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.z,sDefaultColor_.x });
+	}
 }
 
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
 	if (action_ == (uint8_t)EnemyAction::Death)return;
+	if (action_ == (uint8_t)EnemyAction::Hit)return;
 	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
 	if (hp_ > 0 && bullet)
 	{
@@ -96,10 +122,25 @@ void IFE::Enemy::SetLight()
 	{
 		useLightNum_ = LightManager::GetPointLightNumber();
 		LightManager::Instance()->SetPointLightAtten(useLightNum_, { 0.0025f,0.015f,0.0025f });
-		LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,1.05f,2.55f });
-		if (hp_ == 2)
+		if (hp_ == 1)
 		{
-			LightManager::Instance()->SetPointLightColor(useLightNum_, { 0.25f,2.55f,1.05f });
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.z,sDefaultColor_.y,sDefaultColor_.x });
+		}
+		else if (hp_ == 2)
+		{
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.z,sDefaultColor_.x,sDefaultColor_.y });
+		}
+		else if (hp_ == 3)
+		{
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.x,sDefaultColor_.z });
+		}
+		else if (hp_ == 4)
+		{
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.y,sDefaultColor_.z });
+		}
+		else if (hp_ == 5)
+		{
+			LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.z,sDefaultColor_.x });
 		}
 		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
 		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
@@ -124,6 +165,9 @@ void IFE::Enemy::Move()
 	{
 		isFoundPlayer_ = len < sDetectionDistance_;
 	}
+	size_t num = hp_;
+	if (hp_ != 0)num--;
+	speed_ = sHpSpeed_[num];
 	(this->*ActtionTable[action_])();
 }
 
@@ -149,7 +193,7 @@ void IFE::Enemy::Patrol()
 	vec.Normalize();
 	transform_->position_ += vec * speed_ * IFETime::sDeltaTime_;
 
-	if (NearEqual(transform_->position_, nextPointPos, 0.25))
+	if (NearEqual(transform_->position_, nextPointPos, speed_ / 2))
 	{
 		nowPoint_ = nextPoint;
 	}
@@ -196,11 +240,12 @@ void IFE::Enemy::Death()
 void IFE::Enemy::Hit()
 {
 	hitTimer_ += IFETime::sDeltaTime_;
-	transform_->position_ = OutQuadFloat3(hitPos_, hitAfterPos_, sMaxHitTime_, hitTimer_);
+	//transform_->position_ = OutQuadFloat3(hitPos_, hitAfterPos_, sMaxHitTime_, hitTimer_);
 	if (hitTimer_ > sMaxHitTime_)
 	{
 		action_ = (uint8_t)EnemyAction::Stanby;
 	}
+	if (patrolPoint_.size() > 0)Patrol();
 }
 
 void (Enemy::* Enemy::ActtionTable[])() =
@@ -240,8 +285,12 @@ void IFE::Enemy::ComponentDebugGUI()
 		gui->TextGUI(actionText);
 		gui->EndTreeNode();
 	}
-	gui->DragFloatGUI(&speed_, "speed");
-	gui->DragVectorFloat3GUI(patrolPoint_, "patrol point");
+	gui->DragFloatGUI(&sHpSpeed_[0], "speed hp 1");
+	gui->DragFloatGUI(&sHpSpeed_[1], "speed hp 2");
+	gui->DragFloatGUI(&sHpSpeed_[2], "speed hp 3");
+	gui->DragFloatGUI(&sHpSpeed_[3], "speed hp 4");
+	gui->DragFloatGUI(&sHpSpeed_[4], "speed hp 5");
+	gui->DragVectorFloat3GUI(patrolPoint_, "patrol point", transform_->position_);
 	if (gui->NewTreeNode("start Action"))
 	{
 		int32_t tempNum = action_;
@@ -264,6 +313,10 @@ void IFE::Enemy::OutputComponent(nlohmann::json& j)
 	{
 		JsonManager::Instance()->OutputFloat3(j["patrolPoint"][i], patrolPoint_[i]);
 	}
+	for (uint32_t i = 0; i < 5; i++)
+	{
+		j["HpSpeed"][i] = sHpSpeed_[i];
+	}
 }
 #endif
 
@@ -277,5 +330,11 @@ void IFE::Enemy::LoadingComponent(nlohmann::json& j)
 		{
 			patrolPoint_.push_back(JsonManager::Instance()->InputFloat3(point));
 		}
+	}
+	size_t i = 0;
+	for (auto& speed : j["HpSpeed"])
+	{
+		sHpSpeed_[i] = speed;
+		i++;
 	}
 }

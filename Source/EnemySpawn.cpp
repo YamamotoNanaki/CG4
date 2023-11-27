@@ -13,6 +13,10 @@ void EnemySpawn::Initialize()
 		{
 			continue;
 		}
+		if (!IFE::ObjectManager::Instance()->GetObjectPtr(itr.name))
+		{
+			continue;
+		}
 		itr.ptr = IFE::ObjectManager::Instance()->GetObjectPtr(itr.name)->GetComponent<IFE::Enemy>();
 		if (!itr.ptr)
 		{

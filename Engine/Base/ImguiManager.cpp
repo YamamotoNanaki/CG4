@@ -862,7 +862,7 @@ void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::s
 	}
 }
 
-void IFE::ImguiManager::DragVectorFloat3GUI(std::vector<Float3>& f, const std::string& label, float speed, float min, float max)
+void IFE::ImguiManager::DragVectorFloat3GUI(std::vector<Float3>& f, const std::string& label, Float3 addValue, float speed, float min, float max)
 {
 	if (ImGui::TreeNode(label.c_str()))
 	{
@@ -904,7 +904,7 @@ void IFE::ImguiManager::DragVectorFloat3GUI(std::vector<Float3>& f, const std::s
 
 		if (ImGui::Button("Add"))
 		{
-			f.push_back(0);
+			f.push_back(addValue);
 		}
 
 		ImGui::TreePop();
