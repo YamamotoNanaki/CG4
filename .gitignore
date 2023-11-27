@@ -99,6 +99,7 @@ x64/*/*.obj
 *.scc
 *.exe
 *.ini
+*.dll
 
 !Engine/Assimp/code/AssetLib/Obj
 
