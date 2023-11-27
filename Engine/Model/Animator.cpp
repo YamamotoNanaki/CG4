@@ -42,6 +42,11 @@ void IFE::Animator::Draw()
 	skinBuffer_->SetConstBuffView(6);
 }
 
+float IFE::Animator::GetEndTime()
+{
+	return model_->animations_[animNum_].endTime;
+}
+
 IFE::Animator::~Animator()
 {
 	objectPtr_->gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dNormal");

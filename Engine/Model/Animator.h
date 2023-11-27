@@ -23,6 +23,7 @@ namespace IFE
 		void Initialize()override;
 		void Update()override;
 		void Draw()override;
+		float GetEndTime();
 		~Animator();
 
 		void SetAnimation(std::string animName);

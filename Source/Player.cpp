@@ -32,7 +32,7 @@ void IFE::Player::Initialize()
 	pm_ = ParticleManager::Instance();
 	FireworkChrysanthemum::InitDefaultVelocity();
 	auto num = Sound::Instance()->LoadWave("main");
-	Sound::Instance()->SetVolume(num, 25);
+	Sound::Instance()->SetVolume(num, 0);
 	sMoveFlag_ = false;
 	PlayerCamera::sPlayerPtr_ = this;
 	StartCamera::sPlayerPtr_ = this;
@@ -131,10 +131,12 @@ void IFE::Player::Move()
 			if (move_.x > 0)
 			{
 				animator_->SetAnimation("Run_Right");
+				animator_->animSpeed_ = 1.5f;
 			}
 			else
 			{
 				animator_->SetAnimation("Run_Left");
+				animator_->animSpeed_ = 1.5f;
 			}
 		}
 		else
@@ -142,15 +144,18 @@ void IFE::Player::Move()
 			if (move_.z > 0)
 			{
 				animator_->SetAnimation("Run");
+				animator_->animSpeed_ = 1.5f;
 			}
 			else
 			{
 				animator_->SetAnimation("Run_Back");
+				animator_->animSpeed_ = 1.5f;
 			}
 		}
 		if (fabsf(move_.x) < 0.1f && fabsf(move_.z) < 0.1f)
 		{
 			animator_->SetAnimation("Idle");
+			animator_->animSpeed_ = 1.2f;
 		}
 		animator_->loop_ = true;
 	}
@@ -218,13 +223,15 @@ void IFE::Player::Shoot()
 		}
 		timer = 0;
 
-		if (animator_->GetAnimation() == "Idle")
+		if (animator_->GetAnimation() == "Idle" || animator_->GetAnimation() == "Gun_Shoot")
 		{
 			animator_->SetAnimation("Gun_Shoot");
+			animator_->animSpeed_ = animator_->GetEndTime() / nextBulletTime_ + 0.1f;
 		}
 		else
 		{
 			animator_->SetAnimation("Run_Shoot");
+			animator_->animSpeed_ = animator_->GetEndTime() / nextBulletTime_ + 0.1f;
 		}
 		animator_->loop_ = false;
 
