@@ -310,6 +310,7 @@ void IFE::Transform2D::LoadingComponent(nlohmann::json& json)
 
 void IFE::TransformParticle::Initialize()
 {
+	if (particlePtr_)return;
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferBillboard>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
 	camera_ = CameraManager::sActivCamera_;
@@ -321,6 +322,7 @@ void IFE::TransformParticle::Update()
 
 void IFE::TransformParticle::Draw()
 {
+	if (particlePtr_)return;
 	UpdateMatrix();
 	camera_ = CameraManager::sActivCamera_;
 	View* v = camera_->GetView();
@@ -395,6 +397,18 @@ Vector3 IFE::TransformParticle::InverseTransformPoint(const Vector3& p)
 Float3 IFE::TransformParticle::GetLossyScale()
 {
 	return lossyScale_;
+}
+
+ConstBufferBillboard IFE::TransformParticle::GetMatrix()
+{
+	UpdateMatrix();
+	camera_ = CameraManager::sActivCamera_;
+	View* v = camera_->GetView();
+	Projection* p = camera_->GetProjection();
+	ConstBufferBillboard cb;
+	cb.mat = matWorld_ * v->Get() * p->Get();
+	cb.matBillboard = View::sMatBillBoard_;
+	return cb;
 }
 
 Vector3 IFE::TransformParticle::GetWorldPosition()

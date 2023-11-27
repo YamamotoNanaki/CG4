@@ -21,6 +21,7 @@ namespace IFE
 		void SetColor(const Float4& color);
 		void SetAlpha(float a);
 		void SetColor(float r, float g, float b, float a);
+		Float4 GetColor();
 #ifdef NDEBUG
 #else
 		void DebugGUI();

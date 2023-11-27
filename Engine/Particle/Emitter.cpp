@@ -19,6 +19,8 @@ void IFE::Emitter::Initialize()
 	if (GetComponent<TransformParticle>() == nullptr)AddComponent<TransformParticle>();
 	transform_ = GetComponent<TransformParticle>();
 	gp_ = GraphicsPipelineManager::Instance()->GetGraphicsPipeline("ParticleNormal");
+	transformMap = transformCB_.GetCBMapObject();
+	colorMap = colorCB_.GetCBMapObject();
 }
 
 void IFE::Emitter::CopyValue(Emitter* ptr)
@@ -105,10 +107,37 @@ void IFE::Emitter::Draw()
 	Particle::DrawBefore();
 	tex_->SetTexture(2);
 	ComponentManager::Draw();
+	uint32_t i = 0;
+	if (!colorMap)
+	{
+		colorMap = colorCB_.GetCBMapObject();
+	}
+	if (!transformMap)
+	{
+		transformMap = transformCB_.GetCBMapObject();
+	}
 	for (std::unique_ptr<Particle>& itr : particles_)
 	{
 		itr->Draw();
+		if (itr->GetColor().w == -1)
+		{
+			colorMap->color[i] = GetComponent<ColorBuffer>()->GetColor();
+		}
+		else
+		{
+			colorMap->color[i] = itr->GetColor();
+		}
+		transformMap->mat[i] = itr->GetMatrix().mat;
+		transformMap->matBillboard[i] = itr->GetMatrix().matBillboard;
+		i++;
 	}
+	transformCB_.SetConstBuffView(1);
+	colorCB_.SetConstBuffView(0);
+	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
+	//頂点バッファの設定
+	commandList->IASetVertexBuffers(0, 1, Particle::vb_.GetVBView());
+	//描画コマンド
+	commandList->DrawInstanced((UINT)Particle::vb_.GetSize(), particles_.size() < 200 ? UINT(particles_.size()) : 200, 0, 0);
 }
 
 IFE::Emitter::~Emitter()
@@ -132,23 +161,23 @@ void IFE::Emitter::ComponentGUI()
 {
 	ImguiManager* imgui = ImguiManager::Instance();
 	std::function<void(std::unique_ptr<Component>)> addFunc = [&](std::unique_ptr<Component> com)
-	{
-		SetComponent(std::move(com));
-	};
+		{
+			SetComponent(std::move(com));
+		};
 	std::function<void(void)> es = [&]()
-	{
-		imgui->CheckBoxGUI(&isActive_, "active");
-		imgui->DragFloatGUI(&particleMaxTime_, "Particle Max Time", 0.1f);
-	};
+		{
+			imgui->CheckBoxGUI(&isActive_, "active");
+			imgui->DragFloatGUI(&particleMaxTime_, "Particle Max Time", 0.1f);
+		};
 	std::function<void(void)>f = [&]()
-	{
-		imgui->CollapsingHeaderGUI("Emitter Setting", es);
-		ComponentManager::DebugGUI();
-	};
+		{
+			imgui->CollapsingHeaderGUI("Emitter Setting", es);
+			ComponentManager::DebugGUI();
+		};
 	std::function<void(const std::string&)>texFunc = [&](const std::string& name)
-	{
-		tex_ = TextureManager::Instance()->GetTexture(name);
-	};
+		{
+			tex_ = TextureManager::Instance()->GetTexture(name);
+		};
 	imgui->ComponentGUI2D(emitterName_, f, addFunc);
 }
 

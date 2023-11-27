@@ -32,6 +32,8 @@ namespace IFE
 		void Update();
 		static void DrawBefore();
 		void SetEmitter(Emitter* emitter);
+		Float4 GetColor();
+		ConstBufferBillboard GetMatrix();
 		void Draw();
 		~Particle();
 	};

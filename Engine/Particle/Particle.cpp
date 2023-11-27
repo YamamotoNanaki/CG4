@@ -3,6 +3,7 @@
 #include "Ease.h"
 #include "GraphicsAPI.h"
 #include "Transform.h"
+#include "ColorBuffer.h"
 #include <cassert>
 
 using namespace IFE;
@@ -65,14 +66,26 @@ void IFE::Particle::SetEmitter(Emitter* emitter)
 	emitter_ = emitter;
 }
 
+Float4 IFE::Particle::GetColor()
+{
+	auto com = GetComponent<ColorBuffer>();
+	if (!com)return { -1,-1,-1,-1 };
+	return com->GetColor();
+}
+
+ConstBufferBillboard IFE::Particle::GetMatrix()
+{
+	return GetComponent<TransformParticle>()->GetMatrix();
+}
+
 void Particle::Draw()
 {
 	ComponentManager::Draw();
-	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
-	//頂点バッファの設定
-	commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
-	//描画コマンド
-	commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
+	//ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
+	////頂点バッファの設定
+	//commandList->IASetVertexBuffers(0, 1, vb_.GetVBView());
+	////描画コマンド
+	//commandList->DrawInstanced((UINT)vb_.GetSize(), 1, 0, 0);
 }
 
 Particle::~Particle()

@@ -127,6 +127,7 @@ namespace IFE
 		Vector3 TransformPoint(const Vector3& position);
 		Vector3 InverseTransformPoint(const Vector3& position);
 		Float3 GetLossyScale();
+		ConstBufferBillboard GetMatrix();
 
 		/// <summary>
 		///ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é

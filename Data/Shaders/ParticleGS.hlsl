@@ -31,10 +31,12 @@ void main(
 	GSOutput element;
 	for (uint i = 0; i < vnum; i++)
 	{
-		float4 offset = mul(matBillboard, offset_array[i]);	//ビルボード化
+        uint id = input[0].instanceID;
+        float4 offset = mul(matBillboard[id], offset_array[i]); //ビルボード化
 		element.svpos = input[0].pos + offset;				//頂点をずらす
-		element.svpos = mul(mat, element.svpos);			//ワールド変換
+        element.svpos = mul(mat[id], element.svpos); //ワールド変換
 		element.uv = uv_array[i];							//テクスチャを張る
+        element.instanceID = id;
 		output.Append(element);								//出力
 	}
 }

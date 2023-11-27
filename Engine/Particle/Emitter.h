@@ -11,6 +11,15 @@
 namespace IFE
 {
 	class TransformParticle;
+	struct CBColor
+	{
+		Float4 color[200];
+	};
+	struct CBTrans
+	{
+		Matrix mat[200];
+		Matrix matBillboard[200];
+	};
 	class Emitter :public ComponentManager
 	{
 
@@ -28,6 +37,10 @@ namespace IFE
 
 	public:
 		//PostEffect* postEffect = nullptr;
+		ConstBuffer<CBTrans> transformCB_;
+		ConstBuffer<CBColor> colorCB_;
+		CBTrans* transformMap = nullptr;
+		CBColor* colorMap = nullptr;
 
 	public:
 		Emitter();

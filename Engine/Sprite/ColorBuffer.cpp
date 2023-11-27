@@ -7,12 +7,14 @@ using namespace std;
 
 void IFE::ColorBuffer::Initialize()
 {
+	if (particlePtr_)return;
 	colorBuffer_ = make_unique<ConstBuffer<ConstBufferColor>>();
 	constMapColor_ = colorBuffer_->GetCBMapObject();
 }
 
 void IFE::ColorBuffer::Draw()
 {
+	if (particlePtr_)return;
 	constMapColor_->color = color_;
 	colorBuffer_->SetConstBuffView(0);
 }
@@ -30,6 +32,11 @@ void IFE::ColorBuffer::SetAlpha(float a)
 void IFE::ColorBuffer::SetColor(float r, float g, float b, float a)
 {
 	color_ = Float4(r,g,b,a);
+}
+
+Float4 IFE::ColorBuffer::GetColor()
+{
+	return color_;
 }
 
 #ifdef NDEBUG
