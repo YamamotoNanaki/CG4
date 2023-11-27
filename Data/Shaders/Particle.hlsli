@@ -1,12 +1,12 @@
 cbuffer cbuff0:register(b0)
 {
-	float4 color[200];				//色(RGBA)
+    float4 color[400]; //色(RGBA)
 };
 
 cbuffer ConstBufferDataTransform : register(b1)
 {
-    matrix mat[200]; //3D変換行列
-    matrix matBillboard[200]; //ビルボード行列
+    matrix mat[400]; //3D変換行列
+    matrix matBillboard[400]; //ビルボード行列
 };
 
 struct VSOutput

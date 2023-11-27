@@ -19,6 +19,7 @@ void IFE::Bullet::OnColliderHit(Collider* collider)
 {
 	if (!isHit_ && !collider->GetObjectPtr()->GetComponent<Player>() && collider->attribute_ != (uint16_t)IFE::Attribute::ALLIES)
 	{
+		if (collider->GetObjectPtr()->GetComponent<Enemy>() && collider->GetObjectPtr()->GetComponent<Enemy>()->GetAction() == uint8_t(EnemyAction::Death))return;
 		isHit_ = true;
 		for (size_t i = 0; i < 3; i++)
 		{

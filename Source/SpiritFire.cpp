@@ -32,24 +32,24 @@ void SpiritFire::GreenParticle()
 		float s = IFE::OutQuad(0.35f, 0, emitterPtr_->particleMaxTime_, p->timer_);
 		p->GetComponent<IFE::ColorBuffer>()->SetColor({ r, g, b, g });
 		p->transform_->scale_ = { s,s,s };
-		p->transform_->position_.x += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_;
-		p->transform_->position_.z += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_;
-		p->transform_->position_.y += IFE::IFERand::GetRandF(-1, 6) * IFE::IFETime::sDeltaTime_;
+		p->transform_->position_.x += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;
+		p->transform_->position_.z += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;
+		p->transform_->position_.y += IFE::IFERand::GetRandF(-1, 6) * IFE::IFETime::sDeltaTime_ * 3;
 	}
 
 	emitterPtr_->deleteFlag_ = enemy_->GetDeleteFlag();
-	if (enemy_->GetComponent<IFE::Enemy>()->GetHP() != 0)
+	if (enemy_->GetComponent<IFE::Enemy>()->GetAction() != uint8_t(IFE::EnemyAction::Death))
 	{
 		IFE::Float3 pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
 		auto p = emitterPtr_->AddParticle(pos);
 		p->AddComponent<IFE::ColorBuffer>();
 		p->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.1f, 0.6f, 0.3f, 1.f });
 		p->transform_->scale_ = { 0.35f,0.35f,0.35f };
-		pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
-		auto p2 = emitterPtr_->AddParticle(pos);
-		p2->AddComponent<IFE::ColorBuffer>();
-		p2->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.1f, 0.6f, 0.3f, 1.f });
-		p2->transform_->scale_ = { 0.35f,0.35f,0.35f };
+		//pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
+		//auto p2 = emitterPtr_->AddParticle(pos);
+		//p2->AddComponent<IFE::ColorBuffer>();
+		//p2->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.1f, 0.6f, 0.3f, 1.f });
+		//p2->transform_->scale_ = { 0.35f,0.35f,0.35f };
 	}
 }
 
@@ -63,24 +63,24 @@ void SpiritFire::BlueParticle()
 		float s = IFE::OutQuad(0.35f, 0, emitterPtr_->particleMaxTime_, p->timer_);
 		p->GetComponent<IFE::ColorBuffer>()->SetColor({ r, g, b, b });
 		p->transform_->scale_ = { s,s,s };
-		p->transform_->position_.x += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_;
-		p->transform_->position_.z += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_;
-		p->transform_->position_.y += IFE::IFERand::GetRandF(-1, 6) * IFE::IFETime::sDeltaTime_;
+		p->transform_->position_.x += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;
+		p->transform_->position_.z += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;
+		p->transform_->position_.y += IFE::IFERand::GetRandF(-1, 6) * IFE::IFETime::sDeltaTime_ * 3;
 	}
 
 	emitterPtr_->deleteFlag_ = enemy_->GetDeleteFlag();
-	if (enemy_->GetComponent<IFE::Enemy>()->GetHP() != 0)
+	if (enemy_->GetComponent<IFE::Enemy>()->GetAction() != uint8_t(IFE::EnemyAction::Death))
 	{
 		IFE::Float3 pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
 		auto p = emitterPtr_->AddParticle(pos);
 		p->AddComponent<IFE::ColorBuffer>();
 		p->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.2f, 0.4f, 0.6f, 1.f });
 		p->transform_->scale_ = { 0.35f,0.35f,0.35f };
-		pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
-		auto p2 = emitterPtr_->AddParticle(pos);
-		p2->AddComponent<IFE::ColorBuffer>();
-		p2->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.2f, 0.4f, 0.6f, 1.f });
-		p2->transform_->scale_ = { 0.35f,0.35f,0.35f };
+		//pos = *enemyPos_ + IFE::Float3(IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f), IFE::IFERand::GetRandF(-0.3f, 0.3f));
+		//auto p2 = emitterPtr_->AddParticle(pos);
+		//p2->AddComponent<IFE::ColorBuffer>();
+		//p2->GetComponent<IFE::ColorBuffer>()->SetColor({ 0.2f, 0.4f, 0.6f, 1.f });
+		//p2->transform_->scale_ = { 0.35f,0.35f,0.35f };
 	}
 }
 

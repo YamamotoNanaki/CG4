@@ -145,81 +145,6 @@
     },
     {
         "Collider": {
-            "attribute": 4,
-            "colliderType": 0,
-            "groundJudge": false,
-            "notPushBack": false,
-            "pushBack": true
-        },
-        "Enemy": {
-            "action": 0,
-            "patrolPointSize": 0,
-            "speed": 5.0
-        },
-        "Material": {
-            "ambient": [
-                0.30000001192092896,
-                0.30000001192092896,
-                0.30000001192092896
-            ],
-            "bloom": true,
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "diffuse": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "specular": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "terxtureName": "lantern.png"
-        },
-        "TransferGeometryBuffer": {
-            "explosion": 0.0,
-            "gravity": 0.0,
-            "lightFlag": true,
-            "polygonSize": 1.0,
-            "rotation": 0.0,
-            "toonFlag": false
-        },
-        "Transform": {
-            "position": [
-                -66.25,
-                -0.75,
-                -27.0
-            ],
-            "rotation": [
-                360.0,
-                360.0,
-                360.0
-            ],
-            "scale": [
-                2.0,
-                2.0,
-                2.0
-            ]
-        },
-        "component": [
-            "Transform",
-            "Collider",
-            "Enemy",
-            "TransferGeometryBuffer",
-            "Material"
-        ],
-        "drawFlag": true,
-        "model": "sphere_Model",
-        "name": "Enemy",
-        "prefab": false
-    },
-    {
-        "Collider": {
             "attribute": 1,
             "colliderType": 1,
             "groundJudge": false,
@@ -1036,20 +961,8 @@
             "pushBack": true
         },
         "Enemy": {
-            "action": 1,
-            "patrolPoint": [
-                [
-                    0.0,
-                    -0.75,
-                    155.0
-                ],
-                [
-                    30.0,
-                    -0.75,
-                    155.0
-                ]
-            ],
-            "patrolPointSize": 2,
+            "action": 0,
+            "patrolPointSize": 0,
             "speed": 5.0
         },
         "Material": {
@@ -1087,9 +1000,9 @@
         },
         "Transform": {
             "position": [
-                0.0,
+                -60.863868713378906,
                 -0.75,
-                155.0
+                52.7757568359375
             ],
             "rotation": [
                 360.0,
@@ -15589,7 +15502,44 @@
             "notPushBack": true,
             "pushBack": false
         },
-        "EnemySpawn": null,
+        "EnemySpawn": [
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy1",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy2",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy3",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy4",
+                "start": 0.0
+            },
+            {
+                "end": 30.0,
+                "hp": 1,
+                "name": "enemy5",
+                "start": 0.0
+            }
+        ],
         "Material": {
             "ambient": [
                 0.30000001192092896,

@@ -118,6 +118,7 @@ void IFE::Emitter::Draw()
 	}
 	for (std::unique_ptr<Particle>& itr : particles_)
 	{
+		if (i >= 400)break;
 		itr->Draw();
 		if (itr->GetColor().w == -1)
 		{
@@ -137,7 +138,7 @@ void IFE::Emitter::Draw()
 	//頂点バッファの設定
 	commandList->IASetVertexBuffers(0, 1, Particle::vb_.GetVBView());
 	//描画コマンド
-	commandList->DrawInstanced((UINT)Particle::vb_.GetSize(), particles_.size() < 200 ? UINT(particles_.size()) : 200, 0, 0);
+	commandList->DrawInstanced((UINT)Particle::vb_.GetSize(), particles_.size() < 400 ? UINT(particles_.size()) : 400, 0, 0);
 }
 
 IFE::Emitter::~Emitter()

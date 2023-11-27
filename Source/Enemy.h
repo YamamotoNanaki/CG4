@@ -58,6 +58,8 @@ namespace IFE
 		uint8_t GetHP();
 		void SetHP(uint8_t hp);
 		void SetLight();
+		void SetAction(EnemyAction action);
+		uint8_t GetAction();
 	private:
 		void Move();
 		//’âŽ~‚Ü‚½‚Í‘Ò‹@

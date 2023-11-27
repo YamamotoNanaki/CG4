@@ -13,12 +13,12 @@ namespace IFE
 	class TransformParticle;
 	struct CBColor
 	{
-		Float4 color[200];
+		Float4 color[400];
 	};
 	struct CBTrans
 	{
-		Matrix mat[200];
-		Matrix matBillboard[200];
+		Matrix mat[400];
+		Matrix matBillboard[400];
 	};
 	class Emitter :public ComponentManager
 	{

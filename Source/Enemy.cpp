@@ -61,6 +61,7 @@ void IFE::Enemy::Update()
 
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
+	if (action_ == (uint8_t)EnemyAction::Death)return;
 	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
 	if (hp_ > 0 && bullet)
 	{
@@ -103,6 +104,16 @@ void IFE::Enemy::SetLight()
 		LightManager::Instance()->SetPointLightActive(useLightNum_, true);
 		LightManager::Instance()->SetPointLightPos(useLightNum_, transform_->position_);
 	}
+}
+
+void IFE::Enemy::SetAction(EnemyAction action)
+{
+	action_ = uint8_t(action);
+}
+
+uint8_t IFE::Enemy::GetAction()
+{
+	return action_;
 }
 
 void IFE::Enemy::Move()

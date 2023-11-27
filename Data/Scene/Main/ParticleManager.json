@@ -111,7 +111,7 @@
             "SpiritFire"
         ],
         "isActive": false,
-        "maxTime": 5.0,
+        "maxTime": 2.0,
         "name": "SpiritFire",
         "texture": "particle.png"
     }
