@@ -39,3 +39,5 @@
   - エディタ画面の3dギズモに使用
 - [JSON for Modern C++](https://github.com/nlohmann/json)
   - シーンデータの書き込み及び読み込みに使用
+- [strconv](https://github.com/javacommons/strconv)
+  - 文字列の変換に使用
