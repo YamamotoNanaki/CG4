@@ -20,6 +20,8 @@
 #include "Input.h"
 #include "CameraManager.h"
 #include "Transform.h"
+#include <cuchar>
+#include "strconv2.h"
 
 using namespace IFE;
 
@@ -36,9 +38,9 @@ void IFE::ImguiManager::Initialize()
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
@@ -51,6 +53,8 @@ void IFE::ImguiManager::Initialize()
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, SrvDescHeap,
 		SrvDescHeap->GetCPUDescriptorHandleForHeapStart(),
 		SrvDescHeap->GetGPUDescriptorHandleForHeapStart());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.Fonts->AddFontFromFileTTF("DebugData/Fonts/YuGothM.ttc", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
 }
 
 void IFE::ImguiManager::StartNewFrame()
@@ -101,6 +105,11 @@ void IFE::ImguiManager::Update()
 
 void IFE::ImguiManager::Draw()
 {
+	if (sOpenComponentName_ == "")
+	{
+		ImGui::Begin(U8("インスペクター"), (bool*)false, ImGuiWindowFlags_MenuBar);
+		ImGui::End();
+	}
 	ImGui::Render();
 	ID3D12GraphicsCommandList* commandList = GraphicsAPI::Instance()->GetCmdList();
 	ID3D12DescriptorHeap* heaps[] = { TextureManager::Instance()->GetDescriptorHeap() };
@@ -130,12 +139,12 @@ void IFE::ImguiManager::RadioButtonGUI(const std::string& buttonName, int32_t* n
 
 void IFE::ImguiManager::ObjectManagerGUI(bool* add, bool* fdelete, bool* prefab, bool* fmove)
 {
-	ImGui::Begin("ObjectManager", (bool*)false, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin(U8("ヒエラルキー(object)"), (bool*)false, ImGuiWindowFlags_MenuBar);
 	if (ImGui::BeginMenuBar())
 	{
-		if (ImGui::BeginMenu("add"))
+		if (ImGui::BeginMenu(U8("追加")))
 		{
-			ImGui::MenuItem("Add", "", add);
+			ImGui::MenuItem(U8("追加"), "", add);
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("delete"))
@@ -173,13 +182,13 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 	static bool cm = false;
 	if (objectName == sOpenComponentName_)
 	{
+		ImGui::Begin(U8("インスペクター"), (bool*)false, ImGuiWindowFlags_MenuBar);
 		openObj_ = ObjectManager::Instance()->GetObjectPtr(objectName);
-		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
 		if (ImGui::BeginMenuBar())
 		{
-			if (ImGui::BeginMenu("add"))
+			if (ImGui::BeginMenu(U8("追加")))
 			{
-				ImGui::MenuItem("Add", "", &componentAddFlag_);
+				ImGui::MenuItem(U8("追加"), "", &componentAddFlag_);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("delete"))
@@ -196,11 +205,11 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 		}
 		if (componentAddFlag_)
 		{
-			if (ImGui::CollapsingHeader("add"))
+			if (ImGui::CollapsingHeader(U8("追加")))
 			{
 				static char name[256];
 				ImGui::InputText("add Component", name, sizeof(name));
-				if (ImGui::Button("Add"))
+				if (ImGui::Button(U8("追加")))
 				{
 					auto tmp = std::unique_ptr<Component>(std::move(StringToComponent(name)));
 					if (tmp != nullptr)
@@ -274,12 +283,12 @@ void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std:
 {
 	if (objectName == sOpenComponentName_)
 	{
-		ImGui::Begin("Component List", (bool*)false, ImGuiWindowFlags_MenuBar);
+		ImGui::Begin(U8("インスペクター"), (bool*)false, ImGuiWindowFlags_MenuBar);
 		if (ImGui::BeginMenuBar())
 		{
-			if (ImGui::BeginMenu("add"))
+			if (ImGui::BeginMenu(U8("追加")))
 			{
-				ImGui::MenuItem("Add", "", &componentAddFlag_);
+				ImGui::MenuItem(U8("追加"), "", &componentAddFlag_);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("delete"))
@@ -291,11 +300,11 @@ void IFE::ImguiManager::ComponentGUI2D(const std::string& objectName, const std:
 		}
 		if (componentAddFlag_)
 		{
-			if (ImGui::CollapsingHeader("add"))
+			if (ImGui::CollapsingHeader(U8("追加")))
 			{
 				static char name[256];
 				ImGui::InputText("add Component", name, sizeof(name));
-				if (ImGui::Button("Add"))
+				if (ImGui::Button(U8("追加")))
 				{
 					auto tmp = std::unique_ptr<Component>(std::move(StringToComponent(name)));
 					if (tmp != nullptr)
@@ -452,9 +461,9 @@ void IFE::ImguiManager::ModelManagerGUI(bool* add, bool* fdelete)
 	ImGui::Begin("ModelManager", (bool*)false, ImGuiWindowFlags_MenuBar);
 	if (ImGui::BeginMenuBar())
 	{
-		if (ImGui::BeginMenu("add"))
+		if (ImGui::BeginMenu(U8("追加")))
 		{
-			ImGui::MenuItem("Add", "", add);
+			ImGui::MenuItem(U8("追加"), "", add);
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("delete"))
@@ -807,7 +816,7 @@ void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::str
 			}
 		}
 
-		if (ImGui::Button("Add"))
+		if (ImGui::Button(U8("追加")))
 		{
 			f.push_back(0);
 		}
@@ -853,7 +862,7 @@ void IFE::ImguiManager::DragVectorFloat2GUI(std::vector<Float2>& f, const std::s
 			}
 		}
 
-		if (ImGui::Button("Add"))
+		if (ImGui::Button(U8("追加")))
 		{
 			f.push_back(0);
 		}
@@ -902,7 +911,7 @@ void IFE::ImguiManager::DragVectorFloat3GUI(std::vector<Float3>& f, const std::s
 			}
 		}
 
-		if (ImGui::Button("Add"))
+		if (ImGui::Button(U8("追加")))
 		{
 			f.push_back(addValue);
 		}
@@ -948,7 +957,7 @@ void IFE::ImguiManager::DragVectorFloat4GUI(std::vector<Float4>& f, const std::s
 			}
 		}
 
-		if (ImGui::Button("Add"))
+		if (ImGui::Button(U8("追加")))
 		{
 			f.push_back(0);
 		}

@@ -178,6 +178,9 @@
     <Filter Include="ヘッダー ファイル\Source\Other">
       <UniqueIdentifier>{d44ec7ea-4272-4f9e-bde4-6a13328b60c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\External">
+      <UniqueIdentifier>{d425c799-8987-4bcc-8705-072d19fd0a0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\GraphicsAPI.cpp">
@@ -736,6 +739,9 @@
     </ClInclude>
     <ClInclude Include="StructuredBuffer.h">
       <Filter>ヘッダー ファイル\Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="External\strconv2.h">
+      <Filter>ヘッダー ファイル\Engine\External</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
