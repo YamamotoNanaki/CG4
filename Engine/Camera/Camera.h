@@ -40,6 +40,8 @@ namespace IFE
 #ifdef NDEBUG
 #else
 		void DebugUpdate();
+		void DebugCameraUpdate();
+		void DebugCameraInitialize();
 		void DebugGUI(bool fdelete);
 		void ComponentGUI();
 		void OutputScene(nlohmann::json& json);

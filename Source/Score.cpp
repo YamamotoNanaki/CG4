@@ -18,7 +18,7 @@ void Score::Initialize()
 
 void Score::Update()
 {
-	score_ = uint16_t(IFE::Enemy::Enemy::sScore_ * 10);
+	score_ = uint16_t(IFE::Enemy::Enemy::sScore_);
 
 	uint16_t temNum = 100;
 	uint16_t scoreTem = score_;

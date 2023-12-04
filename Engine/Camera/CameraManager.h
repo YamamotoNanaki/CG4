@@ -31,6 +31,7 @@ namespace IFE
 
 #ifdef NDEBUG
 #else
+		inline static Camera* sDebugCamera_ = nullptr;
 		void DebugUpdate();
 		void DebugGUI();
 		void OutputScene();
