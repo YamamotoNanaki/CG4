@@ -41,3 +41,6 @@
   - シーンデータの書き込み及び読み込みに使用
 - [strconv](https://github.com/javacommons/strconv)
   - 文字列の変換に使用
+
+## 作成した実行ファイルについて
+Visual Studioやランタイムライブラリのない環境での動作確認済み
