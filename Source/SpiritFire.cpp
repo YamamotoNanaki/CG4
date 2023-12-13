@@ -78,10 +78,9 @@ void SpiritFire::RedParticle()
 	for (auto& p : emitterPtr_->particles_)
 	{
 		float r = IFE::OutQuad(sDefaultColor_.x, 0.1f, emitterPtr_->particleMaxTime_ - 0.25f, max(p->timer_ - 0.25f, 0));
-		float g = IFE::Lerp(sDefaultColor_.y, 0, emitterPtr_->particleMaxTime_ * 3 / 4, min(p->timer_, emitterPtr_->particleMaxTime_ * 2 / 3));
 		float b = IFE::OutQuad(sDefaultColor_.z, 0, emitterPtr_->particleMaxTime_ / 2, min(p->timer_, emitterPtr_->particleMaxTime_ / 2));
 		float s = IFE::OutQuad(0.35f, 0, emitterPtr_->particleMaxTime_, p->timer_);
-		p->GetComponent<IFE::ColorBuffer>()->SetColor({ r, g, b, r });
+		p->GetComponent<IFE::ColorBuffer>()->SetColor({ r, b, b, r });
 		p->transform_->scale_ = { s,s,s };
 		p->transform_->position_.x += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;
 		p->transform_->position_.z += IFE::IFERand::GetRandF(-1, 1) * IFE::IFETime::sDeltaTime_ * 3;

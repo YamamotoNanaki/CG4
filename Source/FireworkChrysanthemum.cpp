@@ -38,6 +38,7 @@ void IFE::FireworkChrysanthemum::Update()
 	gravity_ += 0.1f * IFETime::sDeltaTime_;
 
 	(this->*ColorTableFunc[colorSetting_])();
+	LightUpdate();
 }
 
 void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
@@ -80,7 +81,7 @@ void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 	pointLightNum_ = LightManager::GetPointLightNumber();
 	LightManager::Instance()->SetPointLightActive(pointLightNum_, true);
 	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.001f,0,0 });
+	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { 0.01f,0,0 });
 }
 
 void IFE::FireworkChrysanthemum::SetColor(const uint8_t& colorSetting)
@@ -131,11 +132,7 @@ void IFE::FireworkChrysanthemum::BlueParticle()
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::GreenParticle()
@@ -153,11 +150,7 @@ void IFE::FireworkChrysanthemum::GreenParticle()
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::YellowParticle()
@@ -173,11 +166,7 @@ void IFE::FireworkChrysanthemum::YellowParticle()
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, r, b, a);
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::RedParticle()
@@ -195,11 +184,7 @@ void IFE::FireworkChrysanthemum::RedParticle()
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
-	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
 void IFE::FireworkChrysanthemum::PurpleParticle()
@@ -215,10 +200,14 @@ void IFE::FireworkChrysanthemum::PurpleParticle()
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, r, a);
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
-	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
+}
+
+void IFE::FireworkChrysanthemum::LightUpdate()
+{
+	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
 	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.001f, 1, maxTime_, timer_);
+	float attenX = InQuart(0.01f, 1, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 
