@@ -17,14 +17,6 @@ CameraManager* IFE::CameraManager::Instance()
 
 void IFE::CameraManager::Initialize()
 {
-#ifdef NDEBUG
-#else
-	auto d = new Camera;
-	d->cameraName_ = "debugCamera";
-	cameraList_.push_back(std::unique_ptr<Camera>(d));
-	sDebugCamera_ = cameraList_.front().get();
-	sDebugCamera_->DebugCameraInitialize();
-#endif
 	auto c = new Camera;
 	c->cameraName_ = "initCamera";
 	cameraList_.push_back(std::unique_ptr<Camera>(c));
@@ -105,6 +97,15 @@ Camera* IFE::CameraManager::Add(const std::string& cameraName)
 #else
 #include "ImguiManager.h"
 #include "ImGui.h"
+void IFE::CameraManager::DebugInitialize()
+{
+	auto d = new Camera;
+	d->cameraName_ = "debugCamera";
+	cameraList_.push_back(std::unique_ptr<Camera>(d));
+	sDebugCamera_ = cameraList_.front().get();
+	sDebugCamera_->CameraInitialize();
+	sDebugCamera_->DebugCameraInitialize();
+}
 void IFE::CameraManager::DebugUpdate()
 {
 	cameraList_.remove_if([](std::unique_ptr<Camera>& camera) {return camera->deleteFlag_; });
@@ -112,8 +113,7 @@ void IFE::CameraManager::DebugUpdate()
 	{
 		sActivCamera_ = cameraList_.front().get();
 	}
-	sActivCamera_->DebugUpdate();
-	//sDebugCamera_->DebugCameraUpdate();
+	sDebugCamera_->Update();
 }
 void IFE::CameraManager::DebugGUI()
 {
@@ -195,6 +195,10 @@ void IFE::CameraManager::LoadingScene()
 	JsonManager* jm = JsonManager::Instance();
 	jm->Input("CameraManager");
 	nlohmann::json js = jm->GetJsonData();
+#ifdef NDEBUG
+#else
+	DebugInitialize();
+#endif
 	for (auto& j : js)
 	{
 		Camera* camera = nullptr;
