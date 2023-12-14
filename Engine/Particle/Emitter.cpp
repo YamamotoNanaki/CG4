@@ -143,8 +143,8 @@ void IFE::Emitter::Draw()
 
 IFE::Emitter::~Emitter()
 {
-	ComponentManager::Finalize();
 	particles_.clear();
+	ComponentManager::Finalize();
 }
 
 #ifdef NDEBUG

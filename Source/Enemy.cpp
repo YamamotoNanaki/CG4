@@ -76,7 +76,7 @@ void IFE::Enemy::Update()
 	}
 	else if (hp_ == 4)
 	{
-		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.y,sDefaultColor_.z });
+		LightManager::Instance()->SetPointLightColor(useLightNum_, { sDefaultColor_.x,sDefaultColor_.z,sDefaultColor_.z });
 	}
 	else if (hp_ == 5)
 	{

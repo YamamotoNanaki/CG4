@@ -37,6 +37,7 @@ namespace IFE
 		void YellowParticle();
 		void RedParticle();
 		void PurpleParticle();
+		void LightUpdate();
 		static void (FireworkChrysanthemum::* ColorTableFunc[])();
 
 	public:
