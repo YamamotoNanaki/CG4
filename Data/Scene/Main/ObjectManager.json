@@ -16976,10 +16976,10 @@
     },
     {
         "Collider": {
-            "attribute": 0,
+            "attribute": 2,
             "colliderType": 0,
             "groundJudge": false,
-            "notPushBack": false,
+            "notPushBack": true,
             "pushBack": false
         },
         "EnemySpawn": [
@@ -17159,7 +17159,19 @@
                 5.0
             ],
             "action": 0,
-            "patrolPointSize": 0,
+            "patrolPoint": [
+                [
+                    -54.8415412902832,
+                    -0.75,
+                    141.76693725585938
+                ],
+                [
+                    -17.1114559173584,
+                    -0.75,
+                    169.3144989013672
+                ]
+            ],
+            "patrolPointSize": 2,
             "speed": 1.0
         },
         "Material": {
@@ -17197,9 +17209,9 @@
         },
         "Transform": {
             "position": [
-                -54.8415412902832,
+                -17.1114559173584,
                 -0.75,
-                141.76693725585938
+                169.3144989013672
             ],
             "rotation": [
                 360.0,
