@@ -99,12 +99,12 @@ Camera* IFE::CameraManager::Add(const std::string& cameraName)
 #include "ImGui.h"
 void IFE::CameraManager::DebugInitialize()
 {
-	auto d = new Camera;
-	d->cameraName_ = "debugCamera";
-	cameraList_.push_back(std::unique_ptr<Camera>(d));
-	sDebugCamera_ = cameraList_.front().get();
-	sDebugCamera_->CameraInitialize();
-	sDebugCamera_->DebugCameraInitialize();
+	//auto d = new Camera;
+	//d->cameraName_ = "debugCamera";
+	//cameraList_.push_back(std::unique_ptr<Camera>(d));
+	//sDebugCamera_ = cameraList_.front().get();
+	//sDebugCamera_->CameraInitialize();
+	//sDebugCamera_->DebugCameraInitialize();
 }
 void IFE::CameraManager::DebugUpdate()
 {
@@ -113,7 +113,7 @@ void IFE::CameraManager::DebugUpdate()
 	{
 		sActivCamera_ = cameraList_.front().get();
 	}
-	sDebugCamera_->Update();
+	sActivCamera_->DebugUpdate();
 }
 void IFE::CameraManager::DebugGUI()
 {

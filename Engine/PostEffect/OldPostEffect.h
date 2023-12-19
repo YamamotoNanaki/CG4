@@ -10,8 +10,9 @@ namespace IFE
 	{
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Resource>texBuff[3];
-		Microsoft::WRL::ComPtr<ID3D12Resource>depthTex;
+		Microsoft::WRL::ComPtr<ID3D12Resource>depthTexture;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapSRV;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>depthSRV;
 		Microsoft::WRL::ComPtr<ID3D12Resource>depthBuff;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapRTV;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>descHeapDSV;

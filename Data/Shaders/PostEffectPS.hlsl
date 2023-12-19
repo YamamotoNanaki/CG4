@@ -2,7 +2,7 @@
 
 Texture2D<float4> tex0 : register(t0); // 0番スロットに設定されたテクスチャ
 Texture2D<float4> tex1 : register(t1); // 1番スロットに設定されたテクスチャ
-Texture2D<float4> tex2 : register(t2); // 2番スロットに設定されたテクスチャ
+Texture2D<float> tex2 : register(t2); // 2番スロットに設定されたテクスチャ
 SamplerState smp : register(s0); // 0番スロットに設定されたサンプラー
 
 float Gaussian(float2 drawuv, float2 pickuv, float sigma)
@@ -111,9 +111,8 @@ float4 main(VSOutput input) : SV_TARGET
     //texcolor = inFocus * inFocusColor + middleFocus * middleFocusColor + outFocus * outFocusColor;
     texcolor = GaussianBlur(input.uv, tex0, shift);
     texcolor += GaussianBlur(input.uv, tex1);
+    //texcolor.b += tex2.Sample(smp, input.uv);
 
     texcolor = pow(texcolor, 1.25);
-    
-    
     return texcolor;
 }
