@@ -28,6 +28,13 @@ void IFE::Camera::CameraUpdate()
 	ComponentManager::Update();
 }
 
+void IFE::Camera::Update()
+{
+	if (!isActive_)return;
+	projection_.Update();
+	ComponentManager::Update();
+}
+
 View* IFE::Camera::GetView()
 {
 	return &view_;

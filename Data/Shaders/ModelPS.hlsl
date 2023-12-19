@@ -136,6 +136,6 @@ PSOutput main(GSOutput input) : SV_TARGET
     }
     col.r = input.svpos.z / input.svpos.w;
     col.w = 1;
-    o.target2 = col;
+    //o.target2 = col;
     return o;
 }

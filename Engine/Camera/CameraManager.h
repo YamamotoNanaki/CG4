@@ -22,6 +22,7 @@ namespace IFE
 		void LoadingScene();
 		void Update();
 		void Draw();
+		void ShadowDraw();
 		void Reset();
 		Camera* Add(const std::string& cameraName);
 		Camera* AddInitialize(const std::string& cameraName);

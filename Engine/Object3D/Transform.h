@@ -18,7 +18,9 @@ namespace IFE
 		using Component::Component;
 		Camera* camera_ = nullptr;
 		std::unique_ptr<ConstBuffer<ConstBufferDataTransform>> transformBuffer_;
+		std::unique_ptr<ConstBuffer<ConstBufferDataTransform>> shadowBuffer_;
 		ConstBufferDataTransform* constMapTransform_ = nullptr;
+		ConstBufferDataTransform* shadowMapTransform_ = nullptr;
 
 		Float3 lossyScale_;
 	public:
@@ -39,6 +41,7 @@ namespace IFE
 		void Initialize()override;
 		void Update()override;
 		void Draw()override;
+		void ShadowDraw(Camera* camera);
 		void UpdateMatrix();
 		void Copy(Component* component);
 		Vector3 TransformPoint(const Vector3& position);

@@ -25,12 +25,14 @@ namespace IFE
 		TransformCamera* transform_;
 		std::string cameraName_;
 		bool deleteFlag_ = false;
+		bool isActive_ = false;
 
 	public:
 		Camera();
 		void Initialize();
 		void CameraInitialize();
 		void CameraUpdate();
+		void Update();
 		View* GetView();
 		Projection* GetProjection();
 		~Camera();

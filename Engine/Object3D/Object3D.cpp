@@ -85,6 +85,15 @@ void IFE::Object3D::Draw()
 	model_->Draw();
 }
 
+void IFE::Object3D::ShadowDraw(Camera* c)
+{
+	if (!isActive_)return;
+	if (!DrawFlag_)return;
+	ComponentManager::Draw();
+	GetComponent<Transform>()->ShadowDraw(c);
+	model_->Draw();
+}
+
 IFE::Object3D::~Object3D()
 {
 	ComponentManager::Finalize();

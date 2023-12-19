@@ -447,6 +447,12 @@
     <ClCompile Include="Engine\Camera\DebugCamera.cpp">
       <Filter>ソース ファイル\Engine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Camera\ShadowMapCamera.cpp">
+      <Filter>ソース ファイル\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LightCamera.cpp">
+      <Filter>ソース ファイル\Source\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -748,6 +754,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Camera\DebugCamera.h">
       <Filter>ヘッダー ファイル\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera\ShadowMapCamera.h">
+      <Filter>ヘッダー ファイル\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LightCamera.h">
+      <Filter>ヘッダー ファイル\Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

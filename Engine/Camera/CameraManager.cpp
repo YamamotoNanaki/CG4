@@ -37,11 +37,24 @@ void IFE::CameraManager::Update()
 		sActivCamera_ = cameraList_.front().get();
 	}
 	sActivCamera_->CameraUpdate();
+	for (auto& c : cameraList_)
+	{
+		c->Update();
+	}
 }
 
 void IFE::CameraManager::Draw()
 {
 	sActivCamera_->Draw();
+}
+
+void IFE::CameraManager::ShadowDraw()
+{
+	for (auto& c : cameraList_)
+	{
+		if (!c->isActive_)continue;
+		c->Draw();
+	}
 }
 
 void IFE::CameraManager::Reset()

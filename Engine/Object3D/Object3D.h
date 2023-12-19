@@ -38,6 +38,7 @@ namespace IFE
 		void OBJUpdate();
 		static void DrawBefore(const D3D_PRIMITIVE_TOPOLOGY& topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		void Draw();
+		void ShadowDraw(Camera* c);
 		~Object3D();
 		std::string GetObjectName();
 		void SetObjectName(const std::string& objectName);

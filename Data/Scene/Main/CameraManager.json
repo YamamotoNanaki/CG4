@@ -74,5 +74,43 @@
             "PlayerCamera"
         ],
         "name": "playerCamera"
+    },
+    {
+        "Fog": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "fogFar": 700.0,
+            "fogFlag": false,
+            "fogNear": 650.0
+        },
+        "LightCamera": null,
+        "ShadowMapCamera": null,
+        "TransformCamera": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "projectionSize": [
+                1600.0,
+                900.0
+            ],
+            "rotation": [
+                360.0,
+                360.0,
+                360.0
+            ]
+        },
+        "component": [
+            "Fog",
+            "TransformCamera",
+            "ShadowMapCamera",
+            "LightCamera"
+        ],
+        "name": "shadow"
     }
 ]

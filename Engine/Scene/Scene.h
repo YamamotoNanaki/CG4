@@ -39,6 +39,7 @@ namespace IFE
 
 	public:
 		std::unique_ptr<OldPostEffect> oldPostEffect = nullptr;
+		std::unique_ptr<OldPostEffect> shadow = nullptr;
 	public:
 		void Initialize();
 		void Update();

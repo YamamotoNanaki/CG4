@@ -36,6 +36,8 @@ void IFE::Scene::Initialize()
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
 	oldPostEffect->Initialize();
+	shadow = std::make_unique<OldPostEffect>();
+	shadow->Initialize();
 
 	SceneInit();
 
@@ -69,6 +71,12 @@ void IFE::Scene::PostEffectDraw()
 		particleM->Draw();
 	}
 	oldPostEffect->DrawAfter();
+	shadow->DrawBefore();
+	if (loadEnd_)
+	{
+		objM_->ShadowDraw();
+	}
+	shadow->DrawAfter();
 }
 
 void IFE::Scene::Draw()
@@ -79,6 +87,7 @@ void IFE::Scene::Draw()
 		spriteM_->BackDraw();
 		oldPostEffect->Draw();
 		spriteM_->ForeDraw();
+		shadow->Draw();
 	}
 	else
 	{
@@ -107,6 +116,8 @@ void IFE::Scene::Initialize()
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
 	oldPostEffect->Initialize();
+	shadow = std::make_unique<OldPostEffect>();
+	shadow->Initialize();
 	SceneInit();
 	particleM->Initialize();
 }
@@ -152,6 +163,12 @@ void IFE::Scene::PostEffectDraw()
 		particleM->Draw();
 	}
 	oldPostEffect->DrawAfter();
+	shadow->DrawBefore();
+	if (loadEnd_)
+	{
+		objM_->ShadowDraw();
+	}
+	shadow->DrawAfter();
 }
 
 void IFE::Scene::Draw()

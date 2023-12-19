@@ -27,6 +27,7 @@
     <ClCompile Include="Engine\Camera\DebugCamera.cpp" />
     <ClCompile Include="Engine\Camera\Fog.cpp" />
     <ClCompile Include="Engine\Camera\Projection.cpp" />
+    <ClCompile Include="Engine\Camera\ShadowMapCamera.cpp" />
     <ClCompile Include="Engine\Camera\View.cpp" />
     <ClCompile Include="Engine\Collider\CollideManager.cpp" />
     <ClCompile Include="Engine\Collider\Collider.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="Source\Goal.cpp" />
     <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\Lantern.cpp" />
+    <ClCompile Include="Source\LightCamera.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerCamera.cpp" />
@@ -121,6 +123,7 @@
     <ClInclude Include="Engine\Camera\DebugCamera.h" />
     <ClInclude Include="Engine\Camera\Fog.h" />
     <ClInclude Include="Engine\Camera\Projection.h" />
+    <ClInclude Include="Engine\Camera\ShadowMapCamera.h" />
     <ClInclude Include="Engine\Camera\View.h" />
     <ClInclude Include="Engine\Collider\CollideManager.h" />
     <ClInclude Include="Engine\Collider\Collider.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="Source\Goal.h" />
     <ClInclude Include="Source\HPbar.h" />
     <ClInclude Include="Source\Lantern.h" />
+    <ClInclude Include="Source\LightCamera.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\ParticleSetting.h" />
     <ClInclude Include="Source\Player.h" />

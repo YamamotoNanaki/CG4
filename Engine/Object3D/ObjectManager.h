@@ -23,6 +23,7 @@ namespace IFE
 		void Initialize();
 		void Update();
 		void Draw();
+		void ShadowDraw();
 		//void DrawBackGround();
 		Object3D* AddInitialize(const std::string& objectName, Component* model);
 		Object3D* Add(const std::string& objectName);
