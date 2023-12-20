@@ -13,6 +13,8 @@ void IFE::TitleUI::Initialize()
 {
 	if (transform2D_)initPos_ = transform2D_->position2D_;
 	auto num = Sound::Instance()->LoadWave("title");
+	Sound::Instance()->LoadWave("Firework");
+	Sound::Instance()->SetVolume("Firework", 15);
 	Sound::Instance()->SetVolume(num, 25);
 	FireworkChrysanthemum::InitDefaultVelocity();
 }

@@ -24,6 +24,10 @@ void IFE::Enemy::Initialize()
 	{
 		action_ = (uint8_t)EnemyAction::Patrol;
 	}
+	else
+	{
+		action_ = (uint8_t)EnemyAction::Stanby;
+	}
 	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
