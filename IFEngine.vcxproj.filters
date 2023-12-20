@@ -441,7 +441,7 @@
     <ClCompile Include="Source\Score.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp">
+    <ClCompile Include="Engine\Base\StructuredBuffer.cpp">
       <Filter>ソース ファイル\Engine\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Camera\DebugCamera.cpp">
@@ -740,7 +740,7 @@
     <ClInclude Include="Source\Score.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="StructuredBuffer.h">
+    <ClInclude Include="Engine\Base\StructuredBuffer.h">
       <Filter>ヘッダー ファイル\Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="External\strconv2.h">

@@ -102,7 +102,7 @@
     <ClCompile Include="Source\TitleUI.cpp" />
     <ClCompile Include="Source\TutorialAttack.cpp" />
     <ClCompile Include="Source\TutorialMove.cpp" />
-    <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="Engine\Base\StructuredBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Compute.h" />
@@ -204,7 +204,7 @@
     <ClInclude Include="Source\TitleUI.h" />
     <ClInclude Include="Source\TutorialAttack.h" />
     <ClInclude Include="Source\TutorialMove.h" />
-    <ClInclude Include="StructuredBuffer.h" />
+    <ClInclude Include="Engine\Base\StructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Model.hlsli" />
