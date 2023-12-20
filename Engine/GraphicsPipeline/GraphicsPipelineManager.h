@@ -11,7 +11,7 @@ namespace IFE
 	};
 	enum class PIPELINE_SETTING
 	{
-		Normal = 0, Anim = 20, Transparent = 40, SPrite = 100
+		Normal = 0, Shadow = 10, Anim = 20, Transparent = 40, SPrite = 100
 	};
 	class GraphicsPipelineManager
 	{
@@ -29,6 +29,7 @@ namespace IFE
 
 		bool ShaderCompile(const std::string& shaderName, const SHADER_COMPILE_SETTINGS& setting);
 		GraphicsPipeline* CreateBasicGraphicsPipeLine();
+		GraphicsPipeline* CreateShadowMapGraphicsPipeLine();
 		GraphicsPipeline* CreateAnimGraphicsPipeLine();
 		GraphicsPipeline* CreateBasic2DGraphicsPipeLine();
 		GraphicsPipeline* CreateBasicParticleGraphicsPipeLine();

@@ -8,6 +8,7 @@
 #include "WindowsAPI.h"
 #include "StructuredBuffer.h"
 #include "Compute.h"
+#include "ShadowObject.h"
 
 using namespace IFE;
 
@@ -26,6 +27,7 @@ void IFE::Scene::Initialize()
 	gp_->CreateBasicParticleGraphicsPipeLine();
 	gp_->CreateTransparentParticleGraphicsPipeLine();
 	gp_->CreateSubParticleGraphicsPipeLine();
+	gp_->CreateShadowMapGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
@@ -35,8 +37,10 @@ void IFE::Scene::Initialize()
 	sound_->Initialize();
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
+	oldPostEffect->name = "posteffect";
 	oldPostEffect->Initialize();
 	shadow = std::make_unique<OldPostEffect>();
+	shadow->name = "shadow";
 	shadow->Initialize();
 
 	SceneInit();
@@ -64,6 +68,13 @@ void IFE::Scene::Update()
 
 void IFE::Scene::PostEffectDraw()
 {
+	shadow->DrawBefore();
+	if (loadEnd_)
+	{
+		objM_->ShadowDraw();
+	}
+	shadow->DrawAfter();
+
 	oldPostEffect->DrawBefore();
 	if (loadEnd_)
 	{
@@ -71,12 +82,6 @@ void IFE::Scene::PostEffectDraw()
 		particleM->Draw();
 	}
 	oldPostEffect->DrawAfter();
-	shadow->DrawBefore();
-	if (loadEnd_)
-	{
-		objM_->ShadowDraw();
-	}
-	shadow->DrawAfter();
 }
 
 void IFE::Scene::Draw()
@@ -105,6 +110,7 @@ void IFE::Scene::Initialize()
 	gp_->CreateBasicParticleGraphicsPipeLine();
 	gp_->CreateSubParticleGraphicsPipeLine();
 	gp_->CreateTransparentParticleGraphicsPipeLine();
+	gp_->CreateShadowMapGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
@@ -115,8 +121,10 @@ void IFE::Scene::Initialize()
 	gui_.Initialize();
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
+	oldPostEffect->name = "posteffect";
 	oldPostEffect->Initialize();
 	shadow = std::make_unique<OldPostEffect>();
+	shadow->name = "shadow";
 	shadow->Initialize();
 	SceneInit();
 	particleM->Initialize();
@@ -156,6 +164,12 @@ void IFE::Scene::Update()
 
 void IFE::Scene::PostEffectDraw()
 {
+	shadow->DrawBefore();
+	if (loadEnd_)
+	{
+		objM_->ShadowDraw();
+	}
+	shadow->DrawAfter();
 	oldPostEffect->DrawBefore();
 	if (loadEnd_)
 	{
@@ -163,12 +177,6 @@ void IFE::Scene::PostEffectDraw()
 		particleM->Draw();
 	}
 	oldPostEffect->DrawAfter();
-	shadow->DrawBefore();
-	if (loadEnd_)
-	{
-		objM_->ShadowDraw();
-	}
-	shadow->DrawAfter();
 }
 
 void IFE::Scene::Draw()

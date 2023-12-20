@@ -16,7 +16,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3E5C3CF0-29CB-32E1-B4B9-2BE688518F48}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
     <ProjectName>assimp</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>

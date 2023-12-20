@@ -453,6 +453,9 @@
     <ClCompile Include="Source\LightCamera.cpp">
       <Filter>ソース ファイル\Source\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ShadowObject.cpp">
+      <Filter>ソース ファイル\Source\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -761,6 +764,9 @@
     <ClInclude Include="Source\LightCamera.h">
       <Filter>ヘッダー ファイル\Source\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ShadowObject.h">
+      <Filter>ヘッダー ファイル\Source\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Particle.hlsli">
@@ -779,6 +785,9 @@
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Data\Shaders\ModelAnim.hlsli">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Data\Shaders\Shadow.hlsli">
       <Filter>シェーダーファイル</Filter>
     </None>
   </ItemGroup>
@@ -823,6 +832,15 @@
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
     <FxCompile Include="Data\Shaders\testCS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowPS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowGS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowVS.hlsl">
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
   </ItemGroup>

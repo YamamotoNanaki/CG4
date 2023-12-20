@@ -151,6 +151,7 @@
             "notPushBack": false,
             "pushBack": false
         },
+        "ShadowObject": null,
         "Material": {
             "ambient": [
                 0.5,
@@ -205,7 +206,8 @@
             "Transform",
             "TransferGeometryBuffer",
             "Material",
-            "Collider"
+            "Collider",
+			"ShadowObject"
         ],
         "drawFlag": true,
         "model": "ground_Model",

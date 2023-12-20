@@ -209,7 +209,7 @@ void IFE::ImguiManager::ComponentGUI(const std::string& objectName, const std::f
 			{
 				static char name[256];
 				ImGui::InputText("add Component", name, sizeof(name));
-				if (ImGui::Button(U8("’Ç‰Á")))
+				if (ImGui::Button("Add"))
 				{
 					auto tmp = std::unique_ptr<Component>(std::move(StringToComponent(name)));
 					if (tmp != nullptr)

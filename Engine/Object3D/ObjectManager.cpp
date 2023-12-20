@@ -11,6 +11,7 @@
 #include "CollideManager.h"
 #include "LightManager.h"
 #include "CameraManager.h"
+#include "ShadowObject.h"
 #include <regex>
 
 using namespace IFE;

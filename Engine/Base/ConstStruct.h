@@ -93,4 +93,8 @@ namespace IFE
 		uint32_t boneIndex[MAX_BONE_INDICES]{};
 		float boneWeight[MAX_BONE_INDICES]{};
 	};
+	struct LightVP
+	{
+		Matrix lightVP;			//XYZç¿ïW
+	};
 }

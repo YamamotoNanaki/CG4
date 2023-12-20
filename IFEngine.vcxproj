@@ -98,6 +98,7 @@
     <ClCompile Include="Source\PlayerCamera.cpp" />
     <ClCompile Include="Source\PlayerLantern.cpp" />
     <ClCompile Include="Source\Score.cpp" />
+    <ClCompile Include="Source\ShadowObject.cpp" />
     <ClCompile Include="Source\SpiritFire.cpp" />
     <ClCompile Include="Source\StartCamera.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Source\PlayerCamera.h" />
     <ClInclude Include="Source\PlayerLantern.h" />
     <ClInclude Include="Source\Score.h" />
+    <ClInclude Include="Source\ShadowObject.h" />
     <ClInclude Include="Source\SpiritFire.h" />
     <ClInclude Include="Source\StartCamera.h" />
     <ClInclude Include="Source\TestParticle.h" />
@@ -215,6 +217,7 @@
     <None Include="Data\Shaders\ModelAnim.hlsli" />
     <None Include="Data\Shaders\Particle.hlsli" />
     <None Include="Data\Shaders\PostEffect.hlsli" />
+    <None Include="Data\Shaders\Shadow.hlsli" />
     <None Include="Data\Shaders\Sprite.hlsli" />
     <None Include="Data\Shaders\Util.hlsli" />
   </ItemGroup>
@@ -306,6 +309,30 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowPS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\ShadowVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Data\Shaders\SpritePS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
