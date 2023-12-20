@@ -13,6 +13,7 @@ PSOutput main(GSOutput input) : SV_TARGET
     }
     float4 p = mul(input.worldpos, lightVP);
     float4 posSM = float4(0, 0, 0, 0);
+    p.xyz = p.xyz / p.w;
     posSM.x = (1.0f + p.x) / 2.0f;
     posSM.y = (1.0f - p.y) / 2.0f;
     posSM.z = p.z;
@@ -139,8 +140,9 @@ PSOutput main(GSOutput input) : SV_TARGET
     {
         o.target1 = float4(0, 0, 0, 1);
     }
+    col = float4(1, 0, 0, 0);
     col.r = input.svpos.z / input.svpos.w;
     col.w = 1;
-    //o.target2 = col;
+    o.target2 = col;
     return o;
 }

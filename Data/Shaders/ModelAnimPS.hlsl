@@ -134,9 +134,9 @@ PSOutput main(GSOutput input) : SV_TARGET
     {
         o.target1 = float4(0, 0, 0, 0);
     }
-    col = float4(0, 0, 0, 0);
+    col = float4(1, 0, 0, 0);
     col.r = input.svpos.z / input.svpos.w;
     col.w = 1;
-    //o.target2 = col;
+    o.target2 = col;
     return o;
 }

@@ -26,7 +26,7 @@ void IFE::ShadowObject::Draw()
 	//Matrix mat;
 	constMapLightVP_->lightVP = mat;
 	lightVPBuffer_->SetConstBuffView(7);
-	TextureManager::Instance()->GetTexture("shadow_Render_depth")->SetTexture(6);
+	TextureManager::Instance()->GetTexture("shadow_Render_2")->SetTexture(6);
 }
 
 void IFE::ShadowObject::SetDrawFlag(bool flag)
