@@ -68,6 +68,10 @@ namespace IFE
 	{
 		Matrix bones[MAX_BONES];
 	};
+	struct ConstBufferLightVP
+	{
+		Matrix lightVP;			//lightのV×P行列
+	};
 	struct Vertex
 	{
 		Float3 pos;			//XYZ座標
@@ -92,9 +96,5 @@ namespace IFE
 		Float2 uv{};			//UV座標
 		uint32_t boneIndex[MAX_BONE_INDICES]{};
 		float boneWeight[MAX_BONE_INDICES]{};
-	};
-	struct LightVP
-	{
-		Matrix lightVP;			//XYZ座標
 	};
 }

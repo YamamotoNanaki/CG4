@@ -7,9 +7,9 @@ namespace IFE
 {
 	class ShadowObject : public Component
 	{
-		std::unique_ptr<ConstBuffer<LightVP>> materialBuffer_;
+		std::unique_ptr<ConstBuffer<ConstBufferLightVP>> lightVPBuffer_;
 		bool drawFlag_ = false;
-		LightVP* constMapMaterial_ = nullptr;
+		ConstBufferLightVP* constMapLightVP_ = nullptr;
 	public:
 		void Initialize();
 		void Draw();

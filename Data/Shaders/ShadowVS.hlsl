@@ -11,10 +11,10 @@ VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOOR
     output.normal = wnormal.xyz;
     output.uv = uv;
 
-    float4 p = mul(wpos, lightVP);
+    //float4 p = mul(wpos, lightVP);
     output.posSM = float4(0, 0, 0, 0);
-    output.posSM.x = (1.0f + p.x) / 2.0f;
-    output.posSM.y = (1.0f - p.y) / 2.0f;
-    output.posSM.z = p.z;
+    //output.posSM.x = (1.0f + p.x) / 2.0f;
+    //output.posSM.y = (1.0f - p.y) / 2.0f;
+    //output.posSM.z = p.z;
     return output;
 }

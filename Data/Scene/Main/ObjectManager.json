@@ -151,7 +151,6 @@
             "notPushBack": false,
             "pushBack": false
         },
-        "ShadowObject": null,
         "Material": {
             "ambient": [
                 0.5,
@@ -177,6 +176,7 @@
             ],
             "terxtureName": "white.png"
         },
+        "ShadowObject": null,
         "TransferGeometryBuffer": {
             "explosion": 0.0,
             "gravity": 0.0,
@@ -207,7 +207,7 @@
             "TransferGeometryBuffer",
             "Material",
             "Collider",
-			"ShadowObject"
+            "ShadowObject"
         ],
         "drawFlag": true,
         "model": "ground_Model",

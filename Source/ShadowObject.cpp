@@ -10,8 +10,8 @@ void IFE::ShadowObject::Initialize()
 {
 	objectPtr_->gp_ = IFE::GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dShadow");
 
-	materialBuffer_ = std::make_unique<ConstBuffer<LightVP>>();
-	constMapMaterial_ = materialBuffer_->GetCBMapObject();
+	lightVPBuffer_ = std::make_unique<ConstBuffer<ConstBufferLightVP>>();
+	constMapLightVP_ = lightVPBuffer_->GetCBMapObject();
 }
 
 void IFE::ShadowObject::Draw()
@@ -22,9 +22,11 @@ void IFE::ShadowObject::Draw()
 		return;
 	}
 	auto c = CameraManager::Instance()->GetCamera("shadow");
-	constMapMaterial_->lightVP = c->GetView()->Get() * c->GetProjection()->Get();
+	Matrix mat = c->GetView()->Get() * c->GetProjection()->Get();
+	//Matrix mat;
+	constMapLightVP_->lightVP = mat;
+	lightVPBuffer_->SetConstBuffView(7);
 	TextureManager::Instance()->GetTexture("shadow_Render_depth")->SetTexture(6);
-	materialBuffer_->SetConstBuffView(7);
 }
 
 void IFE::ShadowObject::SetDrawFlag(bool flag)

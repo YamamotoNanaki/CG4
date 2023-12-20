@@ -11,8 +11,13 @@ PSOutput main(GSOutput input) : SV_TARGET
     {
         discard;
     }
-    float sm = shadowMap.Sample(smp, input.posSM.xy);
-    float sma = (input.posSM.z - 0.005f < sm) ? 1.0f : 0.5f;
+    float4 p = mul(input.worldpos, lightVP);
+    float4 posSM = float4(0, 0, 0, 0);
+    posSM.x = (1.0f + p.x) / 2.0f;
+    posSM.y = (1.0f - p.y) / 2.0f;
+    posSM.z = p.z;
+    float sm = shadowMap.Sample(smp, posSM.xy);
+    float sma = (posSM.z - 0.005f < sm) ? 1.0f : 0.5f;
     float4 texcolor = float4(tex.Sample(smp, input.uv));
     const float shininess = 4.0f;
     float3 amb = ambient;
