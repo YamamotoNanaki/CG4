@@ -238,7 +238,7 @@ Texture* IFE::TextureManager::LoadTexture(const std::string& filename, int32_t n
 	return &tex_[num];
 }
 
-Texture* IFE::TextureManager::CreateRanderTexture(const std::string& texname, bool depth)
+Texture* IFE::TextureManager::CreateRanderTexture(const std::string& texname, bool depth, ID3D12Resource* shadowBaffer)
 {
 	assert(textureSize_ < sTEX_MAX_ && "ヒープサイズが足りません");
 
@@ -326,11 +326,18 @@ Texture* IFE::TextureManager::CreateRanderTexture(const std::string& texname, bo
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;		//2dテクスチャ
 	srvDesc.Texture2D.MipLevels = 1;
 
-	//ヒープのnum番目にシェーダーリソースビュー作成
-	device->CreateShaderResourceView(
-		tex_[num].texbuff_.Get(),		//ビューと関連付けるバッファ
-		&srvDesc,		//テクスチャ設定情報
-		tex_[num].CPUHandle_);
+	if (depth)
+	{
+		device->CreateShaderResourceView(shadowBaffer, &srvDesc, tex_[num].CPUHandle_);
+	}
+	else
+	{
+		//ヒープのnum番目にシェーダーリソースビュー作成
+		device->CreateShaderResourceView(
+			tex_[num].texbuff_.Get(),		//ビューと関連付けるバッファ
+			&srvDesc,		//テクスチャ設定情報
+			tex_[num].CPUHandle_);
+	}
 
 	textureSize_++;
 	return &tex_[num];

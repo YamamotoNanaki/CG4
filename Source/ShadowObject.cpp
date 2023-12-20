@@ -22,11 +22,14 @@ void IFE::ShadowObject::Draw()
 		return;
 	}
 	auto c = CameraManager::Instance()->GetCamera("shadow");
-	Matrix mat = c->GetView()->Get() * c->GetProjection()->Get();
-	//Matrix mat;
+	Matrix v;
+	v.SetX(c->GetView()->eye_);
+	v.SetY(c->GetView()->target_);
+	v.SetZ(c->GetView()->up_);
+	Matrix mat = v * c->GetProjection()->Get();
 	constMapLightVP_->lightVP = mat;
 	lightVPBuffer_->SetConstBuffView(7);
-	TextureManager::Instance()->GetTexture("shadow_Render_2")->SetTexture(6);
+	TextureManager::Instance()->GetTexture("shadow_Render_depth")->SetTexture(6);
 }
 
 void IFE::ShadowObject::SetDrawFlag(bool flag)

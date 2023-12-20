@@ -22,7 +22,7 @@ namespace IFE
 		void Initialize();
 		Texture* GetTexture(const std::string& filename);
 		Texture* LoadTexture(const std::string& filename, int32_t number = -1);
-		Texture* CreateRanderTexture(const std::string& texname, bool depth = false);
+		Texture* CreateRanderTexture(const std::string& texname, bool depth = false, ID3D12Resource* shadowBaffer = nullptr);
 		void TexReset() {};
 
 

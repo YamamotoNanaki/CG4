@@ -67,7 +67,6 @@ void OldPostEffect::Initialize()
 	{
 		tex[i] = TextureManager::Instance()->CreateRanderTexture(name + "_Render_" + std::to_string(i));
 	}
-	tex[3] = TextureManager::Instance()->CreateRanderTexture(name + "_Render_depth", true);
 
 	D3D12_DESCRIPTOR_HEAP_DESC rtvDescHeapDesc{};
 	rtvDescHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
@@ -102,8 +101,10 @@ void OldPostEffect::Initialize()
 	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
 
-	//device->CreateDepthStencilView(depthBuff.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
-	device->CreateDepthStencilView(tex[3]->texbuff_.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
+	device->CreateDepthStencilView(depthBuff.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
+	//device->CreateDepthStencilView(tex[3]->texbuff_.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
+
+	tex[3] = TextureManager::Instance()->CreateRanderTexture(name + "_Render_depth", true, depthBuff.Get());
 
 	CreateGraphicsPipelineState();
 
@@ -331,8 +332,21 @@ void OldPostEffect::CreateGraphicsPipelineState()
 	gpipeline.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 	// デプスステンシルステート
 	gpipeline.DepthStencilState.DepthEnable = true;		//深度テストを行う
-	gpipeline.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+	gpipeline.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
 	gpipeline.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;	//書き込み許可
+	gpipeline.DepthStencilState.StencilEnable = false;							//ステンシルテストなし
+	gpipeline.DepthStencilState.StencilReadMask = D3D12_DEFAULT_STENCIL_READ_MASK;
+	gpipeline.DepthStencilState.StencilWriteMask = D3D12_DEFAULT_STENCIL_WRITE_MASK;
+
+	gpipeline.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
+
+	gpipeline.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
+	gpipeline.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
 
 	// レンダーターゲットのブレンド設定
 	D3D12_RENDER_TARGET_BLEND_DESC blenddesc{};
