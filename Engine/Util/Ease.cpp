@@ -18,6 +18,19 @@ float IFE::InQuart(float startPos, float endPos, float maxTime, float time)
 	float change = endPos - startPos;
 	return change * time * time * time * time + startPos;
 }
+float IFE::InQuint(float startPos, float endPos, float maxTime, float time)
+{
+	time /= maxTime;
+	float change = endPos - startPos;
+	return change * time * time * time * time * time + startPos;
+}
+float IFE::InExpo(float startPos, float endPos, float maxTime, float time)
+{
+	float x = time / maxTime;
+	float change = endPos - startPos;
+	float r = x == 0 ? 0 : powf(2, 10 * x - 10) * change;
+	return r + startPos;
+}
 float IFE::OutQuad(float startPos, float endPos, float maxTime, float time) {
 	time /= maxTime;
 	float change = endPos - startPos;
@@ -64,7 +77,7 @@ IFE::Float3 IFE::InOutQuad(const IFE::Float3& startPos, const IFE::Float3& endPo
 IFE::Float2 IFE::InOutQuad(const IFE::Float2& startPos, const IFE::Float2& endPos, float maxTime, float time)
 {
 	return { InOutQuad(startPos.x, endPos.x, maxTime, time),
-			 InOutQuad(startPos.y, endPos.y, maxTime, time)};
+			 InOutQuad(startPos.y, endPos.y, maxTime, time) };
 }
 float IFE::OutInRelayQuad(float startPos, float endPos, float relayPos, float maxTime, float relayTime, float time) {
 	if (time < relayTime) {

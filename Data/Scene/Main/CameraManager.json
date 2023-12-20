@@ -2,14 +2,14 @@
     {
         "Fog": {
             "color": [
-                1.0,
-                1.0,
-                1.0,
+                0.023166000843048096,
+                0.023166000843048096,
+                0.023166000843048096,
                 1.0
             ],
-            "fogFar": 700.0,
-            "fogFlag": false,
-            "fogNear": 650.0
+            "fogFar": 740.0,
+            "fogFlag": true,
+            "fogNear": 220.0
         },
         "StartCamera": null,
         "TransformCamera": {
@@ -38,14 +38,14 @@
     {
         "Fog": {
             "color": [
-                1.0,
-                1.0,
-                1.0,
+                0.023166000843048096,
+                0.023166000843048096,
+                0.023166000843048096,
                 1.0
             ],
-            "fogFar": 700.0,
-            "fogFlag": false,
-            "fogNear": 650.0
+            "fogFar": 740.0,
+            "fogFlag": true,
+            "fogNear": 220.0
         },
         "PlayerCamera": {
             "maxDistance": 40.0,
