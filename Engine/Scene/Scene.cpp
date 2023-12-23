@@ -74,7 +74,6 @@ void IFE::Scene::PostEffectDraw()
 		objM_->ShadowDraw();
 	}
 	shadow->DrawAfter();
-
 	oldPostEffect->DrawBefore();
 	if (loadEnd_)
 	{
@@ -92,7 +91,6 @@ void IFE::Scene::Draw()
 		spriteM_->BackDraw();
 		oldPostEffect->Draw();
 		spriteM_->ForeDraw();
-		shadow->Draw();
 	}
 	else
 	{
