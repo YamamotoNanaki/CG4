@@ -85,5 +85,53 @@
             "settings": 1,
             "smooth": true
         }
+    },
+    {
+        "Bush2_Model": {
+            "fileName": "Bush2",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Bush2_Model"
+    },
+    {
+        "Bush3_Model": {
+            "fileName": "Bush3",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Bush3_Model"
+    },
+    {
+        "Tree1_Model": {
+            "fileName": "Tree1",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Tree1_Model"
+    },
+    {
+        "Tree2_Model": {
+            "fileName": "Tree2",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Tree2_Model"
+    },
+    {
+        "Tree3_Model": {
+            "fileName": "Tree3",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Tree3_Model"
+    },
+    {
+        "Tree4_Model": {
+            "fileName": "Tree4",
+            "settings": 1,
+            "smooth": true
+        },
+        "name": "Tree4_Model"
     }
 ]
