@@ -25,8 +25,9 @@
 - ライトの設置
 など
 
-## 推奨環境
-- windows10
+## 制作環境
+- DirectX12
+- Windows SDK 10.0.22000.0
 
 ## 使用外部ライブラリ
 - [Assimp](https://github.com/assimp/assimp)
