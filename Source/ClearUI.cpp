@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Scene.h"
 #include "Sound.h"
+#include "Engine.h"
 
 void IFE::ClearUI::Initialize()
 {
@@ -32,5 +33,9 @@ void IFE::ClearUI::Update()
 	if (input->GetKeyDown(Key::Space) || input->PadDown(PADCODE::ABXY))
 	{
 		Scene::Instance()->SetNextScene("Title");
+	}
+	if (IFE::Input::GetKeyTrigger(IFE::Key::Esc))
+	{
+		IFE::Engine::SetShutdown();
 	}
 }

@@ -92,6 +92,8 @@
     <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\Lantern.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
+    <ClCompile Include="Source\PauseSystemUI.cpp" />
+    <ClCompile Include="Source\PauseUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerCamera.cpp" />
     <ClCompile Include="Source\PlayerLantern.cpp" />
@@ -195,6 +197,8 @@
     <ClInclude Include="Source\Lantern.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\ParticleSetting.h" />
+    <ClInclude Include="Source\PauseSystemUI.h" />
+    <ClInclude Include="Source\PauseUI.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerCamera.h" />
     <ClInclude Include="Source\PlayerLantern.h" />

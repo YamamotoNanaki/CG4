@@ -6,6 +6,7 @@
 #include "Sound.h"
 #include "Rand.h"
 #include "FireworkChrysanthemum.h"
+#include "Engine.h"
 
 using namespace IFE;
 
@@ -41,6 +42,10 @@ void IFE::TitleUI::Update()
 	if (input->GetKeyDown(Key::Space) || input->PadDown(PADCODE::ABXY))
 	{
 		Scene::Instance()->SetNextScene("Main");
+	}
+	if (IFE::Input::GetKeyTrigger(IFE::Key::Esc))
+	{
+		IFE::Engine::SetShutdown();
 	}
 }
 

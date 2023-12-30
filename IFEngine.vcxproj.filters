@@ -450,6 +450,12 @@
     <ClCompile Include="Source\Tree.cpp">
       <Filter>ソース ファイル\Source\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PauseUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseSystemUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -754,6 +760,12 @@
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
       <Filter>ヘッダー ファイル\Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseSystemUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

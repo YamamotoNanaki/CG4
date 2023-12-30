@@ -77,8 +77,8 @@ void IFE::Sprite::SPRITEInitialize(const std::string& texName, const Float2& s, 
 	BufferInitialize();
 	AddComponent<ColorBuffer>();
 	AddComponent<Transform2D>();
-	ComponentManager::Initialize();
 	transform_ = GetComponent<Transform2D>();
+	ComponentManager::Initialize();
 }
 
 void IFE::Sprite::Initialize(const std::string& texName, const Float2& s, const Float2& a, bool x, bool y)
@@ -91,8 +91,8 @@ void IFE::Sprite::Initialize(const std::string& texName, const Float2& s, const 
 	this->flipY_ = y;
 
 	BufferInitialize();
-	ComponentManager::Initialize();
 	transform_ = GetComponent<Transform2D>();
+	ComponentManager::Initialize();
 }
 
 void IFE::Sprite::DrawBefore()

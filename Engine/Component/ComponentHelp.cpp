@@ -37,6 +37,8 @@
 #include "EnemySpawn.h"
 #include "Score.h"
 #include "Tree.h"
+#include "PauseUI.h"
+#include "PauseSystemUI.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -128,6 +130,10 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<Score>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Tree>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PauseUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PauseSystemUI>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

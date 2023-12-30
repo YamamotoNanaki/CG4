@@ -3,6 +3,7 @@
 #include "JsonManager.h"
 #include "CameraManager.h"
 #include "Object3D.h"
+#include "Sprite.h"
 
 using namespace IFE;
 using namespace std;
@@ -235,6 +236,7 @@ void IFE::Transform2D::Initialize()
 {
 	transformBuffer_ = make_unique<ConstBuffer<ConstBufferMatrix>>();
 	constMapTransform_ = transformBuffer_->GetCBMapObject();
+	spritePtr_->transform_ = this;
 }
 
 void IFE::Transform2D::Update()
