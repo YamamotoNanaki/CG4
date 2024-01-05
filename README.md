@@ -1,5 +1,12 @@
 # Initialize Forgot Engine
 
+## 就職作品
+  個人で制作したエンジンと制作中のゲームのリポジトリです。
+
+## 製作期間
+エンジン : 10ヶ月
+アプリケーション : 5ヶ月
+
 ## 2D/3D描画エンジン
 
   DirectX12を用いた自作エンジンです。  
@@ -25,8 +32,9 @@
 - ライトの設置
 など
 
-## 推奨環境
-- windows10
+## 制作環境
+- DirectX12
+- Windows SDK 10.0.22000.0
 
 ## 使用外部ライブラリ
 - [Assimp](https://github.com/assimp/assimp)

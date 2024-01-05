@@ -441,11 +441,20 @@
     <ClCompile Include="Source\Score.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp">
+    <ClCompile Include="Engine\Base\StructuredBuffer.cpp">
       <Filter>ソース ファイル\Engine\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Camera\DebugCamera.cpp">
       <Filter>ソース ファイル\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tree.cpp">
+      <Filter>ソース ファイル\Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseSystemUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Camera\ShadowMapCamera.cpp">
       <Filter>ソース ファイル\Engine\Camera</Filter>
@@ -749,7 +758,7 @@
     <ClInclude Include="Source\Score.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="StructuredBuffer.h">
+    <ClInclude Include="Engine\Base\StructuredBuffer.h">
       <Filter>ヘッダー ファイル\Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="External\strconv2.h">
@@ -760,6 +769,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Camera\ShadowMapCamera.h">
       <Filter>ヘッダー ファイル\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree.h">
+      <Filter>ヘッダー ファイル\Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseSystemUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\LightCamera.h">
       <Filter>ヘッダー ファイル\Source\Camera</Filter>

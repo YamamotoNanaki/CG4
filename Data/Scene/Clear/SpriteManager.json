@@ -1,35 +1,6 @@
 {
     "fore": [
         {
-            "ColorBuffer": {
-                "color": [
-                    1.0,
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            },
-            "EnemyCountUI": null,
-            "Transform2D": {
-                "position": [
-                    1000.0,
-                    640.0
-                ],
-                "rotation": 0.0,
-                "scale": [
-                    1.5,
-                    1.5
-                ]
-            },
-            "component": [
-                "Transform2D",
-                "ColorBuffer",
-                "EnemyCountUI"
-            ],
-            "name": "EnemyNum",
-            "texture": "number0.png"
-        },
-        {
             "ClearUI": null,
             "ColorBuffer": {
                 "color": [
@@ -67,23 +38,114 @@
                     1.0
                 ]
             },
+            "CommonGameUI": null,
+            "Score": null,
             "Transform2D": {
                 "position": [
-                    650.0,
-                    640.0
+                    600.0,
+                    650.0
                 ],
                 "rotation": 0.0,
                 "scale": [
-                    15.0,
-                    1.5
+                    2.5,
+                    0.5
                 ]
             },
             "component": [
                 "Transform2D",
-                "ColorBuffer"
+                "ColorBuffer",
+                "CommonGameUI",
+                "Score"
             ],
-            "name": "kill",
-            "texture": "kill.png"
+            "name": "score",
+            "texture": "score.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    850.0,
+                    650.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum",
+            "texture": "number0.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    900.0,
+                    650.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum1",
+            "texture": "number0.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "CommonGameUI": null,
+            "Transform2D": {
+                "position": [
+                    950.0,
+                    650.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    0.75,
+                    0.75
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "CommonGameUI"
+            ],
+            "name": "scoreNum2",
+            "texture": "number0.png"
         }
     ]
 }

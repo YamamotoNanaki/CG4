@@ -52,6 +52,7 @@ void IFE::ModelManager::Add(const std::string& modelName, const AddModelSettings
 			break;
 		}
 		FBXModel* ptr = modelLoader_.FBXLoad(fileName, ft, smooth);
+		if (ptr == nullptr)return;
 		ptr->Initialize();
 		ptr->SetSettings(modelSetting);
 		buff = std::unique_ptr<Component>(ptr);

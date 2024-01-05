@@ -24,6 +24,10 @@ void IFE::Enemy::Initialize()
 	{
 		action_ = (uint8_t)EnemyAction::Patrol;
 	}
+	else
+	{
+		action_ = (uint8_t)EnemyAction::Stanby;
+	}
 	if (transform_ != nullptr && action_ == (uint8_t)EnemyAction::Patrol)
 	{
 		transform_->position_ = patrolPoint_[0];
@@ -174,7 +178,6 @@ void IFE::Enemy::Move()
 void IFE::Enemy::Stanby()
 {
 	action_ = patrolPoint_.size() > 1 ? uint8_t(EnemyAction::Patrol) : action_;
-	//action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
 void IFE::Enemy::Patrol()
@@ -197,8 +200,6 @@ void IFE::Enemy::Patrol()
 	{
 		nowPoint_ = nextPoint;
 	}
-
-	//action_ = isFoundPlayer_ == true ? uint8_t(EnemyAction::Detection) : action_;
 }
 
 void IFE::Enemy::Detection()

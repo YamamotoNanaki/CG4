@@ -32,7 +32,7 @@ void IFE::Engine::Run()
 		scene->Draw();
 		gapi_->DrawAfter();
 
-		if (window_->Message() || Input::GetKeyDown(Key::Esc))
+		if (window_->Message() || endFlag_)
 		{
 #ifdef _DEBUG
 			scene->OutputScene();
@@ -47,4 +47,9 @@ void IFE::Engine::Finalize()
 {
 	window_->Finalize();
 	gapi_->Finalize();
+}
+
+void IFE::Engine::SetShutdown()
+{
+	endFlag_ = true;
 }

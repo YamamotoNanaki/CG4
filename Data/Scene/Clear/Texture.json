@@ -38,6 +38,12 @@
         "kamera.png",
         "score.png",
         "clook.png",
-        "needle.png"
+        "needle.png",
+        "pauseBase.png",
+        "pause.png",
+        "return.png",
+        "restart.png",
+        "toTitle.png",
+        "gameEnd.png"
     ]
 }

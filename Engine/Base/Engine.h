@@ -10,6 +10,7 @@ namespace IFE
 		Engine() {}
 		WindowsAPI* window_ = WindowsAPI::Instance();
 		GraphicsAPI* gapi_ = GraphicsAPI::Instance();
+		inline static bool endFlag_ = false;
 
 	public:
 		Engine(const Engine& obj) = delete;
@@ -18,5 +19,6 @@ namespace IFE
 		void Initialize();
 		void Run();
 		void Finalize();
+		static void SetShutdown();
 	};
 }

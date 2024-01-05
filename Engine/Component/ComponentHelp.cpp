@@ -36,6 +36,9 @@
 #include "PlayerLantern.h"
 #include "EnemySpawn.h"
 #include "Score.h"
+#include "Tree.h"
+#include "PauseUI.h"
+#include "PauseSystemUI.h"
 #include "ShadowMapCamera.h"
 #include "LightCamera.h"
 #include "ShadowObject.h"
@@ -128,6 +131,12 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<EnemySpawn>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<Score>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<Tree>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PauseUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<PauseSystemUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<ShadowMapCamera>(str));
 	if (tmp != nullptr)return tmp;

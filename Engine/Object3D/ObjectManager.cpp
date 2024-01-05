@@ -482,5 +482,6 @@ void IFE::ObjectManager::LoadingScene()
 		obj->SetModel(ModelManager::Instance()->GetModel(j["model"]));
 		obj->LoadingScene(j);
 		obj->Initialize();
+		string s = j["name"];
 	}
 }

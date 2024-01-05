@@ -206,8 +206,8 @@ void IFE::FireworkChrysanthemum::PurpleParticle()
 void IFE::FireworkChrysanthemum::LightUpdate()
 {
 	LightManager::Instance()->SetPointLightPos(pointLightNum_, transformParticle_->position_);
-	float atten = InQuart(0, 1, maxTime_, timer_);
-	float attenX = InQuart(0.05f, 1, maxTime_, timer_);
+	float atten = InQuint(0, 1, maxTime_, timer_);
+	float attenX = InQuint(0.05f, 1, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightAtten(pointLightNum_, { attenX,atten,atten });
 }
 

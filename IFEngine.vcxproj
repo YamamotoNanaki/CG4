@@ -94,6 +94,8 @@
     <ClCompile Include="Source\Lantern.cpp" />
     <ClCompile Include="Source\LightCamera.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
+    <ClCompile Include="Source\PauseSystemUI.cpp" />
+    <ClCompile Include="Source\PauseUI.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerCamera.cpp" />
     <ClCompile Include="Source\PlayerLantern.cpp" />
@@ -103,9 +105,10 @@
     <ClCompile Include="Source\StartCamera.cpp" />
     <ClCompile Include="Source\TestParticle.cpp" />
     <ClCompile Include="Source\TitleUI.cpp" />
+    <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\TutorialAttack.cpp" />
     <ClCompile Include="Source\TutorialMove.cpp" />
-    <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="Engine\Base\StructuredBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Compute.h" />
@@ -199,6 +202,8 @@
     <ClInclude Include="Source\LightCamera.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\ParticleSetting.h" />
+    <ClInclude Include="Source\PauseSystemUI.h" />
+    <ClInclude Include="Source\PauseUI.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerCamera.h" />
     <ClInclude Include="Source\PlayerLantern.h" />
@@ -208,9 +213,10 @@
     <ClInclude Include="Source\StartCamera.h" />
     <ClInclude Include="Source\TestParticle.h" />
     <ClInclude Include="Source\TitleUI.h" />
+    <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\TutorialAttack.h" />
     <ClInclude Include="Source\TutorialMove.h" />
-    <ClInclude Include="StructuredBuffer.h" />
+    <ClInclude Include="Engine\Base\StructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Model.hlsli" />
@@ -360,10 +366,10 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Engine\Assimp\code\assimp.vcxproj">
+    <ProjectReference Include="External\Assimp\code\assimp.vcxproj">
       <Project>{3e5c3cf0-29cb-32e1-b4b9-2be688518f48}</Project>
     </ProjectReference>
-    <ProjectReference Include="Engine\Assimp\contrib\zlib\zlibstatic.vcxproj">
+    <ProjectReference Include="External\Assimp\contrib\zlib\zlibstatic.vcxproj">
       <Project>{dc03f165-7449-3851-81cc-da12d35fdb42}</Project>
     </ProjectReference>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -424,21 +430,21 @@
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)External\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)External\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\External\DirectXTex;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Engine\Assimp\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)External\Assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -446,7 +452,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;IMGUI_DEFINE_MATH_OPERATORS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)External\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -469,7 +475,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;IMGUI_DEFINE_MATH_OPERATORS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)External\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -495,7 +501,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>DEVELOP;_WINDOWS;IMGUI_DEFINE_MATH_OPERATORS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)Engine\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Engine;$(ProjectDir)Engine\Collider;$(ProjectDir)External\imgui;$(ProjectDir)External\imGuizmo;$(ProjectDir)Engine\Material;$(ProjectDir)Engine\Component;$(ProjectDir)External\Assimp\include;$(ProjectDir)Engine\Sound;$(ProjectDir)Engine\Light;$(ProjectDir)Engine\Texture;$(ProjectDir)Engine\Camera;$(ProjectDir)Engine\Object3D;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\Util;$(ProjectDir)Engine\GraphicsPipeline;$(ProjectDir)Engine\Model;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Sprite;$(ProjectDir)Engine\Particle;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\PostEffect;$(ProjectDir)External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

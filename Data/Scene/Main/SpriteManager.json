@@ -453,6 +453,180 @@
             ],
             "name": "time1",
             "texture": "number0.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseSystemUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    450.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    10.0,
+                    7.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseSystemUI"
+            ],
+            "name": "pauseBase",
+            "texture": "pauseBase.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    0.7722007632255554,
+                    0.7722007632255554,
+                    0.7722007632255554,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    200.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    3.0,
+                    1.0
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "pause",
+            "texture": "pause.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    650.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.5,
+                    0.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "gameEnd",
+            "texture": "gameEnd.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    550.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.5,
+                    0.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "toTitle",
+            "texture": "toTitle.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    450.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    2.0,
+                    0.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "restart",
+            "texture": "restart.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    350.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.5,
+                    0.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "return",
+            "texture": "return.png"
         }
     ]
 }

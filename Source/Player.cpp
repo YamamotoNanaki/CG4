@@ -226,12 +226,10 @@ void IFE::Player::Shoot()
 		if (animator_->GetAnimation() == "Idle" || animator_->GetAnimation() == "Gun_Shoot")
 		{
 			animator_->SetAnimation("Gun_Shoot");
-			animator_->animSpeed_ = animator_->GetEndTime() / nextBulletTime_ + 0.1f;
 		}
 		else
 		{
 			animator_->SetAnimation("Run_Shoot");
-			animator_->animSpeed_ = animator_->GetEndTime() / nextBulletTime_ + 0.1f;
 		}
 		animator_->loop_ = false;
 

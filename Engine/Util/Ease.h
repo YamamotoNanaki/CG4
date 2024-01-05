@@ -17,6 +17,8 @@ namespace IFE
 
 	float InQuad(float startPos, float endPos, float maxTime, float time);
 	float InQuart(float startPos, float endPos, float maxTime, float time);
+	float InQuint(float startPos, float endPos, float maxTime, float time);
+	float InExpo(float startPos, float endPos, float maxTime, float time);
 
 	float OutQuad(float startPos, float endPos, float maxTime, float time);
 

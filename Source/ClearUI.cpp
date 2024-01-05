@@ -4,12 +4,16 @@
 #include "Input.h"
 #include "Scene.h"
 #include "Sound.h"
+#include "Engine.h"
+#include "Rand.h"
+#include "FireworkChrysanthemum.h"
 
 void IFE::ClearUI::Initialize()
 {
 	if (transform2D_)initPos_ = transform2D_->position2D_;
 	auto num = Sound::Instance()->LoadWave("title");
 	Sound::Instance()->SetVolume(num, 25);
+	FireworkChrysanthemum::InitDefaultVelocity();
 }
 
 void IFE::ClearUI::Update()
@@ -32,5 +36,32 @@ void IFE::ClearUI::Update()
 	if (input->GetKeyDown(Key::Space) || input->PadDown(PADCODE::ABXY))
 	{
 		Scene::Instance()->SetNextScene("Title");
+	}
+	if (IFE::Input::GetKeyTrigger(IFE::Key::Esc))
+	{
+		IFE::Engine::SetShutdown();
+	}
+	Firework();
+}
+
+void IFE::ClearUI::Firework()
+{
+	fireworkTimer_ += IFETime::sDeltaTime_;
+	if (fireworkTimer_ >= fireworkMaxTime_)
+	{
+		float x = IFE::IFERand::GetRandF(-40, 40);
+		float y = IFE::IFERand::GetRandF(-25, 25);
+		float z = IFE::IFERand::GetRandF(100, 110);
+		uint8_t c = uint8_t(IFE::IFERand::GetRand(0, 4));
+		Float3 pos = { x,y,z };
+		for (size_t i = 0; i < 3; i++)
+		{
+			auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", pos);
+			e->GetComponent<FireworkChrysanthemum>()->StartFirework(i);
+			e->GetComponent<FireworkChrysanthemum>()->SetColor(c);
+		}
+		Sound::Instance()->SoundPlay("Firework", false);
+		fireworkTimer_ = 0;
+		fireworkMaxTime_ = IFE::IFERand::GetRandF(0.25f, 1.25f);
 	}
 }

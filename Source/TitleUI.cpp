@@ -6,6 +6,7 @@
 #include "Sound.h"
 #include "Rand.h"
 #include "FireworkChrysanthemum.h"
+#include "Engine.h"
 
 using namespace IFE;
 
@@ -13,6 +14,8 @@ void IFE::TitleUI::Initialize()
 {
 	if (transform2D_)initPos_ = transform2D_->position2D_;
 	auto num = Sound::Instance()->LoadWave("title");
+	Sound::Instance()->LoadWave("Firework");
+	Sound::Instance()->SetVolume("Firework", 15);
 	Sound::Instance()->SetVolume(num, 25);
 	FireworkChrysanthemum::InitDefaultVelocity();
 }
@@ -40,6 +43,10 @@ void IFE::TitleUI::Update()
 	{
 		Scene::Instance()->SetNextScene("Main");
 	}
+	if (IFE::Input::GetKeyTrigger(IFE::Key::Esc))
+	{
+		IFE::Engine::SetShutdown();
+	}
 }
 
 void IFE::TitleUI::Firework()
@@ -60,6 +67,6 @@ void IFE::TitleUI::Firework()
 		}
 		Sound::Instance()->SoundPlay("Firework", false);
 		fireworkTimer_ = 0;
-		fireworkMaxTime_ = IFE::IFERand::GetRandF(1.0f, 4.5f);
+		fireworkMaxTime_ = IFE::IFERand::GetRandF(0.25f, 1.25f);
 	}
 }
