@@ -66,7 +66,7 @@ namespace IFE
 #ifdef NDEBUG
 #else
 		void DebugGUI();
-		void OutputComponent(nlohmann::json&json)override;
+		void OutputComponent(nlohmann::json& json)override;
 #endif
 		void LoadingComponent(nlohmann::json& json)override;
 	};
@@ -95,7 +95,7 @@ namespace IFE
 #ifdef NDEBUG
 #else
 		void DebugGUI();
-		void OutputComponent(nlohmann::json&json)override;
+		void OutputComponent(nlohmann::json& json)override;
 #endif
 		void LoadingComponent(nlohmann::json& json)override;
 	};
@@ -169,9 +169,11 @@ namespace IFE
 		TransformCamera* parent_ = nullptr;
 
 		bool eyeTargetUpFlag_ = false;
-		Float3 target_ = {0,0,0};
-		Float3 eye_ = {0,0,-5};
-		Float3 up_ = {0,0,-5};
+		Float3 target_ = { 0,0,0 };
+		Float3 eye_ = { 0,0,-5 };
+		Float3 up_ = { 0,0,-5 };
+		float nearZ_ = 0.1f;
+		float ferZ_ = 1000.f;
 
 	public:
 		void Update()override;

@@ -109,6 +109,7 @@ void IFE::Scene::Initialize()
 	gp_->CreateSubParticleGraphicsPipeLine();
 	gp_->CreateTransparentParticleGraphicsPipeLine();
 	gp_->CreateShadowMapGraphicsPipeLine();
+	gp_->CreateDepthWriteGraphicsPipeLine();
 	Emitter::StaticInitialize();
 	tex_->Initialize();
 	objM_->OBJInitialize();
@@ -123,6 +124,7 @@ void IFE::Scene::Initialize()
 	oldPostEffect->Initialize();
 	shadow = std::make_unique<OldPostEffect>();
 	shadow->name = "shadow";
+	//shadow->ShadowInitialize();
 	shadow->Initialize();
 	SceneInit();
 	particleM->Initialize();
@@ -162,11 +164,13 @@ void IFE::Scene::Update()
 
 void IFE::Scene::PostEffectDraw()
 {
+	//shadow->ShadowDrawBefore();
 	shadow->DrawBefore();
 	if (loadEnd_)
 	{
 		objM_->ShadowDraw();
 	}
+	//shadow->ShadowDrawAfter();
 	shadow->DrawAfter();
 	oldPostEffect->DrawBefore();
 	if (loadEnd_)

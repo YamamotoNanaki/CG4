@@ -568,7 +568,7 @@ void IFE::TransformCamera::UpdateMatrix()
 		cameraPtr_->GetView()->SetMatrixView(matWorld_);
 		cameraPtr_->GetView()->eye_ = position_;
 	}
-	cameraPtr_->GetProjection()->Inisialize(45, projectionSize_.x, projectionSize_.y);
+	cameraPtr_->GetProjection()->Inisialize(45, projectionSize_.x, projectionSize_.y, nearZ_, ferZ_);
 }
 
 void IFE::TransformCamera::Copy(Component* component)
@@ -682,6 +682,8 @@ void IFE::TransformCamera::DebugGUI()
 			im->DragFloat3GUI(&eye_, "eye");
 			im->DragFloat3GUI(&target_, "target");
 			im->DragFloat2GUI(&projectionSize_, "projectionSize");
+			im->DragFloatGUI(&nearZ_, "nearZ");
+			im->DragFloatGUI(&ferZ_, "ferZ");
 		};
 	std::function<void(void)> deleteFunc = [&]()
 		{
@@ -695,6 +697,7 @@ void IFE::TransformCamera::OutputComponent(nlohmann::json& j)
 	jm->OutputFloat3(j["rotation"], eulerAngleDegrees_);
 	jm->OutputFloat3(j["position"], position_);
 	jm->OutputFloat2(j["projectionSize"], projectionSize_);
+	jm->OutputFloat2(j["depth"], Float2(nearZ_, ferZ_));
 }
 #endif
 void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
@@ -703,4 +706,7 @@ void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
 	eulerAngleDegrees_ = j->InputFloat3(json["rotation"]);
 	position_ = j->InputFloat3(json["position"]);
 	projectionSize_ = j->InputFloat2(json["projectionSize"]);
+	auto z = j->InputFloat2(json["depth"]);
+	nearZ_ = z.x;
+	ferZ_ = z.y;
 }

@@ -808,6 +808,9 @@
     <None Include="Data\Shaders\Shadow.hlsli">
       <Filter>シェーダーファイル</Filter>
     </None>
+    <None Include="Data\Shaders\DepthWrite.hlsli">
+      <Filter>シェーダーファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Data\Shaders\ParticleGS.hlsl">
@@ -859,6 +862,12 @@
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
     <FxCompile Include="Data\Shaders\ShadowVS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\DepthWritePS.hlsl">
+      <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\DepthWriteVS.hlsl">
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
   </ItemGroup>

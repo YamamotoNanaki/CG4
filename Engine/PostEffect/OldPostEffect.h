@@ -34,6 +34,9 @@ namespace IFE
 		void Initialize();
 		void DrawBefore();
 		void DrawAfter();
+		void ShadowInitialize();
+		void ShadowDrawBefore();
+		void ShadowDrawAfter();
 		/// <summary>
 		/// RGBƒVƒtƒg‚ð‚µ‚Ü‚·
 		/// </summary>

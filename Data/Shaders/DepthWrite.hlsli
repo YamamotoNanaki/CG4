@@ -101,18 +101,18 @@ struct VSOutput
     float4 posSM : POSITION1; /**/
 };
 
-struct GSOutput
-{
-	float4 svpos : SV_POSITION;
-	float4 worldpos : POSITION;
-	float3 normal :NORMAL;
-    float2 uv : TEXCOORD;
-    float4 posSM : POSITION1; /**/
-};
+//struct GSOutput
+//{
+//	float4 svpos : SV_POSITION;
+//	float4 worldpos : POSITION;
+//	float3 normal :NORMAL;
+//    float2 uv : TEXCOORD;
+//    float4 posSM : POSITION1; /**/
+//};
 
-struct PSOutput
-{
-    float4 target0 : SV_TARGET0;
-    float4 target1 : SV_TARGET1;
-    float4 target2 : SV_TARGET2;
-};
+//struct PSOutput
+//{
+//    float4 target0 : SV_TARGET0;
+//    float4 target1 : SV_TARGET1;
+//    float4 target2 : SV_TARGET2;
+//};

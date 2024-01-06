@@ -13,6 +13,10 @@
         },
         "StartCamera": null,
         "TransformCamera": {
+            "depth": [
+                0.10000000149011612,
+                1000.0
+            ],
             "position": [
                 4.5,
                 63.25,
@@ -53,6 +57,10 @@
             "minDistance": 30.0
         },
         "TransformCamera": {
+            "depth": [
+                0.10000000149011612,
+                1000.0
+            ],
             "position": [
                 8.0,
                 7.5,
@@ -90,6 +98,10 @@
         "LightCamera": null,
         "ShadowMapCamera": null,
         "TransformCamera": {
+            "depth": [
+                20.0,
+                1000.0
+            ],
             "position": [
                 0.0,
                 0.0,

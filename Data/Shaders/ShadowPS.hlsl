@@ -11,14 +11,23 @@ PSOutput main(GSOutput input) : SV_TARGET
     {
         discard;
     }
-    float4 p = mul(input.worldpos, lightVP);
-    float4 posSM = float4(0, 0, 0, 0);
-    p.xyz = p.xyz / p.w;
-    posSM.x = (1.0f + p.x) / 2.0f;
-    posSM.y = (1.0f - p.y) / 2.0f;
-    posSM.z = p.z;
-    float sm = shadowMap.Sample(smp, posSM.xy);
-    float sma = (posSM.z - 0.005f < sm) ? 1.0f : 0.5f;
+    float4 posSM = mul(mul(lightVP, world), input.posSM);
+
+    float shadow = 1;
+    float2 shadowTexUV = posSM.xy / posSM.w;
+    shadowTexUV *= float2(0.5f, -0.5f);
+    shadowTexUV += 0.5f;
+    float z = posSM.z / posSM.w;
+    if (shadowTexUV.x > 0.01f && shadowTexUV.x < 0.99f &&
+        shadowTexUV.y > 0.01f && shadowTexUV.y < 0.99f)
+    {
+        float shadowDepth = shadowMap.Sample(smp, shadowTexUV).r;
+        if (shadowDepth < z)
+        {
+            shadow *= 0.5f;
+        }
+    }
+
     float4 texcolor = float4(tex.Sample(smp, input.uv));
     const float shininess = 4.0f;
     float3 amb = ambient;
@@ -125,7 +134,7 @@ PSOutput main(GSOutput input) : SV_TARGET
     }
 
     PSOutput o;
-    o.target0 = shadecolor * texcolor * color * sma;
+    o.target0 = shadecolor * texcolor * color * shadow;
     o.target0 = o.target0 * f + m_FogColor * (1.0f - f);
     float4 col = float4(0, 0, 0, 0);
     col = o.target0;

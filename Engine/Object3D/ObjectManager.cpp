@@ -113,6 +113,20 @@ void IFE::ObjectManager::ShadowDraw()
 			itr->ShadowDraw(c);
 		}
 	}
+
+	//objList.sort([](const Object3D* objA, const Object3D* objB) {return objA->gp_->pipelineNum_ > objB->gp_->pipelineNum_; });
+	////uint8_t num = 255;
+	//auto c = CameraManager::Instance()->GetCamera("shadow");
+	//GraphicsPipelineManager::Instance()->GetGraphicsPipeline("3dDepthWrite");
+	//LightManager::Instance()->Draw(3);
+	//CameraManager::Instance()->ShadowDraw();
+	//for (auto& itr : objList)
+	//{
+	//	if (itr->GetObjectName() == "Player" || itr->GetObjectName() == "ground")
+	//	{
+	//		itr->ShadowDraw(c);
+	//	}
+	//}
 }
 
 //void IFE::ObjectManager::DrawBackGround()

@@ -97,6 +97,40 @@ Vector3 IFE::Vector3Cross(const Vector3& v1, const Vector3& v2)
 	return vec;
 }
 
+Matrix IFE::MatrixLookAtLH(const Vector3& eye, const Vector3& target, const Vector3& up)
+{
+	//視点座標、注視点座標、上方向
+	Vector3 eyePosition = SetVector3(eye);
+	Vector3 targetPosition = SetVector3(target);
+	Vector3 upVector = SetVector3(up);
+
+	//カメラZ軸
+	Vector3 cameraAxisZ = VectorSubtract(targetPosition, eyePosition);
+	//ゼロベクトルを除外
+	assert(!Vector3Equal(cameraAxisZ, { 0,0,0 }));
+	assert(!Vector3Equal(upVector, { 0,0,0 }));
+	//ベクトル正規化
+	cameraAxisZ = Vector3Normalize(cameraAxisZ);
+
+	//カメラX軸Y軸
+	Vector3 cameraAxisX;
+	cameraAxisX = Vector3Cross(upVector, cameraAxisZ);
+	cameraAxisX = Vector3Normalize(cameraAxisX);
+	Vector3 cameraAxisY;
+	cameraAxisY = Vector3Cross(cameraAxisZ, cameraAxisX);
+	cameraAxisY = Vector3Normalize(cameraAxisY);
+
+	//回転行列の作成
+	Matrix matCameraRot;
+	matCameraRot.SetX(cameraAxisX);
+	matCameraRot.SetY(cameraAxisY);
+	matCameraRot.SetZ(cameraAxisZ);
+	matCameraRot.SetW(0, 0, 0, 1);
+
+	//逆行列を代入
+	return MatrixTranspose(matCameraRot);
+}
+
 bool IFE::NearEqual(float S1, float S2, float epsilon)
 {
 	float Delta = S1 - S2;

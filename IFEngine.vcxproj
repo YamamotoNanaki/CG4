@@ -219,6 +219,7 @@
     <ClInclude Include="Engine\Base\StructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Shaders\DepthWrite.hlsli" />
     <None Include="Data\Shaders\Model.hlsli" />
     <None Include="Data\Shaders\ModelAnim.hlsli" />
     <None Include="Data\Shaders\Particle.hlsli" />
@@ -228,6 +229,14 @@
     <None Include="Data\Shaders\Util.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Data\Shaders\DepthWritePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Data\Shaders\DepthWriteVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Data\Shaders\ModelAnimGS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

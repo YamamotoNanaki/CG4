@@ -13,9 +13,9 @@ namespace IFE
 		float fovAngle_;
 
 	public:
-		Projection(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 900);
-		Projection(float radian = 45, float nearZ = 0.1f, float farZ = 900);
-		void Inisialize(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 900);
+		Projection(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 1000);
+		Projection(float radian = 45, float nearZ = 0.1f, float farZ = 1000);
+		void Inisialize(float radian, float winWidth, float winHeight, float nearZ = 0.1f, float farZ = 1000);
 		void Update();
 		Matrix Get()const;
 		Matrix* GetAddressOf();

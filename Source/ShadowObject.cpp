@@ -12,6 +12,7 @@ void IFE::ShadowObject::Initialize()
 
 	lightVPBuffer_ = std::make_unique<ConstBuffer<ConstBufferLightVP>>();
 	constMapLightVP_ = lightVPBuffer_->GetCBMapObject();
+	constMapLightVP_->lightVP = MatrixIdentity();
 }
 
 void IFE::ShadowObject::Draw()
@@ -23,11 +24,9 @@ void IFE::ShadowObject::Draw()
 	}
 	auto c = CameraManager::Instance()->GetCamera("shadow");
 	Matrix v;
-	v.SetX(c->GetView()->eye_);
-	v.SetY(c->GetView()->target_);
-	v.SetZ(c->GetView()->up_);
+	v = MatrixLookAtLH(c->GetView()->eye_, c->GetView()->target_, c->GetView()->up_);
 	Matrix mat = v * c->GetProjection()->Get();
-	constMapLightVP_->lightVP = mat;
+	constMapLightVP_->lightVP = MatrixTranspose(mat);
 	lightVPBuffer_->SetConstBuffView(7);
 	TextureManager::Instance()->GetTexture("shadow_Render_depth")->SetTexture(6);
 }
