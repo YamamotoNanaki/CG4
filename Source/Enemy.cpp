@@ -12,6 +12,10 @@
 #include "Player.h"
 #include "SpiritFire.h"
 #include "LightManager.h"
+#include "LaunchFirework.h"
+#include "ObjectManager.h"
+#include "ModelManager.h"
+#include "BulletParticle.h"
 
 using namespace IFE;
 
@@ -102,6 +106,18 @@ void IFE::Enemy::OnColliderHit(Collider* collider)
 		hitPos_ = transform_->position_;
 		hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
 		action_ = (uint8_t)EnemyAction::Hit;
+		auto emitter = ParticleManager::Instance()->Instantiate("Bullet");
+		if (emitter)
+		{
+			emitter->GetComponent<BulletParticle>()->SetColor(hp_);
+			emitter->isActive_ = true;
+			auto obj = ObjectManager::Instance()->AddInitialize("Launch", ModelManager::Instance()->GetModel("cube"));
+			obj->DrawFlag_ = false;
+			obj->transform_->position_ = transform_->position_;
+			obj->AddComponentBack<LaunchFirework>();
+			obj->GetComponent<LaunchFirework>()->SetEmitter(emitter);
+			emitter->GetComponent<BulletParticle>()->SetBullet(obj);
+		}
 	}
 }
 

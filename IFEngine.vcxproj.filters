@@ -456,6 +456,9 @@
     <ClCompile Include="Source\PauseSystemUI.cpp">
       <Filter>ソース ファイル\Source\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LaunchFirework.cpp">
+      <Filter>ソース ファイル\Source\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -766,6 +769,9 @@
     </ClInclude>
     <ClInclude Include="Source\PauseSystemUI.h">
       <Filter>ヘッダー ファイル\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LaunchFirework.h">
+      <Filter>ヘッダー ファイル\Source\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

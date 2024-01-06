@@ -39,6 +39,7 @@
 #include "Tree.h"
 #include "PauseUI.h"
 #include "PauseSystemUI.h"
+#include "LaunchFirework.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -80,6 +81,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<BulletParticle>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<FireworkChrysanthemum>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<LaunchFirework>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<TestParticle>(str));
 	if (tmp != nullptr)return tmp;

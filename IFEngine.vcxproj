@@ -91,6 +91,7 @@
     <ClCompile Include="Source\Goal.cpp" />
     <ClCompile Include="Source\HPbar.cpp" />
     <ClCompile Include="Source\Lantern.cpp" />
+    <ClCompile Include="Source\LaunchFirework.cpp" />
     <ClCompile Include="Source\OverUI.cpp" />
     <ClCompile Include="Source\PauseSystemUI.cpp" />
     <ClCompile Include="Source\PauseUI.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Source\Goal.h" />
     <ClInclude Include="Source\HPbar.h" />
     <ClInclude Include="Source\Lantern.h" />
+    <ClInclude Include="Source\LaunchFirework.h" />
     <ClInclude Include="Source\OverUI.h" />
     <ClInclude Include="Source\ParticleSetting.h" />
     <ClInclude Include="Source\PauseSystemUI.h" />
