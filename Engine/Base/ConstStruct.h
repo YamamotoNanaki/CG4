@@ -63,6 +63,8 @@ namespace IFE
 		float NFocusWidth = 0.05f;
 		float FFocusWidth = 0.07f;
 		float FocusDepth = 0.085f;
+		float contrast = 1;
+		float brightness = 0;
 	};
 	struct ConstBufferDataSkin
 	{

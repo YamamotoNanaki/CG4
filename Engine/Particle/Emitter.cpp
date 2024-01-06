@@ -143,7 +143,7 @@ void IFE::Emitter::Draw()
 
 IFE::Emitter::~Emitter()
 {
-	particles_.clear();
+	if (particles_.size() > 0)particles_.clear();
 	ComponentManager::Finalize();
 }
 

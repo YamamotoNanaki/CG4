@@ -9,6 +9,7 @@ class PauseSystemUI : public IFE::Component
 	std::array<IFE::Float2, 4>spriteScales_;
 public:
 	inline static bool pauseFlag_ = false;
+	inline static bool configFlag_ = false;
 	void Initialize();
 	void Update();
 };

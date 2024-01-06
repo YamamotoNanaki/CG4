@@ -213,6 +213,16 @@ void IFE::OldPostEffect::SetRGBShift(float shift)
 	constMapPostEffect->sigma = shift;
 }
 
+void IFE::OldPostEffect::SetContrast(float contrast)
+{
+	constMapPostEffect->contrast = contrast;
+}
+
+void IFE::OldPostEffect::SetBrightness(float brightness)
+{
+	constMapPostEffect->brightness = brightness;
+}
+
 void IFE::OldPostEffect::SetVBInit()
 {
 	Vertex2D vertices[4] = {

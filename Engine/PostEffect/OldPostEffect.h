@@ -39,6 +39,8 @@ namespace IFE
 		/// </summary>
 		/// <param name="shift">0~0.005ˆÈ“à‚ª‚¿‚å‚¤‚Ç—Ç‚¢‚ÆŽv‚¢‚Ü‚·</param>
 		void SetRGBShift(float shift);
+		void SetContrast(float contrast);
+		void SetBrightness(float brightness);
 		//void SetGrayscale(bool gray);
 		//void SetSepia(float sepia);
 		void SetVBInit();

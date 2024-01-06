@@ -459,6 +459,9 @@
     <ClCompile Include="Source\LaunchFirework.cpp">
       <Filter>ソース ファイル\Source\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameConfigUI.cpp">
+      <Filter>ソース ファイル\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Debug.h">
@@ -772,6 +775,9 @@
     </ClInclude>
     <ClInclude Include="Source\LaunchFirework.h">
       <Filter>ヘッダー ファイル\Source\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameConfigUI.h">
+      <Filter>ヘッダー ファイル\Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
