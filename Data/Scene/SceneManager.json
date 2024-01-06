@@ -1,4 +1,4 @@
 {
-    "debug": "clear",
+    "debug": "main",
     "start": "title"
 }
