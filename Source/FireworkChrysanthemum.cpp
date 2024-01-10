@@ -7,6 +7,7 @@
 #include "Ease.h"
 #include "Rand.h"
 #include "LightManager.h"
+#include "Collider.h"
 
 using namespace IFE;
 
@@ -38,6 +39,7 @@ void IFE::FireworkChrysanthemum::Update()
 	gravity_ += 0.1f * IFETime::sDeltaTime_;
 
 	(this->*ColorTableFunc[colorSetting_])();
+	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightUpdate();
 }
 
@@ -75,6 +77,9 @@ void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 	else
 	{
 		useSpeed_ = sStartSpeed2_;
+		emitterPtr_->AddComponentBack<Collider>();
+		auto col = emitterPtr_->GetComponent<Collider>();
+		
 	}
 	speed_ = useSpeed_;
 
@@ -131,7 +136,6 @@ void IFE::FireworkChrysanthemum::BlueParticle()
 	}
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
-	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 }
 
@@ -149,7 +153,6 @@ void IFE::FireworkChrysanthemum::GreenParticle()
 	}
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
-	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 }
 
@@ -165,7 +168,6 @@ void IFE::FireworkChrysanthemum::YellowParticle()
 	}
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, r, b, a);
-	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 }
 
@@ -183,7 +185,6 @@ void IFE::FireworkChrysanthemum::RedParticle()
 	}
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, b, a);
-	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 }
 
@@ -199,7 +200,6 @@ void IFE::FireworkChrysanthemum::PurpleParticle()
 	}
 	float a = OutQuad(1.f, 0, maxTime_ - 0.25f, min(timer_, maxTime_ - 0.25f));
 	baseColor_ = Float4(r, g, r, a);
-	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightManager::Instance()->SetPointLightColor(pointLightNum_, { baseColor_.x,baseColor_.y,baseColor_.z });
 }
 
