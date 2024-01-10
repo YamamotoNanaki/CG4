@@ -15,6 +15,7 @@ namespace IFE
 	};
 	class Collider : public Component
 	{
+		using Component::Component;
 	private:
 		Float3 offsetPosition_;
 		Float3 offsetScale_;
