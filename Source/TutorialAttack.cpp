@@ -68,6 +68,7 @@ void TutorialAttack::Update()
 
 void TutorialAttack::OnColliderHit(IFE::Collider* collider)
 {
+	if (!collider->objectPtr_)return;
 	if (!displayEnd_ && TutorialMove::tutorialEnd_ && collider->GetObjectPtr()->GetComponent<IFE::Player>())
 	{
 		stayPlayer_ = true;

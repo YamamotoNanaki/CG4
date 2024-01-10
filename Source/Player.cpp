@@ -93,6 +93,7 @@ void IFE::Player::Update()
 
 void IFE::Player::OnColliderHit(Collider* collider)
 {
+	if (!collider->objectPtr_)return;
 	if (collider->GetObjectPtr()->GetComponent<Bullet>())
 	{
 		transform_->position_ = pos_;

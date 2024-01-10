@@ -11,7 +11,7 @@ void IFE::Collider::Initialize()
 {
 	if (colliderType_ == ColliderType::MESH)
 	{
-		if(meshCollider_)meshCollider_.release();
+		if (meshCollider_)meshCollider_.release();
 		auto mesh = new MeshCollider(dynamic_cast<FBXModel*>(objectPtr_->GetModel()), &transform_->matWorld_);
 		meshCollider_ = std::unique_ptr<MeshCollider>(mesh);
 	}
@@ -38,12 +38,20 @@ Float3 IFE::Collider::GetOffsetScale()
 
 Float3 IFE::Collider::GetColliderPosition()
 {
-	return transform_->position_ + offsetPosition_;
+	if (!parentPosition_)
+	{
+		GetParentParms();
+	}
+	return *parentPosition_ + offsetPosition_;
 }
 
 Float3 IFE::Collider::GetColliderScale()
 {
-	return transform_->scale_ + offsetScale_;
+	if (!parentScale_)
+	{
+		GetParentParms();
+	}
+	return *parentScale_ + offsetScale_;
 }
 
 ColliderType IFE::Collider::GetColliderType()
@@ -86,6 +94,35 @@ bool IFE::Collider::GetGroundJudgeFlag()
 	return groundJudge_;
 }
 
+void IFE::Collider::SetPushBackFlag(bool flag)
+{
+	pushBack_ = flag;
+}
+
+void IFE::Collider::SetNoPushBackFlag(bool flag)
+{
+	notPushBack_ = flag;
+}
+
+void IFE::Collider::SetGroundJudgeFlag(bool flag)
+{
+	groundJudge_ = flag;
+}
+
+void IFE::Collider::GetParentParms()
+{
+	if (objectPtr_)
+	{
+		parentPosition_ = &objectPtr_->transform_->position_;
+		parentScale_ = &objectPtr_->transform_->scale_;
+	}
+	if (emitterPtr_)
+	{
+		parentPosition_ = &transformParticle_->position_;
+		parentScale_ = &transformParticle_->scale_;
+	}
+}
+
 void IFE::Collider::LoadingComponent(nlohmann::json& json)
 {
 	colliderType_ = json["colliderType"];
@@ -116,15 +153,15 @@ void IFE::Collider::ComponentDebugGUI()
 	if (gui->NewTreeNode("Collider Type"))
 	{
 		int32_t num = (int32_t)colliderType_;
-		gui->RadioButtonGUI("Sphere", &num,(int32_t)ColliderType::SPHERE);
-		gui->RadioButtonGUI("Mesh", &num,(int32_t)ColliderType::MESH);
+		gui->RadioButtonGUI("Sphere", &num, (int32_t)ColliderType::SPHERE);
+		gui->RadioButtonGUI("Mesh", &num, (int32_t)ColliderType::MESH);
 		colliderType_ = (ColliderType)num;
 		gui->EndTreeNode();
 	}
 	if (gui->NewTreeNode("attribute"))
 	{
 		int32_t num = (int32_t)attribute_;
-		gui->RadioButtonGUI("Landshape", &num,(int32_t)Attribute::LANDSHAPE);
+		gui->RadioButtonGUI("Landshape", &num, (int32_t)Attribute::LANDSHAPE);
 		gui->RadioButtonGUI("Allies", &num, (int32_t)Attribute::ALLIES);
 		gui->RadioButtonGUI("Enemys", &num, (int32_t)Attribute::ENEMYS);
 		attribute_ = (uint16_t)num;

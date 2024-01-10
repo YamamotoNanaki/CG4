@@ -3,6 +3,7 @@
 #include "Collision.h"
 #include "Object3D.h"
 #include "Transform.h"
+#include "Emitter.h"
 
 using namespace IFE;
 using namespace std;
@@ -65,8 +66,7 @@ void IFE::CollideManager::CollidersUpdate()
 					colA->interPoint_ = inter;
 					colB->interPoint_ = inter;
 					PushBack(colA, colB, reject);
-					colA->objectPtr_->OnColliderHit(colB);
-					colB->objectPtr_->OnColliderHit(colA);
+					OnColliderHit(colA, colB);
 				}
 			}
 			else if (colA->GetColliderType() == ColliderType::MESH && colB->GetColliderType() == ColliderType::SPHERE)
@@ -80,8 +80,7 @@ void IFE::CollideManager::CollidersUpdate()
 					colA->interPoint_ = inter;
 					colB->interPoint_ = inter;
 					PushBack(colA, colB, reject);
-					colA->objectPtr_->OnColliderHit(colB);
-					colB->objectPtr_->OnColliderHit(colA);
+					OnColliderHit(colA, colB);
 				}
 			}
 			else if (colA->GetColliderType() == ColliderType::SPHERE && colB->GetColliderType() == ColliderType::MESH)
@@ -95,8 +94,7 @@ void IFE::CollideManager::CollidersUpdate()
 					colA->interPoint_ = inter;
 					colB->interPoint_ = inter;
 					PushBack(colA, colB, reject);
-					colA->objectPtr_->OnColliderHit(colB);
-					colB->objectPtr_->OnColliderHit(colA);
+					OnColliderHit(colA, colB);
 				}
 			}
 		}
@@ -211,5 +209,25 @@ void IFE::CollideManager::PushBack(Collider* colA, Collider* colB, const Vector3
 		{
 			colB->transform_->MovePushBack(-reject);
 		}
+	}
+}
+
+void IFE::CollideManager::OnColliderHit(Collider* colA, Collider* colB)
+{
+	if (colA->objectPtr_)
+	{
+		colA->objectPtr_->OnColliderHit(colB);
+	}
+	else if (colA->emitterPtr_)
+	{
+		colA->emitterPtr_->OnColliderHit(colB);
+	}
+	if (colB->objectPtr_)
+	{
+		colB->objectPtr_->OnColliderHit(colA);
+	}
+	else if (colB->emitterPtr_)
+	{
+		colB->emitterPtr_->OnColliderHit(colA);
 	}
 }

@@ -24,6 +24,7 @@ namespace IFE
 		uint8_t colorSetting_ = (uint8_t)ParticleColorSetting::Red;
 		float timer_;
 		float maxTime_;
+		float colliderScale = -1;
 	public:
 		void Update()override;
 		void StartFirework(const size_t& num);

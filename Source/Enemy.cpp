@@ -16,6 +16,7 @@
 #include "ObjectManager.h"
 #include "ModelManager.h"
 #include "BulletParticle.h"
+#include "Sound.h"
 
 using namespace IFE;
 
@@ -95,28 +96,66 @@ void IFE::Enemy::Update()
 void IFE::Enemy::OnColliderHit(Collider* collider)
 {
 	if (action_ == (uint8_t)EnemyAction::Death)return;
-	if (action_ == (uint8_t)EnemyAction::Hit)return;
-	auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
-	if (hp_ > 0 && bullet)
+	if (action_ == (uint8_t)EnemyAction::Hit)
 	{
-		sScore_ += hp_;
-		hp_--;
 		hitTimer_ = 0;
-		Vector3 vec = bullet->GetMoveVector();
-		hitPos_ = transform_->position_;
-		hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
-		action_ = (uint8_t)EnemyAction::Hit;
-		auto emitter = ParticleManager::Instance()->Instantiate("Bullet");
-		if (emitter)
+		return;
+	}
+	if (collider->GetObjectPtr())
+	{
+		auto bullet = collider->GetObjectPtr()->GetComponent<Bullet>();
+		if (hp_ > 0 && bullet)
 		{
-			emitter->GetComponent<BulletParticle>()->SetColor(hp_);
-			emitter->isActive_ = true;
-			auto obj = ObjectManager::Instance()->AddInitialize("Launch", ModelManager::Instance()->GetModel("cube"));
-			obj->DrawFlag_ = false;
-			obj->transform_->position_ = transform_->position_;
-			obj->AddComponentBack<LaunchFirework>();
-			obj->GetComponent<LaunchFirework>()->SetEmitter(emitter);
-			emitter->GetComponent<BulletParticle>()->SetBullet(obj);
+			sScore_ += hp_;
+			hp_--;
+			hitTimer_ = 0;
+			Vector3 vec = bullet->GetMoveVector();
+			hitPos_ = transform_->position_;
+			hitAfterPos_ = transform_->position_ + (Float3)vec * 10;
+			action_ = (uint8_t)EnemyAction::Hit;
+			auto emitter = ParticleManager::Instance()->Instantiate("Bullet");
+			if (emitter)
+			{
+				emitter->GetComponent<BulletParticle>()->SetColor(hp_);
+				emitter->isActive_ = true;
+				auto obj = ObjectManager::Instance()->AddInitialize("Launch", ModelManager::Instance()->GetModel("cube"));
+				obj->DrawFlag_ = false;
+				obj->transform_->position_ = transform_->position_;
+				obj->AddComponentBack<LaunchFirework>();
+				obj->GetComponent<LaunchFirework>()->SetEmitter(emitter);
+				emitter->GetComponent<BulletParticle>()->SetBullet(obj);
+			}
+		}
+	}
+	else if (collider->GetEmitterPtr())
+	{
+		auto firework = collider->GetEmitterPtr()->GetComponent<FireworkChrysanthemum>();
+		if (hp_ > 0 && firework)
+		{
+			sScore_ += hp_;
+			hp_--;
+			hitTimer_ = 0;
+			hitPos_ = transform_->position_;
+			action_ = (uint8_t)EnemyAction::Hit;
+			auto emitter = ParticleManager::Instance()->Instantiate("Bullet");
+			if (emitter)
+			{
+				emitter->GetComponent<BulletParticle>()->SetColor(hp_);
+				emitter->isActive_ = true;
+				auto obj = ObjectManager::Instance()->AddInitialize("Launch", ModelManager::Instance()->GetModel("cube"));
+				obj->DrawFlag_ = false;
+				obj->transform_->position_ = transform_->position_;
+				obj->AddComponentBack<LaunchFirework>();
+				obj->GetComponent<LaunchFirework>()->SetEmitter(emitter);
+				emitter->GetComponent<BulletParticle>()->SetBullet(obj);
+				for (size_t i = 0; i < 3; i++)
+				{
+					auto e = ParticleManager::Instance()->Instantiate("Chrysanthemum", transform_->position_);
+					e->GetComponent<FireworkChrysanthemum>()->StartFirework(i);
+					e->GetComponent<FireworkChrysanthemum>()->SetColor(hp_);
+				}
+				Sound::Instance()->SoundPlay("Firework", false);
+			}
 		}
 	}
 }

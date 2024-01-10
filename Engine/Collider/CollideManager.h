@@ -24,5 +24,6 @@ namespace IFE
 
 	private:
 		void PushBack(Collider* colA, Collider* colB, const Vector3& reject);
+		void OnColliderHit(Collider* colA, Collider* colB);
 	};
 }

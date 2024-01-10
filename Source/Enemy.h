@@ -37,7 +37,7 @@ namespace IFE
 		uint8_t hp_ = 1;
 		bool attackFlag_ = false;
 		float hitTimer_ = 0;
-		inline static float sMaxHitTime_ = 0.5f;
+		inline static float sMaxHitTime_ = 0.5;
 		Float3 hitAfterPos_;
 		Float3 hitPos_;
 

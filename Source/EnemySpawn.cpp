@@ -135,6 +135,7 @@ void EnemySpawn::Update()
 
 void EnemySpawn::OnColliderHit(IFE::Collider* collider)
 {
+	if (!collider->objectPtr_)return;
 	if (collider->objectPtr_->GetComponent<IFE::Player>())
 	{
 		if (!once_)

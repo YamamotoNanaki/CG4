@@ -19,6 +19,8 @@ namespace IFE
 	private:
 		Float3 offsetPosition_;
 		Float3 offsetScale_;
+		Float3* parentPosition_ = nullptr;
+		Float3* parentScale_ = nullptr;
 		ColliderType colliderType_;
 		bool pushBack_ = false;
 		bool notPushBack_ = false;
@@ -49,6 +51,13 @@ namespace IFE
 		bool GetPushBackFlag();
 		bool GetNoPushBackFlag();
 		bool GetGroundJudgeFlag();
+		void SetPushBackFlag(bool flag);
+		void SetNoPushBackFlag(bool flag);
+		void SetGroundJudgeFlag(bool flag);
+
+	private:
+		void GetParentParms();
+	public:
 
 		void LoadingComponent(nlohmann::json& json)override;
 

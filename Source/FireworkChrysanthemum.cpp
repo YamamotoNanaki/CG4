@@ -25,9 +25,10 @@ void IFE::FireworkChrysanthemum::Update()
 	float l = Lerp(1, 0, maxTime_ - 0.5f, min(timer_, maxTime_ - 0.5f)) * 0.8f;
 	float s = OutQuad(sScale_, 0, maxTime_, timer_);
 	float randA = IFERand::GetRandF(-l, l);
+	float speedDeltaTime = speed_ * IFETime::sDeltaTime_;
 	for (auto& itr : emitterPtr_->particles_)
 	{
-		Float3 vel = velocitys_[i] * speed_ * IFETime::sDeltaTime_;
+		Float3 vel = velocitys_[i] * speedDeltaTime;
 		vel.y -= gravity_;
 		itr->transform_->position_ += vel;
 		colors_[i] = baseColor_;
@@ -39,6 +40,16 @@ void IFE::FireworkChrysanthemum::Update()
 	gravity_ += 0.1f * IFETime::sDeltaTime_;
 
 	(this->*ColorTableFunc[colorSetting_])();
+	auto col = emitterPtr_->GetComponent<Collider>();
+	if (col)
+	{
+		colliderScale += speedDeltaTime;
+		col->SetOffsetScale(colliderScale);
+		if (timer_ >= 0.75f)
+		{
+			col->componentDeleteFlag_ = true;
+		}
+	}
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightUpdate();
 }
@@ -78,8 +89,9 @@ void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 	{
 		useSpeed_ = sStartSpeed2_;
 		emitterPtr_->AddComponentBack<Collider>();
-		//auto col = emitterPtr_->GetComponent<Collider>();
-		
+		auto col = emitterPtr_->GetComponent<Collider>();
+		col->SetNoPushBackFlag(true);
+		col->SetOffsetScale(colliderScale);
 	}
 	speed_ = useSpeed_;
 

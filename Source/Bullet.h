@@ -12,7 +12,6 @@ namespace IFE
 		float timerMax_ = 5;
 		inline static Emitter* sChrysanthemum_ = nullptr;
 		Emitter* bulletEmitter_;
-		bool isHit_ = false;
 	public:
 		void Update()override;
 		void OnColliderHit(Collider* collider)override;

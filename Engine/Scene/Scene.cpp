@@ -8,6 +8,7 @@
 #include "WindowsAPI.h"
 #include "StructuredBuffer.h"
 #include "Compute.h"
+#include "CollideManager.h"
 
 using namespace IFE;
 
@@ -48,11 +49,13 @@ void IFE::Scene::Update()
 	SceneChange();
 	if (loadEnd_)
 	{
+		CollideManager::Instance()->Reset();
 		objM_->Update();
 		spriteM_->Update();
 		particleM->Update();
 		cameraM_->Update();
 		lightM_->Update();
+		CollideManager::Instance()->CollidersUpdate();
 	}
 	else
 	{
@@ -125,10 +128,12 @@ void IFE::Scene::Update()
 
 		if (debug_ && !stop_)
 		{
+			CollideManager::Instance()->Reset();
 			objM_->Update();
 			spriteM_->Update();
 			particleM->Update();
 			cameraM_->Update();
+			CollideManager::Instance()->CollidersUpdate();
 		}
 		else
 		{
