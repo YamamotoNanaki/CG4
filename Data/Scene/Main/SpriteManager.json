@@ -525,7 +525,7 @@
             "Transform2D": {
                 "position": [
                     800.0,
-                    650.0
+                    750.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -554,7 +554,7 @@
             "Transform2D": {
                 "position": [
                     800.0,
-                    550.0
+                    650.0
                 ],
                 "rotation": 0.0,
                 "scale": [
@@ -627,6 +627,35 @@
             ],
             "name": "return",
             "texture": "return.png"
+        },
+        {
+            "ColorBuffer": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "PauseUI": null,
+            "Transform2D": {
+                "position": [
+                    800.0,
+                    550.0
+                ],
+                "rotation": 0.0,
+                "scale": [
+                    1.0,
+                    0.5
+                ]
+            },
+            "component": [
+                "Transform2D",
+                "ColorBuffer",
+                "PauseUI"
+            ],
+            "name": "config",
+            "texture": "config.png"
         }
     ]
 }

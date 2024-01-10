@@ -44,6 +44,7 @@
         "return.png",
         "restart.png",
         "toTitle.png",
-        "gameEnd.png"
+        "gameEnd.png",
+        "config.png"
     ]
 }
