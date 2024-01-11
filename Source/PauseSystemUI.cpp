@@ -11,9 +11,9 @@ void PauseSystemUI::Initialize()
 {
 	sprites_[0] = IFE::SpriteManager::Instance()->GetSpritePtr("return");
 	sprites_[1] = IFE::SpriteManager::Instance()->GetSpritePtr("restart");
-	sprites_[2] = IFE::SpriteManager::Instance()->GetSpritePtr("config");
-	sprites_[3] = IFE::SpriteManager::Instance()->GetSpritePtr("toTitle");
-	sprites_[4] = IFE::SpriteManager::Instance()->GetSpritePtr("gameEnd");
+	//sprites_[2] = IFE::SpriteManager::Instance()->GetSpritePtr("config");
+	sprites_[2] = IFE::SpriteManager::Instance()->GetSpritePtr("toTitle");
+	sprites_[3] = IFE::SpriteManager::Instance()->GetSpritePtr("gameEnd");
 	for (size_t i = 0; i < sprites_.size(); i++)
 	{
 		if (sprites_[i] && sprites_[i]->transform_)
@@ -42,7 +42,7 @@ void PauseSystemUI::Update()
 			{
 				IFE::Engine::SetShutdown();
 			}
-			if (IFE::Input::GetKeyTrigger(IFE::Key::UP))
+			if (IFE::Input::GetKeyTrigger(IFE::Key::UP) || IFE::Input::PadTriggere(IFE::PADCODE::UP))
 			{
 				if (activeNum_ == 0)
 				{
@@ -50,7 +50,7 @@ void PauseSystemUI::Update()
 				}
 				activeNum_--;
 			}
-			if (IFE::Input::GetKeyTrigger(IFE::Key::DOWN))
+			if (IFE::Input::GetKeyTrigger(IFE::Key::DOWN) || IFE::Input::PadTriggere(IFE::PADCODE::DOWN))
 			{
 				activeNum_++;
 				if (activeNum_ >= sprites_.size())
@@ -58,7 +58,7 @@ void PauseSystemUI::Update()
 					activeNum_ = 0;
 				}
 			}
-			if (IFE::Input::GetKeyTrigger(IFE::Key::Space))
+			if (IFE::Input::GetKeyTrigger(IFE::Key::Space) || IFE::Input::PadTriggere(IFE::PADCODE::ABXY))
 			{
 				IFE::IFETime::sTimeScale_ = 1;
 				pauseFlag_ = false;
@@ -67,14 +67,14 @@ void PauseSystemUI::Update()
 				case 1:
 					IFE::Scene::Instance()->SetNextScene("main");
 					break;
+				//case 2:
+				//	IFE::IFETime::sTimeScale_ = 0;
+				//	configFlag_ = true;
+				//	break;
 				case 2:
-					IFE::IFETime::sTimeScale_ = 0;
-					configFlag_ = true;
-					break;
-				case 3:
 					IFE::Scene::Instance()->SetNextScene("title");
 					break;
-				case 4:
+				case 3:
 					IFE::Engine::SetShutdown();
 					break;
 				default:
@@ -96,7 +96,7 @@ void PauseSystemUI::Update()
 		}
 		else
 		{
-			if (IFE::Input::GetKeyTrigger(IFE::Key::Esc))
+			if (IFE::Input::GetKeyTrigger(IFE::Key::Esc) || IFE::Input::PadTriggere(IFE::PADCODE::START))
 			{
 				pauseFlag_ = true;
 				IFE::IFETime::sTimeScale_ = 0;
