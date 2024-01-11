@@ -137,7 +137,7 @@ bool IFE::CollideManager::Raycast(const Ray& ray, uint16_t attribute, RaycastHit
 
 		if (colA->GetColliderType() == ColliderType::SPHERE) {
 			Sphere* sphere = dynamic_cast<Sphere*>(colA);
-
+			if (!sphere)continue;
 			float tempDistance;
 			Vector3 tempInter;
 
