@@ -34,6 +34,7 @@ namespace IFE
 		std::string emitterName_;
 		GraphicsPipeline* gp_;
 		float particleMaxTime_ = 1;
+		bool timerFlag_ = true;
 
 	public:
 		//PostEffect* postEffect = nullptr;

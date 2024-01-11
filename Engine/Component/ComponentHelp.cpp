@@ -40,6 +40,7 @@
 #include "PauseUI.h"
 #include "PauseSystemUI.h"
 #include "LaunchFirework.h"
+#include "FireworkTrail.h"
 #include <typeinfo>
 
 using namespace IFE;
@@ -137,6 +138,8 @@ Component* IFE::StringToComponent(const std::string& str)
 	tmp = std::move(GetPtr<PauseUI>(str));
 	if (tmp != nullptr)return tmp;
 	tmp = std::move(GetPtr<PauseSystemUI>(str));
+	if (tmp != nullptr)return tmp;
+	tmp = std::move(GetPtr<FireworkTrail>(str));
 	if (tmp != nullptr)return tmp;
 
 	return nullptr;

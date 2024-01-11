@@ -87,7 +87,7 @@ Particle* IFE::Emitter::AddParticle()
 void IFE::Emitter::Update()
 {
 	if (!isActive_)return;
-	particles_.remove_if([&](unique_ptr<Particle>& obj) {return (obj->timer_ += IFETime::sDeltaTime_) > particleMaxTime_; });
+	if(timerFlag_)particles_.remove_if([&](unique_ptr<Particle>& obj) {return (obj->timer_ += IFETime::sDeltaTime_) > particleMaxTime_; });
 	ComponentManager::Update();
 	for (std::unique_ptr<Particle>& itr : particles_)
 	{

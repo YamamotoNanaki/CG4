@@ -114,5 +114,42 @@
         "maxTime": 2.0,
         "name": "SpiritFire",
         "texture": "particle.png"
+    },
+    {
+        "ColorBuffer": {
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "FireworkTrail": null,
+        "TransformParticle": {
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "component": [
+            "TransformParticle",
+            "ColorBuffer",
+            "FireworkTrail"
+        ],
+        "isActive": false,
+        "maxTime": 0.0,
+        "name": "FireworkTrail",
+        "texture": "particle.png"
     }
 ]

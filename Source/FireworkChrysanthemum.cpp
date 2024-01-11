@@ -8,6 +8,8 @@
 #include "Rand.h"
 #include "LightManager.h"
 #include "Collider.h"
+#include "FireworkTrail.h"
+#include "ParticleManager.h"
 
 using namespace IFE;
 
@@ -92,6 +94,15 @@ void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 		auto col = emitterPtr_->GetComponent<Collider>();
 		col->SetNoPushBackFlag(true);
 		col->SetOffsetScale(colliderScale);
+		auto t1 = ParticleManager::Instance()->Instantiate("FireworkTrail");
+		if (t1)
+		{
+			auto t2 = ParticleManager::Instance()->Instantiate("FireworkTrail");
+			t1->GetComponent<FireworkTrail>()->SetParent(emitterPtr_);
+			t2->GetComponent<FireworkTrail>()->SetParent(emitterPtr_);
+			t1->isActive_ = true;
+			t2->isActive_ = true;
+		}
 	}
 	speed_ = useSpeed_;
 
