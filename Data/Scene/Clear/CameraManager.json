@@ -16,6 +16,8 @@
                 0.10000000149011612,
                 1000.0
             ],
+            "draw2dFlag": false,
+            "eyeTargetUpFlag": false,
             "position": [
                 0.0,
                 10.0,
@@ -24,6 +26,12 @@
             "projectionSize": [
                 1600.0,
                 900.0
+            ],
+            "rect": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rotation": [
                 0.0,

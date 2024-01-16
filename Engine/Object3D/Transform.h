@@ -165,6 +165,8 @@ namespace IFE
 		Float3 position_ = { 0,0,0 };
 		Quaternion rotation_;
 		Float2 projectionSize_;
+		Float2 rectX_;
+		Float2 rectY_;
 
 		TransformCamera* parent_ = nullptr;
 
@@ -174,6 +176,8 @@ namespace IFE
 		Float3 up_ = { 0,0,-5 };
 		float nearZ_ = 0.1f;
 		float ferZ_ = 1000.f;
+		float projectionMatrixRadian_ = 45;
+		bool draw2dFlag_ = false;
 
 	public:
 		void Update()override;

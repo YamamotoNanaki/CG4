@@ -98,6 +98,11 @@ void IFE::CameraManager::SetActiveCamera(const std::string& name)
 	sNextCamera_ = GetCamera(name);
 }
 
+void IFE::CameraManager::SetActiveCamera(Camera* cameraPtr)
+{
+	sNextCamera_ = cameraPtr;
+}
+
 Camera* IFE::CameraManager::Add(const std::string& cameraName)
 {
 	std::unique_ptr<Camera> ptr = std::make_unique<Camera>();
@@ -122,6 +127,10 @@ void IFE::CameraManager::DebugInitialize()
 void IFE::CameraManager::DebugUpdate()
 {
 	cameraList_.remove_if([](std::unique_ptr<Camera>& camera) {return camera->deleteFlag_; });
+	if (sNextCamera_)
+	{
+		sActivCamera_ = sNextCamera_;
+	}
 	if (!sActivCamera_)
 	{
 		sActivCamera_ = cameraList_.front().get();

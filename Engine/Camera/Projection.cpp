@@ -20,6 +20,11 @@ void Projection::Inisialize(float radian, float ww, float wh, float nz, float fz
 		ConvertToRadians(radian), (float)ww / wh, nz, fz);
 }
 
+void IFE::Projection::Inisialize2D(float left, float right, float top, float bottom, float nearZ, float farZ)
+{
+	matProjection_ = MatrixOrthoGraphicProjection(left, right, top, bottom, nearZ, farZ);
+}
+
 void IFE::Projection::Update()
 {
 	matProjection_ = MatrixPerspectiveFovLH(

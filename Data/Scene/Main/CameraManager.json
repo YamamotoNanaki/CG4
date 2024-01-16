@@ -17,6 +17,8 @@
                 0.10000000149011612,
                 1000.0
             ],
+            "draw2dFlag": false,
+            "eyeTargetUpFlag": false,
             "position": [
                 4.5,
                 63.25,
@@ -25,6 +27,12 @@
             "projectionSize": [
                 1600.0,
                 900.0
+            ],
+            "rect": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rotation": [
                 7.0,
@@ -61,6 +69,8 @@
                 0.10000000149011612,
                 1000.0
             ],
+            "draw2dFlag": false,
+            "eyeTargetUpFlag": false,
             "position": [
                 8.0,
                 7.5,
@@ -69,6 +79,12 @@
             "projectionSize": [
                 1600.0,
                 900.0
+            ],
+            "rect": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rotation": [
                 11.0,
@@ -99,21 +115,29 @@
         "ShadowMapCamera": null,
         "TransformCamera": {
             "depth": [
-                20.0,
+                0.0,
                 1000.0
             ],
+            "draw2dFlag": true,
+            "eyeTargetUpFlag": true,
             "position": [
-                0.0,
-                0.0,
-                0.0
+                -380.0,
+                60.0,
+                -775.0
             ],
             "projectionSize": [
                 1600.0,
                 900.0
             ],
+            "rect": [
+                -384.0,
+                384.0,
+                -216.0,
+                216.0
+            ],
             "rotation": [
-                360.0,
-                360.0,
+                89.0,
+                269.0,
                 360.0
             ]
         },

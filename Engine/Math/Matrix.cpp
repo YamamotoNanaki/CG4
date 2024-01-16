@@ -284,9 +284,12 @@ Matrix IFE::MatrixTranslation(float tx, float ty, float tz)
 Matrix IFE::MatrixOrthoGraphicProjection(float left, float right, float top, float bottom, float near, float far)
 {
 	float width = 2.0f / (right - left);
-	float height = -2.0f / (bottom - top);
+	float height = 2.0f / (top - bottom);
 	float zRange = 1.0f / (far - near);
-	return Matrix(width, 0, 0, 0, 0, height, 0, 0, 0, 0, zRange, 0, -1, 1, 0, 1);
+	float m30 = (left + right) / (left - right);
+	float m31 = (top + bottom) / (top - bottom);
+	float m32 = -near / (far - near);
+	return Matrix(width, 0, 0, 0, 0, height, 0, 0, 0, 0, zRange, 0, m30, m31, m32, 1);
 }
 
 Matrix IFE::operator+(const Matrix& m1, const Matrix& m2)
@@ -349,7 +352,7 @@ Float3 IFE::GetScale(const Matrix& m)
 	Vector3 y = { m.m[1][0],m.m[1][1],m.m[1][2] };
 	Vector3 z = { m.m[2][0],m.m[2][1],m.m[2][2] };
 
-	Float3 f = {x.Length(),y.Length(),z.Length()};
+	Float3 f = { x.Length(),y.Length(),z.Length() };
 
 	return f;
 }

@@ -568,7 +568,14 @@ void IFE::TransformCamera::UpdateMatrix()
 		cameraPtr_->GetView()->SetMatrixView(matWorld_);
 		cameraPtr_->GetView()->eye_ = position_;
 	}
-	cameraPtr_->GetProjection()->Inisialize(45, projectionSize_.x, projectionSize_.y, nearZ_, ferZ_);
+	if (draw2dFlag_)
+	{
+		cameraPtr_->GetProjection()->Inisialize2D(rectX_.x, rectX_.y, rectY_.x, rectY_.y, nearZ_, ferZ_);
+	}
+	else
+	{
+		cameraPtr_->GetProjection()->Inisialize(projectionMatrixRadian_, projectionSize_.x, projectionSize_.y, nearZ_, ferZ_);
+	}
 }
 
 void IFE::TransformCamera::Copy(Component* component)
@@ -652,38 +659,56 @@ void IFE::TransformCamera::DebugGUI()
 	ImguiManager* im = ImguiManager::Instance();
 	std::function<void(void)> guiFunc = [&]()
 		{
-			im->DragFloat3GUI(&position_, "position");
-			im->DragFloat3GUI(&eulerAngleDegrees_, "rotation", 1.0f);
-			if (eulerAngleDegrees_.x >= 360)
+			im->CheckBoxGUI(&eyeTargetUpFlag_, "eyeTargetUpFlag");
+			im->CheckBoxGUI(&draw2dFlag_, "2d projection");
+			if (eyeTargetUpFlag_)
 			{
-				eulerAngleDegrees_.x -= 360;
+				im->DragFloat3GUI(&eye_, "eye");
+				im->DragFloat3GUI(&target_, "target");
+				im->DragFloat3GUI(&up_, "up");
 			}
-			if (eulerAngleDegrees_.y >= 360)
+			else
 			{
-				eulerAngleDegrees_.y -= 360;
+				im->DragFloat3GUI(&position_, "position");
+				im->DragFloat3GUI(&eulerAngleDegrees_, "rotation", 1.0f);
+				if (eulerAngleDegrees_.x >= 360)
+				{
+					eulerAngleDegrees_.x -= 360;
+				}
+				if (eulerAngleDegrees_.y >= 360)
+				{
+					eulerAngleDegrees_.y -= 360;
+				}
+				if (eulerAngleDegrees_.z >= 360)
+				{
+					eulerAngleDegrees_.z -= 360;
+				}
+				if (eulerAngleDegrees_.x <= 0)
+				{
+					eulerAngleDegrees_.x += 360;
+				}
+				if (eulerAngleDegrees_.y <= 0)
+				{
+					eulerAngleDegrees_.y += 360;
+				}
+				if (eulerAngleDegrees_.z <= 0)
+				{
+					eulerAngleDegrees_.z += 360;
+				}
+				rotation_ = EulerToQuaternion(eulerAngleDegrees_);
 			}
-			if (eulerAngleDegrees_.z >= 360)
-			{
-				eulerAngleDegrees_.z -= 360;
-			}
-			if (eulerAngleDegrees_.x <= 0)
-			{
-				eulerAngleDegrees_.x += 360;
-			}
-			if (eulerAngleDegrees_.y <= 0)
-			{
-				eulerAngleDegrees_.y += 360;
-			}
-			if (eulerAngleDegrees_.z <= 0)
-			{
-				eulerAngleDegrees_.z += 360;
-			}
-			rotation_ = EulerToQuaternion(eulerAngleDegrees_);
-			im->DragFloat3GUI(&eye_, "eye");
-			im->DragFloat3GUI(&target_, "target");
 			im->DragFloat2GUI(&projectionSize_, "projectionSize");
 			im->DragFloatGUI(&nearZ_, "nearZ");
 			im->DragFloatGUI(&ferZ_, "ferZ");
+			if (draw2dFlag_)
+			{
+				im->DragFloat2GUI(&rectX_, "rectX");
+				im->DragFloat2GUI(&rectY_, "rectY");
+			}
+			if (im->ButtonGUI("Set Active Camera"))
+			{
+				CameraManager::Instance()->SetActiveCamera(cameraPtr_);
+			}
 		};
 	std::function<void(void)> deleteFunc = [&]()
 		{
@@ -698,6 +723,9 @@ void IFE::TransformCamera::OutputComponent(nlohmann::json& j)
 	jm->OutputFloat3(j["position"], position_);
 	jm->OutputFloat2(j["projectionSize"], projectionSize_);
 	jm->OutputFloat2(j["depth"], Float2(nearZ_, ferZ_));
+	jm->OutputFloat4(j["rect"], Float4(rectX_.x, rectX_.y, rectY_.x, rectY_.y));
+	j["eyeTargetUpFlag"] = eyeTargetUpFlag_;
+	j["draw2dFlag"] = draw2dFlag_;
 }
 #endif
 void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
@@ -707,6 +735,13 @@ void IFE::TransformCamera::LoadingComponent(nlohmann::json& json)
 	position_ = j->InputFloat3(json["position"]);
 	projectionSize_ = j->InputFloat2(json["projectionSize"]);
 	auto z = j->InputFloat2(json["depth"]);
+	auto r = j->InputFloat4(json["rect"]);
+	eyeTargetUpFlag_ = json["eyeTargetUpFlag"];
+	draw2dFlag_ = json["draw2dFlag"];
 	nearZ_ = z.x;
 	ferZ_ = z.y;
+	rectX_.x = r.x;
+	rectX_.y = r.y;
+	rectY_.x = r.z;
+	rectY_.y = r.w;
 }
