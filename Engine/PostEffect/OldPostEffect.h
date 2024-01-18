@@ -32,7 +32,9 @@ namespace IFE
 		void Draw(bool add = false);
 		void Update();
 		void Initialize();
+		void Initialize(float width, float height);
 		void DrawBefore();
+		void DrawBefore(float width, float height);
 		void DrawAfter();
 		void ShadowInitialize();
 		void ShadowDrawBefore();

@@ -125,7 +125,7 @@ void IFE::Scene::Initialize()
 	shadow = std::make_unique<OldPostEffect>();
 	shadow->name = "shadow";
 	//shadow->ShadowInitialize();
-	shadow->Initialize();
+	shadow->Initialize(2160, 3840);
 	SceneInit();
 	particleM->Initialize();
 }
@@ -165,7 +165,7 @@ void IFE::Scene::Update()
 void IFE::Scene::PostEffectDraw()
 {
 	//shadow->ShadowDrawBefore();
-	shadow->DrawBefore();
+	shadow->DrawBefore(2160, 3840);
 	if (loadEnd_)
 	{
 		objM_->ShadowDraw();
@@ -189,6 +189,7 @@ void IFE::Scene::Draw()
 		spriteM_->BackDraw();
 		oldPostEffect->Draw();
 		spriteM_->ForeDraw();
+		//shadow->Draw();
 		gui_.Draw();
 	}
 	else

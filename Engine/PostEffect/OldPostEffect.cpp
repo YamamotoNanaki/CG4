@@ -116,6 +116,69 @@ void OldPostEffect::Initialize()
 	constMapPostEffect->FocusDepth = 0.08f;
 }
 
+void IFE::OldPostEffect::Initialize(float width, float height)
+{
+	HRESULT result;
+
+	ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
+
+	Sprite::Initialize();
+
+	SetVBInit();
+
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		tex[i] = TextureManager::Instance()->CreateRanderTexture(name + "_Render_" + std::to_string(i), width, height);
+	}
+
+	D3D12_DESCRIPTOR_HEAP_DESC rtvDescHeapDesc{};
+	rtvDescHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+	rtvDescHeapDesc.NumDescriptors = 3;
+
+	result = device->CreateDescriptorHeap(&rtvDescHeapDesc, IID_PPV_ARGS(&descHeapRTV));
+	assert(SUCCEEDED(result));
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		device->CreateRenderTargetView(tex[i]->texbuff_.Get(), nullptr, CD3DX12_CPU_DESCRIPTOR_HANDLE(descHeapRTV->GetCPUDescriptorHandleForHeapStart(), i, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV)));
+	}
+
+	CD3DX12_RESOURCE_DESC drd = CD3DX12_RESOURCE_DESC::Tex2D(
+		DXGI_FORMAT_D32_FLOAT, (UINT)width, (UINT)height, 1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+
+	D3D12_HEAP_PROPERTIES e = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	D3D12_CLEAR_VALUE f = CD3DX12_CLEAR_VALUE(DXGI_FORMAT_D32_FLOAT, 1.0f, 0);
+
+	result = device->CreateCommittedResource(&e, D3D12_HEAP_FLAG_NONE,
+		&drd, D3D12_RESOURCE_STATE_DEPTH_WRITE, &f, IID_PPV_ARGS(&depthBuff));
+
+	assert(SUCCEEDED(result));
+
+	D3D12_DESCRIPTOR_HEAP_DESC DescHeapDesc{};
+	DescHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+	DescHeapDesc.NumDescriptors = 1;
+
+	result = device->CreateDescriptorHeap(&DescHeapDesc, IID_PPV_ARGS(&descHeapDSV));
+	assert(SUCCEEDED(result));
+
+	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+
+	device->CreateDepthStencilView(depthBuff.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
+	//device->CreateDepthStencilView(tex[3]->texbuff_.Get(), &dsvDesc, descHeapDSV->GetCPUDescriptorHandleForHeapStart());
+
+	tex[3] = TextureManager::Instance()->CreateRanderTexture(name + "_Render_depth", true, depthBuff.Get());
+
+	CreateGraphicsPipelineState();
+
+	constMapPostEffect = buffer_.GetCBMapObject();
+	assert(SUCCEEDED(result));
+
+	constMapPostEffect->NFocusWidth = 0.03f;
+	constMapPostEffect->FFocusWidth = 0.04f;
+	constMapPostEffect->FocusDepth = 0.08f;
+}
+
 void OldPostEffect::DrawBefore()
 {
 	ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
@@ -148,6 +211,49 @@ void OldPostEffect::DrawBefore()
 	{
 		viewport[i] = CD3DX12_VIEWPORT(0.f, 0.f, (float)w, (float)h);
 		rect[i] = CD3DX12_RECT(0, 0, (LONG)w, (LONG)h);
+	}
+
+
+	cmdList->RSSetViewports(3, viewport);
+	cmdList->RSSetScissorRects(3, rect);
+
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		cmdList->ClearRenderTargetView(rtvH[i], clearColor, 0, nullptr);
+	}
+	cmdList->ClearDepthStencilView(dsvH, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
+}
+
+void IFE::OldPostEffect::DrawBefore(float width, float height)
+{
+	ID3D12Device* device = GraphicsAPI::Instance()->GetDevice();
+	ID3D12GraphicsCommandList* cmdList = GraphicsAPI::Instance()->GetCmdList();
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		D3D12_RESOURCE_BARRIER a = CD3DX12_RESOURCE_BARRIER::Transition(tex[i]->texbuff_.Get(),
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		cmdList->ResourceBarrier(1, &a);
+	}
+	D3D12_RESOURCE_BARRIER a = CD3DX12_RESOURCE_BARRIER::Transition(tex[3]->texbuff_.Get(),
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+	cmdList->ResourceBarrier(1, &a);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvH[3];
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		rtvH[i] = CD3DX12_CPU_DESCRIPTOR_HANDLE(descHeapRTV->GetCPUDescriptorHandleForHeapStart(), i, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
+	}
+	D3D12_CPU_DESCRIPTOR_HANDLE dsvH = descHeapDSV->GetCPUDescriptorHandleForHeapStart();
+
+	cmdList->OMSetRenderTargets(3, rtvH, false, &dsvH);
+
+	CD3DX12_VIEWPORT viewport[3];
+	CD3DX12_RECT rect[3];
+	for (uint16_t i = 0; i < 3; i++)
+	{
+		viewport[i] = CD3DX12_VIEWPORT(0.f, 0.f, (float)width, (float)height);
+		rect[i] = CD3DX12_RECT(0, 0, (LONG)width, (LONG)height);
 	}
 
 

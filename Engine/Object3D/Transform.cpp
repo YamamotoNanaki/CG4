@@ -532,7 +532,8 @@ void IFE::TransformCamera::UpdateMatrix()
 		auto v = cameraPtr_->GetView();
 		v->eye_ = eye_;
 		v->target_ = target_;
-		v->up_ = up_;
+		Vector3 up(up_);
+		v->up_ = up.Normalize();
 		v->Update();
 	}
 	else
@@ -665,7 +666,7 @@ void IFE::TransformCamera::DebugGUI()
 			{
 				im->DragFloat3GUI(&eye_, "eye");
 				im->DragFloat3GUI(&target_, "target");
-				im->DragFloat3GUI(&up_, "up");
+				im->DragFloat3GUI(&up_, "up", 0.25f, -1, 1);
 			}
 			else
 			{
