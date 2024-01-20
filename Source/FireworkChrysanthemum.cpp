@@ -29,6 +29,8 @@ void IFE::FireworkChrysanthemum::Update()
 	for (auto& itr : emitterPtr_->particles_)
 	{
 		Float3 vel = velocitys_[i] * speedDeltaTime;
+		vel.x += IFERand::GetRandF(-0.05f, 0.05f);
+		vel.z += IFERand::GetRandF(-0.05f, 0.05f);
 		vel.y -= gravity_;
 		itr->transform_->position_ += vel;
 		colors_[i] = baseColor_;
