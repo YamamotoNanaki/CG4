@@ -5,6 +5,7 @@
 #include <d3dx12.h>
 #include "GraphicsAPI.h"
 #include "TextureManager.h"
+#include "Transform.h"
 
 void IFE::ShadowObject::Initialize()
 {
@@ -13,6 +14,7 @@ void IFE::ShadowObject::Initialize()
 	lightVPBuffer_ = std::make_unique<ConstBuffer<ConstBufferLightVP>>();
 	constMapLightVP_ = lightVPBuffer_->GetCBMapObject();
 	constMapLightVP_->lightVP = MatrixIdentity();
+
 }
 
 void IFE::ShadowObject::Draw()
@@ -20,12 +22,12 @@ void IFE::ShadowObject::Draw()
 	if (!drawFlag_)
 	{
 		drawFlag_ = true;
-		return;
 	}
 	auto c = CameraManager::Instance()->GetCamera("shadow");
 	Matrix v;
 	v = MatrixLookAtLH(c->GetView()->eye_, c->GetView()->target_, c->GetView()->up_);
-	Matrix mat = v * c->GetProjection()->Get();
+	v = c->GetView()->Get();
+	Matrix mat = c->GetView()->Get() * c->GetProjection()->Get();
 	constMapLightVP_->lightVP = MatrixTranspose(mat);
 	lightVPBuffer_->SetConstBuffView(7);
 	TextureManager::Instance()->GetTexture("shadow_Render_depth")->SetTexture(6);

@@ -128,7 +128,15 @@ Matrix IFE::MatrixLookAtLH(const Vector3& eye, const Vector3& target, const Vect
 	matCameraRot.SetW(0, 0, 0, 1);
 
 	//逆行列を代入
-	return MatrixTranspose(matCameraRot);
+	Matrix m;
+	m = MatrixTranspose(matCameraRot);
+	//カメラの位置から原点へのベクトルを生成
+	Vector3 reverseEyePosition = VectorNegate(eyePosition);
+	m.m[3][0] = Vector3Dot(cameraAxisX, reverseEyePosition);
+	m.m[3][1] = Vector3Dot(cameraAxisY, reverseEyePosition);
+	m.m[3][2] = Vector3Dot(cameraAxisZ, reverseEyePosition);
+
+	return m;
 }
 
 bool IFE::NearEqual(float S1, float S2, float epsilon)

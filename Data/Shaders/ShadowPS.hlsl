@@ -11,14 +11,11 @@ PSOutput main(GSOutput input) : SV_TARGET
     {
         discard;
     }
-    float4 posSM = mul(mul(lightVP, world), input.posSM);
+    float4 posSM = input.posSM;
 
     float shadow = 1;
-    float2 shadowTexUV = posSM.xy / posSM.w;
-    shadowTexUV *= float2(0.5f, -0.5f);
-    shadowTexUV += 0.5f;
-    //shadowTexUV.y = 1 - shadowTexUV.y;
-    float z = posSM.z / posSM.w;
+    float2 shadowTexUV = posSM.xy;
+    float z = posSM.z;
     if (shadowTexUV.x > 0.01f && shadowTexUV.x < 0.99f &&
         shadowTexUV.y > 0.01f && shadowTexUV.y < 0.99f)
     {
