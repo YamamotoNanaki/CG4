@@ -14,7 +14,7 @@ void IFE::Goal::Update()
 
 void IFE::Goal::OnColliderHit(Collider* collider)
 {
-	if (collider->objectPtr_->GetComponent<Player>())
+	if (collider->objectPtr_ && collider->objectPtr_->GetComponent<Player>())
 	{
 		goal_ = true;
 	}

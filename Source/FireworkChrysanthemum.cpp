@@ -54,6 +54,10 @@ void IFE::FireworkChrysanthemum::Update()
 	}
 	speed_ = OutQuad(useSpeed_, 0, maxTime_, timer_);
 	LightUpdate();
+	if (baseColor_.w == 0)
+	{
+		emitterPtr_->DrawFlag_ = false;
+	}
 }
 
 void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
