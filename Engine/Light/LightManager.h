@@ -47,6 +47,7 @@ namespace IFE
 
 	public:
 		void Initialize();
+		void Reset();
 		void TransferConstBuffer();
 		void SetConstBufferPointLight(uint8_t index);
 		void DefaultLightSetting();

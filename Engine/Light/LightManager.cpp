@@ -10,7 +10,38 @@ using namespace std;
 void IFE::LightManager::Initialize()
 {
 	constBuff_ = make_unique<ConstBuffer<ConstBufferData>>();
+	Reset();
+}
 
+void IFE::LightManager::Reset()
+{
+	sNextPNum_ = 0;
+	ConstBufferData* constMap = constBuff_->GetCBMapObject();
+	constMap->ambientColor = ambientColor_;
+	for (int32_t i = 0; i < s_DLIGHT_NUM; i++) {
+		if (dLight_[i].IsActive()) {
+			dLight_[i].SetActive(false);
+		}
+		constMap->dLights[i].active = 0;
+	}
+	for (int32_t i = 0; i < s_PLIGHT_NUM; i++) {
+		if (pLight_[i].IsActive()) {
+			pLight_[i].SetActive(false);
+		}
+		constMap->pLights[i].active = 0;
+	}
+	for (int32_t i = 0; i < s_SLIGHT_NUM; i++) {
+		if (sLight_[i].IsActive()) {
+			sLight_[i].SetActive(false);
+		}
+		constMap->sLights[i].active = 0;
+	}
+	for (int32_t i = 0; i < s_CSHADOW_NUM; i++) {
+		if (cShadow_[i].IsActive()) {
+			cShadow_[i].SetActive(false);
+		}
+		constMap->cShadows[i].active = 0;
+	}
 	TransferConstBuffer();
 }
 
@@ -358,7 +389,7 @@ void IFE::LightManager::DebugGUI()
 		imgui->DragIntGUI(&num, "select number", 1.0f, 0, s_SLIGHT_NUM);
 	}
 	imgui->EndGUI();
-}
+	}
 
 void IFE::LightManager::OutputScene()
 {

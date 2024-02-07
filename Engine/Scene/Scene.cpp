@@ -32,7 +32,6 @@ void IFE::Scene::Initialize()
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
 	lightM_->Initialize();
-	lightM_->DefaultLightSetting();
 	sound_->Initialize();
 	cameraM_->Initialize();
 	oldPostEffect = std::make_unique<OldPostEffect>();
@@ -105,7 +104,6 @@ void IFE::Scene::Initialize()
 	objM_->OBJInitialize();
 	spriteM_->SPRITEInitialize();
 	lightM_->Initialize();
-	lightM_->DefaultLightSetting();
 	sound_->Initialize();
 	gui_.Initialize();
 	cameraM_->Initialize();
@@ -222,6 +220,7 @@ void IFE::Scene::SceneInit()
 	spriteM_->Reset();
 	particleM->Reset();
 	cameraM_->Reset();
+	lightM_->Reset();
 	tex_->LoadingScene();
 	modelM_->LoadingScene();
 	objM_->LoadingScene();
@@ -318,6 +317,7 @@ void IFE::Scene::LoadingScene()
 	spriteM_->Reset();
 	particleM->Reset();
 	cameraM_->Reset();
+	lightM_->Reset();
 	objM_->LoadingScene();
 	spriteM_->LoadingScene();
 	particleM->LoadingScene();

@@ -70,7 +70,8 @@ void IFE::FireworkChrysanthemum::Update()
 
 void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 {
-	uint32_t hanabiNum = IFERand::GetRand(0, (int32_t)sModelVelocitys_.size());
+	static uint32_t hanabiNum = 0;
+	if (num == 0)hanabiNum = IFERand::GetRand(0, (int32_t)sModelVelocitys_.size());
 	//uint32_t hanabiNum = 1;
 	emitterPtr_->isActive_ = true;
 	velocitys_.resize(particleMaxNum_);
