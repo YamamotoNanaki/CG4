@@ -778,6 +778,24 @@ Object3D* IFE::ImguiManager::SetObject(Object3D* obj, const std::string& label)
 	return obj;
 }
 
+Component* IFE::ImguiManager::GetModelGUI()
+{
+	ModelManager* mm = ModelManager::Instance();
+	std::vector<std::string>strs = mm->GetAllModelName();
+	static int32_t num = 0;
+
+	for (size_t i = 0; i < strs.size(); i++)
+	{
+		ImGui::RadioButton(strs[i].c_str(), &num, (int32_t)i);
+	}
+
+	if (ImGui::Button("Select"))
+	{
+		return mm->GetModel(strs[num]);
+	}
+	return nullptr;
+}
+
 
 void IFE::ImguiManager::DragVectorFloatGUI(std::vector<float>& f, const std::string& label, float speed, float min, float max)
 {

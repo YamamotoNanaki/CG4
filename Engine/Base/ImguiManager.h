@@ -71,6 +71,7 @@ namespace IFE
 		bool NewTreeNode(const std::string& label);
 		void EndTreeNode();
 		Object3D* SetObject(Object3D* obj, const std::string& label);
+		Component* GetModelGUI();
 
 		void DragVectorFloatGUI(std::vector<float>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);
 		void DragVectorFloat2GUI(std::vector<Float2>& f, const std::string& label, float speed = 0.25, float min = 0, float max = 0);

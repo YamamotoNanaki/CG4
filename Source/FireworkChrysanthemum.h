@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ParticleSetting.h"
 #include <vector>
+#include <array>
 
 namespace IFE
 {
@@ -13,6 +14,8 @@ namespace IFE
 		inline static float sStartSpeed1_ = 5;
 		inline static float sStartSpeed2_ = 5;
 		inline static std::vector<Float3>sDefaultVelocity_;
+		inline static std::vector<std::array<Float3, 100>>sModelVelocitys_;
+		inline static std::vector<std::string>velocityModelNames_;
 		inline static float sScale_ = 0.1f;
 		float useSpeed_ = 0;
 		std::vector<Float3> velocitys_;

@@ -133,5 +133,21 @@
             "smooth": true
         },
         "name": "Tree4_Model"
+    },
+    {
+        "hanabiCube_Model": {
+            "fileName": "hanabiCube",
+            "settings": 0,
+            "smooth": false
+        },
+        "name": "hanabiCube_Model"
+    },
+    {
+        "hanabiHosi_Model": {
+            "fileName": "hanabiHosi",
+            "settings": 0,
+            "smooth": false
+        },
+        "name": "hanabiHosi_Model"
     }
 ]

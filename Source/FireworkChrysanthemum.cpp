@@ -8,6 +8,8 @@
 #include "Rand.h"
 #include "LightManager.h"
 #include "Collider.h"
+#include "ModelManager.h"
+#include "FBXModel.h"
 
 using namespace IFE;
 
@@ -28,6 +30,12 @@ void IFE::FireworkChrysanthemum::Update()
 	float speedDeltaTime = speed_ * IFETime::sDeltaTime_;
 	for (auto& itr : emitterPtr_->particles_)
 	{
+		if ((Float3)velocitys_[i] == Float3::zero())
+		{
+			colors_[i] = { 0,0,0,0 };
+			itr->GetComponent<ColorBuffer>()->SetColor(colors_[i]);
+			continue;
+		}
 		Float3 vel = velocitys_[i] * speedDeltaTime;
 		vel.x += IFERand::GetRandF(-0.05f, 0.05f);
 		vel.z += IFERand::GetRandF(-0.05f, 0.05f);
@@ -62,27 +70,53 @@ void IFE::FireworkChrysanthemum::Update()
 
 void IFE::FireworkChrysanthemum::StartFirework(const size_t& num)
 {
+	uint32_t hanabiNum = IFERand::GetRand(0, (int32_t)sModelVelocitys_.size());
+	//uint32_t hanabiNum = 1;
 	emitterPtr_->isActive_ = true;
 	velocitys_.resize(particleMaxNum_);
 	colors_.resize(particleMaxNum_);
 
-	for (uint32_t i = 0; i < particleMaxNum_; i++)
+	if (hanabiNum >= sModelVelocitys_.size())
 	{
-		Vector3 velocity = sDefaultVelocity_[i];
-		if ((Float3)velocity == Float3::zero())
+		for (uint32_t i = 0; i < particleMaxNum_; i++)
 		{
-			velocity = { IFERand::GetRandF(-1.f, 1.f), IFERand::GetRandF(-1.f, 1.f), IFERand::GetRandF(-1.f, 1.f) };
+			Vector3 velocity = sDefaultVelocity_[i];
+			if ((Float3)velocity == Float3::zero())
+			{
+				velocity = { IFERand::GetRandF(-1.f, 1.f), IFERand::GetRandF(-1.f, 1.f), IFERand::GetRandF(-1.f, 1.f) };
+			}
+			else
+			{
+				velocity += { IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f) };
+			}
+			velocity.Normalize();
+			velocitys_[i] = velocity;
+			auto p = emitterPtr_->AddParticle();
+			p->transform_->scale_ = sScale_;
+			p->AddComponent<ColorBuffer>();
 		}
-		else
-		{
-			velocity += { IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f) };
-		}
-		velocity.Normalize();
-		velocitys_[i] = velocity;
-		auto p = emitterPtr_->AddParticle();
-		p->transform_->scale_ = sScale_;
-		p->AddComponent<ColorBuffer>();
 	}
+	else
+	{
+		for (uint32_t i = 0; i < particleMaxNum_; i++)
+		{
+			if (sModelVelocitys_[hanabiNum][i] == Float3::zero())
+			{
+				auto p = emitterPtr_->AddParticle();
+				p->transform_->scale_ = sScale_;
+				p->AddComponent<ColorBuffer>();
+				continue;
+			}
+			Vector3 velocity = sModelVelocitys_[hanabiNum][i];
+			//velocity += { IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f), IFERand::GetRandF(-0.15f, 0.15f) };
+			//velocity.Normalize();
+			velocitys_[i] = velocity;
+			auto p = emitterPtr_->AddParticle();
+			p->transform_->scale_ = sScale_;
+			p->AddComponent<ColorBuffer>();
+		}
+	}
+
 	if (num == 0)
 	{
 		useSpeed_ = sStartSpeed_;
@@ -133,6 +167,26 @@ void IFE::FireworkChrysanthemum::InitDefaultVelocity()
 		}
 	}
 	sDefaultVelocity_[particleMaxNum_ - 1] = { 0,-radius,0 };
+
+
+	sModelVelocitys_.clear();
+	for (size_t i = 0; i < velocityModelNames_.size(); i++)
+	{
+		auto c = ModelManager::Instance()->GetModel(velocityModelNames_[i]);
+		if (!c)continue;
+		auto m = dynamic_cast<FBXModel*>(c);
+		if (!m)continue;
+		const uint8_t nodesNum = 1;
+		const uint8_t meshesNum = 0;
+		if (m->nodes_[nodesNum]->meshes[meshesNum]->GetVertexArray().size() >= 100)continue;
+		std::array<Float3, 100> tmp;
+		size_t j = 0;
+		for (j; j < m->nodes_[nodesNum]->meshes[meshesNum]->GetVertexArray().size(); j++)
+		{
+			tmp[j] = m->nodes_[nodesNum]->meshes[meshesNum]->GetVertexArray()[j].pos;
+		}
+		sModelVelocitys_.push_back(tmp);
+	}
 }
 
 IFE::FireworkChrysanthemum::~FireworkChrysanthemum()
@@ -252,6 +306,11 @@ void IFE::FireworkChrysanthemum::ComponentDebugGUI()
 	imgui->DragFloatGUI(&sStartSpeed1_, "static start speed1", 0.1f);
 	imgui->DragFloatGUI(&sStartSpeed2_, "static start speed2", 0.1f);
 	imgui->DragFloatGUI(&sScale_, "static defalt scale", 0.05f);
+	auto model = imgui->GetModelGUI();
+	if (model)
+	{
+		velocityModelNames_.push_back(model->GetComponentName());
+	}
 }
 
 void IFE::FireworkChrysanthemum::OutputComponent(nlohmann::json& json)
@@ -260,6 +319,10 @@ void IFE::FireworkChrysanthemum::OutputComponent(nlohmann::json& json)
 	json["sStartSpeed1"] = sStartSpeed1_;
 	json["sStartSpeed2"] = sStartSpeed2_;
 	json["sScale"] = sScale_;
+	for (size_t i = 0; i < velocityModelNames_.size(); i++)
+	{
+		json["sModelName"][i] = velocityModelNames_[i];
+	}
 }
 #endif
 
@@ -269,4 +332,11 @@ void IFE::FireworkChrysanthemum::LoadingComponent(nlohmann::json& json)
 	sStartSpeed_ = json["sStartSpeed"];
 	sStartSpeed1_ = json["sStartSpeed1"];
 	sStartSpeed2_ = json["sStartSpeed2"];
+	if (velocityModelNames_.size() == 0 && json.contains("sModelName"))
+	{
+		for (auto& j : json["sModelName"])
+		{
+			velocityModelNames_.push_back(j);
+		}
+	}
 }

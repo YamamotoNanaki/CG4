@@ -46,6 +46,10 @@
             ]
         },
         "FireworkChrysanthemum": {
+            "sModelName": [
+                "hanabiCube_Model",
+                "hanabiHosi_Model"
+            ],
             "sScale": 0.10000000149011612,
             "sStartSpeed": 15.0,
             "sStartSpeed1": 25.0,

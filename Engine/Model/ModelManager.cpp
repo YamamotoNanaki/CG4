@@ -112,6 +112,16 @@ void IFE::ModelManager::Reset()
 	modelList_.clear();
 }
 
+std::vector<std::string> IFE::ModelManager::GetAllModelName()
+{
+	vector<string>strs;
+	for (auto& itr : modelList_)
+	{
+		strs.push_back(itr->GetComponentName());
+	}
+	return strs;
+}
+
 #ifdef NDEBUG
 #else
 void IFE::ModelManager::DebugGUI()
